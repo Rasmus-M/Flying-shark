@@ -1,0 +1,13 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/encode/encode.iml
+zx-spectrum/
+/out/
+make.log
+shark.dsk
+shark.lst
+shark.obj
+shark8.bin
+flying-shark.rpk
+shark
+sharl
