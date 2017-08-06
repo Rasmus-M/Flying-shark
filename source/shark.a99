@@ -1,0 +1,579 @@
+*********************************************************************
+*
+* Flying Shark
+* For the TI-99/4A home computer
+*
+* August 2017
+* Rasmus Moustgaard <rasmus.moustgaard@gmail.com>
+*
+*********************************************************************
+
+       def  main
+
+**
+* Memory mapped addresses
+vdpwd  equ  >8c00                      ; VDP write data
+vdpwa  equ  >8c02                      ; VDP set read/write address
+vdprd  equ  >8800                      ; VDP read data
+vdpsta equ  >8802                      ; VDP status
+sound  equ  >8400
+
+**
+* VDP memory map
+ptrntb equ  >0000                      ; Pattern table base
+sprptb equ  >1800                      ; Sprite pattern table base
+colrtb equ  >2000                      ; Color table base
+nametb equ  >3800                      ; Name table base 1
+spratb equ  >3b00                      ; Sprite attribute table base
+
+**
+* Constants
+scr_width:
+       equ  32                         ; Width of screen in characters
+scr_height:
+       equ  24                         ; Height of screen in characters
+win_width:
+       equ  18                         ; Width of scrolling window in characters
+win_height:
+       equ  24                         ; Height of scrolling window in characters
+map_width:
+       equ  18                         ; Map width
+map_height:
+       equ  358                        ; Map height
+scrbuf:
+       equ  >2000                      ; Linear screen buffer address
+
+**
+* Scratch pad
+*
+* The interrupt handler might update the timer at >8379 or the VDP status byte at >837B.
+*
+rndsd  equ  >83c0                      ; Random number seed
+pad    equ  >8300
+wrksp  equ  pad                        ; Workspace
+r0lb   equ  wrksp+1                    ; R0 low byte required for VDP routines
+r1lb   equ  wrksp+3
+r2lb   equ  wrksp+5
+r3lb   equ  wrksp+7
+r4lb   equ  wrksp+9
+r5lb   equ  wrksp+11
+r6lb   equ  wrksp+13
+r7lb   equ  wrksp+15
+r8lb   equ  wrksp+17
+r9lb   equ  wrksp+19
+plyrws equ  >8320
+stack  equ  >8340
+padvar equ  stack+>10
+* PAD variables
+scrly:
+       equ  padvar
+top_addr:
+       equ  scrly+2
+blitp:
+       equ  top_addr+2
+
+********************************************************************************
+*
+* Main program
+*
+       aorg >a000
+
+main:
+       limi 0                          ; Interrupts off
+       lwpi wrksp                      ; Setup workspace
+       li   r10, stack                 ; Setup stack pointer
+*      Copy blit to PAD
+       li   r0, blit
+       li   r1, blitp
+       li   r2, blite-blit
+cpypad:
+       mov  *r0+, *r1+
+       dect r2
+       jne  cpypad
+       bl   @gmode                     ; Setup graphics mode
+       bl   @draw_panels
+       bl   @init_scrbuf               ; Init screen buffer
+       clr   @scrly
+loop   bl   @vsync
+       bl   @draw_screen
+       bl   @update_scrbuf
+       jmp  loop
+
+*********************************************************************
+*
+* Wait for vertical retrace (CRU)
+*
+vsync:
+       movb @vdpsta, r0
+       clr  r12
+vsync1:
+       tb   2                          ; Test CRU bit for VDP interrupt
+       jeq  vsync1
+       movb @vdpsta, r0
+       b    *r11
+*// vsync
+
+*********************************************************************************
+*
+* Draw a screen of the screen buffer to the VDP
+*
+draw_screen:
+       mov  r11, *r10+                  ; Push return address onto the stack
+       li   r2,win_height
+       mov  r2,@row_count
+       mov  @top_addr,r1
+       li   r0,8*(32-win_width)/2+ptrntb
+!      bl   @vwad
+       li   r2,win_width
+       bl   @blitp
+       ai   r0,256
+       dec  @row_count
+       jne  -!
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+row_count:
+       data 0
+*// draw_screen
+
+*********************************************************************************
+*
+* Update screen buffer with data from map
+*
+update_scrbuf:
+       inc  @scrly
+       mov  @scrly,r1
+       srl  r1,3
+       inc  r1
+       li   r0,map_width
+       mpy  r1,r0
+       neg  r1
+       ai   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
+       ci   r1,MD0
+       jhe  !
+       ai   r1,map_width*map_height
+!      mov  @scrly,r3
+       andi r3,7
+       neg  r3
+       ai   r3,PAT0+7
+       mov  @top_addr,r0               ; Top of screen buffer
+       ai   r0,-scr_width
+       andi r0,>1fff
+       ori  r0,>2000
+       mov  r0,@top_addr
+       li   r5,map_width
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       a    r3,r4
+       movb *r4,*r0+
+       dec  r5
+       jne  -!
+*      Return
+       b    *r11
+*// update_scrbuf
+
+*********************************************************************************
+*
+* Intialize screen buffer with the bottom screen of the map
+*
+* Even though the scrolling window is narrower, the screen
+* buffer is made as wide as the screen for easier wraps.
+*
+init_scrbuf:
+       li   r0,scrbuf                                  ; Top of screen buffer
+       mov  r0,@top_addr
+       li   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
+       li   r2,win_height
+!      li   r3,win_width
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       ai   r4,PAT0
+       li   r5,8
+!      movb *r4+,*r0
+       ai   r0,scr_width
+       dec  r5
+       jne  -!
+       ai   r0,1-(8*scr_width)
+       dec  r3
+       jne  -!!
+       ai   r0,7*scr_width+(scr_width-win_width)
+       dec  r2
+       jne  -!!!
+*      Return
+       b    *r11
+*// init_scrbuf
+
+*********************************************************************************
+*
+* Blit a row from the screen buffer to the VDP
+*
+* VDP destination address must be set up in advance
+* R1: CPU RAM source address
+* R2: Width in characters
+*
+blit:
+       li   r13, scr_width
+       li   r14, >4000
+       li   r15, >2000
+       mov  r1, r3
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r4
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r5
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r6
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r7
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r8
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r9
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       mov  r1, r12
+       a    r13, r1
+       szc  r14,r1
+       soc  r15,r1
+       li   r13, vdpwd
+blit1:
+       movb *r3+, *r13
+       movb *r4+, *r13
+       movb *r5+, *r13
+       movb *r6+, *r13
+       movb *r7+, *r13
+       movb *r8+, *r13
+       movb *r9+, *r13
+       movb *r12+, *r13
+       dec  r2
+       jne  blit1
+*      Return
+       b    *r11
+blite
+*// blit
+
+*********************************************************************************
+*
+* Draw panels
+*
+draw_panels:
+       mov  r11, *r10+                  ; Push return address onto the stack
+*      Patterns
+       li   r0,ptrntb
+       bl   @vwad
+       li   r0,vdpwd
+       li   r1,MD1
+       li   r2,24
+!      li   r3,32
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       ai   r4,PAT0
+       li   r5,8
+!      movb *r4+,*r0
+       dec  r5
+       jne  -!
+       dec  r3
+       jne  -!!
+       dec  r2
+       jne  -!!!
+*      Colors
+       li   r0,colrtb
+       bl   @vwad
+       li   r0,vdpwd
+       li   r1,MD1
+       li   r2,24
+!      li   r3,32
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       ai   r4,COL0
+       li   r5,8
+!      movb *r4+,*r0
+       dec  r5
+       jne  -!
+       dec  r3
+       jne  -!!
+       dec  r2
+       jne  -!!!
+*      Colors for center area
+       li   r0,8*(32-win_width)/2+colrtb
+       li   r1,>a100
+       li   r2,win_height
+!      li   r3,win_width
+       bl   @vwad
+!      li   r4,8
+!      movb r1,@vdpwd
+       dec  r4
+       jne  -!
+       dec  r3
+       jne  -!!
+       ai   r0,>100
+       dec  r2
+       jne  -!!!
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// draw_panels
+
+*********************************************************************************
+*
+* Set graphics mode
+*
+gmode:
+       mov  r11, *r10+                  ; Push return address onto the stack
+       clr  r0
+       li   r1, vregs
+       li   r2, 8
+gmode1:
+       movb *r1+, @r0lb
+       bl   @vwtr                      ; Set register
+       ai   r0, >0100
+       dec  r2
+       jne  gmode1
+*      Patterns
+       li   r0, ptrntb
+       li   r1, >0000
+       li   r2, >1800
+       bl   @vdpwr
+*      Colors
+       li   r0, colrtb
+       li   r1, >a100
+       li   r2, >1800
+       bl   @vdpwr
+*      Setup name table for bitmap drawing
+       li   r0, nametb
+       bl   @vwad
+       li   r0, vdpwd
+       clr  r1
+       li   r2,>300
+inint:
+       movb r1,*r0
+       ai   r1,>0100
+       dec  r2
+       jne  inint
+*      Sprite patterns
+       li   r0, sprptb
+       li   r1, SPR0
+       li   r2,32
+       bl   @vdpcp
+*      Sprite attributes
+       li   r0, spratb
+       li   r1, sal
+       li   r2,5
+       bl   @vdpcp
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*      VDP registers
+vregs:
+       byte >02                        ; Graphics II mode
+       byte >e2                        ; 16K, display on, interrupt enabled
+       byte nametb/>400                ; Name table
+       byte >ff                        ; Color table
+       byte ptrntb/>800+>03            ; Pattern table
+       byte spratb/>80                 ; Sprite attribute table
+       byte sprptb/>800                ; Sprite pattern table
+       byte >01                        ; Backdrop color
+*// gmode
+
+*********************************************************************
+*
+* VDP Write To Register
+*
+* R0 MSB: VDP register to write to
+* R0 LSB: Value to write
+*
+vwtr:
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte (value) to write to VDP register
+       swpb r0
+       ori  r0, >8000                   ; Set up a VDP register write operation (10)
+       movb r0, @vdpwa                  ; Send high byte (address) of VDP register
+       b    *r11
+*// vwtr
+
+*********************************************************************
+*
+* VDP Set Write Address
+*
+* R0: Write address in VDP RAM
+*
+* R0 is modified, but can be restored with: ANDI R0,>3FFF
+*
+vwad:
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
+       ori  r0, >4000                   ; Set read/write bits 14 and 15 to write (01)
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       b    *r11
+*// vwad
+
+*********************************************************************
+*
+* VDP Single Byte Read
+*
+* R0   Read address in VDP RAM
+* R1   MSB of R1 set to byte from VDP RAM
+*
+vsbr:
+       movb @r0lb, @vdpwa               ; Send low byte of VDP RAM write address
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       movb @vdprd, r1                  ; Read byte from VDP RAM
+       b    *r11
+*// vsbr
+
+*********************************************************************
+*
+* VDP Single Byte Write
+*
+* R0: Write address in VDP RAM
+* R1: MSB of R1 sent to VDP RAM
+*
+* R0 is modified, but can be restored with: ANDI R0,>3FFF
+*
+vsbw:
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
+       ori  r0, >4000                   ; Set read/write bits 14 and 15 to write (01)
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       movb r1, @vdpwd                  ; Write byte to VDP RAM
+       b    *r11
+*// vsbw
+
+***************************************************************************
+*
+* VDP Multiple Byte Read
+*
+* R0: Starting read address in VDP RAM
+* R1: Starting write address in CPU RAM
+* R2: Number of bytes to read from VDP RAM
+*
+* Modifies R0-R2
+*
+vmbr:
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+vmbr0:
+       li   r0, vdprd
+vmbr1:
+       movb *r0, *r1+                   ; Read byte from VDP RAM
+       dec  r2                         ; Byte counter
+       jne  vmbr1                      ; Check if finished
+       b    *r11
+*// vmbr
+
+*********************************************************************
+*
+* Fast CPU to VDP copy, replaces VMBW
+*
+* R0: Destination address
+* R1: Source address
+* R2: Number of bytes to copy
+*
+vdpcp:
+       mov  r11, *r10+                  ; Push return address onto the stack
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
+       ori  r0, >4000                   ; Set the two MSbits to 01 for write
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       li   r0, vdpwd
+vdpcp0:
+       mov  r2, r3
+       srl  r3, 3                       ; Number of groups of 8
+       jeq  vdpcp2
+vdpcp1:
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       movb *r1+, *r0
+       dec  r3
+       jne  vdpcp1
+       andi r2, >0007                   ; Isolate number of remaining bytes
+       jeq  vdpcp3
+vdpcp2:
+       movb *r1+, *r0
+       dec  r2
+       jne  vdpcp2
+vdpcp3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// vdpcp
+
+*********************************************************************
+*
+* Fast CPU to VDP write, replaces VSMW
+*
+* R0: Destination address
+* R1: Byte to write in MSB
+* R2: Number of bytes to copy
+*
+vdpwr:
+       swpb r0
+       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
+       ori  r0, >4000                   ; Set the two MSbits to 01 for write
+       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       li   r0, vdpwd
+       mov  r2, r3
+       srl  r3, 3                       ; Number of groups of 8
+       jeq  vdpwr2
+vdpwr1:
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       movb r1, *r0
+       dec  r3
+       jne  vdpwr1
+       andi r2, >0007                   ; Isolate number of remaining bytes
+       jeq  vdpwr3
+vdpwr2:
+       movb r1, *r0
+       dec  r2
+       jne  vdpwr2
+vdpwr3:
+       b    *r11
+*// vdpwr
+
+*********************************************************************
+*
+* Data
+*
+* Sprite Locations
+sal    byte >a0,>78,0,15               ; y, x, pattern#, color#
+       byte >d0,>00
+
+       copy "maps.a99"
+
+       end  main
