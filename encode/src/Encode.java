@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,9 +18,11 @@ public class Encode implements Runnable {
     private final int height;
 
     public static void main(String... args) {
-        for (int m = 0; m < 4; m++) {
-            new Encode("map" + (m + 1) + ".bin", 18, MAP_HEIGHTS[m]).run();
-        }
+//        for (int m = 0; m < 4; m++) {
+//            new Encode("map" + (m + 1) + ".mgb", 18, MAP_HEIGHTS[m]).run();
+//        }
+        int m = 3;
+        new Encode("map" + (m + 1) + ".mgb", 18, MAP_HEIGHTS[m]).run();
     }
 
     private Encode(String fileName, int width, int height) {
@@ -50,43 +50,76 @@ public class Encode implements Runnable {
                     }
                 }
                 int[][] tMap = new int[height][width];
-                Map<Integer, Integer> tCharMap = new HashMap<>();
-                Set<Integer> useSet = new HashSet<>();
+                Set<Integer> tChars = new HashSet<>();
+                Integer[] runningTChars = new Integer[128];
                 int maxSize = 0;
                 int screen = 0;
+                int n = 0;
                 for (int y0 = height - SCREEN_HEIGHT; y0 >= 0; y0--) {
-                    useSet.clear();
-                    int n = 0;
-                    int added = 0;
+                    Set<Integer> used = new HashSet<>();
+                    Map<Integer, Integer> added = new HashMap<>();
+                    Set<Integer> deleted = new HashSet<>();
                     for (int y = y0; y < y0 + SCREEN_HEIGHT; y++) {
                         for (int x = 0; x < width; x++) {
                             int fromChar = map[y][x];
                             int toChar = map[y > 0 ? y - 1 : height - 1][x];
                             int key = (toChar << 8) | fromChar;
-                            useSet.add(key);
-                            Integer tChar = tCharMap.get(key);
-                            if (tChar == null) {
-                                tChar = n++;
-                                tCharMap.put(key, tChar);
-                                added++;
+                            used.add(key);
+                        }
+                    }
+                    for (int y = y0; y < y0 + SCREEN_HEIGHT; y++) {
+                        for (int x = 0; x < width; x++) {
+                            int fromChar = map[y][x];
+                            int toChar = map[y > 0 ? y - 1 : height - 1][x];
+                            int key = (toChar << 8) | fromChar;
+                            Integer tChar = null;
+                            for (int i = 0; i < runningTChars.length && tChar == null; i++) {
+                                Integer oldKey = runningTChars[i];
+                                if (oldKey != null && oldKey == key) {
+                                    tChar = i;
+                                }
                             }
-                            tMap[y][x] = tChar;
+                            if (tChar == null) {
+                                for (int i = 0; i < runningTChars.length && tChar == null; i++) {
+                                    Integer oldKey = runningTChars[i];
+                                    if (oldKey == null || !used.contains(oldKey)) {
+                                        tChar = i;
+                                        runningTChars[tChar] = key;
+                                        tChars.add(key);
+                                        added.put(i, key);
+                                    }
+                                }
+                            }
+                            if (tChar != null) {
+                                tMap[y][x] = tChar;
+                            } else {
+                                throw new Exception("No room found for key >" + hexWord(key));
+                            }
                         }
                     }
-                    Set<Integer> deleted = new HashSet<>();
-                    for (int key : tCharMap.keySet()) {
-                        if (!useSet.contains(key)) {
-                            deleted.add(key);
+                    for (int i = 0; i < runningTChars.length; i++) {
+                        Integer key = runningTChars[i];
+                        if (key != null && !used.contains(key)) {
+                            runningTChars[i] = null;
+                            deleted.add(i);
                         }
                     }
-                    for (int key : deleted) {
-                        tCharMap.remove(key);
-                    }
-                    maxSize = Math.max(maxSize, useSet.size());
-                    System.out.println("Screen " + screen + ", deleted: " + deleted.size() + ", added: " + added + ", size = "+ useSet.size());
+                    maxSize = Math.max(maxSize, used.size());
+                    System.out.println("Screen " + screen + ", deleted: " + deleted.size() + ", added: " + added.size() + ", size = "+ used.size());
                     screen++;
                 }
+                for (int y = 0; y < tMap.length; y++) {
+                    int[] row = tMap[y];
+                    for (int x = 0; x < row.length; x++) {
+                        System.out.print(hexByte(row[x]));
+                    }
+                    System.out.println();
+                }
+
+
+
                 System.out.println("Max size: " + maxSize);
+                System.out.println("TChars: " + tChars.size());
                 System.out.println();
             } else {
                 throw new Exception("Error: " + len + " bytes found. Expected " + (width * height) + " bytes.");
@@ -94,5 +127,21 @@ public class Encode implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private String hexByte(int b) {
+        StringBuilder s = new StringBuilder(Integer.toHexString(b));
+        while (s.length() < 2) {
+            s.insert(0, "0");
+        }
+        return s.toString();
+    }
+
+    private String hexWord(int w) {
+        StringBuilder s = new StringBuilder(Integer.toHexString(w));
+        while (s.length() < 4) {
+            s.insert(0, "0");
+        }
+        return s.toString();
     }
 }
