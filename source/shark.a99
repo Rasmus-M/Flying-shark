@@ -41,7 +41,11 @@ map_width:
 map_height:
        equ  358                        ; Map height
 scrbuf:
-       equ  >2000                      ; Linear screen buffer address
+       equ  >2000                      ; Linear screen buffer address (pattern)
+colbuf:
+       equ  >e000                      ; Linear screen buffer address (color)
+buf_offset:
+       equ  colbuf-scrbuf
 
 **
 * Scratch pad
@@ -123,9 +127,21 @@ draw_screen:
        mov  r2,@row_count
        mov  @top_addr,r1
        li   r0,8*(32-win_width)/2+ptrntb
-!      bl   @vwad
+!      mov  r1,@tmp_top_addr
+       bl   @vwad
        li   r2,win_width
+       li   r15, scrbuf
        bl   @blitp
+       mov  r1,@tmp_top_addr_2
+       ai   r0,>2000
+       mov  @tmp_top_addr,r1
+       ai   r1,buf_offset
+       bl   @vwad
+       li   r2,win_width
+       li   r15, colbuf
+       bl   @blitp
+       ai   r0,->2000
+       mov  @tmp_top_addr_2,r1
        ai   r0,256
        dec  @row_count
        jne  -!
@@ -135,6 +151,10 @@ draw_screen:
        b    *r11
 row_count:
        data 0
+tmp_top_addr:
+       data 0
+tmp_top_addr_2:
+       data 0
 *// draw_screen
 
 *********************************************************************************
@@ -143,6 +163,7 @@ row_count:
 *
 update_scrbuf:
        inc  @scrly
+*      Patterns
        mov  @scrly,r1
        srl  r1,3
        inc  r1
@@ -160,8 +181,33 @@ update_scrbuf:
        mov  @top_addr,r0               ; Top of screen buffer
        ai   r0,-scr_width
        andi r0,>1fff
-       ori  r0,>2000
+       ori  r0,scrbuf
        mov  r0,@top_addr
+       li   r5,map_width
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       a    r3,r4
+       movb *r4,*r0+
+       dec  r5
+       jne  -!
+*      Colors
+       mov  @scrly,r1
+       srl  r1,3
+       inc  r1
+       li   r0,map_width
+       mpy  r1,r0
+       neg  r1
+       ai   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
+       ci   r1,MD0
+       jhe  !
+       ai   r1,map_width*map_height
+!      mov  @scrly,r3
+       andi r3,7
+       neg  r3
+       ai   r3,COL0+7
+       mov  @top_addr,r0               ; Top of screen buffer
+       ori  r0,colbuf
        li   r5,map_width
 !      movb *r1+,r4
        srl  r4,8
@@ -184,6 +230,7 @@ update_scrbuf:
 init_scrbuf:
        li   r0,scrbuf                                  ; Top of screen buffer
        mov  r0,@top_addr
+*      Patterns
        li   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
        li   r2,win_height
 !      li   r3,win_width
@@ -191,6 +238,27 @@ init_scrbuf:
        srl  r4,8
        sla  r4,3
        ai   r4,PAT0
+       li   r5,8
+!      movb *r4+,*r0
+       ai   r0,scr_width
+       dec  r5
+       jne  -!
+       ai   r0,1-(8*scr_width)
+       dec  r3
+       jne  -!!
+       ai   r0,7*scr_width+(scr_width-win_width)
+       dec  r2
+       jne  -!!!
+*      Colors
+       mov  @top_addr,r0
+       ai   r0,buf_offset
+       li   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
+       li   r2,win_height
+!      li   r3,win_width
+!      movb *r1+,r4
+       srl  r4,8
+       sla  r4,3
+       ai   r4,COL0
        li   r5,8
 !      movb *r4+,*r0
        ai   r0,scr_width
@@ -213,11 +281,11 @@ init_scrbuf:
 * VDP destination address must be set up in advance
 * R1: CPU RAM source address
 * R2: Width in characters
+* R15: screen buffer address
 *
 blit:
        li   r13, scr_width
-       li   r14, >4000
-       li   r15, >2000
+       li   r14, >e000
        mov  r1, r3
        a    r13, r1
        szc  r14,r1

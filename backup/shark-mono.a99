@@ -574,6 +574,6 @@ vdpwr3:
 sal    byte >a0,>78,0,15               ; y, x, pattern#, color#
        byte >d0,>00
 
-       copy "maps.a99"
+       copy "maps-mono.a99"
 
        end  main
