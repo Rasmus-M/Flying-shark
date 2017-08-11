@@ -27,27 +27,6 @@ nametb equ  >3800                      ; Name table base 1
 spratb equ  >3b00                      ; Sprite attribute table base
 
 **
-* Constants
-scr_width:
-       equ  32                         ; Width of screen in characters
-scr_height:
-       equ  24                         ; Height of screen in characters
-win_width:
-       equ  18                         ; Width of scrolling window in characters
-win_height:
-       equ  24                         ; Height of scrolling window in characters
-map_width:
-       equ  18                         ; Map width
-map_height:
-       equ  358                        ; Map height
-scrbuf:
-       equ  >2000                      ; Linear screen buffer address (pattern)
-colbuf:
-       equ  >e000                      ; Linear screen buffer address (color)
-buf_offset:
-       equ  colbuf-scrbuf
-
-**
 * Scratch pad
 *
 * The interrupt handler might update the timer at >8379 or the VDP status byte at >837B.
@@ -71,10 +50,6 @@ padvar equ  stack+>10
 * PAD variables
 scrly:
        equ  padvar
-top_addr:
-       equ  scrly+2
-blitp:
-       equ  top_addr+2
 
 ********************************************************************************
 *
@@ -86,16 +61,7 @@ main:
        limi 0                          ; Interrupts off
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
-*      Copy blit to PAD
-       li   r0, blit
-       li   r1, blitp
-       li   r2, blite-blit
-cpypad:
-       mov  *r0+, *r1+
-       dect r2
-       jne  cpypad
        bl   @gmode                     ; Setup graphics mode
-       bl   @draw_panels
        bl   @init_scrbuf               ; Init screen buffer
        clr   @scrly
 loop   bl   @vsync
@@ -123,38 +89,10 @@ vsync1:
 *
 draw_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
-       li   r2,win_height
-       mov  r2,@row_count
-       mov  @top_addr,r1
-       li   r0,8*(32-win_width)/2+ptrntb
-!      mov  r1,@tmp_top_addr
-       bl   @vwad
-       li   r2,win_width
-       li   r15, scrbuf
-       bl   @blitp
-       mov  r1,@tmp_top_addr_2
-       ai   r0,>2000
-       mov  @tmp_top_addr,r1
-       ai   r1,buf_offset
-       bl   @vwad
-       li   r2,win_width
-       li   r15, colbuf
-       bl   @blitp
-       ai   r0,->2000
-       mov  @tmp_top_addr_2,r1
-       ai   r0,256
-       dec  @row_count
-       jne  -!
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-row_count:
-       data 0
-tmp_top_addr:
-       data 0
-tmp_top_addr_2:
-       data 0
 *// draw_screen
 
 *********************************************************************************
@@ -162,60 +100,6 @@ tmp_top_addr_2:
 * Update screen buffer with data from map
 *
 update_scrbuf:
-       inc  @scrly
-*      Patterns
-       mov  @scrly,r1
-       srl  r1,3
-       inc  r1
-       li   r0,map_width
-       mpy  r1,r0
-       neg  r1
-       ai   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
-       ci   r1,MD0
-       jhe  !
-       ai   r1,map_width*map_height
-!      mov  @scrly,r3
-       andi r3,7
-       neg  r3
-       ai   r3,PAT0+7
-       mov  @top_addr,r0               ; Top of screen buffer
-       ai   r0,-scr_width
-       andi r0,>1fff
-       ori  r0,scrbuf
-       mov  r0,@top_addr
-       li   r5,map_width
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       a    r3,r4
-       movb *r4,*r0+
-       dec  r5
-       jne  -!
-*      Colors
-       mov  @scrly,r1
-       srl  r1,3
-       inc  r1
-       li   r0,map_width
-       mpy  r1,r0
-       neg  r1
-       ai   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
-       ci   r1,MD0
-       jhe  !
-       ai   r1,map_width*map_height
-!      mov  @scrly,r3
-       andi r3,7
-       neg  r3
-       ai   r3,COL0+7
-       mov  @top_addr,r0               ; Top of screen buffer
-       ori  r0,colbuf
-       li   r5,map_width
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       a    r3,r4
-       movb *r4,*r0+
-       dec  r5
-       jne  -!
 *      Return
        b    *r11
 *// update_scrbuf
@@ -224,181 +108,10 @@ update_scrbuf:
 *
 * Intialize screen buffer with the bottom screen of the map
 *
-* Even though the scrolling window is narrower, the screen
-* buffer is made as wide as the screen for easier wraps.
-*
 init_scrbuf:
-       li   r0,scrbuf                                  ; Top of screen buffer
-       mov  r0,@top_addr
-*      Patterns
-       li   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
-       li   r2,win_height
-!      li   r3,win_width
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       ai   r4,PAT0
-       li   r5,8
-!      movb *r4+,*r0
-       ai   r0,scr_width
-       dec  r5
-       jne  -!
-       ai   r0,1-(8*scr_width)
-       dec  r3
-       jne  -!!
-       ai   r0,7*scr_width+(scr_width-win_width)
-       dec  r2
-       jne  -!!!
-*      Colors
-       mov  @top_addr,r0
-       ai   r0,buf_offset
-       li   r1,MD0+(map_width*(map_height-win_height)) ; Last screen of map
-       li   r2,win_height
-!      li   r3,win_width
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       ai   r4,COL0
-       li   r5,8
-!      movb *r4+,*r0
-       ai   r0,scr_width
-       dec  r5
-       jne  -!
-       ai   r0,1-(8*scr_width)
-       dec  r3
-       jne  -!!
-       ai   r0,7*scr_width+(scr_width-win_width)
-       dec  r2
-       jne  -!!!
 *      Return
        b    *r11
 *// init_scrbuf
-
-*********************************************************************************
-*
-* Blit a row from the screen buffer to the VDP
-*
-* VDP destination address must be set up in advance
-* R1: CPU RAM source address
-* R2: Width in characters
-* R15: screen buffer address
-*
-blit:
-       li   r13, scr_width
-       li   r14, >e000
-       mov  r1, r3
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r4
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r5
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r6
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r7
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r8
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r9
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       mov  r1, r12
-       a    r13, r1
-       szc  r14,r1
-       soc  r15,r1
-       li   r13, vdpwd
-blit1:
-       movb *r3+, *r13
-       movb *r4+, *r13
-       movb *r5+, *r13
-       movb *r6+, *r13
-       movb *r7+, *r13
-       movb *r8+, *r13
-       movb *r9+, *r13
-       movb *r12+, *r13
-       dec  r2
-       jne  blit1
-*      Return
-       b    *r11
-blite
-*// blit
-
-*********************************************************************************
-*
-* Draw panels
-*
-draw_panels:
-       mov  r11, *r10+                  ; Push return address onto the stack
-*      Patterns
-       li   r0,ptrntb
-       bl   @vwad
-       li   r0,vdpwd
-       li   r1,MD1
-       li   r2,24
-!      li   r3,32
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       ai   r4,PAT0
-       li   r5,8
-!      movb *r4+,*r0
-       dec  r5
-       jne  -!
-       dec  r3
-       jne  -!!
-       dec  r2
-       jne  -!!!
-*      Colors
-       li   r0,colrtb
-       bl   @vwad
-       li   r0,vdpwd
-       li   r1,MD1
-       li   r2,24
-!      li   r3,32
-!      movb *r1+,r4
-       srl  r4,8
-       sla  r4,3
-       ai   r4,COL0
-       li   r5,8
-!      movb *r4+,*r0
-       dec  r5
-       jne  -!
-       dec  r3
-       jne  -!!
-       dec  r2
-       jne  -!!!
-*      Colors for center area
-       li   r0,8*(32-win_width)/2+colrtb
-       li   r1,>a100
-       li   r2,win_height
-!      li   r3,win_width
-       bl   @vwad
-!      li   r4,8
-!      movb r1,@vdpwd
-       dec  r4
-       jne  -!
-       dec  r3
-       jne  -!!
-       ai   r0,>100
-       dec  r2
-       jne  -!!!
-*      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
-       b    *r11
-*// draw_panels
 
 *********************************************************************************
 *
@@ -436,16 +149,10 @@ inint:
        ai   r1,>0100
        dec  r2
        jne  inint
-*      Sprite patterns
-       li   r0, sprptb
-       li   r1, SPR0
-       li   r2,32
-       bl   @vdpcp
 *      Sprite attributes
        li   r0, spratb
-       li   r1, sal
-       li   r2,5
-       bl   @vdpcp
+       li   r1, >d000
+       bl   @vsbw
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -638,10 +345,6 @@ vdpwr3:
 *
 * Data
 *
-* Sprite Locations
-sal    byte >a0,>78,0,15               ; y, x, pattern#, color#
-       byte >d0,>00
-
        copy "level1-diff.a99"
 
        end  main
