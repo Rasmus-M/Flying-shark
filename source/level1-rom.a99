@@ -1,0 +1,2726 @@
+       aorg >6000,0
+level_1_pattern_000:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_001:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
+level_1_pattern_002:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_003:
+       byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_004:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_005:
+       byte >ee,>b8,>dc,>ce,>e6,>e0,>67,>27
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_006:
+       byte >d5,>e8,>c1,>24,>89,>42,>00,>40
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_007:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+level_1_pattern_008:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
+       byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
+level_1_pattern_009:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_010:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+level_1_pattern_011:
+       byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+level_1_pattern_012:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+level_1_pattern_013:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+level_1_pattern_014:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_015:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
+level_1_pattern_016:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >8b,>25,>0a,>01,>04,>02,>00,>00
+level_1_pattern_017:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+level_1_pattern_018:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >f8,>01,>39,>19,>03,>1f,>3f,>ff
+level_1_pattern_019:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_020:
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_021:
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_022:
+       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
+       byte >0b,>25,>0a,>01,>14,>02,>00,>01
+level_1_pattern_023:
+       byte >8b,>25,>0a,>01,>04,>02,>00,>00
+       byte >8b,>25,>0a,>01,>04,>02,>00,>01
+level_1_pattern_024:
+       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+       byte >00,>00,>0c,>3e,>0c,>00,>00,>00
+level_1_pattern_025:
+       byte >f8,>01,>39,>19,>03,>1f,>3f,>ff
+       byte >ff,>ff,>ff,>e0,>ff,>ff,>ff,>ff
+level_1_pattern_026:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_027:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
+level_1_pattern_028:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >8b,>25,>0a,>01,>04,>02,>00,>00
+level_1_pattern_029:
+       byte >0b,>25,>0a,>01,>14,>02,>00,>01
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_030:
+       byte >8b,>25,>0a,>01,>04,>02,>00,>01
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_031:
+       byte >00,>00,>0c,>3e,>0c,>00,>00,>00
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+level_1_pattern_032:
+       byte >ff,>ff,>ff,>e0,>ff,>ff,>ff,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_033:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>01,>01,>01,>01,>01,>00,>00
+level_1_pattern_034:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>80,>80,>80,>80,>80,>00,>00
+level_1_pattern_035:
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+level_1_pattern_036:
+       byte >00,>01,>01,>01,>01,>01,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_037:
+       byte >00,>80,>80,>80,>80,>80,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_038:
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+level_1_pattern_039:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+level_1_pattern_040:
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+level_1_pattern_041:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>f8,>e4,>5a,>f2,>20,>c8,>92
+level_1_pattern_042:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >5f,>5d,>77,>6f,>6d,>7d,>56,>75
+level_1_pattern_043:
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+level_1_pattern_044:
+       byte >00,>ff,>cb,>7e,>df,>f3,>be,>f7
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_045:
+       byte >00,>f8,>e4,>5a,>f2,>20,>c8,>92
+       byte >00,>f8,>e4,>5a,>f2,>20,>c8,>92
+level_1_pattern_046:
+       byte >5f,>5d,>77,>6f,>6d,>7d,>56,>75
+       byte >5f,>5d,>77,>6f,>6d,>7d,>56,>75
+level_1_pattern_047:
+       byte >00,>f8,>e4,>5a,>f2,>20,>c8,>92
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_048:
+       byte >5f,>5d,>77,>6f,>6d,>7d,>56,>75
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_049:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+level_1_pattern_050:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >f8,>01,>39,>19,>03,>1f,>3f,>ff
+level_1_pattern_051:
+       byte >00,>00,>0c,>3e,>0c,>00,>00,>00
+       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+level_1_pattern_052:
+       byte >ff,>ff,>ff,>e0,>ff,>ff,>ff,>ff
+       byte >f8,>01,>39,>19,>03,>1f,>3f,>ff
+level_1_pattern_053:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >c7,>bb,>5d,>7d,>39,>c0,>f9,>ff
+level_1_pattern_054:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >5f,>7f,>7f,>7f,>7f,>7f,>7f,>5f
+level_1_pattern_055:
+       byte >00,>00,>0c,>3e,>0c,>00,>00,>00
+       byte >ff,>fa,>fe,>7c,>fa,>b4,>e0,>90
+level_1_pattern_056:
+       byte >ff,>ff,>ff,>e0,>ff,>ff,>ff,>ff
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+level_1_pattern_057:
+       byte >c7,>bb,>5d,>7d,>39,>c0,>f9,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_058:
+       byte >5f,>7f,>7f,>7f,>7f,>7f,>7f,>5f
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_059:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>fa,>fe,>7c,>fa,>b4,>e0,>90
+level_1_pattern_060:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+level_1_pattern_061:
+       byte >ff,>fa,>fe,>7c,>fa,>b4,>e0,>90
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+level_1_pattern_062:
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_063:
+       byte >00,>3f,>73,>7e,>7f,>5f,>77,>7f
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+level_1_pattern_064:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+level_1_pattern_065:
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+level_1_pattern_066:
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+level_1_pattern_067:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_068:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_069:
+       byte >00,>01,>01,>01,>01,>01,>00,>00
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+level_1_pattern_070:
+       byte >00,>80,>80,>80,>80,>80,>00,>00
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+level_1_pattern_071:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >02,>31,>19,>0d,>c5,>fa,>7f,>0b
+level_1_pattern_072:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >04,>0c,>9c,>b8,>b0,>e0,>de,>ff
+level_1_pattern_073:
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+level_1_pattern_074:
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+level_1_pattern_075:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_076:
+       byte >02,>31,>19,>0d,>c5,>fa,>7f,>0b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_077:
+       byte >04,>0c,>9c,>b8,>b0,>e0,>de,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_078:
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+level_1_pattern_079:
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+level_1_pattern_080:
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+level_1_pattern_081:
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+level_1_pattern_082:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+level_1_pattern_083:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+level_1_pattern_084:
+       byte >04,>80,>19,>40,>86,>10,>c9,>00
+       byte >ff,>fa,>fe,>7c,>fa,>b4,>e0,>90
+level_1_pattern_085:
+       byte >08,>02,>00,>40,>02,>04,>a0,>00
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+level_1_pattern_086:
+       byte >d5,>e8,>c1,>24,>89,>42,>00,>40
+       byte >ee,>b8,>dc,>ce,>e6,>e0,>67,>27
+level_1_pattern_087:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >d5,>e8,>c1,>24,>89,>42,>00,>40
+level_1_pattern_088:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
+level_1_pattern_089:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+level_1_pattern_090:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_091:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_092:
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_093:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+level_1_pattern_094:
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+level_1_pattern_095:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_096:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_097:
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_098:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_099:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_100:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_101:
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_102:
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_103:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_104:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_105:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_106:
+       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_107:
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+level_1_pattern_108:
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_109:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+level_1_pattern_110:
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_111:
+       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_112:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_113:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_114:
+       byte >ef,>f0,>f6,>0e,>7e,>be,>dc,>e3
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+level_1_pattern_115:
+       byte >d9,>55,>f5,>15,>ef,>15,>ff,>01
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+level_1_pattern_116:
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_117:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+level_1_pattern_118:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+level_1_pattern_119:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+level_1_pattern_120:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_121:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >ef,>f0,>f6,>0e,>7e,>be,>dc,>e3
+level_1_pattern_122:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >d9,>55,>f5,>15,>ef,>15,>ff,>01
+level_1_pattern_123:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_124:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+level_1_pattern_125:
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+level_1_pattern_126:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_127:
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_128:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_129:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_130:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_131:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_132:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_133:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>00
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_134:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>00
+level_1_pattern_135:
+       byte >ee,>b8,>dc,>ce,>e6,>e0,>67,>27
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_136:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_137:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_138:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_139:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_140:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_141:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+level_1_pattern_142:
+       byte >ee,>b8,>dc,>ce,>e6,>e0,>67,>27
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_143:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+level_1_pattern_144:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+level_1_pattern_145:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_146:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_147:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+level_1_pattern_148:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+level_1_pattern_149:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_150:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_151:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+level_1_pattern_152:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_153:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+level_1_pattern_154:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_155:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_156:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_157:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_158:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_159:
+       byte >bc,>40,>be,>40,>bc,>40,>be,>40
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+level_1_pattern_160:
+       byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_161:
+       byte >e9,>10,>f0,>01,>e1,>00,>82,>01
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_162:
+       byte >99,>56,>54,>5a,>54,>aa,>41,>aa
+       byte >bc,>40,>be,>40,>bc,>40,>be,>40
+level_1_pattern_163:
+       byte >55,>bb,>55,>55,>55,>55,>44,>00
+       byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
+level_1_pattern_164:
+       byte >80,>62,>6a,>1a,>3a,>06,>7f,>03
+       byte >e9,>10,>f0,>01,>e1,>00,>82,>01
+level_1_pattern_165:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_166:
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+       byte >99,>56,>54,>5a,>54,>aa,>41,>aa
+level_1_pattern_167:
+       byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
+       byte >55,>bb,>55,>55,>55,>55,>44,>00
+level_1_pattern_168:
+       byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
+       byte >80,>62,>6a,>1a,>3a,>06,>7f,>03
+level_1_pattern_169:
+       byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_170:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_171:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_172:
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_173:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_174:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+level_1_pattern_175:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
+level_1_pattern_176:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
+level_1_pattern_177:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
+level_1_pattern_178:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_179:
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+level_1_pattern_180:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_181:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_182:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_183:
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_184:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+level_1_pattern_185:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_186:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_187:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_188:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+level_1_pattern_189:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_190:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_191:
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+level_1_pattern_192:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_193:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >d5,>e8,>c1,>24,>89,>42,>08,>40
+level_1_pattern_194:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_195:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_196:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+level_1_pattern_197:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_198:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_199:
+       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_200:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_201:
+       byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_202:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
+level_1_pattern_203:
+       byte >00,>00,>40,>10,>40,>95,>60,>c4
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_204:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >00,>00,>40,>10,>40,>95,>60,>c4
+level_1_pattern_205:
+       byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_206:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >00,>00,>40,>10,>40,>95,>60,>c4
+level_1_pattern_207:
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_208:
+       byte >15,>27,>8a,>27,>0b,>96,>2d,>57
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_209:
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_210:
+       byte >15,>27,>8a,>27,>0b,>96,>2d,>57
+       byte >15,>27,>8a,>27,>0b,>96,>2d,>57
+level_1_pattern_211:
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_212:
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+       byte >15,>27,>8a,>27,>0b,>96,>2d,>57
+level_1_pattern_213:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >15,>27,>8a,>27,>0b,>96,>2d,>57
+level_1_pattern_214:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_215:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_216:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+level_1_pattern_217:
+       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_218:
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_219:
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_220:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_221:
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_222:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+level_1_pattern_223:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_224:
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_225:
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+level_1_pattern_226:
+       byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+level_1_pattern_227:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_228:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
+level_1_pattern_229:
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_230:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
+level_1_pattern_231:
+       byte >bc,>40,>be,>40,>bc,>40,>be,>40
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_232:
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+level_1_pattern_233:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
+level_1_pattern_234:
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+       byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
+level_1_pattern_235:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
+level_1_pattern_236:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_237:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
+level_1_pattern_238:
+       byte >be,>6b,>dd,>ab,>54,>8a,>00,>12
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_239:
+       byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
+       byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
+level_1_pattern_240:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_241:
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+level_1_pattern_242:
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_243:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_244:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+level_1_pattern_245:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
+level_1_pattern_246:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
+level_1_pattern_247:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
+level_1_pattern_248:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
+level_1_pattern_249:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+level_1_pattern_250:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_251:
+       byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+level_1_pattern_252:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >c0,>fe,>60,>5c,>58,>56,>46,>01
+level_1_pattern_253:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >00,>00,>40,>10,>40,>95,>60,>c4
+level_1_pattern_254:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
+level_1_pattern_255:
+       byte >99,>55,>55,>55,>66,>55,>55,>55
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_256:
+       byte >ef,>50,>7e,>51,>5f,>54,>56,>55
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_257:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >00,>00,>40,>10,>40,>95,>60,>c4
+level_1_pattern_258:
+       byte >ef,>e7,>f7,>f1,>e6,>07,>f7,>f3
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_259:
+       byte >f3,>fb,>f3,>c3,>9c,>3e,>fd,>fb
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_260:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >99,>55,>55,>55,>66,>55,>55,>55
+level_1_pattern_261:
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+       byte >ef,>50,>7e,>51,>5f,>54,>56,>55
+level_1_pattern_262:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_263:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+level_1_pattern_264:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
+level_1_pattern_265:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
+level_1_pattern_266:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
+level_1_pattern_267:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
+level_1_pattern_268:
+       byte >c7,>ce,>9d,>3d,>39,>00,>9e,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_269:
+       byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_270:
+       byte >8b,>25,>0a,>81,>54,>02,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_271:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >c7,>ce,>9d,>3d,>39,>00,>9e,>ff
+level_1_pattern_272:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
+level_1_pattern_273:
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_274:
+       byte >8b,>25,>0a,>81,>54,>02,>50,>09
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_275:
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+       byte >8b,>25,>0a,>81,>54,>02,>00,>00
+level_1_pattern_276:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+level_1_pattern_277:
+       byte >ff,>3f,>1f,>03,>19,>39,>01,>f8
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+level_1_pattern_278:
+       byte >51,>56,>19,>5f,>9f,>d3,>ce,>e0
+       byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
+level_1_pattern_279:
+       byte >8b,>25,>0a,>01,>14,>02,>10,>09
+       byte >8b,>25,>0a,>81,>54,>02,>50,>09
+level_1_pattern_280:
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_281:
+       byte >8b,>25,>0a,>81,>54,>02,>50,>09
+       byte >ff,>3f,>1f,>03,>19,>39,>01,>f8
+level_1_pattern_282:
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+       byte >51,>56,>19,>5f,>9f,>d3,>ce,>e0
+level_1_pattern_283:
+       byte >8b,>25,>0a,>01,>14,>02,>10,>09
+       byte >8b,>25,>0a,>01,>14,>02,>10,>09
+level_1_pattern_284:
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_285:
+       byte >ff,>3f,>1f,>03,>19,>39,>01,>f8
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_286:
+       byte >51,>56,>19,>5f,>9f,>d3,>ce,>e0
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_287:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >8b,>25,>0a,>81,>54,>02,>50,>09
+level_1_pattern_288:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+level_1_pattern_289:
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_290:
+       byte >a8,>48,>a0,>18,>d8,>00,>00,>00
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+level_1_pattern_291:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >a8,>48,>a0,>18,>d8,>00,>00,>00
+level_1_pattern_292:
+       byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
+       byte >50,>04,>42,>10,>41,>95,>60,>c4
+level_1_pattern_293:
+       byte >7e,>7e,>7e,>7e,>00,>00,>7e,>00
+       byte >8b,>25,>0a,>81,>54,>02,>50,>09
+level_1_pattern_294:
+       byte >7e,>7e,>7e,>7e,>00,>00,>7e,>00
+       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+level_1_pattern_295:
+       byte >7e,>7e,>7e,>7e,>00,>00,>7e,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_296:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >8b,>25,>0a,>01,>14,>02,>10,>09
+level_1_pattern_297:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
+level_1_pattern_298:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >7e,>7e,>7e,>7e,>00,>00,>7e,>00
+level_1_pattern_299:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_300:
+       byte >c7,>ce,>9d,>3d,>39,>00,>9e,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_301:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_302:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_pattern_303:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_304:
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_305:
+       byte >54,>48,>17,>60,>6f,>00,>80,>c0
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_306:
+       byte >54,>48,>17,>60,>6f,>00,>80,>c0
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+level_1_pattern_307:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >54,>48,>17,>60,>6f,>00,>80,>c0
+level_1_pattern_308:
+       byte >03,>d9,>18,>a0,>48,>a8,>28,>28
+       byte >54,>48,>17,>60,>6f,>00,>80,>c0
+level_1_pattern_309:
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+       byte >03,>d9,>18,>a0,>48,>a8,>28,>28
+level_1_pattern_310:
+       byte >03,>d9,>18,>a0,>48,>a8,>28,>28
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_311:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
+level_1_pattern_312:
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+       byte >03,>d9,>18,>a0,>48,>a8,>28,>28
+level_1_pattern_313:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >8b,>25,>0a,>81,>54,>02,>10,>09
+level_1_pattern_314:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >5f,>7f,>00,>55,>55,>00,>7f,>5f
+level_1_pattern_315:
+       byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_pattern_316:
+       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >fb,>37,>d7,>e6,>f8,>fb,>67,>8f
+level_1_pattern_317:
+       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
+level_1_pattern_318:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_319:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
+level_1_pattern_320:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+level_1_pattern_321:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+level_1_pattern_322:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+level_1_pattern_323:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_pattern_324:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_pattern_325:
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+level_1_pattern_326:
+       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+level_1_pattern_327:
+       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+       byte >ee,>b8,>dc,>cc,>e4,>e2,>60,>20
+level_1_pattern_328:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
+level_1_pattern_329:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+level_1_pattern_330:
+       byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
+       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
+level_1_pattern_331:
+       byte >00,>6f,>60,>17,>48,>54,>53,>53
+       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+level_1_pattern_332:
+       byte >6f,>6a,>5c,>7a,>50,>64,>2a,>00
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+level_1_pattern_333:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
+       aorg >6000,1
+level_1_color_000:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_001:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_002:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_003:
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_004:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_005:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_006:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_007:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_008:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_1_color_009:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_010:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+level_1_color_011:
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_012:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+level_1_color_013:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_014:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_015:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_016:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_017:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_018:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_019:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_020:
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_021:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_022:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_023:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_024:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>f1,>f1,>f1,>a1,>a1,>a1
+level_1_color_025:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_026:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_027:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_028:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_029:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_030:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_031:
+       byte >a1,>a1,>f1,>f1,>f1,>a1,>a1,>a1
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_032:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_033:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+level_1_color_034:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+level_1_color_035:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_036:
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_037:
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_038:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_039:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_040:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_041:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>81,>81,>81,>81,>81,>81,>61
+level_1_color_042:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+level_1_color_043:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+level_1_color_044:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_045:
+       byte >a1,>81,>81,>81,>81,>81,>81,>61
+       byte >a1,>81,>81,>81,>81,>81,>81,>61
+level_1_color_046:
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+level_1_color_047:
+       byte >a1,>81,>81,>81,>81,>81,>81,>61
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_048:
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_049:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_050:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_051:
+       byte >a1,>a1,>f1,>f1,>f1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_052:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_053:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_054:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_055:
+       byte >a1,>a1,>f1,>f1,>f1,>a1,>a1,>a1
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+level_1_color_056:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+level_1_color_057:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_058:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_059:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+level_1_color_060:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+level_1_color_061:
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+level_1_color_062:
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_063:
+       byte >a1,>81,>81,>81,>81,>81,>81,>81
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+level_1_color_064:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+level_1_color_065:
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+level_1_color_066:
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_067:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_068:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_069:
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+level_1_color_070:
+       byte >a1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+level_1_color_071:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >31,>31,>31,>31,>31,>31,>31,>31
+level_1_color_072:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >21,>21,>21,>21,>21,>21,>21,>21
+level_1_color_073:
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+level_1_color_074:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+level_1_color_075:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_076:
+       byte >31,>31,>31,>31,>31,>31,>31,>31
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+level_1_color_077:
+       byte >21,>21,>21,>21,>21,>21,>21,>21
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+level_1_color_078:
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+level_1_color_079:
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+level_1_color_080:
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+level_1_color_081:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_082:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+level_1_color_083:
+       byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_084:
+       byte >61,>61,>61,>61,>61,>61,>61,>a1
+       byte >81,>81,>81,>81,>81,>81,>81,>81
+level_1_color_085:
+       byte >61,>61,>a1,>61,>61,>61,>61,>a1
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+level_1_color_086:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>a1,>a1
+level_1_color_087:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_088:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_089:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_090:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_091:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_092:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_093:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_094:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_095:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_096:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_097:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_098:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_099:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_100:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_101:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_102:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_103:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_104:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_105:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_106:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_107:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_108:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_109:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_110:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_111:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_112:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_113:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_114:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_115:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_116:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_117:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_118:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_119:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_120:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_121:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_122:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_123:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_124:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_125:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_126:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_127:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_128:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_129:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_130:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_131:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_132:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_133:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_134:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_135:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>a1,>a1
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_136:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_137:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_138:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_139:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_140:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_141:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_142:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_143:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_144:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_145:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_146:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_147:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+level_1_color_148:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+level_1_color_149:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_150:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_151:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_152:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_153:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_154:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_155:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_156:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_157:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_158:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_159:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_160:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_161:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_162:
+       byte >b1,>b1,>b1,>b1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_163:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_164:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_165:
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_166:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>a1,>a1,>a1,>a1
+level_1_color_167:
+       byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_168:
+       byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_169:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_170:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_171:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_172:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_173:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_174:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_175:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
+level_1_color_176:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
+level_1_color_177:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_178:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_179:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_180:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_181:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_182:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_183:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_184:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_185:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_186:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >00,>00,>00,>00,>00,>00,>00,>00
+level_1_color_187:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_188:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_189:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_190:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_191:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_192:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_193:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_194:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_195:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_196:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_197:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_198:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_199:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_200:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_201:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_202:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_203:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_204:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_205:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_206:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_207:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_208:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_209:
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_210:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_211:
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+level_1_color_212:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_213:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_214:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+level_1_color_215:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+level_1_color_216:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_217:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_218:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_219:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_220:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_221:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_222:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+level_1_color_223:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_224:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_225:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_226:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_227:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_228:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_229:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_230:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_231:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_232:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_233:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
+level_1_color_234:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
+level_1_color_235:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_236:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_237:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_238:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_239:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_240:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_241:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_242:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_243:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_244:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_245:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
+level_1_color_246:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
+level_1_color_247:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_248:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_249:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_250:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_251:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+level_1_color_252:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_253:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_254:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_255:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_256:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_257:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_258:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_259:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_260:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_261:
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_262:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_263:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_264:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
+level_1_color_265:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
+level_1_color_266:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_267:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_268:
+       byte >21,>21,>21,>21,>21,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_269:
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_270:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_271:
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+       byte >21,>21,>21,>21,>21,>a1,>a1,>a1
+level_1_color_272:
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_1_color_273:
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_274:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_275:
+       byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_276:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+level_1_color_277:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>f1
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+level_1_color_278:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
+level_1_color_279:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_280:
+       byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
+       byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
+level_1_color_281:
+       byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>f1
+level_1_color_282:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_283:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_284:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_285:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>f1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_286:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_287:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
+level_1_color_288:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_289:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_290:
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_291:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_1_color_292:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
+level_1_color_293:
+       byte >e1,>e1,>e1,>e1,>a1,>a1,>e1,>a1
+       byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
+level_1_color_294:
+       byte >e1,>e1,>e1,>e1,>a1,>a1,>e1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_295:
+       byte >e1,>e1,>e1,>e1,>a1,>a1,>e1,>a1
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+level_1_color_296:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_297:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_298:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >e1,>e1,>e1,>e1,>a1,>a1,>e1,>a1
+level_1_color_299:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_1_color_300:
+       byte >21,>21,>21,>21,>21,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_301:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_302:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_303:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_304:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_305:
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_306:
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+level_1_color_307:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_1_color_308:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_1_color_309:
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_310:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_311:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
+level_1_color_312:
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_1_color_313:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_314:
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+       byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
+level_1_color_315:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
+level_1_color_316:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_1_color_317:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_318:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_319:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_320:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_321:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_322:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_323:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_324:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_325:
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_326:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+level_1_color_327:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >c1,>c1,>c1,>c1,>c1,>c1,>c1,>c1
+level_1_color_328:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_329:
+       byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_330:
+       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_331:
+       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_332:
+       byte >81,>81,>81,>81,>81,>81,>81,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+level_1_color_333:
+       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       aorg >6000,2
+level_1_map:
+       byte >2d,>2e,>2d,>2e,>2d,>2e,>2f,>33,>2f,>33,>2d,>2e,>2d,>2e,>2d,>2e,>37,>38
+       byte >2b,>2c,>2b,>2c,>2b,>2c,>2b,>2c,>2b,>2c,>2b,>2c,>2b,>2c,>2b,>2c,>22,>18
+       byte >23,>24,>24,>26,>24,>24,>27,>28,>29,>29,>2a,>24,>24,>24,>24,>26,>1d,>32
+       byte >16,>18,>18,>1d,>18,>18,>1e,>20,>21,>21,>22,>18,>18,>18,>18,>1d,>32,>32
+       byte >35,>25,>32,>32,>32,>32,>16,>18,>18,>1b,>1c,>32,>32,>32,>32,>32,>32,>32
+       byte >17,>19,>36,>32,>32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32,>32,>35,>25
+       byte >30,>31,>1a,>32,>32,>35,>25,>32,>32,>1f,>11,>1a,>32,>32,>32,>32,>17,>19
+       byte >17,>19,>13,>25,>36,>17,>19,>36,>32,>32,>34,>34,>35,>25,>32,>32,>30,>31
+       byte >1f,>11,>17,>19,>13,>15,>11,>1a,>35,>25,>32,>32,>17,>19,>35,>25,>17,>19
+       byte >32,>34,>30,>31,>17,>19,>1a,>34,>17,>19,>36,>32,>1f,>11,>17,>19,>30,>31
+       byte >35,>25,>17,>19,>14,>11,>1a,>32,>1f,>11,>13,>25,>32,>34,>30,>31,>17,>19
+       byte >17,>19,>1f,>11,>1a,>34,>34,>32,>32,>34,>17,>19,>35,>25,>17,>19,>30,>31
+       byte >30,>31,>32,>34,>34,>32,>35,>25,>32,>32,>1f,>11,>17,>19,>30,>31,>17,>19
+       byte >17,>19,>36,>32,>32,>32,>17,>19,>36,>32,>32,>34,>30,>31,>17,>19,>14,>11
+       byte >1f,>11,>1a,>32,>32,>32,>1f,>11,>1a,>32,>32,>32,>17,>19,>14,>11,>1a,>34
+       byte >32,>34,>34,>32,>32,>32,>32,>34,>34,>32,>32,>32,>1f,>11,>1a,>34,>34,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>34,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>0f,>10,>10,>12,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>0b,>0c,>0d,>0e,>36,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>07,>08,>09,>0a,>1a,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>03,>04,>05,>06,>1a,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>00,>01,>01,>02,>1a,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>34,>34,>34,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >17,>19,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25
+       byte >30,>31,>17,>19,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>17,>19
+       byte >17,>19,>30,>31,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>17,>19,>14,>11
+       byte >1f,>11,>17,>19,>1f,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>22,>2a
+       byte >32,>34,>30,>31,>32,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>34,>17,>19
+       byte >35,>25,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>30,>31
+       byte >17,>19,>1f,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>17,>19,>17,>19
+       byte >30,>31,>32,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>14,>11
+       byte >17,>19,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>22,>2a
+       byte >30,>31,>17,>19,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>17,>19
+       byte >17,>19,>30,>31,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>17,>19,>14,>11
+       byte >1f,>11,>17,>19,>14,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>22,>2a
+       byte >32,>34,>30,>31,>1a,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>34,>17,>19
+       byte >35,>25,>17,>19,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>30,>31
+       byte >17,>19,>14,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>17,>19,>17,>19
+       byte >30,>31,>1a,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>14,>11
+       byte >17,>19,>22,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>22,>2a
+       byte >30,>31,>17,>19,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>17,>19
+       byte >17,>19,>30,>31,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>17,>19,>14,>11
+       byte >1f,>11,>17,>19,>14,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>22,>2a
+       byte >32,>34,>30,>31,>1a,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>34,>17,>19
+       byte >35,>25,>17,>19,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>30,>31
+       byte >17,>19,>14,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>17,>19,>17,>19
+       byte >30,>31,>1a,>34,>09,>0c,>0c,>0c,>0d,>0d,>0d,>0d,>32,>32,>1f,>11,>14,>11
+       byte >17,>19,>1a,>32,>37,>37,>37,>37,>38,>38,>38,>38,>36,>32,>32,>34,>34,>34
+       byte >1f,>11,>1a,>32,>37,>37,>37,>37,>38,>38,>38,>38,>22,>25,>32,>32,>32,>32
+       byte >32,>34,>34,>32,>37,>37,>37,>37,>38,>38,>38,>38,>17,>19,>36,>32,>32,>32
+       byte >32,>32,>32,>32,>06,>37,>37,>37,>38,>38,>07,>08,>0a,>0b,>22,>25,>32,>32
+       byte >35,>25,>32,>32,>03,>37,>37,>37,>38,>38,>04,>05,>37,>37,>17,>19,>36,>32
+       byte >17,>19,>36,>32,>37,>37,>37,>37,>38,>38,>01,>02,>02,>02,>14,>11,>1a,>32
+       byte >1f,>11,>1a,>32,>37,>37,>37,>37,>38,>38,>39,>3a,>38,>38,>1a,>34,>34,>32
+       byte >32,>34,>34,>32,>2b,>2c,>2d,>2e,>2f,>2f,>2f,>33,>2f,>2f,>22,>25,>32,>32
+       byte >32,>32,>32,>32,>32,>17,>19,>1a,>34,>34,>34,>34,>22,>2a,>17,>19,>36,>32
+       byte >32,>35,>25,>32,>32,>1f,>11,>1a,>32,>32,>32,>32,>17,>19,>30,>31,>1a,>32
+       byte >32,>17,>19,>36,>32,>32,>34,>34,>35,>25,>32,>32,>30,>31,>17,>19,>22,>25
+       byte >35,>00,>11,>1a,>35,>25,>32,>32,>17,>19,>35,>25,>17,>19,>14,>11,>17,>19
+       byte >17,>19,>1a,>34,>17,>19,>36,>32,>1f,>11,>17,>19,>30,>31,>1a,>34,>30,>31
+       byte >1f,>11,>1a,>32,>1f,>11,>22,>25,>32,>34,>30,>31,>17,>19,>22,>25,>17,>19
+       byte >32,>34,>34,>32,>32,>34,>17,>19,>35,>25,>17,>19,>30,>31,>17,>19,>14,>11
+       byte >32,>32,>35,>25,>32,>32,>1f,>11,>17,>19,>30,>31,>17,>19,>30,>31,>1a,>34
+       byte >32,>32,>17,>19,>36,>32,>32,>34,>30,>31,>17,>19,>14,>11,>17,>19,>1a,>32
+       byte >32,>32,>1f,>11,>1a,>32,>32,>32,>17,>19,>14,>11,>1a,>34,>1f,>11,>1a,>32
+       byte >32,>32,>32,>34,>34,>32,>32,>32,>1f,>11,>1a,>34,>34,>32,>32,>34,>34,>32
+       byte >32,>32,>32,>32,>32,>32,>35,>25,>32,>34,>34,>32,>32,>32,>32,>32,>35,>25
+       byte >32,>32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>17,>19
+       byte >32,>32,>35,>25,>32,>32,>1f,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>1f,>11
+       byte >32,>32,>17,>19,>36,>32,>32,>34,>34,>27,>28,>28,>28,>28,>29,>32,>32,>34
+       byte >32,>32,>1f,>11,>1a,>32,>32,>32,>1e,>20,>21,>23,>24,>24,>26,>1e,>32,>32
+       byte >32,>32,>32,>34,>34,>32,>32,>32,>1d,>09,>0f,>10,>0e,>0e,>12,>1d,>36,>32
+       byte >32,>32,>35,>25,>32,>32,>32,>32,>13,>09,>15,>16,>18,>1b,>12,>1c,>1a,>32
+       byte >32,>32,>17,>19,>36,>32,>32,>32,>32,>09,>0e,>0e,>0f,>10,>12,>1a,>34,>32
+       byte >35,>25,>30,>31,>22,>25,>32,>32,>32,>08,>0a,>0a,>0b,>0c,>0d,>1a,>32,>32
+       byte >17,>19,>17,>19,>17,>19,>36,>32,>32,>03,>04,>05,>06,>06,>07,>1a,>32,>32
+       byte >1f,>11,>14,>11,>30,>31,>1a,>32,>32,>32,>01,>02,>1a,>34,>34,>34,>32,>32
+       byte >32,>34,>34,>34,>17,>19,>1a,>32,>32,>32,>34,>34,>34,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>1f,>11,>22,>25,>32,>32,>32,>32,>32,>35,>25,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>34,>17,>19,>36,>32,>32,>32,>32,>17,>19,>36,>32,>32
+       byte >32,>32,>35,>25,>32,>32,>1f,>11,>22,>25,>32,>32,>32,>1f,>2a,>2c,>35,>25
+       byte >32,>32,>17,>19,>36,>32,>32,>34,>17,>19,>36,>32,>32,>32,>17,>19,>17,>19
+       byte >32,>32,>1f,>11,>1a,>32,>32,>32,>1f,>11,>22,>25,>35,>25,>1f,>2a,>00,>2b
+       byte >32,>32,>32,>34,>22,>25,>32,>32,>32,>34,>17,>19,>17,>19,>36,>17,>19,>36
+       byte >32,>32,>35,>25,>17,>19,>36,>32,>32,>32,>30,>31,>14,>11,>22,>00,>11,>1a
+       byte >32,>32,>17,>19,>30,>31,>1a,>32,>32,>32,>17,>19,>1a,>34,>17,>19,>1a,>34
+       byte >32,>32,>1f,>11,>17,>19,>22,>25,>32,>32,>1f,>11,>1a,>32,>1f,>11,>22,>25
+       byte >32,>32,>32,>34,>1f,>11,>17,>19,>36,>32,>32,>34,>22,>25,>32,>34,>17,>19
+       byte >32,>32,>32,>32,>32,>34,>1f,>11,>1a,>32,>32,>32,>17,>19,>36,>32,>1f,>11
+       byte >32,>32,>32,>32,>32,>32,>32,>34,>34,>32,>32,>32,>1f,>11,>1a,>32,>32,>34
+       byte >35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25,>32,>34,>34,>32,>32,>32
+       byte >17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32,>32,>32
+       byte >1f,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>1a,>32,>35,>25,>32,>32
+       byte >32,>34,>34,>27,>28,>28,>28,>28,>29,>32,>32,>34,>34,>32,>17,>19,>36,>32
+       byte >32,>32,>1e,>20,>21,>23,>24,>24,>26,>1e,>32,>32,>32,>32,>1f,>11,>1a,>32
+       byte >32,>32,>1d,>09,>0f,>10,>0e,>0e,>12,>1d,>36,>32,>32,>32,>32,>34,>34,>32
+       byte >32,>32,>13,>09,>15,>16,>18,>1b,>12,>1c,>1a,>32,>32,>32,>35,>25,>32,>32
+       byte >32,>32,>32,>09,>0e,>0e,>0f,>10,>12,>1a,>34,>32,>32,>32,>17,>19,>36,>32
+       byte >32,>32,>32,>08,>0a,>0a,>0b,>0c,>0d,>1a,>32,>32,>35,>25,>30,>31,>22,>25
+       byte >32,>32,>32,>03,>04,>05,>06,>06,>07,>1a,>32,>32,>17,>19,>17,>19,>17,>19
+       byte >32,>32,>32,>32,>01,>02,>1a,>34,>34,>34,>32,>32,>1f,>11,>14,>11,>30,>31
+       byte >32,>32,>32,>32,>32,>34,>34,>32,>32,>32,>32,>32,>32,>34,>34,>34,>17,>19
+       byte >32,>32,>32,>32,>32,>35,>25,>32,>32,>32,>32,>32,>32,>32,>35,>25,>1f,>11
+       byte >32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32,>32,>35,>25,>17,>19,>36,>34
+       byte >32,>35,>25,>32,>32,>1f,>11,>1a,>32,>32,>32,>32,>17,>19,>30,>31,>1a,>32
+       byte >32,>17,>19,>36,>32,>32,>34,>34,>35,>25,>32,>32,>30,>31,>17,>19,>22,>25
+       byte >35,>00,>11,>1a,>35,>25,>32,>32,>17,>19,>35,>25,>17,>19,>14,>11,>17,>19
+       byte >17,>19,>1a,>34,>17,>19,>36,>32,>1f,>11,>17,>19,>30,>31,>1a,>34,>30,>31
+       byte >1f,>11,>1a,>32,>1f,>11,>22,>25,>32,>34,>30,>31,>17,>19,>22,>25,>17,>19
+       byte >32,>34,>34,>32,>32,>34,>17,>19,>35,>25,>17,>19,>30,>31,>17,>19,>14,>11
+       byte >32,>32,>35,>25,>32,>32,>1f,>11,>17,>19,>30,>31,>17,>19,>30,>31,>1a,>34
+       byte >32,>32,>17,>19,>36,>32,>32,>34,>30,>31,>17,>19,>14,>11,>17,>19,>1a,>32
+       byte >32,>32,>1f,>11,>1a,>32,>32,>32,>17,>19,>14,>11,>1a,>34,>1f,>11,>1a,>32
+       byte >32,>32,>32,>34,>34,>32,>32,>32,>1f,>11,>1a,>34,>34,>32,>32,>34,>34,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>34,>32,>32,>32,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25
+       byte >17,>19,>35,>25,>32,>32,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>17,>19
+       byte >30,>31,>17,>19,>35,>25,>17,>19,>35,>25,>32,>32,>35,>25,>32,>32,>1f,>11
+       byte >17,>19,>30,>31,>17,>19,>30,>31,>17,>19,>35,>25,>17,>19,>36,>32,>32,>34
+       byte >30,>31,>17,>19,>14,>11,>17,>19,>30,>31,>17,>19,>30,>31,>1a,>32,>32,>32
+       byte >17,>19,>30,>31,>1a,>34,>30,>31,>17,>19,>1f,>09,>17,>19,>1a,>32,>32,>32
+       byte >1f,>11,>17,>19,>22,>25,>17,>19,>30,>31,>35,>25,>1f,>11,>1a,>32,>32,>32
+       byte >32,>34,>30,>31,>17,>19,>14,>11,>17,>19,>17,>19,>36,>34,>34,>32,>32,>32
+       byte >35,>25,>17,>19,>14,>01,>33,>34,>30,>31,>1f,>11,>1a,>32,>35,>25,>32,>32
+       byte >17,>19,>30,>31,>1a,>17,>19,>36,>17,>19,>36,>34,>34,>32,>17,>19,>36,>32
+       byte >30,>31,>17,>19,>1a,>1f,>11,>1a,>1f,>11,>1a,>32,>32,>32,>1f,>01,>33,>32
+       byte >17,>19,>14,>09,>22,>25,>34,>34,>32,>34,>34,>32,>32,>32,>32,>17,>19,>36
+       byte >1f,>11,>1a,>32,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>32,>1f,>11,>1a
+       byte >32,>34,>34,>32,>1f,>11,>1a,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>34
+       byte >32,>32,>32,>32,>35,>33,>34,>32,>32,>32,>32,>32,>35,>25,>32,>32,>32,>32
+       byte >32,>32,>32,>32,>17,>19,>32,>32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32
+       byte >32,>32,>35,>25,>30,>31,>35,>25,>32,>32,>32,>32,>1f,>11,>05,>12,>13,>16
+       byte >32,>32,>17,>19,>17,>19,>17,>19,>36,>32,>32,>32,>32,>34,>0b,>0d,>0e,>0f
+       byte >32,>32,>30,>31,>14,>11,>14,>11,>1a,>32,>32,>32,>32,>32,>07,>08,>0a,>1a
+       byte >32,>32,>17,>19,>1a,>34,>34,>34,>34,>32,>32,>32,>32,>32,>03,>04,>06,>1a
+       byte >35,>25,>1f,>11,>22,>25,>0c,>12,>13,>16,>32,>32,>32,>32,>02,>34,>34,>34
+       byte >17,>19,>36,>34,>17,>19,>0b,>0d,>0e,>0f,>32,>32,>32,>32,>32,>32,>32,>32
+       byte >1f,>11,>22,>25,>1f,>11,>07,>08,>0a,>1a,>32,>32,>32,>32,>35,>25,>35,>25
+       byte >32,>34,>17,>19,>36,>34,>03,>04,>06,>1a,>32,>32,>32,>32,>17,>19,>17,>19
+       byte >32,>32,>1f,>11,>1a,>32,>02,>34,>34,>34,>32,>32,>32,>32,>1f,>11,>14,>11
+       byte >32,>32,>32,>34,>34,>32,>32,>32,>32,>32,>32,>32,>32,>32,>32,>34,>34,>34
+       byte >32,>32,>32,>32,>32,>35,>25,>32,>32,>32,>32,>32,>32,>32,>32,>32,>35,>25
+       byte >32,>32,>32,>32,>32,>17,>19,>36,>32,>32,>32,>32,>32,>32,>32,>32,>17,>19
+       byte >35,>25,>32,>32,>32,>1f,>01,>33,>35,>25,>32,>32,>35,>25,>32,>32,>1f,>11
+       byte >17,>19,>36,>32,>32,>32,>17,>19,>17,>19,>36,>32,>17,>19,>36,>32,>32,>34
+       byte >1f,>11,>22,>25,>35,>25,>1f,>01,>00,>11,>1a,>32,>1f,>11,>1a,>32,>32,>32
+       byte >32,>34,>17,>19,>17,>19,>36,>17,>19,>1a,>34,>32,>32,>34,>22,>25,>32,>32
+       byte >32,>32,>30,>31,>14,>11,>22,>00,>11,>1a,>32,>32,>35,>25,>17,>19,>36,>32
+       byte >32,>32,>17,>19,>1a,>34,>17,>19,>1a,>34,>32,>32,>17,>19,>30,>31,>1a,>32
+       byte >32,>32,>1f,>11,>1a,>32,>1f,>11,>22,>25,>32,>32,>1f,>11,>17,>19,>22,>25
+       byte >32,>32,>32,>34,>22,>25,>32,>34,>17,>19,>36,>32,>32,>34,>1f,>11,>17,>19
+       byte >32,>32,>32,>32,>17,>19,>36,>32,>1f,>11,>1a,>32,>32,>32,>32,>34,>1f,>11
+       byte >32,>32,>32,>32,>1f,>11,>1a,>32,>32,>34,>34,>32,>32,>32,>32,>32,>32,>34
+       byte >35,>25,>32,>32,>32,>34,>22,>25,>35,>25,>32,>32,>32,>32,>35,>25,>32,>32
+       byte >17,>19,>36,>32,>32,>32,>17,>19,>17,>19,>36,>32,>32,>32,>17,>19,>36,>32
+       byte >30,>31,>1a,>32,>35,>25,>30,>31,>14,>11,>1a,>32,>35,>25,>1f,>11,>22,>25
+       byte >17,>19,>1a,>32,>17,>19,>17,>19,>22,>33,>34,>32,>17,>19,>35,>33,>17,>19
+       byte >1f,>11,>22,>25,>28,>2a,>2c,>2a,>2d,>2e,>2f,>2f,>2c,>2a,>2d,>2e,>30,>31
+       byte >15,>05,>17,>19,>10,>09,>09,>09,>1c,>1d,>09,>09,>09,>09,>1c,>1d,>17,>19
+       byte >44,>45,>0c,>11,>09,>09,>12,>09,>09,>09,>09,>09,>09,>09,>09,>09,>14,>11
+       byte >16,>42,>16,>05,>09,>09,>10,>09,>09,>09,>09,>09,>09,>09,>09,>09,>1a,>05
+       byte >44,>45,>44,>45,>08,>08,>08,>08,>08,>08,>08,>08,>08,>08,>08,>08,>1a,>45
+       byte >16,>42,>16,>42,>18,>18,>18,>18,>18,>18,>18,>18,>1b,>18,>18,>18,>1a,>42
+       byte >44,>45,>44,>45,>18,>18,>18,>18,>18,>18,>18,>18,>02,>18,>18,>18,>1a,>45
+       byte >16,>42,>16,>42,>18,>18,>1b,>18,>18,>18,>18,>18,>18,>18,>18,>18,>1a,>42
+       byte >44,>45,>44,>45,>0d,>0e,>0f,>0e,>0e,>0e,>0e,>0e,>0e,>0e,>0e,>0e,>1a,>45
+       byte >16,>42,>16,>42,>16,>05,>06,>05,>06,>05,>06,>05,>06,>05,>06,>05,>06,>42
+       byte >44,>45,>44,>45,>44,>45,>44,>45,>44,>45,>44,>45,>0b,>21,>4a,>4c,>44,>45
+       byte >16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>13,>20,>48,>49,>16,>42
+       byte >44,>45,>0b,>21,>4a,>4c,>44,>45,>44,>45,>44,>45,>26,>27,>29,>1a,>44,>45
+       byte >16,>42,>13,>20,>48,>49,>16,>42,>16,>42,>16,>42,>24,>46,>47,>1a,>16,>42
+       byte >44,>45,>26,>27,>29,>1a,>44,>45,>44,>45,>44,>45,>01,>03,>04,>0a,>44,>45
+       byte >16,>42,>24,>46,>47,>1a,>16,>42,>16,>42,>16,>42,>13,>20,>48,>49,>16,>42
+       byte >44,>45,>23,>43,>1e,>00,>44,>45,>44,>45,>44,>45,>26,>27,>29,>1a,>44,>07
+       byte >16,>42,>16,>42,>16,>2b,>16,>42,>16,>42,>16,>42,>24,>46,>47,>1a,>16,>2b
+       byte >44,>07,>44,>45,>44,>45,>44,>07,>44,>45,>44,>07,>23,>43,>1e,>43,>44,>45
+       byte >16,>2b,>16,>42,>16,>42,>16,>2b,>16,>42,>16,>2b,>16,>42,>16,>42,>16,>42
+       byte >44,>45,>0b,>21,>4a,>4c,>44,>45,>44,>45,>44,>45,>0b,>21,>4a,>4c,>44,>07
+       byte >16,>42,>13,>20,>48,>49,>16,>42,>16,>42,>16,>42,>13,>20,>48,>49,>16,>2b
+       byte >44,>45,>26,>27,>29,>1a,>44,>07,>44,>07,>44,>45,>26,>27,>29,>1a,>44,>45
+       byte >16,>42,>24,>46,>47,>1a,>16,>2b,>16,>2b,>16,>42,>24,>46,>47,>1a,>16,>42
+       byte >44,>45,>23,>43,>1e,>43,>44,>45,>44,>45,>44,>45,>23,>43,>1e,>43,>44,>45
+       byte >16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>16,>42,>16,>42
+       byte >0c,>1c,>0c,>40,>41,>40,>41,>40,>41,>40,>41,>40,>41,>40,>41,>40,>41,>40
+       byte >22,>22,>22,>1a,>19,>17,>19,>17,>19,>17,>19,>17,>19,>17,>19,>17,>19,>17
+       byte >22,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >02,>10,>02,>43,>11,>12,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >16,>42,>16,>42,>16,>42,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >0b,>21,>4a,>4c,>44,>45,>2a,>28,>2a,>28,>2a,>28,>2a,>28,>2a,>28,>2a,>28
+       byte >13,>20,>48,>49,>16,>42,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >26,>27,>29,>1a,>44,>45,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >1f,>46,>47,>1a,>16,>42,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b
+       byte >1e,>43,>1e,>43,>44,>45,>1a,>06,>05,>06,>05,>06,>05,>06,>05,>06,>05,>06
+       byte >16,>42,>16,>42,>16,>42,>1a,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >0c,>1c,>0c,>40,>41,>40,>1a,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>18,>18,>19,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>22,>22,>1a,>01,>3d,>3e,>3f,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>03,>04,>3c,>35,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >3a,>3a,>3a,>1a,>25,>4d,>1a,>3b,>2a,>28,>2a,>28,>2a,>28,>2a,>28,>2a,>28
+       byte >4b,>4b,>4b,>4b,>00,>4b,>39,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >30,>0f,>30,>0f,>00,>00,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >03,>04,>03,>04,>37,>00,>38,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b,>1b
+       byte >0a,>4d,>0d,>0e,>1a,>00,>00,>4b,>07,>36,>05,>06,>05,>06,>05,>06,>05,>06
+       byte >4b,>1a,>03,>04,>1a,>00,>00,>00,>34,>35,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >30,>2e,>25,>4d,>1a,>00,>00,>00,>2f,>31,>32,>33,>08,>09,>08,>09,>08,>09
+       byte >03,>04,>00,>4b,>4b,>00,>00,>00,>2b,>2b,>2c,>2c,>2d,>15,>14,>15,>14,>15
+       byte >0d,>0e,>30,>0f,>00,>00,>00,>00,>2b,>2b,>2c,>2c,>1a,>09,>08,>09,>08,>09
+       byte >03,>04,>03,>04,>00,>00,>00,>00,>2b,>2b,>2c,>2c,>1a,>15,>14,>15,>14,>15
+       byte >0a,>4d,>0d,>0e,>30,>0f,>00,>00,>2b,>2b,>2c,>2c,>1a,>09,>08,>09,>08,>09
+       byte >4b,>4b,>03,>04,>03,>04,>30,>0f,>2b,>2b,>2c,>2c,>1a,>15,>14,>15,>14,>15
+       byte >30,>0f,>0d,>0e,>0d,>0e,>02,>10,>11,>11,>12,>12,>1a,>28,>2a,>28,>2a,>28
+       byte >03,>04,>03,>04,>03,>04,>24,>23,>23,>23,>23,>23,>1a,>17,>1d,>1d,>1d,>1d
+       byte >25,>4d,>0d,>0e,>0d,>0e,>21,>21,>21,>21,>21,>21,>1a,>0b,>17,>1d,>1d,>1d
+       byte >00,>4b,>03,>04,>03,>04,>20,>20,>20,>20,>13,>20,>1a,>22,>0b,>1b,>1b,>1b
+       byte >00,>00,>25,>4d,>0d,>0e,>26,>26,>27,>26,>29,>26,>1a,>22,>22,>1a,>05,>06
+       byte >00,>00,>00,>4b,>03,>04,>23,>23,>24,>23,>23,>23,>1a,>1f,>22,>1a,>14,>15
+       byte >00,>00,>30,>0f,>0a,>4d,>21,>21,>21,>21,>21,>21,>1a,>1e,>1f,>1a,>08,>09
+       byte >00,>00,>03,>04,>1a,>4b,>13,>20,>20,>20,>20,>20,>1a,>1b,>16,>1a,>14,>15
+       byte >30,>0f,>0d,>0e,>1a,>00,>0c,>1c,>1c,>1c,>1c,>1c,>1a,>06,>05,>06,>08,>09
+       byte >03,>04,>03,>04,>1a,>00,>4b,>4b,>18,>18,>18,>1a,>19,>15,>14,>15,>14,>15
+       byte >0d,>0e,>0a,>4d,>1a,>01,>01,>01,>1f,>22,>22,>1a,>08,>09,>08,>09,>08,>09
+       byte >03,>04,>1a,>4b,>18,>17,>1d,>1d,>1e,>1f,>22,>1a,>14,>15,>14,>15,>14,>15
+       byte >0d,>0e,>1a,>00,>22,>0b,>17,>1d,>1d,>1e,>1f,>1a,>08,>09,>08,>09,>08,>09
+       byte >03,>04,>1a,>00,>22,>22,>0b,>1b,>1b,>1b,>16,>1a,>14,>15,>14,>15,>14,>15
+       byte >0a,>4d,>1a,>00,>22,>22,>22,>1a,>05,>06,>05,>06,>08,>09,>08,>09,>08,>09
+       byte >4b,>4b,>4b,>00,>22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >07,>01,>01,>01,>1f,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >0b,>17,>1d,>1d,>1e,>1f,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>0b,>17,>1d,>1d,>1e,>1f,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>0b,>1b,>1b,>1b,>16,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>22,>22,>1a,>05,>06,>05,>06,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >22,>22,>22,>1a,>11,>12,>08,>09,>08,>09,>08,>09,>08,>09,>02,>12,>02,>12
+       byte >22,>22,>22,>1a,>48,>28,>14,>15,>14,>15,>14,>15,>14,>15,>10,>10,>10,>10
+       byte >27,>27,>27,>1a,>48,>28,>08,>09,>08,>09,>08,>09,>2a,>2b,>26,>26,>26,>26
+       byte >4b,>4b,>4b,>4b,>48,>28,>14,>15,>14,>15,>14,>15,>25,>26,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>48,>28,>08,>09,>08,>09,>02,>23,>24,>00,>30,>0f,>00,>00
+       byte >00,>00,>00,>00,>48,>28,>14,>15,>14,>15,>28,>29,>00,>00,>03,>04,>13,>00
+       byte >30,>0f,>00,>00,>48,>28,>08,>09,>08,>09,>28,>29,>00,>00,>4c,>4d,>0c,>0f
+       byte >03,>04,>13,>00,>48,>28,>14,>15,>14,>15,>28,>29,>00,>00,>00,>4b,>03,>04
+       byte >4c,>4d,>1a,>00,>48,>28,>08,>09,>08,>09,>28,>29,>00,>00,>30,>0f,>4c,>4d
+       byte >00,>4b,>4b,>00,>48,>28,>14,>15,>14,>15,>28,>29,>00,>00,>03,>04,>13,>4b
+       byte >00,>00,>01,>01,>21,>4e,>49,>4a,>49,>4a,>4e,>4f,>01,>01,>4c,>4d,>1a,>00
+       byte >00,>00,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>00,>4b,>4b,>00
+       byte >30,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1c,>20,>00,>13,>30,>0f
+       byte >03,>04,>1b,>32,>32,>32,>32,>32,>32,>32,>32,>32,>03,>04,>13,>4b,>03,>04
+       byte >07,>0a,>1a,>00,>0d,>0e,>18,>19,>18,>19,>0e,>50,>4c,>4d,>0c,>0f,>4c,>4d
+       byte >03,>04,>1a,>00,>48,>28,>14,>15,>14,>15,>28,>29,>00,>4b,>03,>04,>13,>4b
+       byte >4c,>4d,>1a,>00,>48,>28,>08,>09,>49,>4a,>4e,>4f,>01,>01,>4c,>4d,>1a,>00
+       byte >47,>2c,>2c,>00,>48,>28,>14,>15,>1d,>1d,>1d,>1d,>1d,>1d,>00,>4b,>4b,>00
+       byte >22,>22,>16,>17,>41,>42,>08,>09,>1d,>1d,>43,>44,>45,>46,>00,>00,>30,>0f
+       byte >22,>22,>06,>06,>06,>06,>3c,>15,>1d,>1d,>3d,>3e,>3f,>40,>00,>00,>03,>04
+       byte >1f,>22,>05,>05,>05,>05,>1a,>09,>1d,>1d,>39,>3a,>3b,>1a,>00,>00,>4c,>4d
+       byte >1e,>1f,>2f,>2f,>2f,>2f,>1a,>15,>1d,>1d,>36,>37,>38,>1a,>00,>00,>00,>4b
+       byte >32,>33,>0b,>0b,>0b,>0b,>1a,>09,>1d,>1d,>34,>35,>35,>35,>00,>00,>00,>00
+       byte >00,>00,>06,>06,>06,>06,>1a,>15,>1d,>1d,>1d,>1d,>1d,>1d,>00,>00,>00,>00
+       byte >30,>0f,>05,>05,>05,>05,>1a,>09,>31,>1b,>1b,>1b,>1b,>1b,>30,>0f,>00,>00
+       byte >03,>04,>2f,>2f,>2f,>2f,>1a,>15,>14,>10,>2d,>10,>11,>12,>03,>04,>13,>00
+       byte >07,>0a,>0b,>0b,>0b,>0b,>1a,>09,>08,>09,>08,>09,>28,>29,>4c,>4d,>0c,>0f
+       byte >03,>04,>06,>06,>06,>06,>1a,>15,>14,>15,>14,>15,>28,>29,>00,>4b,>03,>04
+       byte >4c,>4d,>05,>05,>05,>05,>1a,>09,>08,>09,>08,>09,>28,>29,>00,>00,>4c,>4d
+       byte >00,>4b,>2f,>2f,>2f,>2f,>1a,>15,>14,>15,>14,>15,>28,>29,>00,>00,>00,>4b
+       byte >00,>00,>02,>2e,>2e,>2e,>1a,>09,>08,>09,>08,>09,>25,>26,>27,>00,>00,>00
+       byte >00,>00,>22,>2c,>2c,>1a,>2d,>15,>14,>15,>14,>15,>14,>15,>23,>24,>00,>00
+       byte >00,>00,>22,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>2a,>2b,>00,>00
+       byte >00,>00,>22,>22,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>28,>29,>00,>00
+       byte >01,>01,>1f,>22,>22,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>25,>26,>27,>00
+       byte >1d,>1d,>1e,>1f,>22,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>23,>24
+       byte >1d,>1d,>1d,>1e,>1f,>1a,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>20,>21
+       byte >1b,>1b,>1b,>1b,>1c,>1a,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >18,>19,>18,>19,>18,>19,>08,>09,>0d,>0e,>08,>09,>08,>09,>08,>09,>08,>09
+       byte >14,>15,>14,>15,>14,>15,>14,>15,>08,>09,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >08,>09,>0d,>0e,>08,>09,>0d,>0e,>14,>15,>08,>09,>0d,>0e,>08,>09,>08,>09
+       byte >14,>15,>08,>09,>14,>15,>08,>09,>08,>09,>14,>15,>08,>09,>14,>15,>14,>15
+       byte >08,>09,>16,>17,>0d,>0e,>14,>15,>14,>15,>08,>09,>16,>17,>08,>09,>0d,>0e
+       byte >14,>15,>14,>15,>08,>09,>08,>09,>08,>09,>14,>15,>14,>15,>14,>15,>08,>09
+       byte >08,>09,>0d,>0e,>16,>17,>14,>15,>16,>17,>08,>09,>0d,>0e,>08,>09,>14,>15
+       byte >14,>15,>08,>09,>14,>15,>08,>09,>14,>15,>14,>15,>08,>09,>14,>15,>08,>09
+       byte >08,>09,>16,>17,>08,>09,>16,>17,>08,>09,>08,>09,>14,>15,>08,>09,>16,>17
+       byte >14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>08,>09,>14,>15,>14,>15
+       byte >08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>08,>09,>16,>17,>08,>09,>08,>09
+       byte >14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15
+       byte >0d,>0e,>0f,>10,>11,>12,>13,>10,>11,>12,>11,>12,>13,>10,>13,>10,>13,>10
+       byte >08,>09,>03,>04,>0a,>0b,>0c,>04,>0a,>0b,>0a,>0b,>0c,>04,>04,>04,>04,>04
+       byte >05,>06,>07,>47,>4c,>4d,>1a,>00,>4c,>4d,>3f,>40,>4b,>00,>00,>00,>46,>47
+       byte >03,>04,>43,>44,>45,>4b,>4b,>00,>00,>4b,>43,>44,>45,>00,>00,>00,>43,>44
+       byte >02,>00,>4c,>4d,>1a,>46,>47,>00,>00,>00,>4c,>4d,>1a,>00,>46,>47,>4c,>4d
+       byte >00,>00,>00,>4b,>4b,>43,>44,>45,>00,>00,>00,>4b,>33,>47,>43,>44,>45,>4b
+       byte >00,>46,>47,>00,>00,>4c,>4d,>1a,>00,>00,>00,>00,>43,>44,>3f,>40,>1a,>00
+       byte >00,>43,>44,>45,>00,>00,>4b,>4b,>46,>47,>00,>00,>3f,>40,>43,>44,>33,>47
+       byte >46,>01,>4d,>1a,>46,>47,>00,>00,>43,>44,>46,>47,>43,>44,>41,>42,>43,>44
+       byte >43,>44,>1a,>4b,>43,>44,>45,>00,>4c,>4d,>43,>44,>3f,>40,>1a,>00,>3f,>40
+       byte >4c,>4d,>1a,>00,>4c,>4d,>33,>47,>45,>4b,>3f,>40,>43,>44,>33,>47,>43,>44
+       byte >00,>4b,>4b,>00,>00,>4b,>43,>44,>33,>47,>43,>44,>3f,>40,>43,>44,>41,>4d
+       byte >00,>00,>46,>47,>00,>00,>4c,>4d,>43,>44,>3f,>40,>43,>44,>3f,>40,>4b,>4b
+       byte >00,>00,>43,>44,>45,>00,>00,>4b,>3f,>40,>43,>44,>41,>4d,>43,>44,>45,>00
+       byte >00,>00,>4c,>4d,>1a,>00,>00,>00,>43,>44,>41,>4d,>1a,>4b,>4c,>4d,>1a,>00
+       byte >00,>00,>00,>4b,>4b,>00,>00,>00,>4c,>4d,>1a,>4b,>4b,>00,>00,>4b,>4b,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00,>00,>4b,>4b,>00,>00,>00,>00,>00,>00,>00
+       byte >00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00
+       byte >46,>47,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>00,>46,>47
+       byte >43,>44,>46,>47,>00,>00,>46,>47,>00,>00,>00,>00,>00,>00,>00,>00,>43,>44
+       byte >3f,>40,>43,>44,>46,>47,>43,>44,>46,>47,>00,>00,>46,>47,>00,>00,>4c,>4d
+       byte >43,>44,>3f,>40,>43,>44,>3f,>40,>43,>44,>46,>47,>43,>44,>45,>00,>00,>4b
+       byte >3f,>40,>43,>44,>41,>4d,>43,>44,>3f,>40,>43,>44,>3f,>40,>4b,>00,>00,>00
+       byte >43,>44,>3f,>40,>1a,>4b,>3f,>40,>43,>44,>41,>4d,>43,>44,>45,>00,>00,>00
+       byte >4c,>4d,>43,>44,>33,>47,>43,>44,>3f,>40,>33,>49,>4c,>4d,>1a,>00,>00,>00
+       byte >00,>4b,>3f,>40,>43,>44,>41,>4d,>43,>44,>43,>44,>45,>4b,>4b,>00,>00,>00
+       byte >46,>47,>43,>44,>41,>48,>49,>4b,>3f,>40,>4c,>4d,>1a,>00,>46,>47,>00,>00
+       byte >43,>44,>3f,>40,>1a,>43,>44,>45,>43,>44,>45,>4b,>4b,>00,>43,>44,>45,>00
+       byte >3f,>40,>43,>44,>4b,>4c,>4d,>1a,>4c,>4d,>1a,>00,>00,>00,>4c,>48,>49,>00
+       byte >43,>44,>41,>42,>46,>47,>4b,>4b,>00,>4b,>4b,>00,>00,>00,>00,>43,>44,>45
+       byte >4c,>4d,>1a,>00,>43,>44,>45,>00,>00,>00,>00,>00,>00,>00,>00,>4c,>4d,>1a
+       byte >00,>4b,>4b,>00,>4c,>4d,>1a,>00,>00,>00,>00,>00,>00,>00,>00,>00,>4b,>4b
+       byte >00,>00,>00,>00,>00,>50,>51,>07,>57,>00,>00,>00,>00,>00,>00,>00,>00,>01
+       byte >00,>00,>00,>00,>07,>08,>02,>02,>56,>07,>07,>07,>07,>57,>00,>00,>07,>08
+       byte >00,>00,>00,>01,>02,>03,>04,>04,>05,>02,>02,>02,>02,>06,>07,>07,>02,>03
+       byte >07,>07,>07,>08,>04,>04,>04,>04,>04,>04,>04,>04,>04,>04,>02,>02,>04,>04
+       byte >09,>09,>0a,>0b,>0c,>0d,>0c,>0d,>0c,>0d,>0c,>0d,>0e,>0e,>0f,>10,>11,>12
+       byte >13,>13,>14,>15,>14,>15,>14,>15,>14,>15,>14,>15,>13,>13,>16,>17,>18,>19
+       byte >13,>13,>1a,>1a,>1a,>1a,>1a,>1a,>1a,>1a,>1a,>1a,>1b,>1c,>1d,>1e,>1f,>20
+       byte >13,>13,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>1a,>16,>17,>13,>13,>23,>13
+       byte >13,>13,>1a,>1a,>1a,>1a,>24,>25,>1a,>1a,>1a,>1a,>1d,>1e,>13,>13,>26,>27
+       byte >13,>13,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>1a,>13,>13,>13,>13,>28,>28
+       byte >13,>13,>1a,>1a,>1a,>1a,>24,>25,>1a,>1a,>1a,>29,>2a,>2a,>2a,>2a,>2b,>2c
+       byte >13,>13,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>2d,>2e,>2e,>2e,>2e,>23,>13
+       byte >13,>13,>1a,>1a,>1a,>1a,>24,>25,>1a,>1a,>1a,>2f,>30,>30,>30,>30,>26,>27
+       byte >13,>13,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>1a,>13,>13,>13,>13,>28,>28
+       byte >31,>32,>1a,>1a,>1a,>1a,>24,>25,>1a,>1a,>1a,>29,>2a,>2a,>1b,>1c,>2b,>2c
+       byte >18,>19,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>2d,>2e,>2e,>16,>17,>23,>13
+       byte >33,>34,>1a,>1a,>1a,>1a,>24,>25,>1a,>1a,>1a,>2f,>30,>30,>1d,>1e,>26,>27
+       byte >18,>19,>1a,>1a,>35,>36,>21,>22,>35,>36,>1a,>1a,>13,>13,>13,>13,>28,>28
+       byte >37,>38,>1a,>1a,>39,>3a,>24,>25,>39,>3a,>1a,>1a,>13,>13,>3b,>3c,>2b,>2c
+       byte >3d,>3e,>1a,>1a,>35,>36,>21,>22,>35,>36,>1a,>1a,>13,>13,>3d,>3e,>23,>13
+       byte >3e,>13,>1a,>1a,>39,>3a,>24,>25,>39,>3a,>1a,>1a,>13,>13,>3e,>13,>3f,>40
+       byte >13,>13,>1a,>1a,>1a,>1a,>21,>22,>1a,>1a,>1a,>1a,>13,>13,>13,>13,>41,>42
+       byte >43,>43,>44,>44,>44,>44,>45,>46,>47,>48,>44,>44,>43,>43,>43,>43,>49,>4a
+       byte >4b,>4b,>4b,>4b,>4b,>4b,>41,>42,>4c,>4d,>4b,>4b,>4b,>4b,>4b,>4b,>4e,>4f
+       byte >4b,>4b,>4b,>4b,>4b,>4b,>50,>51,>52,>53,>4b,>4b,>4b,>4b,>4b,>4b,>54,>55
+       byte >4b,>4b,>4b,>4b,>4b,>4b,>50,>51,>50,>51,>4b,>4b,>4b,>4b,>4b,>4b,>3d,>3e
+       aorg >6000,3
+level_1_map_high:
+       byte >ad,>ae,>ad,>ae,>ad,>ae,>af,>b3,>af,>b3,>ad,>ae,>ad,>ae,>ad,>ae,>b7,>b8
+       byte >ab,>ac,>ab,>ac,>ab,>ac,>ab,>ac,>ab,>ac,>ab,>ac,>ab,>ac,>ab,>ac,>a2,>98
+       byte >a3,>a4,>a4,>a6,>a4,>a4,>a7,>a8,>a9,>a9,>aa,>a4,>a4,>a4,>a4,>a6,>9d,>b2
+       byte >96,>98,>98,>9d,>98,>98,>9e,>a0,>a1,>a1,>a2,>98,>98,>98,>98,>9d,>b2,>b2
+       byte >b5,>a5,>b2,>b2,>b2,>b2,>96,>98,>98,>9b,>9c,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b5,>a5
+       byte >b0,>b1,>9a,>b2,>b2,>b5,>a5,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>97,>99
+       byte >97,>99,>93,>a5,>b6,>97,>99,>b6,>b2,>b2,>b4,>b4,>b5,>a5,>b2,>b2,>b0,>b1
+       byte >9f,>91,>97,>99,>93,>95,>91,>9a,>b5,>a5,>b2,>b2,>97,>99,>b5,>a5,>97,>99
+       byte >b2,>b4,>b0,>b1,>97,>99,>9a,>b4,>97,>99,>b6,>b2,>9f,>91,>97,>99,>b0,>b1
+       byte >b5,>a5,>97,>99,>94,>91,>9a,>b2,>9f,>91,>93,>a5,>b2,>b4,>b0,>b1,>97,>99
+       byte >97,>99,>9f,>91,>9a,>b4,>b4,>b2,>b2,>b4,>97,>99,>b5,>a5,>97,>99,>b0,>b1
+       byte >b0,>b1,>b2,>b4,>b4,>b2,>b5,>a5,>b2,>b2,>9f,>91,>97,>99,>b0,>b1,>97,>99
+       byte >97,>99,>b6,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b4,>b0,>b1,>97,>99,>94,>91
+       byte >9f,>91,>9a,>b2,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>97,>99,>94,>91,>9a,>b4
+       byte >b2,>b4,>b4,>b2,>b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>9f,>91,>9a,>b4,>b4,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>8f,>90,>90,>92,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>8b,>8c,>8d,>8e,>b6,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>87,>88,>89,>8a,>9a,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>83,>84,>85,>86,>9a,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>80,>81,>81,>82,>9a,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b4,>b4,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >97,>99,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5
+       byte >b0,>b1,>97,>99,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>97,>99
+       byte >97,>99,>b0,>b1,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>94,>91
+       byte >9f,>91,>97,>99,>9f,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>a2,>aa
+       byte >b2,>b4,>b0,>b1,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>97,>99
+       byte >b5,>a5,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b0,>b1
+       byte >97,>99,>9f,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>97,>99
+       byte >b0,>b1,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>94,>91
+       byte >97,>99,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>a2,>aa
+       byte >b0,>b1,>97,>99,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>97,>99
+       byte >97,>99,>b0,>b1,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>94,>91
+       byte >9f,>91,>97,>99,>94,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>a2,>aa
+       byte >b2,>b4,>b0,>b1,>9a,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>97,>99
+       byte >b5,>a5,>97,>99,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b0,>b1
+       byte >97,>99,>94,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>97,>99
+       byte >b0,>b1,>9a,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>94,>91
+       byte >97,>99,>a2,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>a2,>aa
+       byte >b0,>b1,>97,>99,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>97,>99
+       byte >97,>99,>b0,>b1,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>94,>91
+       byte >9f,>91,>97,>99,>94,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>a2,>aa
+       byte >b2,>b4,>b0,>b1,>9a,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>97,>99
+       byte >b5,>a5,>97,>99,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b0,>b1
+       byte >97,>99,>94,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>97,>99
+       byte >b0,>b1,>9a,>b4,>89,>8c,>8c,>8c,>8d,>8d,>8d,>8d,>b2,>b2,>9f,>91,>94,>91
+       byte >97,>99,>9a,>b2,>b7,>b7,>b7,>b7,>b8,>b8,>b8,>b8,>b6,>b2,>b2,>b4,>b4,>b4
+       byte >9f,>91,>9a,>b2,>b7,>b7,>b7,>b7,>b8,>b8,>b8,>b8,>a2,>a5,>b2,>b2,>b2,>b2
+       byte >b2,>b4,>b4,>b2,>b7,>b7,>b7,>b7,>b8,>b8,>b8,>b8,>97,>99,>b6,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>86,>b7,>b7,>b7,>b8,>b8,>87,>88,>8a,>8b,>a2,>a5,>b2,>b2
+       byte >b5,>a5,>b2,>b2,>83,>b7,>b7,>b7,>b8,>b8,>84,>85,>b7,>b7,>97,>99,>b6,>b2
+       byte >97,>99,>b6,>b2,>b7,>b7,>b7,>b7,>b8,>b8,>81,>82,>82,>82,>94,>91,>9a,>b2
+       byte >9f,>91,>9a,>b2,>b7,>b7,>b7,>b7,>b8,>b8,>b9,>ba,>b8,>b8,>9a,>b4,>b4,>b2
+       byte >b2,>b4,>b4,>b2,>ab,>ac,>ad,>ae,>af,>af,>af,>b3,>af,>af,>a2,>a5,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>97,>99,>9a,>b4,>b4,>b4,>b4,>a2,>aa,>97,>99,>b6,>b2
+       byte >b2,>b5,>a5,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>97,>99,>b0,>b1,>9a,>b2
+       byte >b2,>97,>99,>b6,>b2,>b2,>b4,>b4,>b5,>a5,>b2,>b2,>b0,>b1,>97,>99,>a2,>a5
+       byte >b5,>80,>91,>9a,>b5,>a5,>b2,>b2,>97,>99,>b5,>a5,>97,>99,>94,>91,>97,>99
+       byte >97,>99,>9a,>b4,>97,>99,>b6,>b2,>9f,>91,>97,>99,>b0,>b1,>9a,>b4,>b0,>b1
+       byte >9f,>91,>9a,>b2,>9f,>91,>a2,>a5,>b2,>b4,>b0,>b1,>97,>99,>a2,>a5,>97,>99
+       byte >b2,>b4,>b4,>b2,>b2,>b4,>97,>99,>b5,>a5,>97,>99,>b0,>b1,>97,>99,>94,>91
+       byte >b2,>b2,>b5,>a5,>b2,>b2,>9f,>91,>97,>99,>b0,>b1,>97,>99,>b0,>b1,>9a,>b4
+       byte >b2,>b2,>97,>99,>b6,>b2,>b2,>b4,>b0,>b1,>97,>99,>94,>91,>97,>99,>9a,>b2
+       byte >b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>97,>99,>94,>91,>9a,>b4,>9f,>91,>9a,>b2
+       byte >b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>9f,>91,>9a,>b4,>b4,>b2,>b2,>b4,>b4,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b5,>a5
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99
+       byte >b2,>b2,>b5,>a5,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91
+       byte >b2,>b2,>97,>99,>b6,>b2,>b2,>b4,>b4,>a7,>a8,>a8,>a8,>a8,>a9,>b2,>b2,>b4
+       byte >b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>9e,>a0,>a1,>a3,>a4,>a4,>a6,>9e,>b2,>b2
+       byte >b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>9d,>89,>8f,>90,>8e,>8e,>92,>9d,>b6,>b2
+       byte >b2,>b2,>b5,>a5,>b2,>b2,>b2,>b2,>93,>89,>95,>96,>98,>9b,>92,>9c,>9a,>b2
+       byte >b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>89,>8e,>8e,>8f,>90,>92,>9a,>b4,>b2
+       byte >b5,>a5,>b0,>b1,>a2,>a5,>b2,>b2,>b2,>88,>8a,>8a,>8b,>8c,>8d,>9a,>b2,>b2
+       byte >97,>99,>97,>99,>97,>99,>b6,>b2,>b2,>83,>84,>85,>86,>86,>87,>9a,>b2,>b2
+       byte >9f,>91,>94,>91,>b0,>b1,>9a,>b2,>b2,>b2,>81,>82,>9a,>b4,>b4,>b4,>b2,>b2
+       byte >b2,>b4,>b4,>b4,>97,>99,>9a,>b2,>b2,>b2,>b4,>b4,>b4,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>9f,>91,>a2,>a5,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b4,>97,>99,>b6,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2
+       byte >b2,>b2,>b5,>a5,>b2,>b2,>9f,>91,>a2,>a5,>b2,>b2,>b2,>9f,>aa,>ac,>b5,>a5
+       byte >b2,>b2,>97,>99,>b6,>b2,>b2,>b4,>97,>99,>b6,>b2,>b2,>b2,>97,>99,>97,>99
+       byte >b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>9f,>91,>a2,>a5,>b5,>a5,>9f,>aa,>80,>ab
+       byte >b2,>b2,>b2,>b4,>a2,>a5,>b2,>b2,>b2,>b4,>97,>99,>97,>99,>b6,>97,>99,>b6
+       byte >b2,>b2,>b5,>a5,>97,>99,>b6,>b2,>b2,>b2,>b0,>b1,>94,>91,>a2,>80,>91,>9a
+       byte >b2,>b2,>97,>99,>b0,>b1,>9a,>b2,>b2,>b2,>97,>99,>9a,>b4,>97,>99,>9a,>b4
+       byte >b2,>b2,>9f,>91,>97,>99,>a2,>a5,>b2,>b2,>9f,>91,>9a,>b2,>9f,>91,>a2,>a5
+       byte >b2,>b2,>b2,>b4,>9f,>91,>97,>99,>b6,>b2,>b2,>b4,>a2,>a5,>b2,>b4,>97,>99
+       byte >b2,>b2,>b2,>b2,>b2,>b4,>9f,>91,>9a,>b2,>b2,>b2,>97,>99,>b6,>b2,>9f,>91
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b4
+       byte >b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b4,>b4,>b2,>b2,>b2
+       byte >97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2
+       byte >9f,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>9a,>b2,>b5,>a5,>b2,>b2
+       byte >b2,>b4,>b4,>a7,>a8,>a8,>a8,>a8,>a9,>b2,>b2,>b4,>b4,>b2,>97,>99,>b6,>b2
+       byte >b2,>b2,>9e,>a0,>a1,>a3,>a4,>a4,>a6,>9e,>b2,>b2,>b2,>b2,>9f,>91,>9a,>b2
+       byte >b2,>b2,>9d,>89,>8f,>90,>8e,>8e,>92,>9d,>b6,>b2,>b2,>b2,>b2,>b4,>b4,>b2
+       byte >b2,>b2,>93,>89,>95,>96,>98,>9b,>92,>9c,>9a,>b2,>b2,>b2,>b5,>a5,>b2,>b2
+       byte >b2,>b2,>b2,>89,>8e,>8e,>8f,>90,>92,>9a,>b4,>b2,>b2,>b2,>97,>99,>b6,>b2
+       byte >b2,>b2,>b2,>88,>8a,>8a,>8b,>8c,>8d,>9a,>b2,>b2,>b5,>a5,>b0,>b1,>a2,>a5
+       byte >b2,>b2,>b2,>83,>84,>85,>86,>86,>87,>9a,>b2,>b2,>97,>99,>97,>99,>97,>99
+       byte >b2,>b2,>b2,>b2,>81,>82,>9a,>b4,>b4,>b4,>b2,>b2,>9f,>91,>94,>91,>b0,>b1
+       byte >b2,>b2,>b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b4,>97,>99
+       byte >b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>9f,>91
+       byte >b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b5,>a5,>97,>99,>b6,>b4
+       byte >b2,>b5,>a5,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>97,>99,>b0,>b1,>9a,>b2
+       byte >b2,>97,>99,>b6,>b2,>b2,>b4,>b4,>b5,>a5,>b2,>b2,>b0,>b1,>97,>99,>a2,>a5
+       byte >b5,>80,>91,>9a,>b5,>a5,>b2,>b2,>97,>99,>b5,>a5,>97,>99,>94,>91,>97,>99
+       byte >97,>99,>9a,>b4,>97,>99,>b6,>b2,>9f,>91,>97,>99,>b0,>b1,>9a,>b4,>b0,>b1
+       byte >9f,>91,>9a,>b2,>9f,>91,>a2,>a5,>b2,>b4,>b0,>b1,>97,>99,>a2,>a5,>97,>99
+       byte >b2,>b4,>b4,>b2,>b2,>b4,>97,>99,>b5,>a5,>97,>99,>b0,>b1,>97,>99,>94,>91
+       byte >b2,>b2,>b5,>a5,>b2,>b2,>9f,>91,>97,>99,>b0,>b1,>97,>99,>b0,>b1,>9a,>b4
+       byte >b2,>b2,>97,>99,>b6,>b2,>b2,>b4,>b0,>b1,>97,>99,>94,>91,>97,>99,>9a,>b2
+       byte >b2,>b2,>9f,>91,>9a,>b2,>b2,>b2,>97,>99,>94,>91,>9a,>b4,>9f,>91,>9a,>b2
+       byte >b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>9f,>91,>9a,>b4,>b4,>b2,>b2,>b4,>b4,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5
+       byte >97,>99,>b5,>a5,>b2,>b2,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99
+       byte >b0,>b1,>97,>99,>b5,>a5,>97,>99,>b5,>a5,>b2,>b2,>b5,>a5,>b2,>b2,>9f,>91
+       byte >97,>99,>b0,>b1,>97,>99,>b0,>b1,>97,>99,>b5,>a5,>97,>99,>b6,>b2,>b2,>b4
+       byte >b0,>b1,>97,>99,>94,>91,>97,>99,>b0,>b1,>97,>99,>b0,>b1,>9a,>b2,>b2,>b2
+       byte >97,>99,>b0,>b1,>9a,>b4,>b0,>b1,>97,>99,>9f,>89,>97,>99,>9a,>b2,>b2,>b2
+       byte >9f,>91,>97,>99,>a2,>a5,>97,>99,>b0,>b1,>b5,>a5,>9f,>91,>9a,>b2,>b2,>b2
+       byte >b2,>b4,>b0,>b1,>97,>99,>94,>91,>97,>99,>97,>99,>b6,>b4,>b4,>b2,>b2,>b2
+       byte >b5,>a5,>97,>99,>94,>81,>b3,>b4,>b0,>b1,>9f,>91,>9a,>b2,>b5,>a5,>b2,>b2
+       byte >97,>99,>b0,>b1,>9a,>97,>99,>b6,>97,>99,>b6,>b4,>b4,>b2,>97,>99,>b6,>b2
+       byte >b0,>b1,>97,>99,>9a,>9f,>91,>9a,>9f,>91,>9a,>b2,>b2,>b2,>9f,>81,>b3,>b2
+       byte >97,>99,>94,>89,>a2,>a5,>b4,>b4,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>97,>99,>b6
+       byte >9f,>91,>9a,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>9f,>91,>9a
+       byte >b2,>b4,>b4,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4
+       byte >b2,>b2,>b2,>b2,>b5,>b3,>b4,>b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b2,>b2,>b2
+       byte >b2,>b2,>b2,>b2,>97,>99,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2
+       byte >b2,>b2,>b5,>a5,>b0,>b1,>b5,>a5,>b2,>b2,>b2,>b2,>9f,>91,>85,>92,>93,>96
+       byte >b2,>b2,>97,>99,>97,>99,>97,>99,>b6,>b2,>b2,>b2,>b2,>b4,>8b,>8d,>8e,>8f
+       byte >b2,>b2,>b0,>b1,>94,>91,>94,>91,>9a,>b2,>b2,>b2,>b2,>b2,>87,>88,>8a,>9a
+       byte >b2,>b2,>97,>99,>9a,>b4,>b4,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>83,>84,>86,>9a
+       byte >b5,>a5,>9f,>91,>a2,>a5,>8c,>92,>93,>96,>b2,>b2,>b2,>b2,>82,>b4,>b4,>b4
+       byte >97,>99,>b6,>b4,>97,>99,>8b,>8d,>8e,>8f,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2
+       byte >9f,>91,>a2,>a5,>9f,>91,>87,>88,>8a,>9a,>b2,>b2,>b2,>b2,>b5,>a5,>b5,>a5
+       byte >b2,>b4,>97,>99,>b6,>b4,>83,>84,>86,>9a,>b2,>b2,>b2,>b2,>97,>99,>97,>99
+       byte >b2,>b2,>9f,>91,>9a,>b2,>82,>b4,>b4,>b4,>b2,>b2,>b2,>b2,>9f,>91,>94,>91
+       byte >b2,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b4,>b4,>b4
+       byte >b2,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b5,>a5
+       byte >b2,>b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>97,>99
+       byte >b5,>a5,>b2,>b2,>b2,>9f,>81,>b3,>b5,>a5,>b2,>b2,>b5,>a5,>b2,>b2,>9f,>91
+       byte >97,>99,>b6,>b2,>b2,>b2,>97,>99,>97,>99,>b6,>b2,>97,>99,>b6,>b2,>b2,>b4
+       byte >9f,>91,>a2,>a5,>b5,>a5,>9f,>81,>80,>91,>9a,>b2,>9f,>91,>9a,>b2,>b2,>b2
+       byte >b2,>b4,>97,>99,>97,>99,>b6,>97,>99,>9a,>b4,>b2,>b2,>b4,>a2,>a5,>b2,>b2
+       byte >b2,>b2,>b0,>b1,>94,>91,>a2,>80,>91,>9a,>b2,>b2,>b5,>a5,>97,>99,>b6,>b2
+       byte >b2,>b2,>97,>99,>9a,>b4,>97,>99,>9a,>b4,>b2,>b2,>97,>99,>b0,>b1,>9a,>b2
+       byte >b2,>b2,>9f,>91,>9a,>b2,>9f,>91,>a2,>a5,>b2,>b2,>9f,>91,>97,>99,>a2,>a5
+       byte >b2,>b2,>b2,>b4,>a2,>a5,>b2,>b4,>97,>99,>b6,>b2,>b2,>b4,>9f,>91,>97,>99
+       byte >b2,>b2,>b2,>b2,>97,>99,>b6,>b2,>9f,>91,>9a,>b2,>b2,>b2,>b2,>b4,>9f,>91
+       byte >b2,>b2,>b2,>b2,>9f,>91,>9a,>b2,>b2,>b4,>b4,>b2,>b2,>b2,>b2,>b2,>b2,>b4
+       byte >b5,>a5,>b2,>b2,>b2,>b4,>a2,>a5,>b5,>a5,>b2,>b2,>b2,>b2,>b5,>a5,>b2,>b2
+       byte >97,>99,>b6,>b2,>b2,>b2,>97,>99,>97,>99,>b6,>b2,>b2,>b2,>97,>99,>b6,>b2
+       byte >b0,>b1,>9a,>b2,>b5,>a5,>b0,>b1,>94,>91,>9a,>b2,>b5,>a5,>9f,>91,>a2,>a5
+       byte >97,>99,>9a,>b2,>97,>99,>97,>99,>a2,>b3,>b4,>b2,>97,>99,>b5,>b3,>97,>99
+       byte >9f,>91,>a2,>a5,>a8,>aa,>ac,>aa,>ad,>ae,>af,>af,>ac,>aa,>ad,>ae,>b0,>b1
+       byte >95,>85,>97,>99,>90,>89,>89,>89,>9c,>9d,>89,>89,>89,>89,>9c,>9d,>97,>99
+       byte >c4,>c5,>8c,>91,>89,>89,>92,>89,>89,>89,>89,>89,>89,>89,>89,>89,>94,>91
+       byte >96,>c2,>96,>85,>89,>89,>90,>89,>89,>89,>89,>89,>89,>89,>89,>89,>9a,>85
+       byte >c4,>c5,>c4,>c5,>88,>88,>88,>88,>88,>88,>88,>88,>88,>88,>88,>88,>9a,>c5
+       byte >96,>c2,>96,>c2,>98,>98,>98,>98,>98,>98,>98,>98,>9b,>98,>98,>98,>9a,>c2
+       byte >c4,>c5,>c4,>c5,>98,>98,>98,>98,>98,>98,>98,>98,>82,>98,>98,>98,>9a,>c5
+       byte >96,>c2,>96,>c2,>98,>98,>9b,>98,>98,>98,>98,>98,>98,>98,>98,>98,>9a,>c2
+       byte >c4,>c5,>c4,>c5,>8d,>8e,>8f,>8e,>8e,>8e,>8e,>8e,>8e,>8e,>8e,>8e,>9a,>c5
+       byte >96,>c2,>96,>c2,>96,>85,>86,>85,>86,>85,>86,>85,>86,>85,>86,>85,>86,>c2
+       byte >c4,>c5,>c4,>c5,>c4,>c5,>c4,>c5,>c4,>c5,>c4,>c5,>8b,>a1,>ca,>cc,>c4,>c5
+       byte >96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>93,>a0,>c8,>c9,>96,>c2
+       byte >c4,>c5,>8b,>a1,>ca,>cc,>c4,>c5,>c4,>c5,>c4,>c5,>a6,>a7,>a9,>9a,>c4,>c5
+       byte >96,>c2,>93,>a0,>c8,>c9,>96,>c2,>96,>c2,>96,>c2,>a4,>c6,>c7,>9a,>96,>c2
+       byte >c4,>c5,>a6,>a7,>a9,>9a,>c4,>c5,>c4,>c5,>c4,>c5,>81,>83,>84,>8a,>c4,>c5
+       byte >96,>c2,>a4,>c6,>c7,>9a,>96,>c2,>96,>c2,>96,>c2,>93,>a0,>c8,>c9,>96,>c2
+       byte >c4,>c5,>a3,>c3,>9e,>80,>c4,>c5,>c4,>c5,>c4,>c5,>a6,>a7,>a9,>9a,>c4,>87
+       byte >96,>c2,>96,>c2,>96,>ab,>96,>c2,>96,>c2,>96,>c2,>a4,>c6,>c7,>9a,>96,>ab
+       byte >c4,>87,>c4,>c5,>c4,>c5,>c4,>87,>c4,>c5,>c4,>87,>a3,>c3,>9e,>c3,>c4,>c5
+       byte >96,>ab,>96,>c2,>96,>c2,>96,>ab,>96,>c2,>96,>ab,>96,>c2,>96,>c2,>96,>c2
+       byte >c4,>c5,>8b,>a1,>ca,>cc,>c4,>c5,>c4,>c5,>c4,>c5,>8b,>a1,>ca,>cc,>c4,>87
+       byte >96,>c2,>93,>a0,>c8,>c9,>96,>c2,>96,>c2,>96,>c2,>93,>a0,>c8,>c9,>96,>ab
+       byte >c4,>c5,>a6,>a7,>a9,>9a,>c4,>87,>c4,>87,>c4,>c5,>a6,>a7,>a9,>9a,>c4,>c5
+       byte >96,>c2,>a4,>c6,>c7,>9a,>96,>ab,>96,>ab,>96,>c2,>a4,>c6,>c7,>9a,>96,>c2
+       byte >c4,>c5,>a3,>c3,>9e,>c3,>c4,>c5,>c4,>c5,>c4,>c5,>a3,>c3,>9e,>c3,>c4,>c5
+       byte >96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2,>96,>c2
+       byte >8c,>9c,>8c,>c0,>c1,>c0,>c1,>c0,>c1,>c0,>c1,>c0,>c1,>c0,>c1,>c0,>c1,>c0
+       byte >a2,>a2,>a2,>9a,>99,>97,>99,>97,>99,>97,>99,>97,>99,>97,>99,>97,>99,>97
+       byte >a2,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >82,>90,>82,>c3,>91,>92,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >96,>c2,>96,>c2,>96,>c2,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >8b,>a1,>ca,>cc,>c4,>c5,>aa,>a8,>aa,>a8,>aa,>a8,>aa,>a8,>aa,>a8,>aa,>a8
+       byte >93,>a0,>c8,>c9,>96,>c2,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >a6,>a7,>a9,>9a,>c4,>c5,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >9f,>c6,>c7,>9a,>96,>c2,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b
+       byte >9e,>c3,>9e,>c3,>c4,>c5,>9a,>86,>85,>86,>85,>86,>85,>86,>85,>86,>85,>86
+       byte >96,>c2,>96,>c2,>96,>c2,>9a,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >8c,>9c,>8c,>c0,>c1,>c0,>9a,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>98,>98,>99,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>a2,>a2,>9a,>81,>bd,>be,>bf,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>83,>84,>bc,>b5,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >ba,>ba,>ba,>9a,>a5,>cd,>9a,>bb,>aa,>a8,>aa,>a8,>aa,>a8,>aa,>a8,>aa,>a8
+       byte >cb,>cb,>cb,>cb,>80,>cb,>b9,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >b0,>8f,>b0,>8f,>80,>80,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >83,>84,>83,>84,>b7,>80,>b8,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b,>9b
+       byte >8a,>cd,>8d,>8e,>9a,>80,>80,>cb,>87,>b6,>85,>86,>85,>86,>85,>86,>85,>86
+       byte >cb,>9a,>83,>84,>9a,>80,>80,>80,>b4,>b5,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >b0,>ae,>a5,>cd,>9a,>80,>80,>80,>af,>b1,>b2,>b3,>88,>89,>88,>89,>88,>89
+       byte >83,>84,>80,>cb,>cb,>80,>80,>80,>ab,>ab,>ac,>ac,>ad,>95,>94,>95,>94,>95
+       byte >8d,>8e,>b0,>8f,>80,>80,>80,>80,>ab,>ab,>ac,>ac,>9a,>89,>88,>89,>88,>89
+       byte >83,>84,>83,>84,>80,>80,>80,>80,>ab,>ab,>ac,>ac,>9a,>95,>94,>95,>94,>95
+       byte >8a,>cd,>8d,>8e,>b0,>8f,>80,>80,>ab,>ab,>ac,>ac,>9a,>89,>88,>89,>88,>89
+       byte >cb,>cb,>83,>84,>83,>84,>b0,>8f,>ab,>ab,>ac,>ac,>9a,>95,>94,>95,>94,>95
+       byte >b0,>8f,>8d,>8e,>8d,>8e,>82,>90,>91,>91,>92,>92,>9a,>a8,>aa,>a8,>aa,>a8
+       byte >83,>84,>83,>84,>83,>84,>a4,>a3,>a3,>a3,>a3,>a3,>9a,>97,>9d,>9d,>9d,>9d
+       byte >a5,>cd,>8d,>8e,>8d,>8e,>a1,>a1,>a1,>a1,>a1,>a1,>9a,>8b,>97,>9d,>9d,>9d
+       byte >80,>cb,>83,>84,>83,>84,>a0,>a0,>a0,>a0,>93,>a0,>9a,>a2,>8b,>9b,>9b,>9b
+       byte >80,>80,>a5,>cd,>8d,>8e,>a6,>a6,>a7,>a6,>a9,>a6,>9a,>a2,>a2,>9a,>85,>86
+       byte >80,>80,>80,>cb,>83,>84,>a3,>a3,>a4,>a3,>a3,>a3,>9a,>9f,>a2,>9a,>94,>95
+       byte >80,>80,>b0,>8f,>8a,>cd,>a1,>a1,>a1,>a1,>a1,>a1,>9a,>9e,>9f,>9a,>88,>89
+       byte >80,>80,>83,>84,>9a,>cb,>93,>a0,>a0,>a0,>a0,>a0,>9a,>9b,>96,>9a,>94,>95
+       byte >b0,>8f,>8d,>8e,>9a,>80,>8c,>9c,>9c,>9c,>9c,>9c,>9a,>86,>85,>86,>88,>89
+       byte >83,>84,>83,>84,>9a,>80,>cb,>cb,>98,>98,>98,>9a,>99,>95,>94,>95,>94,>95
+       byte >8d,>8e,>8a,>cd,>9a,>81,>81,>81,>9f,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89
+       byte >83,>84,>9a,>cb,>98,>97,>9d,>9d,>9e,>9f,>a2,>9a,>94,>95,>94,>95,>94,>95
+       byte >8d,>8e,>9a,>80,>a2,>8b,>97,>9d,>9d,>9e,>9f,>9a,>88,>89,>88,>89,>88,>89
+       byte >83,>84,>9a,>80,>a2,>a2,>8b,>9b,>9b,>9b,>96,>9a,>94,>95,>94,>95,>94,>95
+       byte >8a,>cd,>9a,>80,>a2,>a2,>a2,>9a,>85,>86,>85,>86,>88,>89,>88,>89,>88,>89
+       byte >cb,>cb,>cb,>80,>a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >87,>81,>81,>81,>9f,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >8b,>97,>9d,>9d,>9e,>9f,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>8b,>97,>9d,>9d,>9e,>9f,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>8b,>9b,>9b,>9b,>96,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>a2,>a2,>9a,>85,>86,>85,>86,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >a2,>a2,>a2,>9a,>91,>92,>88,>89,>88,>89,>88,>89,>88,>89,>82,>92,>82,>92
+       byte >a2,>a2,>a2,>9a,>c8,>a8,>94,>95,>94,>95,>94,>95,>94,>95,>90,>90,>90,>90
+       byte >a7,>a7,>a7,>9a,>c8,>a8,>88,>89,>88,>89,>88,>89,>aa,>ab,>a6,>a6,>a6,>a6
+       byte >cb,>cb,>cb,>cb,>c8,>a8,>94,>95,>94,>95,>94,>95,>a5,>a6,>80,>80,>80,>80
+       byte >80,>80,>80,>80,>c8,>a8,>88,>89,>88,>89,>82,>a3,>a4,>80,>b0,>8f,>80,>80
+       byte >80,>80,>80,>80,>c8,>a8,>94,>95,>94,>95,>a8,>a9,>80,>80,>83,>84,>93,>80
+       byte >b0,>8f,>80,>80,>c8,>a8,>88,>89,>88,>89,>a8,>a9,>80,>80,>cc,>cd,>8c,>8f
+       byte >83,>84,>93,>80,>c8,>a8,>94,>95,>94,>95,>a8,>a9,>80,>80,>80,>cb,>83,>84
+       byte >cc,>cd,>9a,>80,>c8,>a8,>88,>89,>88,>89,>a8,>a9,>80,>80,>b0,>8f,>cc,>cd
+       byte >80,>cb,>cb,>80,>c8,>a8,>94,>95,>94,>95,>a8,>a9,>80,>80,>83,>84,>93,>cb
+       byte >80,>80,>81,>81,>a1,>ce,>c9,>ca,>c9,>ca,>ce,>cf,>81,>81,>cc,>cd,>9a,>80
+       byte >80,>80,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>80,>cb,>cb,>80
+       byte >b0,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9c,>a0,>80,>93,>b0,>8f
+       byte >83,>84,>9b,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>b2,>83,>84,>93,>cb,>83,>84
+       byte >87,>8a,>9a,>80,>8d,>8e,>98,>99,>98,>99,>8e,>d0,>cc,>cd,>8c,>8f,>cc,>cd
+       byte >83,>84,>9a,>80,>c8,>a8,>94,>95,>94,>95,>a8,>a9,>80,>cb,>83,>84,>93,>cb
+       byte >cc,>cd,>9a,>80,>c8,>a8,>88,>89,>c9,>ca,>ce,>cf,>81,>81,>cc,>cd,>9a,>80
+       byte >c7,>ac,>ac,>80,>c8,>a8,>94,>95,>9d,>9d,>9d,>9d,>9d,>9d,>80,>cb,>cb,>80
+       byte >a2,>a2,>96,>97,>c1,>c2,>88,>89,>9d,>9d,>c3,>c4,>c5,>c6,>80,>80,>b0,>8f
+       byte >a2,>a2,>86,>86,>86,>86,>bc,>95,>9d,>9d,>bd,>be,>bf,>c0,>80,>80,>83,>84
+       byte >9f,>a2,>85,>85,>85,>85,>9a,>89,>9d,>9d,>b9,>ba,>bb,>9a,>80,>80,>cc,>cd
+       byte >9e,>9f,>af,>af,>af,>af,>9a,>95,>9d,>9d,>b6,>b7,>b8,>9a,>80,>80,>80,>cb
+       byte >b2,>b3,>8b,>8b,>8b,>8b,>9a,>89,>9d,>9d,>b4,>b5,>b5,>b5,>80,>80,>80,>80
+       byte >80,>80,>86,>86,>86,>86,>9a,>95,>9d,>9d,>9d,>9d,>9d,>9d,>80,>80,>80,>80
+       byte >b0,>8f,>85,>85,>85,>85,>9a,>89,>b1,>9b,>9b,>9b,>9b,>9b,>b0,>8f,>80,>80
+       byte >83,>84,>af,>af,>af,>af,>9a,>95,>94,>90,>ad,>90,>91,>92,>83,>84,>93,>80
+       byte >87,>8a,>8b,>8b,>8b,>8b,>9a,>89,>88,>89,>88,>89,>a8,>a9,>cc,>cd,>8c,>8f
+       byte >83,>84,>86,>86,>86,>86,>9a,>95,>94,>95,>94,>95,>a8,>a9,>80,>cb,>83,>84
+       byte >cc,>cd,>85,>85,>85,>85,>9a,>89,>88,>89,>88,>89,>a8,>a9,>80,>80,>cc,>cd
+       byte >80,>cb,>af,>af,>af,>af,>9a,>95,>94,>95,>94,>95,>a8,>a9,>80,>80,>80,>cb
+       byte >80,>80,>82,>ae,>ae,>ae,>9a,>89,>88,>89,>88,>89,>a5,>a6,>a7,>80,>80,>80
+       byte >80,>80,>a2,>ac,>ac,>9a,>ad,>95,>94,>95,>94,>95,>94,>95,>a3,>a4,>80,>80
+       byte >80,>80,>a2,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>aa,>ab,>80,>80
+       byte >80,>80,>a2,>a2,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>a8,>a9,>80,>80
+       byte >81,>81,>9f,>a2,>a2,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>a5,>a6,>a7,>80
+       byte >9d,>9d,>9e,>9f,>a2,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>a3,>a4
+       byte >9d,>9d,>9d,>9e,>9f,>9a,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>a0,>a1
+       byte >9b,>9b,>9b,>9b,>9c,>9a,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >98,>99,>98,>99,>98,>99,>88,>89,>8d,>8e,>88,>89,>88,>89,>88,>89,>88,>89
+       byte >94,>95,>94,>95,>94,>95,>94,>95,>88,>89,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >88,>89,>8d,>8e,>88,>89,>8d,>8e,>94,>95,>88,>89,>8d,>8e,>88,>89,>88,>89
+       byte >94,>95,>88,>89,>94,>95,>88,>89,>88,>89,>94,>95,>88,>89,>94,>95,>94,>95
+       byte >88,>89,>96,>97,>8d,>8e,>94,>95,>94,>95,>88,>89,>96,>97,>88,>89,>8d,>8e
+       byte >94,>95,>94,>95,>88,>89,>88,>89,>88,>89,>94,>95,>94,>95,>94,>95,>88,>89
+       byte >88,>89,>8d,>8e,>96,>97,>94,>95,>96,>97,>88,>89,>8d,>8e,>88,>89,>94,>95
+       byte >94,>95,>88,>89,>94,>95,>88,>89,>94,>95,>94,>95,>88,>89,>94,>95,>88,>89
+       byte >88,>89,>96,>97,>88,>89,>96,>97,>88,>89,>88,>89,>94,>95,>88,>89,>96,>97
+       byte >94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>88,>89,>94,>95,>94,>95
+       byte >88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>88,>89,>96,>97,>88,>89,>88,>89
+       byte >94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95
+       byte >8d,>8e,>8f,>90,>91,>92,>93,>90,>91,>92,>91,>92,>93,>90,>93,>90,>93,>90
+       byte >88,>89,>83,>84,>8a,>8b,>8c,>84,>8a,>8b,>8a,>8b,>8c,>84,>84,>84,>84,>84
+       byte >85,>86,>87,>c7,>cc,>cd,>9a,>80,>cc,>cd,>bf,>c0,>cb,>80,>80,>80,>c6,>c7
+       byte >83,>84,>c3,>c4,>c5,>cb,>cb,>80,>80,>cb,>c3,>c4,>c5,>80,>80,>80,>c3,>c4
+       byte >82,>80,>cc,>cd,>9a,>c6,>c7,>80,>80,>80,>cc,>cd,>9a,>80,>c6,>c7,>cc,>cd
+       byte >80,>80,>80,>cb,>cb,>c3,>c4,>c5,>80,>80,>80,>cb,>b3,>c7,>c3,>c4,>c5,>cb
+       byte >80,>c6,>c7,>80,>80,>cc,>cd,>9a,>80,>80,>80,>80,>c3,>c4,>bf,>c0,>9a,>80
+       byte >80,>c3,>c4,>c5,>80,>80,>cb,>cb,>c6,>c7,>80,>80,>bf,>c0,>c3,>c4,>b3,>c7
+       byte >c6,>81,>cd,>9a,>c6,>c7,>80,>80,>c3,>c4,>c6,>c7,>c3,>c4,>c1,>c2,>c3,>c4
+       byte >c3,>c4,>9a,>cb,>c3,>c4,>c5,>80,>cc,>cd,>c3,>c4,>bf,>c0,>9a,>80,>bf,>c0
+       byte >cc,>cd,>9a,>80,>cc,>cd,>b3,>c7,>c5,>cb,>bf,>c0,>c3,>c4,>b3,>c7,>c3,>c4
+       byte >80,>cb,>cb,>80,>80,>cb,>c3,>c4,>b3,>c7,>c3,>c4,>bf,>c0,>c3,>c4,>c1,>cd
+       byte >80,>80,>c6,>c7,>80,>80,>cc,>cd,>c3,>c4,>bf,>c0,>c3,>c4,>bf,>c0,>cb,>cb
+       byte >80,>80,>c3,>c4,>c5,>80,>80,>cb,>bf,>c0,>c3,>c4,>c1,>cd,>c3,>c4,>c5,>80
+       byte >80,>80,>cc,>cd,>9a,>80,>80,>80,>c3,>c4,>c1,>cd,>9a,>cb,>cc,>cd,>9a,>80
+       byte >80,>80,>80,>cb,>cb,>80,>80,>80,>cc,>cd,>9a,>cb,>cb,>80,>80,>cb,>cb,>80
+       byte >80,>80,>80,>80,>80,>80,>80,>80,>80,>cb,>cb,>80,>80,>80,>80,>80,>80,>80
+       byte >80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80
+       byte >c6,>c7,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>80,>c6,>c7
+       byte >c3,>c4,>c6,>c7,>80,>80,>c6,>c7,>80,>80,>80,>80,>80,>80,>80,>80,>c3,>c4
+       byte >bf,>c0,>c3,>c4,>c6,>c7,>c3,>c4,>c6,>c7,>80,>80,>c6,>c7,>80,>80,>cc,>cd
+       byte >c3,>c4,>bf,>c0,>c3,>c4,>bf,>c0,>c3,>c4,>c6,>c7,>c3,>c4,>c5,>80,>80,>cb
+       byte >bf,>c0,>c3,>c4,>c1,>cd,>c3,>c4,>bf,>c0,>c3,>c4,>bf,>c0,>cb,>80,>80,>80
+       byte >c3,>c4,>bf,>c0,>9a,>cb,>bf,>c0,>c3,>c4,>c1,>cd,>c3,>c4,>c5,>80,>80,>80
+       byte >cc,>cd,>c3,>c4,>b3,>c7,>c3,>c4,>bf,>c0,>b3,>c9,>cc,>cd,>9a,>80,>80,>80
+       byte >80,>cb,>bf,>c0,>c3,>c4,>c1,>cd,>c3,>c4,>c3,>c4,>c5,>cb,>cb,>80,>80,>80
+       byte >c6,>c7,>c3,>c4,>c1,>c8,>c9,>cb,>bf,>c0,>cc,>cd,>9a,>80,>c6,>c7,>80,>80
+       byte >c3,>c4,>bf,>c0,>9a,>c3,>c4,>c5,>c3,>c4,>c5,>cb,>cb,>80,>c3,>c4,>c5,>80
+       byte >bf,>c0,>c3,>c4,>cb,>cc,>cd,>9a,>cc,>cd,>9a,>80,>80,>80,>cc,>c8,>c9,>80
+       byte >c3,>c4,>c1,>c2,>c6,>c7,>cb,>cb,>80,>cb,>cb,>80,>80,>80,>80,>c3,>c4,>c5
+       byte >cc,>cd,>9a,>80,>c3,>c4,>c5,>80,>80,>80,>80,>80,>80,>80,>80,>cc,>cd,>9a
+       byte >80,>cb,>cb,>80,>cc,>cd,>9a,>80,>80,>80,>80,>80,>80,>80,>80,>80,>cb,>cb
+       byte >80,>80,>80,>80,>80,>d0,>d1,>87,>d7,>80,>80,>80,>80,>80,>80,>80,>80,>81
+       byte >80,>80,>80,>80,>87,>88,>82,>82,>d6,>87,>87,>87,>87,>d7,>80,>80,>87,>88
+       byte >80,>80,>80,>81,>82,>83,>84,>84,>85,>82,>82,>82,>82,>86,>87,>87,>82,>83
+       byte >87,>87,>87,>88,>84,>84,>84,>84,>84,>84,>84,>84,>84,>84,>82,>82,>84,>84
+       byte >89,>89,>8a,>8b,>8c,>8d,>8c,>8d,>8c,>8d,>8c,>8d,>8e,>8e,>8f,>90,>91,>92
+       byte >93,>93,>94,>95,>94,>95,>94,>95,>94,>95,>94,>95,>93,>93,>96,>97,>98,>99
+       byte >93,>93,>9a,>9a,>9a,>9a,>9a,>9a,>9a,>9a,>9a,>9a,>9b,>9c,>9d,>9e,>9f,>a0
+       byte >93,>93,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>9a,>96,>97,>93,>93,>a3,>93
+       byte >93,>93,>9a,>9a,>9a,>9a,>a4,>a5,>9a,>9a,>9a,>9a,>9d,>9e,>93,>93,>a6,>a7
+       byte >93,>93,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>9a,>93,>93,>93,>93,>a8,>a8
+       byte >93,>93,>9a,>9a,>9a,>9a,>a4,>a5,>9a,>9a,>9a,>a9,>aa,>aa,>aa,>aa,>ab,>ac
+       byte >93,>93,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>ad,>ae,>ae,>ae,>ae,>a3,>93
+       byte >93,>93,>9a,>9a,>9a,>9a,>a4,>a5,>9a,>9a,>9a,>af,>b0,>b0,>b0,>b0,>a6,>a7
+       byte >93,>93,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>9a,>93,>93,>93,>93,>a8,>a8
+       byte >b1,>b2,>9a,>9a,>9a,>9a,>a4,>a5,>9a,>9a,>9a,>a9,>aa,>aa,>9b,>9c,>ab,>ac
+       byte >98,>99,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>ad,>ae,>ae,>96,>97,>a3,>93
+       byte >b3,>b4,>9a,>9a,>9a,>9a,>a4,>a5,>9a,>9a,>9a,>af,>b0,>b0,>9d,>9e,>a6,>a7
+       byte >98,>99,>9a,>9a,>b5,>b6,>a1,>a2,>b5,>b6,>9a,>9a,>93,>93,>93,>93,>a8,>a8
+       byte >b7,>b8,>9a,>9a,>b9,>ba,>a4,>a5,>b9,>ba,>9a,>9a,>93,>93,>bb,>bc,>ab,>ac
+       byte >bd,>be,>9a,>9a,>b5,>b6,>a1,>a2,>b5,>b6,>9a,>9a,>93,>93,>bd,>be,>a3,>93
+       byte >be,>93,>9a,>9a,>b9,>ba,>a4,>a5,>b9,>ba,>9a,>9a,>93,>93,>be,>93,>bf,>c0
+       byte >93,>93,>9a,>9a,>9a,>9a,>a1,>a2,>9a,>9a,>9a,>9a,>93,>93,>93,>93,>c1,>c2
+       byte >c3,>c3,>c4,>c4,>c4,>c4,>c5,>c6,>c7,>c8,>c4,>c4,>c3,>c3,>c3,>c3,>c9,>ca
+       byte >cb,>cb,>cb,>cb,>cb,>cb,>c1,>c2,>cc,>cd,>cb,>cb,>cb,>cb,>cb,>cb,>ce,>cf
+       byte >cb,>cb,>cb,>cb,>cb,>cb,>d0,>d1,>d2,>d3,>cb,>cb,>cb,>cb,>cb,>cb,>d4,>d5
+       byte >cb,>cb,>cb,>cb,>cb,>cb,>d0,>d1,>d0,>d1,>cb,>cb,>cb,>cb,>cb,>cb,>bd,>be

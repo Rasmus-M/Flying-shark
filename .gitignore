@@ -3,11 +3,12 @@
 /encode/encode.iml
 zx-spectrum/
 /out/
+*.bin
 make.log
 shark.dsk
 shark.lst
 shark.obj
-shark8.bin
 flying-shark.rpk
 shark
 sharl
+!/mag/chars.bin
