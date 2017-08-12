@@ -156,9 +156,10 @@ public class Encode implements Runnable {
                 System.out.println("TChars: " + tChars.size());
                 for (int i = 0; i < tChars.size(); i++) {
                     int key = tChars.get(i);
-                    int toChar = key >> 8;
+                    int toChar = (key >> 8) & 0xff;
                     int fromChar = key & 0xff;
                     System.out.println(hexWord(i) + ": " + hexWord(key));
+                    rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
                     rom_out.append("level_" + level + "_pattern_" + to3Digits(i) + ":\n");
                     rom_out.append("       byte ");
                     for (int j = 0; j < 8; j++) {
@@ -172,8 +173,9 @@ public class Encode implements Runnable {
                 rom_out.append("       aorg >6000,1\n");
                 for (int i = 0; i < tChars.size(); i++) {
                     int key = tChars.get(i);
-                    int toChar = key >> 8;
+                    int toChar = (key >> 8) & 0xff;
                     int fromChar = key & 0xff;
+                    rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
                     rom_out.append("level_" + level + "_color_" + to3Digits(i) + ":\n");
                     rom_out.append("       byte ");
                     for (int j = 0; j < 8; j++) {
@@ -210,10 +212,10 @@ public class Encode implements Runnable {
                 System.out.println();
 
                 // Write output
-                FileWriter writer = new FileWriter("level" + level + "-rom.a99");
+                FileWriter writer = new FileWriter("../source/level" + level + "-rom.a99");
                 writer.write(rom_out.toString());
                 writer.close();
-                writer = new FileWriter("level" + level + "-diff.a99");
+                writer = new FileWriter("../source/level" + level + "-diff.a99");
                 writer.write(ram_out.toString());
                 writer.close();
             } else {

@@ -27,6 +27,21 @@ nametb equ  >3800                      ; Name table base 1
 spratb equ  >3b00                      ; Sprite attribute table base
 
 **
+* Constants
+scr_width:
+       equ  32                         ; Width of screen in characters
+scr_height:
+       equ  24                         ; Height of screen in characters
+win_width:
+       equ  18                         ; Width of scrolling window in characters
+win_height:
+       equ  24                         ; Height of scrolling window in characters
+map_width:
+       equ  18                         ; Map width
+map_height:
+       equ  358                        ; Map height
+
+**
 * Scratch pad
 *
 * The interrupt handler might update the timer at >8379 or the VDP status byte at >837B.
@@ -50,6 +65,8 @@ padvar equ  stack+>10
 * PAD variables
 scrly:
        equ  padvar
+diff_pointer:
+       equ  scrly+2
 
 ********************************************************************************
 *
@@ -62,11 +79,11 @@ main:
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
        bl   @gmode                     ; Setup graphics mode
-       bl   @init_scrbuf               ; Init screen buffer
-       clr   @scrly
+       bl   @init                      ; Init
 loop   bl   @vsync
+       bl   @update_char_list
+       bl   @upload_characters
        bl   @draw_screen
-       bl   @update_scrbuf
        jmp  loop
 
 *********************************************************************
@@ -85,10 +102,94 @@ vsync1:
 
 *********************************************************************************
 *
-* Draw a screen of the screen buffer to the VDP
+* Update character list
+*
+update_char_list:
+       mov  @diff_pointer,r0
+       clr  r1
+       movb *r0+,r2                    ; Add counter
+       srl  r2,8
+update_char_list_1:
+       movb *r0+,r1                    ; Char number
+       srl  r1,7                       ; Char offset
+       movb *r0+,r3                    ; Global char number MSB
+       movb *r0+,@r3lb                 ; Global char number LSB
+       sla  r3,4                       ; 16 bytes per pattern/color
+       ai   r3,>6000                   ; Add cartridge base address
+       mov  r3,@char_list(r1)          ; Store in character list
+       dec  r2
+       jne  update_char_list_1
+*      Return
+       b    *r11
+*// update_char_list
+
+*********************************************************************************
+*
+* Upload characters
+*
+upload_characters:
+       mov  r11, *r10+                  ; Push return address onto the stack
+       li   r15,vdpwd
+       li   r0,ptrntb
+       li   r2,128
+       li   r3,char_list
+upload_characters_1:
+       mov  *r3+,r4
+       jlt  upload_characters_2
+       bl   @vwad
+       seto @>6008
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       ai   r0,>2000
+       bl   @vwad
+       ai   r4,-8
+       seto @>600a
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       ai   r0,->2000
+upload_characters_2:
+       ai   r0,8
+       dec  r2
+       jne  upload_characters_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_characters
+
+*********************************************************************************
+*
+* Draw a screen
 *
 draw_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
+       li   r15,vdpwd
+       li   r0,nametb+((scr_width-win_width)/2)
+       li   r1,map_width*(map_height-scr_height)+>6000
+       li   r2,scr_height
+       seto @>600c
+draw_screen_1:
+       li   r3,map_width
+       bl   @vwad
+draw_screen_2:
+       movb *r1+,*r15
+       dec  r3
+       jne  draw_screen_2
+       ai   r0,scr_width
+       dec  r2
+       jne  draw_screen_1
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -97,18 +198,19 @@ draw_screen:
 
 *********************************************************************************
 *
-* Update screen buffer with data from map
+* Init
 *
-update_scrbuf:
-*      Return
-       b    *r11
-*// update_scrbuf
-
-*********************************************************************************
-*
-* Intialize screen buffer with the bottom screen of the map
-*
-init_scrbuf:
+init:
+       li   r0,char_list
+       seto r1
+       li   r2,128
+init1:
+       mov  r1,*r0+
+       dec  r2
+       jne  init1
+       clr   @scrly
+       li   r0,level_1_000_add
+       mov  r0,@diff_pointer
 *      Return
        b    *r11
 *// init_scrbuf
@@ -129,26 +231,22 @@ gmode1:
        dec  r2
        jne  gmode1
 *      Patterns
+       seto @>6008
        li   r0, ptrntb
-       li   r1, >0000
-       li   r2, >1800
+       clr  r1
+       li   r2, >800
        bl   @vdpwr
 *      Colors
+       seto @>600A
        li   r0, colrtb
-       li   r1, >a100
-       li   r2, >1800
-       bl   @vdpwr
-*      Setup name table for bitmap drawing
-       li   r0, nametb
-       bl   @vwad
-       li   r0, vdpwd
        clr  r1
-       li   r2,>300
-inint:
-       movb r1,*r0
-       ai   r1,>0100
-       dec  r2
-       jne  inint
+       li   r2, >800
+       bl   @vdpwr
+*      Name table
+       li   r0, nametb
+       li   r1, >ff00
+       li   r2, >300
+       bl   @vdpwr
 *      Sprite attributes
        li   r0, spratb
        li   r1, >d000
@@ -162,8 +260,8 @@ vregs:
        byte >02                        ; Graphics II mode
        byte >e2                        ; 16K, display on, interrupt enabled
        byte nametb/>400                ; Name table
-       byte >ff                        ; Color table
-       byte ptrntb/>800+>03            ; Pattern table
+       byte >9f                        ; Color table
+       byte ptrntb/>800+>00            ; Pattern table
        byte spratb/>80                 ; Sprite attribute table
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
@@ -345,6 +443,9 @@ vdpwr3:
 *
 * Data
 *
+char_list:
+       bss  128*2
+
        copy "level1-diff.a99"
 
        end  main

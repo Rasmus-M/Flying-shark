@@ -1,4 +1,4 @@
-xas99.py -R -i source/shark.a99 -o shark
+xas99.py -R -i -L shark.lst source/shark.a99 -o shark
 @IF %ERRORLEVEL% NEQ 0 GOTO :end
 
 java -jar tools/ea5tocart.jar shark "FLYING SHARK" > make.log
