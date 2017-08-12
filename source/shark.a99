@@ -23,11 +23,24 @@ sound  equ  >8400
 ptrntb equ  >0000                      ; Pattern table base
 sprptb equ  >1800                      ; Sprite pattern table base
 colrtb equ  >2000                      ; Color table base
-nametb equ  >3800                      ; Name table base 1
-spratb equ  >3b00                      ; Sprite attribute table base
+namet1 equ  >2800                      ; Name table base 1 >A
+namet2 equ  >2c00                      ; Name table base 2 >B
+namet3 equ  >3000                      ; Name table base 3 >C
+namet4 equ  >3400                      ; Name table base 4 >D
+spratb equ  >3700                      ; Sprite attribute table base
 
 **
 * Constants
+cart_base:
+       equ  >6000
+cart_pattern_bank:
+       equ  >6008
+cart_color_bank:
+       equ  >600a
+cart_map_bank:
+       equ  >600c
+cart_map_high_bank:
+       equ  >600e
 scr_width:
        equ  32                         ; Width of screen in characters
 scr_height:
@@ -80,10 +93,14 @@ main:
        li   r10, stack                 ; Setup stack pointer
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; Init
+       bl   @draw_screen
 loop   bl   @vsync
+       bl   @set_name_table
        bl   @update_char_list
        bl   @upload_characters
-       bl   @draw_screen
+       bl   @update_name_table
+       bl   @vsync
+       dec  @scrly
        jmp  loop
 
 *********************************************************************
@@ -102,12 +119,50 @@ vsync1:
 
 *********************************************************************************
 *
+* Set name table
+*
+set_name_table:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @scrly,r0                  ; Get scroll offset
+       coc  @eight,r0                  ; Check which table set to use
+       jeq  set_name_table_2
+       coc  @one,r0                    ; Check which table to use
+       jeq  set_name_table_1
+       li   r0, >020a                  ; namet1
+       jmp  set_name_table_4
+set_name_table_1:
+       li   r0, >020b                  * namet2
+       jmp  set_name_table_4
+set_name_table_2:
+       coc  @one, r0                   * Check which table to use
+       jeq  set_name_table_3
+       li   r0, >020c                  * namet3
+       jmp  set_name_table_4
+set_name_table_3:
+       li   r0, >020d                  * namet4
+*	   Update register 2
+set_name_table_4:
+       bl   @vwtr
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// set_name_table
+
+*********************************************************************************
+*
 * Update character list
 *
 update_char_list:
+       mov  @scrly,r0
+       dec  r0
+       andi r0,7
+       jne  update_char_list_5
        mov  @diff_pointer,r0
        clr  r1
-       movb *r0+,r2                    ; Add counter
+*      Additions
+       movb *r0+,r2                    ; Additions counter
+       jeq  update_char_list_2
        srl  r2,8
 update_char_list_1:
        movb *r0+,r1                    ; Char number
@@ -115,29 +170,58 @@ update_char_list_1:
        movb *r0+,r3                    ; Global char number MSB
        movb *r0+,@r3lb                 ; Global char number LSB
        sla  r3,4                       ; 16 bytes per pattern/color
-       ai   r3,>6000                   ; Add cartridge base address
+       ai   r3,cart_base               ; Add cartridge base address
        mov  r3,@char_list(r1)          ; Store in character list
        dec  r2
        jne  update_char_list_1
+*      Deletions
+update_char_list_2:
+       movb *r0+,r2                    ; Deletions counter
+       jeq  update_char_list_4
+       srl  r2,8
+update_char_list_3:
+       movb *r0+,r1                    ; Char number
+       srl  r1,7                       ; Char offset
+       seto @char_list(r1)             ; Mark as not used in character list
+       dec  r2
+       jne  update_char_list_3
+update_char_list_4:
+       mov  r0,@diff_pointer
 *      Return
+update_char_list_5:
        b    *r11
 *// update_char_list
 
 *********************************************************************************
 *
 * Upload characters
+* TODO: Do not set up VDP address between runs of characters
 *
 upload_characters:
-       mov  r11, *r10+                  ; Push return address onto the stack
+       mov  r11,*r10+                  ; Push return address onto the stack
        li   r15,vdpwd
-       li   r0,ptrntb
-       li   r2,128
+       mov  @scrly,r3                  ; Read scroll offset into register
+*	   Calculate VDP RAM destination address
+       coc  @one,r3                    ; Check which character set to update
+       jeq  update_low_chars
+       li   r0,ptrntb+>400             ; Update high character set (128-255)
+       jmp  upload_characters_0
+update_low_chars:
+       li   r0,ptrntb                  ; Update low character set (128-255)
+*	   Calculate CPU RAM source address
+upload_characters_0:
+       mov  r3,r1                      ; Start with scroll frame
+       dec  r1                         ; Add direction
+       andi r1,>0007                   ; Mod 8
+*      Upload characters
+       li   r2,128                     ; Counter
        li   r3,char_list
 upload_characters_1:
        mov  *r3+,r4
        jlt  upload_characters_2
+       a    r1,r4
        bl   @vwad
-       seto @>6008
+       seto @cart_pattern_bank
        movb *r4+,*r15
        movb *r4+,*r15
        movb *r4+,*r15
@@ -149,7 +233,7 @@ upload_characters_1:
        ai   r0,>2000
        bl   @vwad
        ai   r4,-8
-       seto @>600a
+       seto @cart_color_bank
        movb *r4+,*r15
        movb *r4+,*r15
        movb *r4+,*r15
@@ -169,6 +253,75 @@ upload_characters_2:
        b    *r11
 *// upload_characters
 
+*********************************************************************
+*
+* Update name table off-screen buffer
+*
+update_name_table:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @scrly,r3                  ; Get scroll frame (0-15)
+       andi r3,>000f
+*	   Calculate row offset to the 1/4 of the buffer to update
+       mov  r3,r0                      ; Start with frame number
+       andi r0,>0006                   ; Transform to sequence: 0,0,2,2,4,4,6,6...
+       mov  r0,r2                      ; Copy to R2
+       sla  r0,1                       ; Multiply by 2
+       a    r0,r2                      ; Add to R2 to multiply by 6 and get row offset: 0,0,6,6,12,12,18,18...
+       mov  r2,r0                      ; Copy back into R0 for later
+*	   Calculate map source address in R1
+       mov  @scrly,r1                  ; Get scroll offset in pixels
+       srl  r1,3                       ; Divide by 8 to get row offset
+       dec  r1                         ; Prepared buffer has a 1 row offset
+       a    r2,r1                      ; Add the row offset we calculated before
+       li   r2,map_width
+       mpy  r2,r1                      ; Multiply by map width to get character offset
+       li   r1,cart_base               ; Get the map base address
+       a    r2,r1                      ; Add the character offset
+*	   Calculate buffer destination address in R0
+       sla  r0,5                       ; Convert row offset to character offset
+       ai   r0,(scr_width-win_width)/2 ; Center
+*	   Decide which buffer to update
+       coc  @eight,r3                  ; Bit weight >08 determines the group
+       jne  update_name_table_2        ; If not set we update buffer 2 or 3
+       coc  @one,r3                    ; Bit weight >01 determines the buffer
+       jeq  update_name_table_1
+       ai   r0,namet1                  ; Add base address to character offset
+       seto @cart_map_bank             ; Select map cartridge bank
+       jmp  update_name_table_4
+update_name_table_1:
+       ai   r0,namet2                  ; Add base address to character offset
+       seto @cart_map_high_bank        ; Select map cartridge bank
+       jmp  update_name_table_4
+update_name_table_2:
+       coc  @one,r3                    ; Bit weight >01 determines the buffer
+       jeq  update_name_table_3
+       ai   r0,namet3                  ; Add base address to character offset
+       seto @cart_map_bank             ; Select map cartridge bank
+       jmp  update_name_table_4
+update_name_table_3:
+       ai   r0,namet4                  ; Add base address to character offset
+       seto @cart_map_high_bank        ; Select map cartridge bank
+update_name_table_4:
+*	   Copy to VDP RAM buffer
+       li   r15,vdpwd
+       li   r2,6
+update_name_table_5:
+       bl   @vwad
+       li   r3,win_width
+update_name_table_6:
+       movb *r1+,*r15
+       movb *r1+,*r15
+       dect r3
+       jne  update_name_table_6
+       ai   r0,scr_width
+       dec  r2
+       jne  update_name_table_5
+*	   Return
+       dect r10                        * Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_name_table
+
 *********************************************************************************
 *
 * Draw a screen
@@ -176,13 +329,20 @@ upload_characters_2:
 draw_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
        li   r15,vdpwd
-       li   r0,nametb+((scr_width-win_width)/2)
-       li   r1,map_width*(map_height-scr_height)+>6000
-       li   r2,scr_height
-       seto @>600c
+*      Source address
+       mov  @scrly,r1
+       srl  r1,3
+       li   r0,map_width
+       mpy  r1,r0
+       ai   r1,cart_base
+       mov  r1,r4
+*      Map
+       li   r0,namet3+((scr_width-win_width)/2)
+       li   r2,win_height
+       seto @cart_map_bank
 draw_screen_1:
-       li   r3,map_width
        bl   @vwad
+       li   r3,win_width
 draw_screen_2:
        movb *r1+,*r15
        dec  r3
@@ -190,6 +350,25 @@ draw_screen_2:
        ai   r0,scr_width
        dec  r2
        jne  draw_screen_1
+*      Map - high
+       li   r0,namet4+((scr_width-win_width)/2)
+       mov r4,r1
+       li   r2,win_height
+       seto @cart_map_high_bank
+draw_screen_3:
+       bl   @vwad
+       li   r3,win_width
+draw_screen_4:
+       movb *r1+,*r15
+       dec  r3
+       jne  draw_screen_4
+       ai   r0,scr_width
+       dec  r2
+       jne  draw_screen_3
+*      Update chars
+       inct @scrly
+       bl   @update_char_list
+       dect @scrly
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -201,6 +380,7 @@ draw_screen_2:
 * Init
 *
 init:
+*      Reset character list
        li   r0,char_list
        seto r1
        li   r2,128
@@ -208,7 +388,9 @@ init1:
        mov  r1,*r0+
        dec  r2
        jne  init1
-       clr   @scrly
+*      Init variables
+       li   r0,(map_height-win_height)*8-1
+       mov  r0,@scrly
        li   r0,level_1_000_add
        mov  r0,@diff_pointer
 *      Return
@@ -220,46 +402,46 @@ init1:
 * Set graphics mode
 *
 gmode:
-       mov  r11, *r10+                  ; Push return address onto the stack
+       mov  r11,*r10+                  ; Push return address onto the stack
        clr  r0
-       li   r1, vregs
-       li   r2, 8
+       li   r1,vregs
+       li   r2,8
 gmode1:
-       movb *r1+, @r0lb
+       movb *r1+,@r0lb
        bl   @vwtr                      ; Set register
-       ai   r0, >0100
+       ai   r0,>0100
        dec  r2
        jne  gmode1
 *      Patterns
        seto @>6008
        li   r0, ptrntb
        clr  r1
-       li   r2, >800
+       li   r2,>800
        bl   @vdpwr
 *      Colors
        seto @>600A
-       li   r0, colrtb
+       li   r0,colrtb
        clr  r1
-       li   r2, >800
+       li   r2,>800
        bl   @vdpwr
-*      Name table
-       li   r0, nametb
-       li   r1, >ff00
-       li   r2, >300
+*      Name table2
+       li   r0,namet1
+       li   r1,>ff00
+       li   r2,>1000
        bl   @vdpwr
 *      Sprite attributes
-       li   r0, spratb
-       li   r1, >d000
+       li   r0,spratb
+       li   r1,>d000
        bl   @vsbw
 *      Return
        dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
+       mov  *r10,r11
        b    *r11
 *      VDP registers
 vregs:
        byte >02                        ; Graphics II mode
        byte >e2                        ; 16K, display on, interrupt enabled
-       byte nametb/>400                ; Name table
+       byte namet1/>400                ; Name table
        byte >9f                        ; Color table
        byte ptrntb/>800+>00            ; Pattern table
        byte spratb/>80                 ; Sprite attribute table
@@ -276,10 +458,10 @@ vregs:
 *
 vwtr:
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte (value) to write to VDP register
+       movb r0,@vdpwa                  ; Send low byte (value) to write to VDP register
        swpb r0
-       ori  r0, >8000                   ; Set up a VDP register write operation (10)
-       movb r0, @vdpwa                  ; Send high byte (address) of VDP register
+       ori  r0,>8000                   ; Set up a VDP register write operation (10)
+       movb r0,@vdpwa                  ; Send high byte (address) of VDP register
        b    *r11
 *// vwtr
 
@@ -293,10 +475,10 @@ vwtr:
 *
 vwad:
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
        swpb r0
-       ori  r0, >4000                   ; Set read/write bits 14 and 15 to write (01)
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       ori  r0,>4000                   ; Set read/write bits 14 and 15 to write (01)
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
        b    *r11
 *// vwad
 
@@ -308,9 +490,9 @@ vwad:
 * R1   MSB of R1 set to byte from VDP RAM
 *
 vsbr:
-       movb @r0lb, @vdpwa               ; Send low byte of VDP RAM write address
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
-       movb @vdprd, r1                  ; Read byte from VDP RAM
+       movb @r0lb,@vdpwa               ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       movb @vdprd,r1                  ; Read byte from VDP RAM
        b    *r11
 *// vsbr
 
@@ -325,11 +507,11 @@ vsbr:
 *
 vsbw:
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
        swpb r0
-       ori  r0, >4000                   ; Set read/write bits 14 and 15 to write (01)
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
-       movb r1, @vdpwd                  ; Write byte to VDP RAM
+       ori  r0,>4000                   ; Set read/write bits 14 and 15 to write (01)
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       movb r1,@vdpwd                  ; Write byte to VDP RAM
        b    *r11
 *// vsbw
 
@@ -345,13 +527,13 @@ vsbw:
 *
 vmbr:
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
        swpb r0
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
 vmbr0:
-       li   r0, vdprd
+       li   r0,vdprd
 vmbr1:
-       movb *r0, *r1+                   ; Read byte from VDP RAM
+       movb *r0,*r1+                   ; Read byte from VDP RAM
        dec  r2                         ; Byte counter
        jne  vmbr1                      ; Check if finished
        b    *r11
@@ -366,37 +548,37 @@ vmbr1:
 * R2: Number of bytes to copy
 *
 vdpcp:
-       mov  r11, *r10+                  ; Push return address onto the stack
+       mov  r11,*r10+                  ; Push return address onto the stack
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
        swpb r0
-       ori  r0, >4000                   ; Set the two MSbits to 01 for write
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
-       li   r0, vdpwd
+       ori  r0,>4000                   ; Set the two MSbits to 01 for write
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       li   r0,vdpwd
 vdpcp0:
-       mov  r2, r3
-       srl  r3, 3                       ; Number of groups of 8
+       mov  r2,r3
+       srl  r3,3                       ; Number of groups of 8
        jeq  vdpcp2
 vdpcp1:
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
-       movb *r1+, *r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
+       movb *r1+,*r0
        dec  r3
        jne  vdpcp1
-       andi r2, >0007                   ; Isolate number of remaining bytes
+       andi r2,>0007                   ; Isolate number of remaining bytes
        jeq  vdpcp3
 vdpcp2:
-       movb *r1+, *r0
+       movb *r1+,*r0
        dec  r2
        jne  vdpcp2
 vdpcp3:
        dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
+       mov  *r10,r11
        b    *r11
 *// vdpcp
 
@@ -410,26 +592,26 @@ vdpcp3:
 *
 vdpwr:
        swpb r0
-       movb r0, @vdpwa                  ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
        swpb r0
-       ori  r0, >4000                   ; Set the two MSbits to 01 for write
-       movb r0, @vdpwa                  ; Send high byte of VDP RAM write address
-       li   r0, vdpwd
-       mov  r2, r3
-       srl  r3, 3                       ; Number of groups of 8
+       ori  r0,>4000                   ; Set the two MSbits to 01 for write
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       li   r0,vdpwd
+       mov  r2,r3
+       srl  r3,3                       ; Number of groups of 8
        jeq  vdpwr2
 vdpwr1:
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
-       movb r1, *r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
+       movb r1,*r0
        dec  r3
        jne  vdpwr1
-       andi r2, >0007                   ; Isolate number of remaining bytes
+       andi r2,>0007                   ; Isolate number of remaining bytes
        jeq  vdpwr3
 vdpwr2:
        movb r1, *r0
@@ -443,8 +625,12 @@ vdpwr3:
 *
 * Data
 *
-char_list:
-       bss  128*2
+char_list:                             ; Pointers to pattern/color addresses for current characeter set
+       bss  128*2                      ; Or -1 if the character is not currently used
+one:
+       data 1
+eight:
+       data 8
 
        copy "level1-diff.a99"
 
