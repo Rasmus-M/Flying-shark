@@ -76,10 +76,16 @@ plyrws equ  >8320
 stack  equ  >8340
 padvar equ  stack+>10
 * PAD variables
-scrly:
+one:
        equ  padvar
+eight:
+       equ  one+2
+scrly:
+       equ  eight+2
 diff_pointer:
        equ  scrly+2
+upload_pad:
+       equ  diff_pointer+2
 
 ********************************************************************************
 *
@@ -94,6 +100,7 @@ main:
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; Init
        bl   @draw_screen
+;       dec  @scrly
 loop   bl   @vsync
        bl   @set_name_table
        bl   @update_char_list
@@ -195,63 +202,78 @@ update_char_list_5:
 *********************************************************************************
 *
 * Upload characters
-* TODO: Do not set up VDP address between runs of characters
 *
 upload_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
-       li   r15,vdpwd
        mov  @scrly,r3                  ; Read scroll offset into register
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
        li   r0,ptrntb+>400             ; Update high character set (128-255)
-       jmp  upload_characters_0
+       jmp  upload_characters_1
 update_low_chars:
        li   r0,ptrntb                  ; Update low character set (128-255)
-*	   Calculate CPU RAM source address
-upload_characters_0:
-       mov  r3,r1                      ; Start with scroll frame
+upload_characters_1:
+       mov  r0,r6                      ; Save destination address
+*	   Calculate CPU RAM source offset
+       mov  r3,r1                      ; Start with scroll offset
        dec  r1                         ; Add direction
        andi r1,>0007                   ; Mod 8
 *      Upload characters
-       li   r2,128                     ; Counter
-       li   r3,char_list
-upload_characters_1:
-       mov  *r3+,r4
-       jlt  upload_characters_2
-       a    r1,r4
-       bl   @vwad
+       li   r15,vdpwd
+*      Patterns
        seto @cart_pattern_bank
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
+       li   r5,3                       ; Number of pattern tables
+upload_characters_2:
+       bl   @vwad
+       bl   @upload_pad
+       ai   r0,>0400
+       dec  r5
+       jne  upload_characters_2
+*      Colors
+       seto @cart_color_bank
+       mov  r6,r0
        ai   r0,>2000
        bl   @vwad
-       ai   r4,-8
-       seto @cart_color_bank
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       movb *r4+,*r15
-       ai   r0,->2000
-upload_characters_2:
-       ai   r0,8
-       dec  r2
-       jne  upload_characters_1
+       bl   @upload_pad
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 *// upload_characters
+
+*********************************************************************************
+*
+* Upload character table
+*
+upload_character_table:
+       li   r2,128                     ; Char counter
+       li   r3,char_list
+upload_character_table_1:
+       mov  *r3+,r4                    ; Get pattern address
+       jlt  upload_character_table_2   ; If negative, characeter is not used
+       a    r1,r4                      ; Add source offset
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       movb *r4+,*r15
+       ai   r0,8
+       dec  r2
+       jne  upload_character_table_1
+       b    *r11
+upload_character_table_2:
+       ai   r0,8
+       movb @r0lb,@vdpwa               ; Send low byte of VDP RAM write address
+       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       dec  r2
+       jne  upload_character_table_1
+       b    *r11
+upload_character_table_end
+*// upload_character_table
 
 *********************************************************************
 *
@@ -271,7 +293,7 @@ update_name_table:
 *	   Calculate map source address in R1
        mov  @scrly,r1                  ; Get scroll offset in pixels
        srl  r1,3                       ; Divide by 8 to get row offset
-       dec  r1                         ; Prepared buffer has a 1 row offset
+;      dec  r1                         ; Prepared buffer has a 1 row offset
        a    r2,r1                      ; Add the row offset we calculated before
        li   r2,map_width
        mpy  r2,r1                      ; Multiply by map width to get character offset
@@ -317,14 +339,14 @@ update_name_table_6:
        dec  r2
        jne  update_name_table_5
 *	   Return
-       dect r10                        * Pop return address off the stack
+       dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 *// update_name_table
 
 *********************************************************************************
 *
-* Draw a screen
+* Draw initial screen
 *
 draw_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
@@ -366,9 +388,9 @@ draw_screen_4:
        dec  r2
        jne  draw_screen_3
 *      Update chars
-       inct @scrly
+       inc  @scrly
        bl   @update_char_list
-       dect @scrly
+       dec  @scrly
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -380,6 +402,14 @@ draw_screen_4:
 * Init
 *
 init:
+*      Copy code to pad
+       li   r0,upload_character_table
+       li   r1,upload_pad
+       li   r2,upload_character_table_end-upload_character_table
+init0:
+       mov  *r0+,*r1+
+       dect r2
+       jne  init0
 *      Reset character list
        li   r0,char_list
        seto r1
@@ -389,7 +419,11 @@ init1:
        dec  r2
        jne  init1
 *      Init variables
-       li   r0,(map_height-win_height)*8-1
+       li   r0,1
+       mov  r0,@one
+       li   r0,8
+       mov  r0,@eight
+       li   r0,(map_height-win_height)*8
        mov  r0,@scrly
        li   r0,level_1_000_add
        mov  r0,@diff_pointer
@@ -443,7 +477,7 @@ vregs:
        byte >e2                        ; 16K, display on, interrupt enabled
        byte namet1/>400                ; Name table
        byte >9f                        ; Color table
-       byte ptrntb/>800+>00            ; Pattern table
+       byte ptrntb/>800+>03            ; Pattern table
        byte spratb/>80                 ; Sprite attribute table
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
@@ -627,10 +661,6 @@ vdpwr3:
 *
 char_list:                             ; Pointers to pattern/color addresses for current characeter set
        bss  128*2                      ; Or -1 if the character is not currently used
-one:
-       data 1
-eight:
-       data 8
 
        copy "level1-diff.a99"
 

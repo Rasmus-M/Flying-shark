@@ -1,5 +1,4 @@
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.*;
 
@@ -8,7 +7,7 @@ import java.util.*;
  */
 public class Encode implements Runnable {
 
-    private static final int SCREEN_HEIGHT = 24;
+    private static final int WINDOW_HEIGHT = 24;
     private static final int[] MAP_HEIGHTS = {358, 450, 316, 364};
 
     private final int level;
@@ -61,13 +60,13 @@ public class Encode implements Runnable {
                 Integer[] runningTChars = new Integer[128];
                 int maxSize = 0;
                 int screen = 0;
-                for (int y0 = height - SCREEN_HEIGHT; y0 >= 0; y0--) {
+                for (int y0 = height - WINDOW_HEIGHT; y0 >= 0; y0--) {
                     System.out.println("Screen " + screen + ":");
                     Set<Integer> used = new HashSet<>();
                     Map<Integer, Integer> added = new HashMap<>();
                     Set<Integer> deleted = new HashSet<>();
                     // Find tChars used in screen
-                    for (int y = y0; y < y0 + SCREEN_HEIGHT; y++) {
+                    for (int y = y0; y < y0 + WINDOW_HEIGHT; y++) {
                         for (int x = 0; x < width; x++) {
                             int fromChar = map[y][x];
                             int toChar = map[y > 0 ? y - 1 : height - 1][x];
@@ -76,7 +75,7 @@ public class Encode implements Runnable {
                         }
                     }
                     // Process screen
-                    for (int y = y0; y < y0 + SCREEN_HEIGHT; y++) {
+                    for (int y = y0; y < Math.min(y0 + WINDOW_HEIGHT, height); y++) {
                         for (int x = 0; x < width; x++) {
                             int fromChar = map[y][x];
                             int toChar = map[y > 0 ? y - 1 : height - 1][x];
@@ -107,6 +106,7 @@ public class Encode implements Runnable {
                                         }
                                         runningTChars[runningIndex] = globalIndex;
                                         added.put(runningIndex, globalIndex);
+                                        used.add(key);
                                     }
                                 }
                             }
