@@ -100,16 +100,20 @@ main:
        li   r10, stack                 ; Setup stack pointer
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
+next_level:
        bl   @init_level                ; Initialize level
        bl   @draw_initial_screen
-loop   bl   @vsync
+main_loop:
+       bl   @vsync
        bl   @set_name_table
        bl   @update_char_list
        bl   @update_characters
        bl   @update_name_table
        bl   @vsync
        dec  @scrly
-       jmp  loop
+       jne  main_loop
+       inc  @level
+       jmp  next_level
 
 *********************************************************************
 *
@@ -437,10 +441,9 @@ init_level:
        mov  r1,@cart_map_high_bank
 *      Reset character list
        li   r0,char_list
-       seto r1
        li   r2,128
 init_level_1:
-       mov  r1,*r0+
+       seto *r0+
        dec  r2
        jne  init_level_1
 *      Return
