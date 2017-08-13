@@ -84,7 +84,7 @@ scrly:
        equ  eight+2
 diff_pointer:
        equ  scrly+2
-upload_pad:
+upload_character_table_pad:
        equ  diff_pointer+2
 
 ********************************************************************************
@@ -99,12 +99,12 @@ main:
        li   r10, stack                 ; Setup stack pointer
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; Init
-       bl   @draw_screen
+       bl   @draw_initial_screen
 ;       dec  @scrly
 loop   bl   @vsync
        bl   @set_name_table
        bl   @update_char_list
-       bl   @upload_characters
+       bl   @update_characters
        bl   @update_name_table
        bl   @vsync
        dec  @scrly
@@ -115,12 +115,13 @@ loop   bl   @vsync
 * Wait for vertical retrace (CRU)
 *
 vsync:
-       movb @vdpsta, r0
+       movb @vdpsta, @vdpsta
+vsync0:
        clr  r12
 vsync1:
        tb   2                          ; Test CRU bit for VDP interrupt
        jeq  vsync1
-       movb @vdpsta, r0
+       movb @vdpsta, @vdpsta
        b    *r11
 *// vsync
 
@@ -138,15 +139,15 @@ set_name_table:
        li   r0, >020a                  ; namet1
        jmp  set_name_table_4
 set_name_table_1:
-       li   r0, >020b                  * namet2
+       li   r0, >020b                  ; namet2
        jmp  set_name_table_4
 set_name_table_2:
-       coc  @one, r0                   * Check which table to use
+       coc  @one, r0                   ; Check which table to use
        jeq  set_name_table_3
-       li   r0, >020c                  * namet3
+       li   r0, >020c                  ; namet3
        jmp  set_name_table_4
 set_name_table_3:
-       li   r0, >020d                  * namet4
+       li   r0, >020d                  ; namet4
 *	   Update register 2
 set_name_table_4:
        bl   @vwtr
@@ -162,7 +163,6 @@ set_name_table_4:
 *
 update_char_list:
        mov  @scrly,r0
-       dec  r0
        andi r0,7
        jne  update_char_list_5
        mov  @diff_pointer,r0
@@ -201,19 +201,19 @@ update_char_list_5:
 
 *********************************************************************************
 *
-* Upload characters
+* Update characters
 *
-upload_characters:
+update_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @scrly,r3                  ; Read scroll offset into register
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
        li   r0,ptrntb+>400             ; Update high character set (128-255)
-       jmp  upload_characters_1
+       jmp  update_characters_1
 update_low_chars:
        li   r0,ptrntb                  ; Update low character set (128-255)
-upload_characters_1:
+update_characters_1:
        mov  r0,r6                      ; Save destination address
 *	   Calculate CPU RAM source offset
        mov  r3,r1                      ; Start with scroll offset
@@ -223,24 +223,28 @@ upload_characters_1:
        li   r15,vdpwd
 *      Patterns
        seto @cart_pattern_bank
-       li   r5,3                       ; Number of pattern tables
-upload_characters_2:
        bl   @vwad
-       bl   @upload_pad
+       bl   @upload_character_table_pad
        ai   r0,>0400
-       dec  r5
-       jne  upload_characters_2
+       bl   @vwad
+       bl   @upload_character_table_pad
+       bl   @vsync0                    ; TODO
+       ai   r0,>0400
+       bl   @vwad
+       bl   @upload_character_table_pad
+       ai   r0,>0400
 *      Colors
        seto @cart_color_bank
        mov  r6,r0
        ai   r0,>2000
        bl   @vwad
-       bl   @upload_pad
+       bl   @upload_character_table_pad
+       bl   @vsync0                    ; TODO
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// upload_characters
+*// update_characters
 
 *********************************************************************************
 *
@@ -329,11 +333,15 @@ update_name_table_4:
        li   r2,6
 update_name_table_5:
        bl   @vwad
-       li   r3,win_width
+       li   r3,win_width/6
 update_name_table_6:
        movb *r1+,*r15
        movb *r1+,*r15
-       dect r3
+       movb *r1+,*r15
+       movb *r1+,*r15
+       movb *r1+,*r15
+       movb *r1+,*r15
+       dec  r3
        jne  update_name_table_6
        ai   r0,scr_width
        dec  r2
@@ -348,7 +356,7 @@ update_name_table_6:
 *
 * Draw initial screen
 *
-draw_screen:
+draw_initial_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
        li   r15,vdpwd
 *      Source address
@@ -395,7 +403,7 @@ draw_screen_4:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// draw_screen
+*// draw_initial_screen
 
 *********************************************************************************
 *
@@ -404,7 +412,7 @@ draw_screen_4:
 init:
 *      Copy code to pad
        li   r0,upload_character_table
-       li   r1,upload_pad
+       li   r1,upload_character_table_pad
        li   r2,upload_character_table_end-upload_character_table
 init0:
        mov  *r0+,*r1+
