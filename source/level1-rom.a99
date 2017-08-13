@@ -1078,7 +1078,7 @@ level_1_pattern_268:
        byte >23,>c8,>06,>28,>12,>60,>10,>84
 * From >ca to >68
 level_1_pattern_269:
-       byte >00,>7f,>7f,>7f,>7f,>7f,>7f,>00
+       byte >00,>d3,>d3,>d3,>d3,>d3,>d3,>00
        byte >23,>c8,>06,>28,>12,>60,>10,>84
 * From >00 to >69
 level_1_pattern_270:
@@ -1091,7 +1091,7 @@ level_1_pattern_271:
 * From >68 to >83
 level_1_pattern_272:
        byte >ff,>ff,>ff,>ff,>ff,>00,>ff,>00
-       byte >00,>7f,>7f,>7f,>7f,>7f,>7f,>00
+       byte >00,>d3,>d3,>d3,>d3,>d3,>d3,>00
 * From >69 to >83
 level_1_pattern_273:
        byte >ff,>ff,>ff,>ff,>ff,>00,>ff,>00
@@ -1206,7 +1206,7 @@ level_1_pattern_300:
        byte >00,>c0,>f0,>f8,>ec,>f4,>f6,>fa
 * From >00 to >68
 level_1_pattern_301:
-       byte >00,>7f,>7f,>7f,>7f,>7f,>7f,>00
+       byte >00,>d3,>d3,>d3,>d3,>d3,>d3,>00
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >ca to >10
 level_1_pattern_302:
@@ -2416,11 +2416,11 @@ level_1_color_268:
        byte >21,>31,>c1,>c1,>a1,>c1,>c1,>21
 * From >ca to >68
 level_1_color_269:
-       byte >a1,>f1,>f1,>f1,>f1,>f1,>f1,>a1
+       byte >a1,>ef,>ef,>ef,>ef,>ef,>ef,>a1
        byte >21,>31,>c1,>c1,>a1,>c1,>c1,>21
 * From >00 to >69
 level_1_color_270:
-       byte >a1,>f1,>f1,>f1,>f1,>f1,>f1,>a1
+       byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >ca to >a8
 level_1_color_271:
@@ -2429,11 +2429,11 @@ level_1_color_271:
 * From >68 to >83
 level_1_color_272:
        byte >e1,>e1,>e1,>e1,>e1,>a1,>e1,>a1
-       byte >a1,>f1,>f1,>f1,>f1,>f1,>f1,>a1
+       byte >a1,>ef,>ef,>ef,>ef,>ef,>ef,>a1
 * From >69 to >83
 level_1_color_273:
        byte >e1,>e1,>e1,>e1,>e1,>a1,>e1,>a1
-       byte >a1,>f1,>f1,>f1,>f1,>f1,>f1,>a1
+       byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
 * From >00 to >83
 level_1_color_274:
        byte >e1,>e1,>e1,>e1,>e1,>a1,>e1,>a1
@@ -2544,7 +2544,7 @@ level_1_color_300:
        byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >00 to >68
 level_1_color_301:
-       byte >a1,>f1,>f1,>f1,>f1,>f1,>f1,>a1
+       byte >a1,>ef,>ef,>ef,>ef,>ef,>ef,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >ca to >10
 level_1_color_302:

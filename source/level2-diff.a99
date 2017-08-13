@@ -1574,12 +1574,11 @@ level_2_216_delete:
 level_2_217_add:
        byte >00
 level_2_217_delete:
-       byte >05
+       byte >04
        byte >10
        byte >20
        byte >11
        byte >1d
-       byte >0e
 level_2_218_add:
        byte >03
        byte >00, >00, >ec              ; >68c9
@@ -1588,8 +1587,8 @@ level_2_218_add:
 level_2_218_delete:
        byte >05
        byte >30
-       byte >23
        byte >2d
+       byte >0e
        byte >2e
        byte >2f
 level_2_219_add:
@@ -1601,9 +1600,10 @@ level_2_219_add:
        byte >07, >00, >f1              ; >c569
        byte >08, >00, >94              ; >9e00
 level_2_219_delete:
-       byte >04
+       byte >05
        byte >31
        byte >32
+       byte >23
        byte >33
        byte >34
 level_2_220_add:
