@@ -32,15 +32,7 @@ spratb equ  >3700                      ; Sprite attribute table base
 **
 * Constants
 cart_base:
-       equ  >6000
-cart_pattern_bank:
-       equ  >6008
-cart_color_bank:
-       equ  >600a
-cart_map_bank:
-       equ  >600c
-cart_map_high_bank:
-       equ  >600e
+       equ  >6040
 scr_width:
        equ  32                         ; Width of screen in characters
 scr_height:
@@ -51,13 +43,9 @@ win_height:
        equ  24                         ; Height of scrolling window in characters
 map_width:
        equ  18                         ; Map width
-map_height:
-       equ  358                        ; Map height
 
 **
 * Scratch pad
-*
-* The interrupt handler might update the timer at >8379 or the VDP status byte at >837B.
 *
 rndsd  equ  >83c0                      ; Random number seed
 pad    equ  >8300
@@ -75,32 +63,45 @@ r9lb   equ  wrksp+19
 plyrws equ  >8320
 stack  equ  >8340
 padvar equ  stack+>10
+*
 * PAD variables
+*
 one:
        equ  padvar
 eight:
        equ  one+2
-scrly:
+level:
        equ  eight+2
-diff_pointer:
+scrly:
+       equ  level+2
+map_height:
        equ  scrly+2
-upload_character_table_pad:
+diff_pointer:
+       equ  map_height+2
+cart_pattern_bank:
        equ  diff_pointer+2
+cart_color_bank:
+       equ  cart_pattern_bank+2
+cart_map_bank:
+       equ  cart_color_bank+2
+cart_map_high_bank:
+       equ  cart_map_bank+2
+upload_character_table_pad:
+       equ  cart_map_high_bank+2
 
 ********************************************************************************
 *
 * Main program
 *
        aorg >a000
-
 main:
        limi 0                          ; Interrupts off
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
        bl   @gmode                     ; Setup graphics mode
-       bl   @init                      ; Init
+       bl   @init                      ; One time initializations
+       bl   @init_level                ; Initialize level
        bl   @draw_initial_screen
-;       dec  @scrly
 loop   bl   @vsync
        bl   @set_name_table
        bl   @update_char_list
@@ -116,11 +117,11 @@ loop   bl   @vsync
 *
 vsync:
        movb @vdpsta, @vdpsta
-vsync0:
+vsync_0:
        clr  r12
-vsync1:
+vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
-       jeq  vsync1
+       jeq  vsync_1
        movb @vdpsta, @vdpsta
        b    *r11
 *// vsync
@@ -222,24 +223,26 @@ update_characters_1:
 *      Upload characters
        li   r15,vdpwd
 *      Patterns
-       seto @cart_pattern_bank
+       mov  @cart_pattern_bank,r5
+       seto *r5
        bl   @vwad
        bl   @upload_character_table_pad
        ai   r0,>0400
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @vsync0                    ; TODO
+       bl   @vsync_0                    ; TODO
        ai   r0,>0400
        bl   @vwad
        bl   @upload_character_table_pad
        ai   r0,>0400
 *      Colors
-       seto @cart_color_bank
+       mov  @cart_color_bank,r5
+       seto *r5
        mov  r6,r0
        ai   r0,>2000
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @vsync0                    ; TODO
+       bl   @vsync_0                    ; TODO
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -312,22 +315,23 @@ update_name_table:
        coc  @one,r3                    ; Bit weight >01 determines the buffer
        jeq  update_name_table_1
        ai   r0,namet1                  ; Add base address to character offset
-       seto @cart_map_bank             ; Select map cartridge bank
+       mov  @cart_map_bank,r5
        jmp  update_name_table_4
 update_name_table_1:
        ai   r0,namet2                  ; Add base address to character offset
-       seto @cart_map_high_bank        ; Select map cartridge bank
+       mov  @cart_map_high_bank,r5
        jmp  update_name_table_4
 update_name_table_2:
        coc  @one,r3                    ; Bit weight >01 determines the buffer
        jeq  update_name_table_3
        ai   r0,namet3                  ; Add base address to character offset
-       seto @cart_map_bank             ; Select map cartridge bank
+       mov  @cart_map_bank,r5
        jmp  update_name_table_4
 update_name_table_3:
        ai   r0,namet4                  ; Add base address to character offset
-       seto @cart_map_high_bank        ; Select map cartridge bank
+       mov  @cart_map_high_bank,r5
 update_name_table_4:
+       seto *r5                        ; Select map cartridge bank
 *	   Copy to VDP RAM buffer
        li   r15,vdpwd
        li   r2,6
@@ -369,7 +373,8 @@ draw_initial_screen:
 *      Map
        li   r0,namet3+((scr_width-win_width)/2)
        li   r2,win_height
-       seto @cart_map_bank
+       mov  @cart_map_bank,r5
+       seto *r5
 draw_screen_1:
        bl   @vwad
        li   r3,win_width
@@ -382,9 +387,10 @@ draw_screen_2:
        jne  draw_screen_1
 *      Map - high
        li   r0,namet4+((scr_width-win_width)/2)
-       mov r4,r1
+       mov  r4,r1
        li   r2,win_height
-       seto @cart_map_high_bank
+       mov  @cart_map_high_bank,r5
+       seto *r5
 draw_screen_3:
        bl   @vwad
        li   r3,win_width
@@ -407,37 +413,63 @@ draw_screen_4:
 
 *********************************************************************************
 *
-* Init
+* Initialize level
 *
-init:
-*      Copy code to pad
-       li   r0,upload_character_table
-       li   r1,upload_character_table_pad
-       li   r2,upload_character_table_end-upload_character_table
-init0:
-       mov  *r0+,*r1+
-       dect r2
-       jne  init0
+init_level:
+*      Init variables
+       mov  @level,r1
+       sla  r1,1
+       mov  @map_heights(r1),@map_height
+       mov  @map_height,r0
+       ai   r0,-win_height
+       sla  r0,3
+       mov  r0,@scrly
+       mov  @diff_lists(r1),@diff_pointer
+       mov  @level,r1
+       sla  r1,3
+       ai   r1,>6008
+       mov  r1,@cart_pattern_bank
+       inct r1
+       mov  r1,@cart_color_bank
+       inct r1
+       mov  r1,@cart_map_bank
+       inct r1
+       mov  r1,@cart_map_high_bank
 *      Reset character list
        li   r0,char_list
        seto r1
        li   r2,128
-init1:
+init_level_1:
        mov  r1,*r0+
        dec  r2
-       jne  init1
+       jne  init_level_1
+*      Return
+       b    *r11
+*// init_scrbuf
+
+*********************************************************************************
+*
+* One time initializations
+*
+init:
 *      Init variables
        li   r0,1
        mov  r0,@one
        li   r0,8
        mov  r0,@eight
-       li   r0,(map_height-win_height)*8
-       mov  r0,@scrly
-       li   r0,level_1_000_add
-       mov  r0,@diff_pointer
+       li   r0,0
+       mov  r0,@level
+*      Copy code to pad
+       li   r0,upload_character_table
+       li   r1,upload_character_table_pad
+       li   r2,upload_character_table_end-upload_character_table
+init_1:
+       mov  *r0+,*r1+
+       dect r2
+       jne  init_1
 *      Return
        b    *r11
-*// init_scrbuf
+*// init
 
 *********************************************************************************
 *
@@ -448,12 +480,12 @@ gmode:
        clr  r0
        li   r1,vregs
        li   r2,8
-gmode1:
+gmode_1:
        movb *r1+,@r0lb
        bl   @vwtr                      ; Set register
        ai   r0,>0100
        dec  r2
-       jne  gmode1
+       jne  gmode_1
 *      Patterns
        seto @>6008
        li   r0, ptrntb
@@ -669,7 +701,17 @@ vdpwr3:
 *
 char_list:                             ; Pointers to pattern/color addresses for current characeter set
        bss  128*2                      ; Or -1 if the character is not currently used
-
+map_heights:
+       data 358, 450, 316, 364
+diff_lists:
+       data diff_list_1,diff_list_2,diff_list_3,diff_list_4
+diff_list_1:
        copy "level1-diff.a99"
+diff_list_2:
+       copy "level2-diff.a99"
+diff_list_3:
+       copy "level3-diff.a99"
+diff_list_4:
+       copy "level4-diff.a99"
 
        end  main

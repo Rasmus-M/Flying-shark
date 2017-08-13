@@ -9,6 +9,7 @@ public class Encode implements Runnable {
 
     private static final int WINDOW_HEIGHT = 24;
     private static final int[] MAP_HEIGHTS = {358, 450, 316, 364};
+    private static final int BANK_OFFSET = 0x40;
 
     private final int level;
     private final String fileName;
@@ -16,11 +17,11 @@ public class Encode implements Runnable {
     private final int height;
 
     public static void main(String... args) {
-//        for (int level = 1; level <= 4; level++) {
-//            new Encode(level, "map" + level + ".mgb", 18, MAP_HEIGHTS[level - 1]).run();
-//        }
-        int level = 1;
-        new Encode(1, "map" + level + ".mgb", 18, MAP_HEIGHTS[level - 1]).run();
+        for (int level = 1; level <= 4; level++) {
+            new Encode(level, "map" + level + ".mgb", 18, MAP_HEIGHTS[level - 1]).run();
+        }
+//        int level = 1;
+//        new Encode(1, "map" + level + ".mgb", 18, MAP_HEIGHTS[level - 1]).run();
     }
 
     private Encode(int level, String fileName, int width, int height) {
@@ -153,6 +154,7 @@ public class Encode implements Runnable {
                     screen++;
                 }
                 rom_out.append("       aorg >6000,0\n");
+                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 System.out.println("TChars: " + tChars.size());
                 for (int i = 0; i < tChars.size(); i++) {
                     int key = tChars.get(i);
@@ -171,6 +173,7 @@ public class Encode implements Runnable {
                     }
                 }
                 rom_out.append("       aorg >6000,1\n");
+                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 for (int i = 0; i < tChars.size(); i++) {
                     int key = tChars.get(i);
                     int toChar = (key >> 8) & 0xff;
@@ -188,6 +191,7 @@ public class Encode implements Runnable {
                 }
                 System.out.println("Map:");
                 rom_out.append("       aorg >6000,2\n");
+                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("level_" + level + "_map:\n");
                 for (int y = 0; y < tMap.length; y++) {
                     int[] row = tMap[y];
@@ -199,6 +203,7 @@ public class Encode implements Runnable {
                     System.out.println();
                 }
                 rom_out.append("       aorg >6000,3\n");
+                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("level_" + level + "_map_high:\n");
                 for (int y = 0; y < tMap.length; y++) {
                     int[] row = tMap[y];
