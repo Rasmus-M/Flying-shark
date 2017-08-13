@@ -32,7 +32,7 @@ spratb equ  >3700                      ; Sprite attribute table base
 **
 * Constants
 start_level:
-       equ  2
+       equ  0
 cart_base:
        equ  >603C
 scr_width:
