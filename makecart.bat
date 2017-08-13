@@ -57,7 +57,7 @@ build\empty.bin + ^
 build\empty.bin ^
 flying-shark-8.bin
 
-java -jar tools/CopyHeader.jar flying-shark-8.bin 64
+java -jar tools/CopyHeader.jar flying-shark-8.bin 60
 
 WHERE jar
 @IF %ERRORLEVEL% NEQ 0 GOTO :end

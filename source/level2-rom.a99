@@ -1,5 +1,5 @@
        aorg >6000,0
-       bss  >0040
+       bss  >003c
 * From >ca to >ca
 level_2_pattern_000:
        byte >23,>c8,>06,>28,>12,>60,>10,>84
@@ -1641,7 +1641,7 @@ level_2_pattern_409:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        aorg >6000,1
-       bss  >0040
+       bss  >003c
 * From >ca to >ca
 level_2_color_000:
        byte >21,>31,>c1,>c1,>a1,>c1,>c1,>21
@@ -3283,7 +3283,7 @@ level_2_color_409:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        aorg >6000,2
-       bss  >0040
+       bss  >003c
 level_2_map:
        byte >3d,>3d,>4c,>4d,>4e,>4f,>50,>50,>4e,>4f,>3d,>3d,>3d,>3d,>51,>52,>53,>54
        byte >41,>43,>44,>4b,>3d,>3d,>3d,>3d,>3d,>3d,>3d,>3d,>3d,>3d,>41,>43,>44,>4b
@@ -3736,7 +3736,7 @@ level_2_map:
        byte >4f,>50,>51,>52,>1f,>1f,>24,>25,>1f,>53,>54,>54,>31,>32,>55,>56,>57,>58
        byte >04,>04,>0b,>0c,>34,>35,>1f,>1f,>34,>35,>04,>04,>04,>04,>2b,>2c,>59,>5a
        aorg >6000,3
-       bss  >0040
+       bss  >003c
 level_2_map_high:
        byte >bd,>bd,>cc,>cd,>ce,>cf,>d0,>d0,>ce,>cf,>bd,>bd,>bd,>bd,>d1,>d2,>d3,>d4
        byte >c1,>c3,>c4,>cb,>bd,>bd,>bd,>bd,>bd,>bd,>bd,>bd,>bd,>bd,>c1,>c3,>c4,>cb

@@ -9,7 +9,7 @@ public class Encode implements Runnable {
 
     private static final int WINDOW_HEIGHT = 24;
     private static final int[] MAP_HEIGHTS = {358, 450, 316, 364};
-    private static final int BANK_OFFSET = 0x40;
+    private static final int BANK_OFFSET = 60;
 
     private final int level;
     private final String fileName;
@@ -136,8 +136,9 @@ public class Encode implements Runnable {
                     ram_out.append("level_" + level + "_" + to3Digits(screen) + "_add:\n");
                     ram_out.append("       byte " + hexByte(added.size()) + "\n");
                     for (Integer i : added.keySet()) {
-                        System.out.print(hexByte(i) + ":" + hexWord(added.get(i)) + " ");
-                        ram_out.append("       byte " + hexByte(i) + ", " + hexByte(added.get(i) >> 8) + ", " + hexByte(added.get(i) & 0xff) + "\n");
+                        int globalIndex = added.get(i);
+                        System.out.print(hexByte(i) + ":" + hexWord(globalIndex) + " ");
+                        ram_out.append("       byte " + hexByte(i) + ", " + hexByte(globalIndex >> 8) + ", " + hexByte(globalIndex & 0xff) + "              ; " + hexWord(tChars.get(globalIndex)) + "\n");
                     }
                     System.out.println();
 
