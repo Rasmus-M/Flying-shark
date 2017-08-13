@@ -31,6 +31,8 @@ spratb equ  >3700                      ; Sprite attribute table base
 
 **
 * Constants
+start_level:
+       equ  0
 cart_base:
        equ  >6040
 scr_width:
@@ -460,7 +462,7 @@ init:
        mov  r0,@one
        li   r0,8
        mov  r0,@eight
-       li   r0,0
+       li   r0,start_level
        mov  r0,@level
 *      Copy code to pad
        li   r0,upload_character_table

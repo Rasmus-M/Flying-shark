@@ -42,7 +42,7 @@ build\level3_b3.bin + ^
 build\level4_b0.bin + ^
 build\level4_b1.bin + ^
 build\level4_b2.bin + ^
-build\level1_b3.bin + ^
+build\level4_b3.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
