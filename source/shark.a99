@@ -510,10 +510,16 @@ gmode_1:
        li   r1,>ff00
        li   r2,>1000
        bl   @vdpwr
+*      Sprite patterns
+       li   r0, sprptb
+       li   r1, spr0
+       li   r2,32
+       bl   @vdpcp
 *      Sprite attributes
-       li   r0,spratb
-       li   r1,>d000
-       bl   @vsbw
+       li   r0, spratb
+       li   r1, sal
+       li   r2,5
+       bl   @vdpcp
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -720,5 +726,18 @@ diff_list_3:
        copy "level3-diff.a99"
 diff_list_4:
        copy "level4-diff.a99"
+
+****************************************
+* Sprite Locations
+****************************************
+sal    byte >a0,>68,0,15               ; y, x, pattern#, color#
+       byte >d0,>00
+****************************************
+* Sprite Patterns
+****************************************
+spr0   DATA >0005,>005F,>FE38,>423D    ; Color 15
+       DATA >0101,>050D,>0000,>0000    ;
+       DATA >00A0,>00FA,>7F1C,>42BC    ;
+       DATA >8080,>A0B0,>8000,>0000    ;
 
        end  main

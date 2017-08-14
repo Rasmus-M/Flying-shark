@@ -336,7 +336,7 @@ level_3_pattern_082:
 level_3_pattern_083:
        byte >c7,>bb,>5d,>7d,>39,>c0,>f9,>ff
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
-* From >01 to >66
+* From >c6 to >66
 level_3_pattern_084:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
@@ -1616,6 +1616,10 @@ level_3_pattern_402:
 level_3_pattern_403:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
+* From >04 to >c6
+level_3_pattern_404:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
        aorg >6000,1
        bss  >003c
 * From >02 to >24
@@ -1954,10 +1958,10 @@ level_3_color_082:
 level_3_color_083:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
-* From >01 to >66
+* From >c6 to >66
 level_3_color_084:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >24 to >05
 level_3_color_085:
        byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
@@ -3234,10 +3238,14 @@ level_3_color_402:
 level_3_color_403:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >04 to >c6
+level_3_color_404:
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        aorg >6000,2
        bss  >003c
 level_3_map:
-       byte >24,>24,>1f,>3c,>3d,>3e,>3f,>3f,>3d,>3e,>24,>24,>24,>24,>40,>41,>42,>18
+       byte >24,>24,>1f,>3c,>3d,>3e,>3f,>3f,>3d,>3e,>24,>24,>24,>24,>40,>41,>42,>43
        byte >24,>24,>25,>33,>24,>24,>24,>24,>24,>24,>24,>24,>24,>24,>24,>24,>25,>33
        byte >12,>12,>0d,>10,>24,>24,>24,>24,>17,>18,>24,>24,>19,>38,>39,>39,>3a,>3b
        byte >0a,>0a,>37,>24,>24,>24,>24,>24,>25,>33,>24,>24,>00,>01,>09,>09,>0a,>0a
@@ -3556,7 +3564,7 @@ level_3_map:
        aorg >6000,3
        bss  >003c
 level_3_map_high:
-       byte >a4,>a4,>9f,>bc,>bd,>be,>bf,>bf,>bd,>be,>a4,>a4,>a4,>a4,>c0,>c1,>c2,>98
+       byte >a4,>a4,>9f,>bc,>bd,>be,>bf,>bf,>bd,>be,>a4,>a4,>a4,>a4,>c0,>c1,>c2,>c3
        byte >a4,>a4,>a5,>b3,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a4,>a5,>b3
        byte >92,>92,>8d,>90,>a4,>a4,>a4,>a4,>97,>98,>a4,>a4,>99,>b8,>b9,>b9,>ba,>bb
        byte >8a,>8a,>b7,>a4,>a4,>a4,>a4,>a4,>a5,>b3,>a4,>a4,>80,>81,>89,>89,>8a,>8a
