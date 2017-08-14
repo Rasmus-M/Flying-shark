@@ -1,14 +1,14 @@
        aorg >6000,0
        bss  >003c
-* From >02 to >34
+* From >02 to >24
 level_3_pattern_000:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
-* From >03 to >34
+* From >03 to >24
 level_3_pattern_001:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
-* From >01 to >34
+* From >01 to >24
 level_3_pattern_002:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
@@ -24,7 +24,7 @@ level_3_pattern_004:
 level_3_pattern_005:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-* From >3a to >01
+* From >2b to >01
 level_3_pattern_006:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
@@ -44,18 +44,18 @@ level_3_pattern_009:
 level_3_pattern_010:
        byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-* From >01 to >3a
+* From >01 to >2b
 level_3_pattern_011:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-* From >6d to >3a
+* From >6d to >2b
 level_3_pattern_012:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >b2,>cc,>c2,>c1,>c2,>cc,>b2,>ff
 * From >6e to >04
 level_3_pattern_013:
        byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
 * From >6d to >01
 level_3_pattern_014:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
@@ -63,7 +63,7 @@ level_3_pattern_014:
 * From >6e to >01
 level_3_pattern_015:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
 * From >02 to >01
 level_3_pattern_016:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
@@ -72,7 +72,7 @@ level_3_pattern_016:
 level_3_pattern_017:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
-* From >10 to >3a
+* From >10 to >2b
 level_3_pattern_018:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
@@ -90,7 +90,7 @@ level_3_pattern_021:
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >00 to >6e
 level_3_pattern_022:
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >10 to >10
 level_3_pattern_023:
@@ -100,7 +100,7 @@ level_3_pattern_023:
 level_3_pattern_024:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >02 to >3a
+* From >02 to >2b
 level_3_pattern_025:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
@@ -136,7 +136,7 @@ level_3_pattern_032:
 level_3_pattern_033:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
-* From >60 to >3a
+* From >60 to >2b
 level_3_pattern_034:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
@@ -232,7 +232,7 @@ level_3_pattern_056:
 level_3_pattern_057:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-* From >3a to >00
+* From >2b to >00
 level_3_pattern_058:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
@@ -244,7 +244,7 @@ level_3_pattern_059:
 level_3_pattern_060:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
-* From >87 to >3a
+* From >87 to >2b
 level_3_pattern_061:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
        byte >ff,>ff,>ff,>e0,>ff,>ff,>ff,>ff
@@ -340,43 +340,43 @@ level_3_pattern_083:
 level_3_pattern_084:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
-* From >34 to >05
+* From >24 to >05
 level_3_pattern_085:
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >34 to >08
+* From >24 to >08
 level_3_pattern_086:
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
 * From >05 to >07
 level_3_pattern_087:
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
 * From >08 to >06
 level_3_pattern_088:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
 * From >07 to >05
 level_3_pattern_089:
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
 * From >06 to >08
 level_3_pattern_090:
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
-* From >06 to >3a
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
+* From >06 to >2b
 level_3_pattern_091:
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
-* From >3a to >06
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
+* From >2b to >06
 level_3_pattern_092:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
-* From >05 to >34
+* From >05 to >24
 level_3_pattern_093:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
-* From >08 to >34
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
+* From >08 to >24
 level_3_pattern_094:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
@@ -384,1301 +384,1249 @@ level_3_pattern_094:
 level_3_pattern_095:
        byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
-* From >34 to >00
+* From >24 to >00
 level_3_pattern_096:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >1f to >2f
+* From >1f to >26
 level_3_pattern_097:
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
        byte >2f,>8d,>57,>6b,>bf,>d6,>ff,>d7
-* From >00 to >cd
+* From >00 to >30
 level_3_pattern_098:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >00 to >d2
+* From >00 to >35
 level_3_pattern_099:
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >00 to >cf
+* From >00 to >32
 level_3_pattern_100:
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >00 to >d0
+* From >00 to >33
 level_3_pattern_101:
        byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >2f to >00
+* From >26 to >00
 level_3_pattern_102:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-* From >3a to >34
+* From >2b to >24
 level_3_pattern_103:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >83,>38,>7e,>38,>81,>e3,>ff,>ff
-* From >cd to >cd
+* From >30 to >30
 level_3_pattern_104:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
-* From >d2 to >d2
+* From >35 to >35
 level_3_pattern_105:
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >cf to >cb
+* From >32 to >2e
 level_3_pattern_106:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
-* From >d0 to >cc
+* From >33 to >2f
 level_3_pattern_107:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
-* From >cd to >cc
+* From >30 to >2f
 level_3_pattern_108:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
-* From >cd to >cb
+* From >30 to >2e
 level_3_pattern_109:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
-* From >d2 to >d4
+* From >35 to >37
 level_3_pattern_110:
        byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >d2 to >cb
+* From >35 to >2e
 level_3_pattern_111:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >cf to >cf
+* From >32 to >32
 level_3_pattern_112:
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
-* From >cb to >cd
+* From >2e to >30
 level_3_pattern_113:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >cc to >d0
+* From >2f to >33
 level_3_pattern_114:
        byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cc to >cd
+* From >2f to >30
 level_3_pattern_115:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cb to >d0
+* From >2e to >33
 level_3_pattern_116:
        byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >d4 to >cd
+* From >37 to >30
 level_3_pattern_117:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
-* From >d2 to >cd
+* From >35 to >30
 level_3_pattern_118:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >cb to >cb
+* From >2e to >2e
 level_3_pattern_119:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >cf to >d5
+* From >32 to >38
 level_3_pattern_120:
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
-* From >d2 to >ce
+* From >35 to >31
 level_3_pattern_121:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >cb to >cc
+* From >2e to >2f
 level_3_pattern_122:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >d5 to >d1
+* From >38 to >34
 level_3_pattern_123:
        byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-* From >cc to >ce
+* From >2f to >31
 level_3_pattern_124:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cc to >cf
+* From >2f to >32
 level_3_pattern_125:
        byte >8b,>25,>0a,>81,>54,>02,>50,>09
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >ce to >d2
+* From >31 to >35
 level_3_pattern_126:
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >cc to >cb
+* From >2f to >2e
 level_3_pattern_127:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >d2 to >d0
+* From >35 to >33
 level_3_pattern_128:
        byte >ef,>ff,>7d,>eb,>f5,>ea,>b5,>d8
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >d2 to >cc
+* From >35 to >2f
 level_3_pattern_129:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >00 to >cc
+* From >00 to >2f
 level_3_pattern_130:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >00,>00,>00,>00,>00,>00,>00,>00
-* From >cc to >cc
+* From >2f to >2f
 level_3_pattern_131:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >d1 to >ce
+* From >34 to >31
 level_3_pattern_132:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >e8,>b2,>e8,>d5,>ea,>7f,>ff,>f7
-* From >ce to >d3
+* From >31 to >36
 level_3_pattern_133:
        byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >ce to >cb
+* From >31 to >2e
 level_3_pattern_134:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >d3 to >ce
+* From >36 to >31
 level_3_pattern_135:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >ef,>5b,>ff,>af,>5a,>2f,>5d,>17
-* From >d5 to >cc
+* From >38 to >2f
 level_3_pattern_136:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-* From >ce to >cd
+* From >31 to >30
 level_3_pattern_137:
        byte >be,>6b,>dd,>ab,>54,>8a,>00,>52
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >cb to >ce
+* From >2e to >31
 level_3_pattern_138:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >cc to >c9
+* From >2f to >2c
 level_3_pattern_139:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >ce to >c9
+* From >31 to >2c
 level_3_pattern_140:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >c9 to >c9
+* From >2c to >2c
 level_3_pattern_141:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >cc to >07
+* From >2f to >07
 level_3_pattern_142:
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cc to >06
+* From >2f to >06
 level_3_pattern_143:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cc to >20
+* From >2f to >20
 level_3_pattern_144:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >cc to >2b
+* From >2f to >23
 level_3_pattern_145:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-* From >d5 to >c9
+* From >38 to >2c
 level_3_pattern_146:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-* From >20 to >2b
+* From >20 to >23
 level_3_pattern_147:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >2b to >c9
+* From >23 to >2c
 level_3_pattern_148:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >2b to >31
+* From >23 to >28
 level_3_pattern_149:
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-* From >c9 to >24
+* From >2c to >21
 level_3_pattern_150:
-       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >31 to >20
+* From >28 to >20
 level_3_pattern_151:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >c9 to >31
+* From >2c to >28
 level_3_pattern_152:
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >24 to >20
+* From >21 to >20
 level_3_pattern_153:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
 * From >20 to >07
 level_3_pattern_154:
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >31 to >06
+* From >28 to >06
 level_3_pattern_155:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >24 to >07
+* From >21 to >07
 level_3_pattern_156:
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
-       byte >8b,>25,>0a,>01,>14,>02,>00,>01
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
 * From >20 to >06
 level_3_pattern_157:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >c9 to >22
+* From >21 to >27
 level_3_pattern_158:
-       byte >0b,>25,>0a,>01,>14,>02,>00,>01
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >22 to >37
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
+* From >27 to >27
 level_3_pattern_159:
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>17
-       byte >0b,>25,>0a,>01,>14,>02,>00,>01
-* From >37 to >37
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+* From >28 to >25
 level_3_pattern_160:
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>17
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>17
-* From >31 to >35
-level_3_pattern_161:
-       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
+       byte >a8,>e4,>50,>e4,>d1,>68,>b4,>e8
        byte >d5,>e8,>c1,>24,>89,>42,>08,>40
-* From >37 to >36
+* From >05 to >2a
+level_3_pattern_161:
+       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
+* From >25 to >25
 level_3_pattern_162:
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>17
-* From >05 to >39
+       byte >a8,>e4,>50,>e4,>d1,>68,>b4,>e8
+       byte >a8,>e4,>50,>e4,>d1,>68,>b4,>e8
+* From >2a to >05
 level_3_pattern_163:
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
        byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
-* From >35 to >35
+* From >25 to >06
 level_3_pattern_164:
-       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
-       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
-* From >36 to >36
-level_3_pattern_165:
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-* From >39 to >05
-level_3_pattern_166:
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
-       byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
-* From >35 to >06
-level_3_pattern_167:
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
-       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
-* From >c9 to >32
-level_3_pattern_168:
-       byte >d5,>e8,>c1,>24,>89,>42,>00,>40
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >36 to >2c
-level_3_pattern_169:
-       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
+       byte >a8,>e4,>50,>e4,>d1,>68,>b4,>e8
 * From >08 to >20
-level_3_pattern_170:
+level_3_pattern_165:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
-* From >32 to >20
-level_3_pattern_171:
-       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-       byte >d5,>e8,>c1,>24,>89,>42,>00,>40
-* From >2c to >c9
-level_3_pattern_172:
+* From >27 to >2c
+level_3_pattern_166:
        byte >84,>20,>01,>10,>02,>40,>08,>01
-       byte >0a,>40,>05,>10,>45,>2b,>16,>4b
-* From >20 to >2f
-level_3_pattern_173:
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+* From >20 to >26
+level_3_pattern_167:
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >07 to >34
-level_3_pattern_174:
+* From >07 to >24
+level_3_pattern_168:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
        byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
-* From >06 to >34
-level_3_pattern_175:
+* From >06 to >24
+level_3_pattern_169:
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
-       byte >ff,>3e,>df,>ff,>ff,>fb,>bd,>de
-* From >2f to >c9
-level_3_pattern_176:
+       byte >ff,>3e,>df,>fd,>df,>fb,>bd,>de
+* From >26 to >2c
+level_3_pattern_170:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-* From >34 to >c9
-level_3_pattern_177:
+* From >24 to >2c
+level_3_pattern_171:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >4a,>00,>2a,>51,>aa,>76,>dd,>af
 * From >05 to >20
-level_3_pattern_178:
+level_3_pattern_172:
        byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
-* From >35 to >2b
-level_3_pattern_179:
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
+* From >25 to >23
+level_3_pattern_173:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
-       byte >71,>a8,>d1,>64,>d0,>e5,>50,>ea
-* From >c9 to >21
-level_3_pattern_180:
-       byte >8b,>25,>0a,>01,>04,>02,>00,>00
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >23
-level_3_pattern_181:
-       byte >8b,>25,>0a,>01,>04,>02,>00,>01
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >21 to >20
-level_3_pattern_182:
-       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-       byte >8b,>25,>0a,>01,>04,>02,>00,>00
-* From >08 to >2b
-level_3_pattern_183:
+       byte >a8,>e4,>50,>e4,>d1,>68,>b4,>e8
+* From >08 to >23
+level_3_pattern_174:
        byte >50,>04,>42,>10,>41,>95,>60,>c4
        byte >ef,>f7,>77,>7b,>be,>ef,>f7,>f9
-* From >23 to >39
-level_3_pattern_184:
+* From >21 to >2a
+level_3_pattern_175:
        byte >ff,>f9,>e6,>de,>b8,>80,>e1,>ff
-       byte >8b,>25,>0a,>01,>04,>02,>00,>01
-* From >22 to >36
-level_3_pattern_185:
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-       byte >0b,>25,>0a,>01,>14,>02,>00,>01
-* From >36 to >07
-level_3_pattern_186:
-       byte >f7,>fb,>fb,>7d,>7e,>9f,>ef,>f7
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-* From >20 to >2a
-level_3_pattern_187:
-       byte >00,>00,>40,>10,>40,>95,>60,>c4
-       byte >aa,>76,>dd,>af,>be,>6b,>dd,>ab
-* From >2a to >c9
-level_3_pattern_188:
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-       byte >00,>00,>40,>10,>40,>95,>60,>c4
-* From >36 to >2d
-level_3_pattern_189:
-       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
-       byte >15,>27,>0a,>27,>0b,>16,>2d,>57
-* From >2d to >c9
-level_3_pattern_190:
-       byte >84,>20,>01,>10,>02,>40,>08,>01
-       byte >0a,>00,>05,>10,>05,>2b,>16,>4b
-* From >05 to >2f
-level_3_pattern_191:
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
+* From >27 to >21
+level_3_pattern_176:
+       byte >8b,>25,>0a,>01,>14,>02,>08,>01
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+* From >27 to >26
+level_3_pattern_177:
        byte >0a,>40,>05,>10,>45,>2b,>96,>4b
-       byte >fd,>3e,>df,>ff,>ef,>f3,>fd,>de
-* From >c9 to >9f
-level_3_pattern_192:
+       byte >15,>27,>0a,>27,>0b,>56,>2d,>17
+* From >05 to >26
+level_3_pattern_178:
+       byte >0a,>40,>05,>10,>45,>2b,>96,>4b
+       byte >fd,>3e,>df,>fd,>ef,>f3,>fd,>de
+* From >2c to >9f
+level_3_pattern_179:
        byte >bf,>5f,>5f,>2f,>13,>0c,>03,>00
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >a9
-level_3_pattern_193:
+* From >2c to >a9
+level_3_pattern_180:
        byte >fd,>fa,>fa,>f4,>c8,>30,>c0,>00
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >b4
-level_3_pattern_194:
+* From >2c to >b4
+level_3_pattern_181:
        byte >0a,>09,>04,>05,>02,>02,>01,>01
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >9f to >b6
-level_3_pattern_195:
+level_3_pattern_182:
        byte >aa,>55,>aa,>55,>aa,>55,>aa,>55
        byte >bf,>5f,>5f,>2f,>13,>0c,>03,>00
 * From >a9 to >b6
-level_3_pattern_196:
+level_3_pattern_183:
        byte >aa,>55,>aa,>55,>aa,>55,>aa,>55
        byte >fd,>fa,>fa,>f4,>c8,>30,>c0,>00
-* From >c9 to >b5
-level_3_pattern_197:
+* From >2c to >b5
+level_3_pattern_184:
        byte >90,>50,>a0,>20,>40,>40,>80,>80
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >b4 to >ac
-level_3_pattern_198:
+level_3_pattern_185:
        byte >aa,>95,>4a,>55,>2a,>25,>12,>15
        byte >0a,>09,>04,>05,>02,>02,>01,>01
 * From >b6 to >70
-level_3_pattern_199:
+level_3_pattern_186:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >aa,>55,>aa,>55,>aa,>55,>aa,>55
 * From >b5 to >ad
-level_3_pattern_200:
+level_3_pattern_187:
        byte >a9,>55,>aa,>52,>a4,>54,>a8,>48
        byte >90,>50,>a0,>20,>40,>40,>80,>80
-* From >c9 to >00
-level_3_pattern_201:
+* From >2c to >00
+level_3_pattern_188:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >7d
-level_3_pattern_202:
+* From >2c to >7d
+level_3_pattern_189:
        byte >05,>02,>02,>02,>02,>01,>01,>01
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >ac to >b8
-level_3_pattern_203:
+level_3_pattern_190:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >aa,>95,>4a,>55,>2a,>25,>12,>15
 * From >70 to >62
-level_3_pattern_204:
+level_3_pattern_191:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
 * From >70 to >63
-level_3_pattern_205:
+level_3_pattern_192:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
 * From >ad to >b8
-level_3_pattern_206:
+level_3_pattern_193:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >a9,>55,>aa,>52,>a4,>54,>a8,>48
 * From >00 to >7e
-level_3_pattern_207:
+level_3_pattern_194:
        byte >a0,>40,>40,>40,>40,>80,>80,>80
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >7d to >9d
-level_3_pattern_208:
+level_3_pattern_195:
        byte >0b,>0b,>0b,>08,>05,>05,>05,>05
        byte >05,>02,>02,>02,>02,>01,>01,>01
 * From >b8 to >b8
-level_3_pattern_209:
+level_3_pattern_196:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >7e to >9e
-level_3_pattern_210:
+level_3_pattern_197:
        byte >d0,>d0,>d0,>10,>a0,>a0,>a0,>a0
        byte >a0,>40,>40,>40,>40,>80,>80,>80
 * From >9d to >7b
-level_3_pattern_211:
+level_3_pattern_198:
        byte >2f,>2f,>2f,>20,>17,>17,>17,>17
        byte >0b,>0b,>0b,>08,>05,>05,>05,>05
 * From >60 to >62
-level_3_pattern_212:
+level_3_pattern_199:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >63
-level_3_pattern_213:
+level_3_pattern_200:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
 * From >9e to >7c
-level_3_pattern_214:
+level_3_pattern_201:
        byte >f4,>f4,>f4,>04,>e8,>e8,>e8,>e8
        byte >d0,>d0,>d0,>10,>a0,>a0,>a0,>a0
 * From >7b to >9b
-level_3_pattern_215:
+level_3_pattern_202:
        byte >bf,>bf,>bf,>40,>5f,>5f,>5f,>2f
        byte >2f,>2f,>2f,>20,>17,>17,>17,>17
 * From >7c to >9c
-level_3_pattern_216:
+level_3_pattern_203:
        byte >fd,>fd,>fd,>02,>fa,>fa,>fa,>f4
        byte >f4,>f4,>f4,>04,>e8,>e8,>e8,>e8
-* From >9b to >c6
-level_3_pattern_217:
+* From >9b to >c4
+level_3_pattern_204:
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
        byte >bf,>bf,>bf,>40,>5f,>5f,>5f,>2f
 * From >b8 to >52
-level_3_pattern_218:
+level_3_pattern_205:
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >60 to >53
-level_3_pattern_219:
+level_3_pattern_206:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >52
-level_3_pattern_220:
+level_3_pattern_207:
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
 * From >b8 to >53
-level_3_pattern_221:
+level_3_pattern_208:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
-* From >9c to >c5
-level_3_pattern_222:
+* From >9c to >c3
+level_3_pattern_209:
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
        byte >fd,>fd,>fd,>02,>fa,>fa,>fa,>f4
-* From >c6 to >c6
-level_3_pattern_223:
+* From >c4 to >c4
+level_3_pattern_210:
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
 * From >52 to >50
-level_3_pattern_224:
+level_3_pattern_211:
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
 * From >53 to >51
-level_3_pattern_225:
+level_3_pattern_212:
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
-* From >c5 to >c5
-level_3_pattern_226:
+* From >c3 to >c3
+level_3_pattern_213:
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
-* From >c6 to >70
-level_3_pattern_227:
+* From >c4 to >70
+level_3_pattern_214:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
 * From >50 to >66
-level_3_pattern_228:
+level_3_pattern_215:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
 * From >51 to >b8
-level_3_pattern_229:
+level_3_pattern_216:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
 * From >50 to >b8
-level_3_pattern_230:
+level_3_pattern_217:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
-* From >c5 to >70
-level_3_pattern_231:
+* From >c3 to >70
+level_3_pattern_218:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
-* From >00 to >c9
-level_3_pattern_232:
+* From >00 to >2c
+level_3_pattern_219:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >70 to >94
-level_3_pattern_233:
+level_3_pattern_220:
        byte >fd,>fd,>fd,>c5,>91,>ab,>b9,>7c
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
 * From >66 to >b8
-level_3_pattern_234:
+level_3_pattern_221:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
 * From >b8 to >a3
-level_3_pattern_235:
+level_3_pattern_222:
        byte >ff,>7f,>a0,>a0,>bf,>bf,>c0,>80
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >b8 to >a4
-level_3_pattern_236:
+level_3_pattern_223:
        byte >e8,>f8,>10,>10,>f1,>f1,>01,>03
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >b8 to >a5
-level_3_pattern_237:
+level_3_pattern_224:
        byte >1f,>3f,>7f,>80,>ff,>ff,>ff,>ff
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >94 to >70
-level_3_pattern_238:
+level_3_pattern_225:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >fd,>fd,>fd,>c5,>91,>ab,>b9,>7c
 * From >b8 to >77
-level_3_pattern_239:
+level_3_pattern_226:
        byte >be,>be,>be,>5f,>ef,>f7,>fb,>fd
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >a3 to >78
-level_3_pattern_240:
+level_3_pattern_227:
        byte >e0,>bf,>b7,>77,>9f,>e0,>ff,>ff
        byte >ff,>7f,>a0,>a0,>bf,>bf,>c0,>80
 * From >a4 to >79
-level_3_pattern_241:
+level_3_pattern_228:
        byte >02,>c0,>40,>44,>c8,>20,>80,>c2
        byte >e8,>f8,>10,>10,>f1,>f1,>01,>03
 * From >a5 to >7a
-level_3_pattern_242:
+level_3_pattern_229:
        byte >31,>11,>11,>21,>01,>03,>07,>0f
        byte >1f,>3f,>7f,>80,>ff,>ff,>ff,>ff
-* From >94 to >c5
-level_3_pattern_243:
+* From >94 to >c3
+level_3_pattern_230:
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
        byte >fd,>fd,>fd,>c5,>91,>ab,>b9,>7c
 * From >77 to >aa
-level_3_pattern_244:
+level_3_pattern_231:
        byte >a0,>be,>be,>be,>be,>be,>be,>be
        byte >be,>be,>be,>5f,>ef,>f7,>fb,>fd
 * From >78 to >99
-level_3_pattern_245:
+level_3_pattern_232:
        byte >07,>f8,>fa,>fa,>fa,>fc,>7f,>9f
        byte >e0,>bf,>b7,>77,>9f,>e0,>ff,>ff
 * From >79 to >9a
-level_3_pattern_246:
+level_3_pattern_233:
        byte >80,>7a,>fa,>fa,>fa,>7a,>32,>c2
        byte >02,>c0,>40,>44,>c8,>20,>80,>c2
 * From >7a to >ab
-level_3_pattern_247:
+level_3_pattern_234:
        byte >01,>41,>61,>f1,>f1,>71,>71,>31
        byte >31,>11,>11,>21,>01,>03,>07,>0f
-* From >94 to >c6
-level_3_pattern_248:
+* From >94 to >c4
+level_3_pattern_235:
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
        byte >fd,>fd,>fd,>c5,>91,>ab,>b9,>7c
 * From >aa to >be
-level_3_pattern_249:
+level_3_pattern_236:
        byte >bf,>bf,>bf,>bf,>be,>be,>a0,>9f
        byte >a0,>be,>be,>be,>be,>be,>be,>be
 * From >99 to >bf
-level_3_pattern_250:
+level_3_pattern_237:
        byte >d7,>e7,>f8,>f5,>00,>fb,>07,>ef
        byte >07,>f8,>fa,>fa,>fa,>fc,>7f,>9f
 * From >9a to >75
-level_3_pattern_251:
+level_3_pattern_238:
        byte >00,>00,>40,>00,>00,>78,>80,>df
        byte >80,>7a,>fa,>fa,>fa,>7a,>32,>c2
 * From >ab to >76
-level_3_pattern_252:
+level_3_pattern_239:
        byte >11,>11,>11,>01,>01,>11,>01,>e1
        byte >01,>41,>61,>f1,>f1,>71,>71,>31
 * From >be to >c1
-level_3_pattern_253:
+level_3_pattern_240:
        byte >af,>a7,>a0,>b0,>b8,>bf,>bf,>bf
        byte >bf,>bf,>bf,>bf,>be,>be,>a0,>9f
 * From >bf to >97
-level_3_pattern_254:
+level_3_pattern_241:
        byte >b8,>9c,>1f,>27,>38,>bf,>b7,>d7
        byte >d7,>e7,>f8,>f5,>00,>fb,>07,>ef
 * From >75 to >98
-level_3_pattern_255:
+level_3_pattern_242:
        byte >70,>e0,>e0,>80,>00,>00,>00,>00
        byte >00,>00,>40,>00,>00,>78,>80,>df
 * From >76 to >a0
-level_3_pattern_256:
+level_3_pattern_243:
        byte >f1,>f1,>71,>71,>31,>31,>11,>11
        byte >11,>11,>11,>01,>01,>11,>01,>e1
 * From >c1 to >71
-level_3_pattern_257:
+level_3_pattern_244:
        byte >bf,>bf,>bf,>bf,>bf,>b8,>b7,>af
        byte >af,>a7,>a0,>b0,>b8,>bf,>bf,>bf
 * From >97 to >72
-level_3_pattern_258:
+level_3_pattern_245:
        byte >b0,>b0,>b0,>b0,>b0,>30,>b0,>b8
        byte >b8,>9c,>1f,>27,>38,>bf,>b7,>d7
 * From >98 to >73
-level_3_pattern_259:
+level_3_pattern_246:
        byte >37,>37,>37,>37,>33,>33,>31,>71
        byte >70,>e0,>e0,>80,>00,>00,>00,>00
 * From >a0 to >74
-level_3_pattern_260:
+level_3_pattern_247:
        byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
        byte >f1,>f1,>71,>71,>31,>31,>11,>11
 * From >71 to >a6
-level_3_pattern_261:
+level_3_pattern_248:
        byte >ff,>fc,>fb,>17,>ef,>df,>bf,>bf
        byte >bf,>bf,>bf,>bf,>bf,>b8,>b7,>af
 * From >72 to >95
-level_3_pattern_262:
+level_3_pattern_249:
        byte >ff,>00,>ff,>f8,>e7,>df,>bc,>b8
        byte >b0,>b0,>b0,>b0,>b0,>30,>b0,>b8
 * From >73 to >96
-level_3_pattern_263:
+level_3_pattern_250:
        byte >ff,>00,>ff,>7f,>9f,>ef,>f7,>77
        byte >37,>37,>37,>37,>33,>33,>31,>71
 * From >74 to >a7
-level_3_pattern_264:
+level_3_pattern_251:
        byte >ff,>3f,>1f,>88,>c7,>e3,>f1,>f1
        byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >a6 to >66
-level_3_pattern_265:
+level_3_pattern_252:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>fc,>fb,>17,>ef,>df,>bf,>bf
 * From >95 to >b8
-level_3_pattern_266:
+level_3_pattern_253:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >ff,>00,>ff,>f8,>e7,>df,>bc,>b8
 * From >96 to >b8
-level_3_pattern_267:
+level_3_pattern_254:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >ff,>00,>ff,>7f,>9f,>ef,>f7,>77
 * From >a7 to >b8
-level_3_pattern_268:
+level_3_pattern_255:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >ff,>3f,>1f,>88,>c7,>e3,>f1,>f1
 * From >a3 to >53
-level_3_pattern_269:
+level_3_pattern_256:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >ff,>7f,>a0,>a0,>bf,>bf,>c0,>80
 * From >a4 to >52
-level_3_pattern_270:
+level_3_pattern_257:
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
        byte >e8,>f8,>10,>10,>f1,>f1,>01,>03
 * From >a5 to >53
-level_3_pattern_271:
+level_3_pattern_258:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >1f,>3f,>7f,>80,>ff,>ff,>ff,>ff
 * From >94 to >b2
-level_3_pattern_272:
+level_3_pattern_259:
        byte >2f,>5f,>5f,>5f,>5f,>bf,>bf,>bf
        byte >fd,>fd,>fd,>c5,>91,>ab,>b9,>7c
 * From >51 to >62
-level_3_pattern_273:
+level_3_pattern_260:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
 * From >50 to >63
-level_3_pattern_274:
+level_3_pattern_261:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
-* From >c5 to >b3
-level_3_pattern_275:
+* From >c3 to >b3
+level_3_pattern_262:
        byte >f4,>fa,>fa,>fa,>fa,>fd,>fd,>fd
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
 * From >b2 to >a1
-level_3_pattern_276:
+level_3_pattern_263:
        byte >01,>02,>05,>0b,>0b,>17,>17,>2f
        byte >2f,>5f,>5f,>5f,>5f,>bf,>bf,>bf
 * From >b3 to >a2
-level_3_pattern_277:
+level_3_pattern_264:
        byte >80,>40,>a0,>d0,>d0,>e8,>e8,>f4
        byte >f4,>fa,>fa,>fa,>fa,>fd,>fd,>fd
-* From >a1 to >c9
-level_3_pattern_278:
+* From >a1 to >2c
+level_3_pattern_265:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >01,>02,>05,>0b,>0b,>17,>17,>2f
 * From >b8 to >ae
-level_3_pattern_279:
+level_3_pattern_266:
        byte >00,>00,>01,>06,>19,>27,>5f,>bf
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >60 to >af
-level_3_pattern_280:
+level_3_pattern_267:
        byte >00,>3f,>c0,>3f,>ff,>ff,>ff,>ff
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >b0
-level_3_pattern_281:
+level_3_pattern_268:
        byte >00,>fc,>03,>fc,>ff,>ff,>ff,>ff
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
 * From >b8 to >b1
-level_3_pattern_282:
+level_3_pattern_269:
        byte >00,>00,>80,>60,>98,>e4,>fa,>fd
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
 * From >a2 to >00
-level_3_pattern_283:
+level_3_pattern_270:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >80,>40,>a0,>d0,>d0,>e8,>e8,>f4
-* From >ae to >c9
-level_3_pattern_284:
+* From >ae to >2c
+level_3_pattern_271:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>00,>01,>06,>19,>27,>5f,>bf
-* From >af to >c9
-level_3_pattern_285:
+* From >af to >2c
+level_3_pattern_272:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>3f,>c0,>3f,>ff,>ff,>ff,>ff
-* From >b0 to >c9
-level_3_pattern_286:
+* From >b0 to >2c
+level_3_pattern_273:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>fc,>03,>fc,>ff,>ff,>ff,>ff
-* From >b1 to >c9
-level_3_pattern_287:
+* From >b1 to >2c
+level_3_pattern_274:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>00,>80,>60,>98,>e4,>fa,>fd
-* From >a2 to >c9
-level_3_pattern_288:
+* From >a2 to >2c
+level_3_pattern_275:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >80,>40,>a0,>d0,>d0,>e8,>e8,>f4
-* From >c9 to >3d
-level_3_pattern_289:
+* From >2c to >3d
+level_3_pattern_276:
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >3e
-level_3_pattern_290:
+* From >2c to >3e
+level_3_pattern_277:
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >91
-level_3_pattern_291:
+* From >2c to >91
+level_3_pattern_278:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >6a
-level_3_pattern_292:
+* From >2c to >6a
+level_3_pattern_279:
        byte >fa,>fa,>fa,>fa,>fa,>fa,>fa,>fa
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >9f to >b8
-level_3_pattern_293:
+level_3_pattern_280:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >bf,>5f,>5f,>2f,>13,>0c,>03,>00
 * From >a9 to >b8
-level_3_pattern_294:
+level_3_pattern_281:
        byte >ff,>ff,>ff,>00,>ff,>ff,>ff,>ff
        byte >fd,>fa,>fa,>f4,>c8,>30,>c0,>00
-* From >c9 to >7e
-level_3_pattern_295:
+* From >2c to >7e
+level_3_pattern_282:
        byte >a0,>40,>40,>40,>40,>80,>80,>80
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >6d
-level_3_pattern_296:
+* From >2c to >6d
+level_3_pattern_283:
        byte >b2,>cc,>c2,>c1,>c2,>cc,>b2,>ff
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >6e
-level_3_pattern_297:
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+* From >2c to >6e
+level_3_pattern_284:
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >3d to >3b
-level_3_pattern_298:
+level_3_pattern_285:
        byte >00,>6f,>60,>17,>48,>54,>53,>53
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
 * From >3e to >3c
-level_3_pattern_299:
+level_3_pattern_286:
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
 * From >91 to >91
-level_3_pattern_300:
+level_3_pattern_287:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
 * From >6a to >6a
-level_3_pattern_301:
+level_3_pattern_288:
        byte >fa,>fa,>fa,>fa,>fa,>fa,>fa,>fa
        byte >fa,>fa,>fa,>fa,>fa,>fa,>fa,>fa
 * From >6d to >58
-level_3_pattern_302:
+level_3_pattern_289:
        byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
        byte >b2,>cc,>c2,>c1,>c2,>cc,>b2,>ff
 * From >6e to >59
-level_3_pattern_303:
+level_3_pattern_290:
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
 * From >3b to >3d
-level_3_pattern_304:
+level_3_pattern_291:
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
        byte >00,>6f,>60,>17,>48,>54,>53,>53
 * From >3c to >3e
-level_3_pattern_305:
+level_3_pattern_292:
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
 * From >58 to >62
-level_3_pattern_306:
+level_3_pattern_293:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
 * From >59 to >63
-level_3_pattern_307:
+level_3_pattern_294:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
 * From >3b to >91
-level_3_pattern_308:
+level_3_pattern_295:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >00,>6f,>60,>17,>48,>54,>53,>53
 * From >3c to >91
-level_3_pattern_309:
+level_3_pattern_296:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
 * From >9b to >70
-level_3_pattern_310:
+level_3_pattern_297:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >bf,>bf,>bf,>40,>5f,>5f,>5f,>2f
 * From >50 to >52
-level_3_pattern_311:
+level_3_pattern_298:
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
 * From >51 to >53
-level_3_pattern_312:
+level_3_pattern_299:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
 * From >9c to >70
-level_3_pattern_313:
+level_3_pattern_300:
        byte >54,>10,>54,>54,>44,>7c,>80,>fd
        byte >fd,>fd,>fd,>02,>fa,>fa,>fa,>f4
 * From >50 to >58
-level_3_pattern_314:
+level_3_pattern_301:
        byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
 * From >51 to >59
-level_3_pattern_315:
+level_3_pattern_302:
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
 * From >58 to >99
-level_3_pattern_316:
+level_3_pattern_303:
        byte >07,>f8,>fa,>fa,>fa,>fc,>7f,>9f
        byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
 * From >59 to >9a
-level_3_pattern_317:
+level_3_pattern_304:
        byte >80,>7a,>fa,>fa,>fa,>7a,>32,>c2
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
 * From >60 to >6d
-level_3_pattern_318:
+level_3_pattern_305:
        byte >b2,>cc,>c2,>c1,>c2,>cc,>b2,>ff
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >6e
-level_3_pattern_319:
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+level_3_pattern_306:
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
 * From >58 to >6d
-level_3_pattern_320:
+level_3_pattern_307:
        byte >b2,>cc,>c2,>c1,>c2,>cc,>b2,>ff
        byte >ff,>80,>bf,>bf,>bf,>aa,>80,>fd
 * From >59 to >6e
-level_3_pattern_321:
-       byte >4d,>33,>43,>83,>43,>33,>4d,>ff
+level_3_pattern_308:
+       byte >cd,>33,>43,>83,>43,>33,>4d,>ff
        byte >ff,>01,>fd,>f9,>f5,>a9,>01,>bf
 * From >95 to >62
-level_3_pattern_322:
+level_3_pattern_309:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >ff,>00,>ff,>f8,>e7,>df,>bc,>b8
 * From >96 to >63
-level_3_pattern_323:
+level_3_pattern_310:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >ff,>00,>ff,>7f,>9f,>ef,>f7,>77
 * From >95 to >52
-level_3_pattern_324:
+level_3_pattern_311:
        byte >60,>44,>5d,>7d,>3f,>80,>c0,>e0
        byte >ff,>00,>ff,>f8,>e7,>df,>bc,>b8
 * From >96 to >53
-level_3_pattern_325:
+level_3_pattern_312:
        byte >78,>18,>38,>b8,>f0,>00,>00,>01
        byte >ff,>00,>ff,>7f,>9f,>ef,>f7,>77
 * From >91 to >62
-level_3_pattern_326:
+level_3_pattern_313:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
 * From >91 to >63
-level_3_pattern_327:
+level_3_pattern_314:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
 * From >60 to >91
-level_3_pattern_328:
+level_3_pattern_315:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >91
-level_3_pattern_329:
+level_3_pattern_316:
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
-* From >c6 to >ba
-level_3_pattern_330:
+* From >c4 to >ba
+level_3_pattern_317:
        byte >2f,>2f,>2f,>5f,>5f,>5f,>bf,>bf
        byte >bf,>bf,>bf,>80,>bf,>3f,>bf,>bf
 * From >60 to >b9
-level_3_pattern_331:
+level_3_pattern_318:
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >b9
-level_3_pattern_332:
+level_3_pattern_319:
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
-* From >c5 to >bb
-level_3_pattern_333:
+* From >c3 to >bb
+level_3_pattern_320:
        byte >f4,>f4,>f4,>fa,>fa,>fa,>fd,>fd
        byte >fd,>fd,>fd,>01,>fd,>fc,>fd,>fd
 * From >50 to >b9
-level_3_pattern_334:
+level_3_pattern_321:
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
        byte >80,>3f,>7b,>7d,>44,>70,>70,>70
 * From >51 to >b9
-level_3_pattern_335:
+level_3_pattern_322:
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
        byte >07,>f3,>b9,>38,>78,>f8,>18,>78
 * From >ba to >bc
-level_3_pattern_336:
+level_3_pattern_323:
        byte >05,>0b,>0b,>0b,>17,>17,>17,>2f
        byte >2f,>2f,>2f,>5f,>5f,>5f,>bf,>bf
 * From >b9 to >b7
-level_3_pattern_337:
+level_3_pattern_324:
        byte >ff,>00,>ff,>ef,>f9,>e9,>f9,>df
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
 * From >b9 to >93
-level_3_pattern_338:
+level_3_pattern_325:
        byte >ff,>00,>ff,>f7,>9f,>97,>9f,>fb
        byte >ff,>ff,>e7,>ff,>e7,>ff,>e7,>ff
 * From >bb to >bd
-level_3_pattern_339:
+level_3_pattern_326:
        byte >a0,>d0,>d0,>d0,>e8,>e8,>e8,>f4
        byte >f4,>f4,>f4,>fa,>fa,>fa,>fd,>fd
-* From >bc to >c9
-level_3_pattern_340:
+* From >bc to >2c
+level_3_pattern_327:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >05,>0b,>0b,>0b,>17,>17,>17,>2f
-* From >b7 to >c9
-level_3_pattern_341:
+* From >b7 to >2c
+level_3_pattern_328:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >ff,>00,>ff,>ef,>f9,>e9,>f9,>df
-* From >93 to >c9
-level_3_pattern_342:
+* From >93 to >2c
+level_3_pattern_329:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >ff,>00,>ff,>f7,>9f,>97,>9f,>fb
-* From >bd to >c9
-level_3_pattern_343:
+* From >bd to >2c
+level_3_pattern_330:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >a0,>d0,>d0,>d0,>e8,>e8,>e8,>f4
 * From >91 to >3d
-level_3_pattern_344:
+level_3_pattern_331:
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
 * From >91 to >3e
-level_3_pattern_345:
+level_3_pattern_332:
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
-* From >60 to >c9
-level_3_pattern_346:
+* From >60 to >2c
+level_3_pattern_333:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
-* From >61 to >c9
-level_3_pattern_347:
+* From >61 to >2c
+level_3_pattern_334:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
-* From >91 to >c9
-level_3_pattern_348:
+* From >91 to >2c
+level_3_pattern_335:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >f7,>f7,>f7,>00,>7f,>7f,>7f,>00
-* From >6a to >c9
-level_3_pattern_349:
+* From >6a to >2c
+level_3_pattern_336:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >fa,>fa,>fa,>fa,>fa,>fa,>fa,>fa
-* From >3b to >c9
-level_3_pattern_350:
+* From >3b to >2c
+level_3_pattern_337:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >00,>6f,>60,>17,>48,>54,>53,>53
-* From >3c to >c9
-level_3_pattern_351:
+* From >3c to >2c
+level_3_pattern_338:
        byte >84,>20,>01,>10,>02,>40,>08,>01
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
-* From >c9 to >90
-level_3_pattern_352:
+* From >2c to >90
+level_3_pattern_339:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >84,>20,>01,>10,>02,>40,>08,>01
-* From >c9 to >92
-level_3_pattern_353:
+* From >2c to >92
+level_3_pattern_340:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >84,>20,>01,>10,>02,>40,>08,>01
 * From >90 to >3d
-level_3_pattern_354:
+level_3_pattern_341:
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >92 to >3e
-level_3_pattern_355:
+level_3_pattern_342:
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
 * From >90 to >92
-level_3_pattern_356:
+level_3_pattern_343:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >92 to >90
-level_3_pattern_357:
+level_3_pattern_344:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
 * From >90 to >00
-level_3_pattern_358:
+level_3_pattern_345:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >92 to >00
-level_3_pattern_359:
+level_3_pattern_346:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
 * From >3b to >92
-level_3_pattern_360:
+level_3_pattern_347:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >00,>6f,>60,>17,>48,>54,>53,>53
 * From >3c to >90
-level_3_pattern_361:
+level_3_pattern_348:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
 * From >90 to >0f
-level_3_pattern_362:
+level_3_pattern_349:
        byte >99,>55,>55,>55,>66,>55,>55,>55
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >00 to >0f
-level_3_pattern_363:
+level_3_pattern_350:
        byte >99,>55,>55,>55,>66,>55,>55,>55
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >00 to >1b
-level_3_pattern_364:
+level_3_pattern_351:
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >0f to >0f
-level_3_pattern_365:
+level_3_pattern_352:
        byte >99,>55,>55,>55,>66,>55,>55,>55
        byte >99,>55,>55,>55,>66,>55,>55,>55
 * From >1b to >1b
-level_3_pattern_366:
+level_3_pattern_353:
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >90 to >62
-level_3_pattern_367:
+level_3_pattern_354:
        byte >70,>6a,>75,>3f,>80,>c0,>e0,>f0
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >92 to >63
-level_3_pattern_368:
+level_3_pattern_355:
        byte >50,>b0,>70,>e0,>00,>00,>00,>01
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
 * From >60 to >92
-level_3_pattern_369:
+level_3_pattern_356:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >80,>3f,>7f,>7f,>76,>7f,>7f,>77
 * From >61 to >90
-level_3_pattern_370:
+level_3_pattern_357:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >0f,>e7,>f3,>b1,>50,>30,>50,>30
 * From >00 to >90
-level_3_pattern_371:
+level_3_pattern_358:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >0f to >92
-level_3_pattern_372:
+level_3_pattern_359:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >99,>55,>55,>55,>66,>55,>55,>55
 * From >0f to >90
-level_3_pattern_373:
+level_3_pattern_360:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >99,>55,>55,>55,>66,>55,>55,>55
 * From >1b to >92
-level_3_pattern_374:
+level_3_pattern_361:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >1b to >90
-level_3_pattern_375:
+level_3_pattern_362:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >90 to >1c
-level_3_pattern_376:
+level_3_pattern_363:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
 * From >00 to >17
-level_3_pattern_377:
+level_3_pattern_364:
        byte >e9,>10,>f0,>01,>e1,>00,>82,>01
        byte >00,>00,>00,>00,>00,>00,>00,>00
 * From >17 to >1c
-level_3_pattern_378:
+level_3_pattern_365:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >e9,>10,>f0,>01,>e1,>00,>82,>01
 * From >10 to >16
-level_3_pattern_379:
+level_3_pattern_366:
        byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >16 to >92
-level_3_pattern_380:
+level_3_pattern_367:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
 * From >10 to >90
-level_3_pattern_381:
+level_3_pattern_368:
        byte >ff,>ff,>ff,>00,>ff,>ef,>ef,>ef
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >10 to >92
-level_3_pattern_382:
+level_3_pattern_369:
        byte >ef,>ef,>ef,>08,>ff,>ff,>ff,>ff
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >1b to >1c
-level_3_pattern_383:
+level_3_pattern_370:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >1b to >1a
-level_3_pattern_384:
+level_3_pattern_371:
        byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >0f to >11
-level_3_pattern_385:
+level_3_pattern_372:
        byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
        byte >99,>55,>55,>55,>66,>55,>55,>55
 * From >1c to >1a
-level_3_pattern_386:
+level_3_pattern_373:
        byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
 * From >1a to >1c
-level_3_pattern_387:
+level_3_pattern_374:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
 * From >11 to >1c
-level_3_pattern_388:
+level_3_pattern_375:
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
        byte >11,>ab,>05,>ad,>16,>b5,>55,>d5
 * From >1c to >17
-level_3_pattern_389:
+level_3_pattern_376:
        byte >e9,>10,>f0,>01,>e1,>00,>82,>01
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
 * From >1a to >1b
-level_3_pattern_390:
+level_3_pattern_377:
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
        byte >04,>8a,>00,>a2,>11,>a8,>00,>aa
 * From >1c to >1b
-level_3_pattern_391:
+level_3_pattern_378:
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
        byte >10,>aa,>01,>aa,>10,>aa,>01,>aa
 * From >1b to >10
-level_3_pattern_392:
+level_3_pattern_379:
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >10 to >12
-level_3_pattern_393:
+level_3_pattern_380:
        byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >16 to >10
-level_3_pattern_394:
+level_3_pattern_381:
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
        byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
 * From >10 to >0d
-level_3_pattern_395:
+level_3_pattern_382:
        byte >d9,>55,>f5,>15,>ef,>15,>ff,>01
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >12 to >1b
-level_3_pattern_396:
+level_3_pattern_383:
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
        byte >11,>aa,>07,>a8,>1f,>b0,>7e,>81
 * From >0d to >0f
-level_3_pattern_397:
+level_3_pattern_384:
        byte >99,>55,>55,>55,>66,>55,>55,>55
        byte >d9,>55,>f5,>15,>ef,>15,>ff,>01
 * From >10 to >00
-level_3_pattern_398:
+level_3_pattern_385:
        byte >00,>00,>00,>00,>00,>00,>00,>00
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >16 to >01
-level_3_pattern_399:
+level_3_pattern_386:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >ef,>12,>e6,>07,>c7,>04,>8e,>1d
 * From >10 to >02
-level_3_pattern_400:
+level_3_pattern_387:
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >10 to >03
-level_3_pattern_401:
+level_3_pattern_388:
        byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
        byte >ef,>10,>fe,>01,>ef,>10,>fe,>01
 * From >02 to >02
-level_3_pattern_402:
+level_3_pattern_389:
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
 * From >01 to >02
-level_3_pattern_403:
+level_3_pattern_390:
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
 * From >01 to >03
-level_3_pattern_404:
+level_3_pattern_391:
        byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
 * From >02 to >3d
-level_3_pattern_405:
+level_3_pattern_392:
        byte >54,>48,>17,>60,>6f,>00,>80,>c0
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
 * From >04 to >3e
-level_3_pattern_406:
+level_3_pattern_393:
        byte >a8,>48,>a0,>18,>d8,>00,>00,>00
        byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
 * From >1b to >01
-level_3_pattern_407:
+level_3_pattern_394:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >3b to >01
-level_3_pattern_408:
+level_3_pattern_395:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >00,>6f,>60,>17,>48,>54,>53,>53
 * From >3c to >01
-level_3_pattern_409:
+level_3_pattern_396:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >03,>d9,>18,>a0,>48,>a8,>28,>28
 * From >0f to >01
-level_3_pattern_410:
+level_3_pattern_397:
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
        byte >99,>55,>55,>55,>66,>55,>55,>55
 * From >1b to >02
-level_3_pattern_411:
+level_3_pattern_398:
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >1b to >03
-level_3_pattern_412:
+level_3_pattern_399:
        byte >ff,>ff,>df,>fd,>ff,>7f,>f7,>ff
        byte >44,>aa,>00,>aa,>11,>aa,>00,>aa
 * From >04 to >04
-level_3_pattern_413:
+level_3_pattern_400:
        byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
        byte >ff,>ff,>fd,>ef,>ff,>ff,>fd,>ff
 * From >01 to >64
-level_3_pattern_414:
+level_3_pattern_401:
        byte >01,>05,>05,>15,>15,>55,>00,>00
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
 * From >01 to >65
-level_3_pattern_415:
+level_3_pattern_402:
        byte >40,>50,>50,>54,>54,>55,>00,>00
        byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
 * From >02 to >66
-level_3_pattern_416:
+level_3_pattern_403:
        byte >c3,>bd,>66,>42,>42,>62,>bd,>c3
        byte >ff,>bf,>ff,>fb,>ff,>ef,>ff,>ff
        aorg >6000,1
        bss  >003c
-* From >02 to >34
+* From >02 to >24
 level_3_color_000:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >03 to >34
+* From >03 to >24
 level_3_color_001:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >01 to >34
+* From >01 to >24
 level_3_color_002:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -1694,10 +1642,10 @@ level_3_color_004:
 level_3_color_005:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >3a to >01
+* From >2b to >01
 level_3_color_006:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
 * From >04 to >01
 level_3_color_007:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -1714,14 +1662,14 @@ level_3_color_009:
 level_3_color_010:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >01 to >3a
+* From >01 to >2b
 level_3_color_011:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >6d to >3a
+* From >6d to >2b
 level_3_color_012:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >6e to >04
 level_3_color_013:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -1729,7 +1677,7 @@ level_3_color_013:
 * From >6d to >01
 level_3_color_014:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >6e to >01
 level_3_color_015:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -1742,21 +1690,21 @@ level_3_color_016:
 level_3_color_017:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >10 to >3a
+* From >10 to >2b
 level_3_color_018:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >10 to >04
 level_3_color_019:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >10 to >01
 level_3_color_020:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >00 to >6d
 level_3_color_021:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >00 to >6e
 level_3_color_022:
@@ -1764,15 +1712,15 @@ level_3_color_022:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >10 to >10
 level_3_color_023:
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >00 to >01
 level_3_color_024:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >02 to >3a
+* From >02 to >2b
 level_3_color_025:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >00 to >00
 level_3_color_026:
@@ -1780,7 +1728,7 @@ level_3_color_026:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1c to >10
 level_3_color_027:
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >84 to >00
 level_3_color_028:
@@ -1805,15 +1753,15 @@ level_3_color_032:
 * From >10 to >1c
 level_3_color_033:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
-* From >60 to >3a
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
+* From >60 to >2b
 level_3_color_034:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >04
 level_3_color_035:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >c2 to >01
 level_3_color_036:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -1828,8 +1776,8 @@ level_3_color_038:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
 * From >63 to >61
 level_3_color_039:
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
 * From >6c to >c2
 level_3_color_040:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
@@ -1844,7 +1792,7 @@ level_3_color_042:
        byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
 * From >8c to >63
 level_3_color_043:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
 * From >01 to >6c
 level_3_color_044:
@@ -1861,11 +1809,11 @@ level_3_color_046:
 * From >64 to >00
 level_3_color_047:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
 * From >65 to >00
 level_3_color_048:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
 * From >60 to >8c
 level_3_color_049:
        byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
@@ -1873,14 +1821,14 @@ level_3_color_049:
 * From >61 to >8c
 level_3_color_050:
        byte >e1,>e1,>a1,>e1,>e1,>a1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >00 to >64
 level_3_color_051:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >00 to >65
 level_3_color_052:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >62
 level_3_color_053:
@@ -1888,7 +1836,7 @@ level_3_color_053:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >63
 level_3_color_054:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >1c
 level_3_color_055:
@@ -1902,21 +1850,21 @@ level_3_color_056:
 level_3_color_057:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >3a to >00
+* From >2b to >00
 level_3_color_058:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
 * From >58 to >01
 level_3_color_059:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >59 to >01
 level_3_color_060:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
-* From >87 to >3a
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
+* From >87 to >2b
 level_3_color_061:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >87 to >04
 level_3_color_062:
@@ -1924,12 +1872,12 @@ level_3_color_062:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >58 to >58
 level_3_color_063:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >59 to >59
 level_3_color_064:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >87 to >87
 level_3_color_065:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
@@ -1964,11 +1912,11 @@ level_3_color_072:
        byte >a1,>a1,>f1,>f1,>f1,>a1,>a1,>a1
 * From >01 to >58
 level_3_color_073:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >59
 level_3_color_074:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >02 to >87
 level_3_color_075:
@@ -1993,7 +1941,7 @@ level_3_color_079:
 * From >61 to >87
 level_3_color_080:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >88 to >87
 level_3_color_081:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
@@ -2010,43 +1958,43 @@ level_3_color_083:
 level_3_color_084:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >34 to >05
+* From >24 to >05
 level_3_color_085:
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >34 to >08
+* From >24 to >08
 level_3_color_086:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >05 to >07
 level_3_color_087:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
 * From >08 to >06
 level_3_color_088:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >07 to >05
 level_3_color_089:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >06 to >08
 level_3_color_090:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >06 to >3a
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
+* From >06 to >2b
 level_3_color_091:
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >3a to >06
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
+* From >2b to >06
 level_3_color_092:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
-* From >05 to >34
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
+* From >05 to >24
 level_3_color_093:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >08 to >34
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
+* From >08 to >24
 level_3_color_094:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -2054,235 +2002,235 @@ level_3_color_094:
 level_3_color_095:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >34 to >00
+* From >24 to >00
 level_3_color_096:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >1f to >2f
+* From >1f to >26
 level_3_color_097:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >00 to >cd
+* From >00 to >30
 level_3_color_098:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >00 to >d2
+* From >00 to >35
 level_3_color_099:
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >00 to >cf
+* From >00 to >32
 level_3_color_100:
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >00 to >d0
+* From >00 to >33
 level_3_color_101:
        byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2f to >00
+* From >26 to >00
 level_3_color_102:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >3a to >34
+* From >2b to >24
 level_3_color_103:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
-* From >cd to >cd
+       byte >a1,>f1,>e1,>e1,>a1,>a1,>a1,>a1
+* From >30 to >30
 level_3_color_104:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
-* From >d2 to >d2
+* From >35 to >35
 level_3_color_105:
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >cf to >cb
+* From >32 to >2e
 level_3_color_106:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
-* From >d0 to >cc
+* From >33 to >2f
 level_3_color_107:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
-* From >cd to >cc
+* From >30 to >2f
 level_3_color_108:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
-* From >cd to >cb
+* From >30 to >2e
 level_3_color_109:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
-* From >d2 to >d4
+* From >35 to >37
 level_3_color_110:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >d2 to >cb
+* From >35 to >2e
 level_3_color_111:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >cf to >cf
+* From >32 to >32
 level_3_color_112:
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
-* From >cb to >cd
+* From >2e to >30
 level_3_color_113:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
-* From >cc to >d0
+* From >2f to >33
 level_3_color_114:
        byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cc to >cd
+* From >2f to >30
 level_3_color_115:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cb to >d0
+* From >2e to >33
 level_3_color_116:
        byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
-* From >d4 to >cd
+* From >37 to >30
 level_3_color_117:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >d2 to >cd
+* From >35 to >30
 level_3_color_118:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >cb to >cb
+* From >2e to >2e
 level_3_color_119:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
-* From >cf to >d5
+* From >32 to >38
 level_3_color_120:
        byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
-* From >d2 to >ce
+* From >35 to >31
 level_3_color_121:
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >cb to >cc
+* From >2e to >2f
 level_3_color_122:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
-* From >d5 to >d1
+* From >38 to >34
 level_3_color_123:
        byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
-* From >cc to >ce
+* From >2f to >31
 level_3_color_124:
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cc to >cf
+* From >2f to >32
 level_3_color_125:
        byte >e1,>e1,>e1,>51,>e1,>51,>e1,>e1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >ce to >d2
+* From >31 to >35
 level_3_color_126:
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-* From >cc to >cb
+* From >2f to >2e
 level_3_color_127:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >d2 to >d0
+* From >35 to >33
 level_3_color_128:
        byte >e1,>e1,>f1,>e1,>e1,>f1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >d2 to >cc
+* From >35 to >2f
 level_3_color_129:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>51,>51,>e1
-* From >00 to >cc
+* From >00 to >2f
 level_3_color_130:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >cc to >cc
+* From >2f to >2f
 level_3_color_131:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >d1 to >ce
+* From >34 to >31
 level_3_color_132:
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>e1,>e1,>f1,>e1,>e1,>e1
-* From >ce to >d3
+* From >31 to >36
 level_3_color_133:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-* From >ce to >cb
+* From >31 to >2e
 level_3_color_134:
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-* From >d3 to >ce
+* From >36 to >31
 level_3_color_135:
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >d5 to >cc
+* From >38 to >2f
 level_3_color_136:
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
        byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
-* From >ce to >cd
+* From >31 to >30
 level_3_color_137:
        byte >e1,>e1,>e1,>f1,>e1,>f1,>a1,>51
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-* From >cb to >ce
+* From >2e to >31
 level_3_color_138:
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>f1,>e1,>f1,>e1,>e1,>e1,>e1
-* From >cc to >c9
+* From >2f to >2c
 level_3_color_139:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >ce to >c9
+* From >31 to >2c
 level_3_color_140:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-* From >c9 to >c9
+* From >2c to >2c
 level_3_color_141:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >cc to >07
+* From >2f to >07
 level_3_color_142:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cc to >06
+* From >2f to >06
 level_3_color_143:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cc to >20
+* From >2f to >20
 level_3_color_144:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >cc to >2b
+* From >2f to >23
 level_3_color_145:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >f1,>a1,>f1,>e1,>e1,>e1,>f1,>e1
-* From >d5 to >c9
+* From >38 to >2c
 level_3_color_146:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >f1,>f1,>e1,>e1,>f1,>e1,>f1,>e1
-* From >20 to >2b
+* From >20 to >23
 level_3_color_147:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2b to >c9
+* From >23 to >2c
 level_3_color_148:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2b to >31
+* From >23 to >28
 level_3_color_149:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >24
+* From >2c to >21
 level_3_color_150:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >31 to >20
+* From >28 to >20
 level_3_color_151:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >31
+* From >2c to >28
 level_3_color_152:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >24 to >20
+* From >21 to >20
 level_3_color_153:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
@@ -2290,1052 +2238,1000 @@ level_3_color_153:
 level_3_color_154:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >31 to >06
+* From >28 to >06
 level_3_color_155:
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >24 to >07
+* From >21 to >07
 level_3_color_156:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >20 to >06
 level_3_color_157:
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >22
+* From >21 to >27
 level_3_color_158:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >22 to >37
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >27 to >27
 level_3_color_159:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >37 to >37
+* From >28 to >25
 level_3_color_160:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >31 to >35
+* From >05 to >2a
 level_3_color_161:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >37 to >36
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
+* From >25 to >25
 level_3_color_162:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >05 to >39
+* From >2a to >05
 level_3_color_163:
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >35 to >35
+* From >25 to >06
 level_3_color_164:
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >36 to >36
+* From >08 to >20
 level_3_color_165:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >39 to >05
+* From >27 to >2c
 level_3_color_166:
+       byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >35 to >06
+* From >20 to >26
 level_3_color_167:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >32
+* From >07 to >24
 level_3_color_168:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >36 to >2c
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >06 to >24
 level_3_color_169:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >08 to >20
+       byte >a1,>a1,>a1,>ab,>ae,>a1,>a1,>a1
+* From >26 to >2c
 level_3_color_170:
+       byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >32 to >20
+* From >24 to >2c
 level_3_color_171:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2c to >c9
-level_3_color_172:
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >20 to >2f
-level_3_color_173:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >07 to >34
-level_3_color_174:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >06 to >34
-level_3_color_175:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2f to >c9
-level_3_color_176:
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >34 to >c9
-level_3_color_177:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >05 to >20
+level_3_color_172:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
+* From >25 to >23
+level_3_color_173:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >08 to >23
+level_3_color_174:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >21 to >2a
+level_3_color_175:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >27 to >21
+level_3_color_176:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >27 to >26
+level_3_color_177:
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+* From >05 to >26
 level_3_color_178:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >35 to >2b
+       byte >a1,>a1,>a1,>ae,>a1,>a1,>a1,>a1
+* From >2c to >9f
 level_3_color_179:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >21
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
+       byte >41,>51,>41,>41,>51,>51,>41,>51
+* From >2c to >a9
 level_3_color_180:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
+       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >23
+* From >2c to >b4
 level_3_color_181:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >21 to >20
-level_3_color_182:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >08 to >2b
-level_3_color_183:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >23 to >39
-level_3_color_184:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >22 to >36
-level_3_color_185:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >36 to >07
-level_3_color_186:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >20 to >2a
-level_3_color_187:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2a to >c9
-level_3_color_188:
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >36 to >2d
-level_3_color_189:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >2d to >c9
-level_3_color_190:
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >05 to >2f
-level_3_color_191:
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-* From >c9 to >9f
-level_3_color_192:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >a9
-level_3_color_193:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >b4
-level_3_color_194:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >9f to >b6
-level_3_color_195:
+level_3_color_182:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
 * From >a9 to >b6
-level_3_color_196:
+level_3_color_183:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
-* From >c9 to >b5
-level_3_color_197:
+* From >2c to >b5
+level_3_color_184:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >b4 to >ac
-level_3_color_198:
+level_3_color_185:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b6 to >70
-level_3_color_199:
+level_3_color_186:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b5 to >ad
-level_3_color_200:
+level_3_color_187:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >c9 to >00
-level_3_color_201:
+* From >2c to >00
+level_3_color_188:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >7d
-level_3_color_202:
+* From >2c to >7d
+level_3_color_189:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >ac to >b8
-level_3_color_203:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_190:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >70 to >62
-level_3_color_204:
+level_3_color_191:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >70 to >63
-level_3_color_205:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+level_3_color_192:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >ad to >b8
-level_3_color_206:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_193:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >00 to >7e
-level_3_color_207:
+level_3_color_194:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >7d to >9d
-level_3_color_208:
+level_3_color_195:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b8 to >b8
-level_3_color_209:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_196:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >7e to >9e
-level_3_color_210:
+level_3_color_197:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >9d to >7b
-level_3_color_211:
+level_3_color_198:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >60 to >62
-level_3_color_212:
+level_3_color_199:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >63
-level_3_color_213:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+level_3_color_200:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >9e to >7c
-level_3_color_214:
+level_3_color_201:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >7b to >9b
-level_3_color_215:
+level_3_color_202:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >7c to >9c
-level_3_color_216:
+level_3_color_203:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >9b to >c6
-level_3_color_217:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >9b to >c4
+level_3_color_204:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b8 to >52
-level_3_color_218:
+level_3_color_205:
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >60 to >53
-level_3_color_219:
+level_3_color_206:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >52
-level_3_color_220:
+level_3_color_207:
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >b8 to >53
-level_3_color_221:
+level_3_color_208:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
-* From >9c to >c5
-level_3_color_222:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
+* From >9c to >c3
+level_3_color_209:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >c6 to >c6
-level_3_color_223:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >c4 to >c4
+level_3_color_210:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >52 to >50
-level_3_color_224:
+level_3_color_211:
        byte >e1,>51,>51,>51,>51,>51,>51,>51
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
 * From >53 to >51
-level_3_color_225:
+level_3_color_212:
        byte >e1,>41,>41,>41,>41,>41,>41,>41
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
-* From >c5 to >c5
-level_3_color_226:
+* From >c3 to >c3
+level_3_color_213:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
+* From >c4 to >70
+level_3_color_214:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >c6 to >70
-level_3_color_227:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >50 to >66
-level_3_color_228:
+level_3_color_215:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
 * From >51 to >b8
-level_3_color_229:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_216:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>41,>41,>41,>41,>41,>41,>41
 * From >50 to >b8
-level_3_color_230:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_217:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
-* From >c5 to >70
-level_3_color_231:
+* From >c3 to >70
+level_3_color_218:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >00 to >c9
-level_3_color_232:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
+* From >00 to >2c
+level_3_color_219:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >70 to >94
-level_3_color_233:
+level_3_color_220:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >66 to >b8
-level_3_color_234:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_221:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
 * From >b8 to >a3
-level_3_color_235:
+level_3_color_222:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >b8 to >a4
-level_3_color_236:
+level_3_color_223:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >b8 to >a5
-level_3_color_237:
+level_3_color_224:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >94 to >70
-level_3_color_238:
+level_3_color_225:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b8 to >77
-level_3_color_239:
+level_3_color_226:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >a3 to >78
-level_3_color_240:
+level_3_color_227:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a4 to >79
-level_3_color_241:
+level_3_color_228:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a5 to >7a
-level_3_color_242:
+level_3_color_229:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >94 to >c5
-level_3_color_243:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >94 to >c3
+level_3_color_230:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >77 to >aa
-level_3_color_244:
+level_3_color_231:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >78 to >99
-level_3_color_245:
+level_3_color_232:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >79 to >9a
-level_3_color_246:
+level_3_color_233:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >7a to >ab
-level_3_color_247:
+level_3_color_234:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >94 to >c6
-level_3_color_248:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >94 to >c4
+level_3_color_235:
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >aa to >be
-level_3_color_249:
+level_3_color_236:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >99 to >bf
-level_3_color_250:
+level_3_color_237:
        byte >e1,>e1,>e1,>e1,>a1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >9a to >75
-level_3_color_251:
+level_3_color_238:
        byte >a1,>a1,>e1,>a1,>a1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >ab to >76
-level_3_color_252:
+level_3_color_239:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >be to >c1
-level_3_color_253:
+level_3_color_240:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >bf to >97
-level_3_color_254:
+level_3_color_241:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>a1,>e1,>e1,>e1
 * From >75 to >98
-level_3_color_255:
+level_3_color_242:
        byte >e1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>e1,>a1,>a1,>e1,>e1,>e1
 * From >76 to >a0
-level_3_color_256:
+level_3_color_243:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >c1 to >71
-level_3_color_257:
+level_3_color_244:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >97 to >72
-level_3_color_258:
+level_3_color_245:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >98 to >73
-level_3_color_259:
+level_3_color_246:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>a1,>a1,>a1,>a1
 * From >a0 to >74
-level_3_color_260:
+level_3_color_247:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >71 to >a6
-level_3_color_261:
+level_3_color_248:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >72 to >95
-level_3_color_262:
+level_3_color_249:
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >73 to >96
-level_3_color_263:
+level_3_color_250:
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >74 to >a7
-level_3_color_264:
+level_3_color_251:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a6 to >66
-level_3_color_265:
+level_3_color_252:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >95 to >b8
-level_3_color_266:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_253:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >96 to >b8
-level_3_color_267:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_254:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a7 to >b8
-level_3_color_268:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_255:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a3 to >53
-level_3_color_269:
+level_3_color_256:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a4 to >52
-level_3_color_270:
+level_3_color_257:
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >a5 to >53
-level_3_color_271:
+level_3_color_258:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >94 to >b2
-level_3_color_272:
+level_3_color_259:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >51 to >62
-level_3_color_273:
+level_3_color_260:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>41,>41,>41,>41,>41,>41,>41
 * From >50 to >63
-level_3_color_274:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+level_3_color_261:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
-* From >c5 to >b3
-level_3_color_275:
+* From >c3 to >b3
+level_3_color_262:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >b2 to >a1
-level_3_color_276:
+level_3_color_263:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b3 to >a2
-level_3_color_277:
+level_3_color_264:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >a1 to >c9
-level_3_color_278:
+* From >a1 to >2c
+level_3_color_265:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b8 to >ae
-level_3_color_279:
+level_3_color_266:
        byte >a1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >60 to >af
-level_3_color_280:
+level_3_color_267:
        byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >b0
-level_3_color_281:
+level_3_color_268:
        byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >b8 to >b1
-level_3_color_282:
+level_3_color_269:
        byte >a1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >a2 to >00
-level_3_color_283:
+level_3_color_270:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >ae to >c9
-level_3_color_284:
+* From >ae to >2c
+level_3_color_271:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >af to >c9
-level_3_color_285:
+* From >af to >2c
+level_3_color_272:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >b0 to >c9
-level_3_color_286:
+* From >b0 to >2c
+level_3_color_273:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >b1 to >c9
-level_3_color_287:
+* From >b1 to >2c
+level_3_color_274:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >a1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >a2 to >c9
-level_3_color_288:
+* From >a2 to >2c
+level_3_color_275:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >c9 to >3d
-level_3_color_289:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+* From >2c to >3d
+level_3_color_276:
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >3e
-level_3_color_290:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+* From >2c to >3e
+level_3_color_277:
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >91
-level_3_color_291:
+* From >2c to >91
+level_3_color_278:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >6a
-level_3_color_292:
+* From >2c to >6a
+level_3_color_279:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >9f to >b8
-level_3_color_293:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_280:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
 * From >a9 to >b8
-level_3_color_294:
-       byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>e1
+level_3_color_281:
+       byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>a1
-* From >c9 to >7e
-level_3_color_295:
+* From >2c to >7e
+level_3_color_282:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >6d
-level_3_color_296:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >2c to >6d
+level_3_color_283:
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >6e
-level_3_color_297:
+* From >2c to >6e
+level_3_color_284:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >3d to >3b
-level_3_color_298:
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_285:
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
 * From >3e to >3c
-level_3_color_299:
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_286:
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
 * From >91 to >91
-level_3_color_300:
+level_3_color_287:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
 * From >6a to >6a
-level_3_color_301:
+level_3_color_288:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >6d to >58
-level_3_color_302:
+level_3_color_289:
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >6e to >59
-level_3_color_303:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_3_color_290:
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >3b to >3d
-level_3_color_304:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_3_color_291:
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
 * From >3c to >3e
-level_3_color_305:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+level_3_color_292:
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
 * From >58 to >62
-level_3_color_306:
+level_3_color_293:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >59 to >63
-level_3_color_307:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_3_color_294:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >3b to >91
-level_3_color_308:
+level_3_color_295:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
 * From >3c to >91
-level_3_color_309:
+level_3_color_296:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
 * From >9b to >70
-level_3_color_310:
+level_3_color_297:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >50 to >52
-level_3_color_311:
+level_3_color_298:
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
 * From >51 to >53
-level_3_color_312:
+level_3_color_299:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
        byte >e1,>41,>41,>41,>41,>41,>41,>41
 * From >9c to >70
-level_3_color_313:
+level_3_color_300:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >50 to >58
-level_3_color_314:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_3_color_301:
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
 * From >51 to >59
-level_3_color_315:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+level_3_color_302:
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
        byte >e1,>41,>41,>41,>41,>41,>41,>41
 * From >58 to >99
-level_3_color_316:
+level_3_color_303:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >59 to >9a
-level_3_color_317:
+level_3_color_304:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >60 to >6d
-level_3_color_318:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_3_color_305:
+       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >6e
-level_3_color_319:
+level_3_color_306:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >58 to >6d
-level_3_color_320:
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+level_3_color_307:
        byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >59 to >6e
-level_3_color_321:
+level_3_color_308:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >f1,>f1,>e1,>e1,>e1,>e1,>f1,>f1
 * From >95 to >62
-level_3_color_322:
+level_3_color_309:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >96 to >63
-level_3_color_323:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+level_3_color_310:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >95 to >52
-level_3_color_324:
+level_3_color_311:
        byte >51,>51,>51,>51,>51,>e1,>e1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >96 to >53
-level_3_color_325:
+level_3_color_312:
        byte >41,>41,>41,>41,>41,>a1,>a1,>e1
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >91 to >62
-level_3_color_326:
+level_3_color_313:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
 * From >91 to >63
-level_3_color_327:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+level_3_color_314:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
 * From >60 to >91
-level_3_color_328:
+level_3_color_315:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >91
-level_3_color_329:
+level_3_color_316:
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
-* From >c6 to >ba
-level_3_color_330:
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
+* From >c4 to >ba
+level_3_color_317:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >60 to >b9
-level_3_color_331:
+level_3_color_318:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >b9
-level_3_color_332:
+level_3_color_319:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
-* From >c5 to >bb
-level_3_color_333:
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
+* From >c3 to >bb
+level_3_color_320:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-       byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
+       byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >50 to >b9
-level_3_color_334:
+level_3_color_321:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>51,>51,>51,>51,>51,>51,>51
 * From >51 to >b9
-level_3_color_335:
+level_3_color_322:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>41,>41,>41,>41,>41,>41,>41
 * From >ba to >bc
-level_3_color_336:
+level_3_color_323:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b9 to >b7
-level_3_color_337:
+level_3_color_324:
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >b9 to >93
-level_3_color_338:
+level_3_color_325:
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >bb to >bd
-level_3_color_339:
+level_3_color_326:
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >bc to >c9
-level_3_color_340:
+* From >bc to >2c
+level_3_color_327:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >b7 to >c9
-level_3_color_341:
-       byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >93 to >c9
-level_3_color_342:
+* From >b7 to >2c
+level_3_color_328:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >bd to >c9
-level_3_color_343:
+* From >93 to >2c
+level_3_color_329:
+       byte >41,>51,>41,>41,>51,>51,>41,>51
+       byte >e1,>a1,>e1,>e1,>e1,>e1,>e1,>e1
+* From >bd to >2c
+level_3_color_330:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
 * From >91 to >3d
-level_3_color_344:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_331:
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
 * From >91 to >3e
-level_3_color_345:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_332:
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
-* From >60 to >c9
-level_3_color_346:
+* From >60 to >2c
+level_3_color_333:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
-* From >61 to >c9
-level_3_color_347:
+* From >61 to >2c
+level_3_color_334:
        byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
-* From >91 to >c9
-level_3_color_348:
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
+* From >91 to >2c
+level_3_color_335:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>a1,>e1,>e1,>e1,>a1
-* From >6a to >c9
-level_3_color_349:
+* From >6a to >2c
+level_3_color_336:
        byte >41,>51,>41,>41,>51,>51,>41,>51
        byte >e1,>e1,>e1,>e1,>e1,>e1,>e1,>e1
-* From >3b to >c9
-level_3_color_350:
+* From >3b to >2c
+level_3_color_337:
        byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
-* From >3c to >c9
-level_3_color_351:
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
+* From >3c to >2c
+level_3_color_338:
        byte >41,>51,>41,>41,>51,>51,>41,>51
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
-* From >c9 to >90
-level_3_color_352:
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
+* From >2c to >90
+level_3_color_339:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
-* From >c9 to >92
-level_3_color_353:
+* From >2c to >92
+level_3_color_340:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >41,>51,>41,>41,>51,>51,>41,>51
 * From >90 to >3d
-level_3_color_354:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_341:
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >92 to >3e
-level_3_color_355:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_342:
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >90 to >92
-level_3_color_356:
+level_3_color_343:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >92 to >90
-level_3_color_357:
+level_3_color_344:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >90 to >00
-level_3_color_358:
+level_3_color_345:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >92 to >00
-level_3_color_359:
+level_3_color_346:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >3b to >92
-level_3_color_360:
+level_3_color_347:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
 * From >3c to >90
-level_3_color_361:
+level_3_color_348:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
 * From >90 to >0f
-level_3_color_362:
+level_3_color_349:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >00 to >0f
-level_3_color_363:
+level_3_color_350:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >00 to >1b
-level_3_color_364:
+level_3_color_351:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >0f to >0f
-level_3_color_365:
+level_3_color_352:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >1b to >1b
-level_3_color_366:
+level_3_color_353:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >90 to >62
-level_3_color_367:
+level_3_color_354:
        byte >f1,>f1,>f1,>f1,>e1,>e1,>e1,>e1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >92 to >63
-level_3_color_368:
-       byte >f1,>f1,>f1,>f1,>a1,>a1,>a1,>e1
+level_3_color_355:
+       byte >f1,>f1,>e1,>e1,>a1,>a1,>a1,>e1
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
 * From >60 to >92
-level_3_color_369:
+level_3_color_356:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
 * From >61 to >90
-level_3_color_370:
+level_3_color_357:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
-       byte >e1,>e1,>f1,>f1,>f1,>f1,>f1,>f1
+       byte >e1,>e1,>e1,>f1,>f1,>f1,>f1,>f1
 * From >00 to >90
-level_3_color_371:
+level_3_color_358:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >0f to >92
-level_3_color_372:
+level_3_color_359:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >0f to >90
-level_3_color_373:
+level_3_color_360:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >1b to >92
-level_3_color_374:
+level_3_color_361:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1b to >90
-level_3_color_375:
+level_3_color_362:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >90 to >1c
-level_3_color_376:
+level_3_color_363:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
 * From >00 to >17
-level_3_color_377:
+level_3_color_364:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >17 to >1c
-level_3_color_378:
+level_3_color_365:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >10 to >16
-level_3_color_379:
+level_3_color_366:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >16 to >92
-level_3_color_380:
+level_3_color_367:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >10 to >90
-level_3_color_381:
+level_3_color_368:
        byte >e1,>e1,>e1,>a1,>f1,>e1,>e1,>e1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >10 to >92
-level_3_color_382:
+level_3_color_369:
        byte >e1,>e1,>e1,>e1,>f1,>e1,>e1,>e1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >1b to >1c
-level_3_color_383:
+level_3_color_370:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1b to >1a
-level_3_color_384:
+level_3_color_371:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >0f to >11
-level_3_color_385:
+level_3_color_372:
        byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >1c to >1a
-level_3_color_386:
+level_3_color_373:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1a to >1c
-level_3_color_387:
+level_3_color_374:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >11 to >1c
-level_3_color_388:
+level_3_color_375:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>b1,>b1,>b1,>b1
 * From >1c to >17
-level_3_color_389:
+level_3_color_376:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1a to >1b
-level_3_color_390:
+level_3_color_377:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1c to >1b
-level_3_color_391:
+level_3_color_378:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1b to >10
-level_3_color_392:
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_3_color_379:
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >10 to >12
-level_3_color_393:
+level_3_color_380:
        byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >16 to >10
-level_3_color_394:
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+level_3_color_381:
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >10 to >0d
-level_3_color_395:
+level_3_color_382:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >12 to >1b
-level_3_color_396:
+level_3_color_383:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>b1,>b1,>b1
 * From >0d to >0f
-level_3_color_397:
+level_3_color_384:
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >10 to >00
-level_3_color_398:
+level_3_color_385:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >16 to >01
-level_3_color_399:
+level_3_color_386:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >10 to >02
-level_3_color_400:
+level_3_color_387:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >10 to >03
-level_3_color_401:
+level_3_color_388:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
+       byte >b1,>b1,>b1,>f1,>b1,>f1,>b1,>b1
 * From >02 to >02
-level_3_color_402:
+level_3_color_389:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >02
-level_3_color_403:
+level_3_color_390:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >03
-level_3_color_404:
+level_3_color_391:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >02 to >3d
-level_3_color_405:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_392:
+       byte >81,>81,>91,>81,>81,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >04 to >3e
-level_3_color_406:
-       byte >61,>61,>91,>61,>61,>a1,>a1,>a1
+level_3_color_393:
+       byte >61,>61,>81,>61,>61,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1b to >01
-level_3_color_407:
+level_3_color_394:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >3b to >01
-level_3_color_408:
+level_3_color_395:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>81,>81,>91,>81,>81,>81,>81
 * From >3c to >01
-level_3_color_409:
+level_3_color_396:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
-       byte >a1,>61,>61,>91,>61,>61,>61,>61
+       byte >a1,>61,>61,>81,>61,>61,>61,>61
 * From >0f to >01
-level_3_color_410:
+level_3_color_397:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >b1,>b1,>b1,>b1,>b1,>b1,>b1,>b1
 * From >1b to >02
-level_3_color_411:
+level_3_color_398:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >1b to >03
-level_3_color_412:
+level_3_color_399:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >04 to >04
-level_3_color_413:
+level_3_color_400:
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >64
-level_3_color_414:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+level_3_color_401:
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >01 to >65
-level_3_color_415:
-       byte >f1,>f1,>f1,>f1,>f1,>f1,>a1,>a1
+level_3_color_402:
+       byte >91,>91,>81,>81,>61,>61,>a1,>a1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
 * From >02 to >66
-level_3_color_416:
+level_3_color_403:
        byte >e1,>f1,>f1,>f1,>f1,>f1,>f1,>e1
        byte >a1,>a1,>a1,>a1,>a1,>a1,>a1,>a1
        aorg >6000,2
@@ -3579,38 +3475,38 @@ level_3_map:
        byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
        byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
        byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>5a,>5b,>5b,>5b,>5b
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>5a,>54,>58,>59,>58,>59
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>5a,>5b,>5b,>04,>17,>49,>4a,>49,>4a
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>01,>54,>58,>59,>48,>4b,>48,>4b,>11,>4b
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>00,>17,>49,>4a,>49,>42,>49,>4a,>05,>4a
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>07,>4b,>48,>4b,>48,>4c,>48,>4b,>48,>4b
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>19,>0b,>49,>4a,>49,>4a,>49,>4a,>49,>4a
-       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>03,>10,>48,>4b,>48,>4b,>48,>4b,>48,>4b
-       byte >1c,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>0b,>49,>4a,>49,>4a,>49,>4a
-       byte >1b,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>48,>4b,>48,>4b,>48,>4b
-       byte >2a,>22,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0c,>4a,>49,>4a,>49,>4a
-       byte >48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>07,>4b,>48,>4b,>48,>4b
-       byte >49,>4a,>2a,>22,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>19,>0b,>49,>4a,>49,>4a
-       byte >48,>4b,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>03,>10,>48,>4b,>48,>4b
-       byte >49,>4a,>49,>4a,>2a,>22,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>0b,>49,>4a
-       byte >48,>4b,>48,>4b,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>11,>4b
-       byte >49,>4a,>49,>4a,>49,>42,>2a,>22,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>23,>0b
-       byte >48,>4b,>48,>4b,>48,>4c,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1a,>2f
-       byte >49,>4a,>49,>4a,>49,>4a,>49,>4a,>2a,>2b,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>2c
-       byte >11,>4b,>48,>4b,>48,>4b,>48,>4b,>48,>06,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >05,>4a,>49,>4a,>49,>4a,>49,>42,>49,>06,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >48,>4b,>48,>4b,>48,>4b,>48,>4c,>48,>06,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >49,>4a,>49,>4a,>49,>4a,>49,>4a,>49,>06,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >48,>4b,>48,>4b,>11,>4b,>48,>4b,>48,>06,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
-       byte >49,>4a,>49,>4a,>05,>4a,>49,>4a,>08,>02,>1d,>1d,>1d,>1d,>1d,>5a,>5b,>5b
-       byte >48,>4b,>48,>4b,>48,>4b,>48,>4b,>18,>0f,>1d,>1d,>1d,>1d,>53,>54,>58,>59
-       byte >49,>4a,>49,>4a,>49,>4a,>49,>12,>13,>1d,>1d,>1d,>1d,>1d,>14,>17,>49,>4a
-       byte >48,>4b,>48,>4b,>48,>4b,>48,>06,>1d,>1d,>1d,>1d,>1d,>1d,>07,>4b,>11,>4b
-       byte >49,>42,>49,>4a,>49,>4a,>08,>02,>1d,>1d,>1d,>1d,>1d,>1d,>04,>4a,>05,>4a
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>17,>18,>18,>18,>18
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>17,>12,>13,>14,>13,>14
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>17,>18,>18,>06,>07,>49,>4a,>49,>4a
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>17,>12,>13,>14,>48,>4b,>48,>4b,>05,>4b
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>09,>07,>49,>4a,>49,>42,>49,>4a,>03,>4a
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>01,>4b,>48,>4b,>48,>4c,>48,>4b,>48,>4b
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>00,>0b,>49,>4a,>49,>4a,>49,>4a,>49,>4a
+       byte >1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>48,>4b,>48,>4b,>48,>4b,>48,>4b
+       byte >16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>0b,>49,>4a,>49,>4a,>49,>4a
+       byte >15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>48,>4b,>48,>4b,>48,>4b
+       byte >2a,>1a,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>4a,>49,>4a,>49,>4a
+       byte >48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>19,>4b,>48,>4b,>48,>4b
+       byte >49,>4a,>2a,>1a,>16,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>00,>0b,>49,>4a,>49,>4a
+       byte >48,>4b,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>48,>4b,>48,>4b
+       byte >49,>4a,>49,>4a,>2a,>1a,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>0b,>49,>4a
+       byte >48,>4b,>48,>4b,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>05,>4b
+       byte >49,>4a,>49,>4a,>49,>42,>2a,>1a,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>22,>0b
+       byte >48,>4b,>48,>4b,>48,>4c,>48,>4b,>15,>16,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10
+       byte >49,>4a,>49,>4a,>49,>4a,>49,>4a,>2a,>2b,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d
+       byte >05,>4b,>48,>4b,>48,>4b,>48,>4b,>48,>04,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >03,>4a,>49,>4a,>49,>4a,>49,>42,>49,>04,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >48,>4b,>48,>4b,>48,>4b,>48,>4c,>48,>04,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >49,>4a,>49,>4a,>49,>4a,>49,>4a,>49,>04,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >48,>4b,>48,>4b,>05,>4b,>48,>4b,>48,>04,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d
+       byte >49,>4a,>49,>4a,>03,>4a,>49,>4a,>08,>02,>1d,>1d,>1d,>1d,>1d,>17,>18,>18
+       byte >48,>4b,>48,>4b,>48,>4b,>48,>4b,>0e,>0f,>1d,>1d,>1d,>1d,>11,>12,>13,>14
+       byte >49,>4a,>49,>4a,>49,>4a,>49,>06,>0f,>1d,>1d,>1d,>1d,>1d,>01,>07,>49,>4a
+       byte >48,>4b,>48,>4b,>48,>4b,>48,>04,>1d,>1d,>1d,>1d,>1d,>1d,>01,>4b,>05,>4b
+       byte >49,>42,>49,>4a,>49,>4a,>08,>02,>1d,>1d,>1d,>1d,>1d,>1d,>01,>4a,>03,>4a
        byte >48,>4c,>48,>4b,>48,>4b,>0e,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>01,>4b,>48,>4b
        byte >49,>4a,>49,>4a,>08,>09,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>00,>0b,>49,>4a
-       byte >48,>4b,>48,>4b,>0e,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>03,>10,>48,>4b
+       byte >48,>4b,>48,>4b,>0e,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10,>48,>4b
        byte >49,>4a,>08,>09,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>0a,>0b
        byte >48,>4b,>0e,>0f,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d,>10
        byte >49,>4a,>0c,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>1d,>0d
@@ -3898,38 +3794,38 @@ level_3_map_high:
        byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
        byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
        byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>da,>db,>db,>db,>db
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>da,>d4,>d8,>d9,>d8,>d9
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>da,>db,>db,>84,>97,>c9,>ca,>c9,>ca
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>81,>d4,>d8,>d9,>c8,>cb,>c8,>cb,>91,>cb
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>80,>97,>c9,>ca,>c9,>c2,>c9,>ca,>85,>ca
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>87,>cb,>c8,>cb,>c8,>cc,>c8,>cb,>c8,>cb
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>99,>8b,>c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca
-       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>83,>90,>c8,>cb,>c8,>cb,>c8,>cb,>c8,>cb
-       byte >9c,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>8b,>c9,>ca,>c9,>ca,>c9,>ca
-       byte >9b,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>c8,>cb,>c8,>cb,>c8,>cb
-       byte >aa,>a2,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8c,>ca,>c9,>ca,>c9,>ca
-       byte >c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>87,>cb,>c8,>cb,>c8,>cb
-       byte >c9,>ca,>aa,>a2,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>99,>8b,>c9,>ca,>c9,>ca
-       byte >c8,>cb,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>83,>90,>c8,>cb,>c8,>cb
-       byte >c9,>ca,>c9,>ca,>aa,>a2,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>8b,>c9,>ca
-       byte >c8,>cb,>c8,>cb,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>91,>cb
-       byte >c9,>ca,>c9,>ca,>c9,>c2,>aa,>a2,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>a3,>8b
-       byte >c8,>cb,>c8,>cb,>c8,>cc,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9a,>af
-       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca,>aa,>ab,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>ac
-       byte >91,>cb,>c8,>cb,>c8,>cb,>c8,>cb,>c8,>86,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >85,>ca,>c9,>ca,>c9,>ca,>c9,>c2,>c9,>86,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>cc,>c8,>86,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca,>c9,>86,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >c8,>cb,>c8,>cb,>91,>cb,>c8,>cb,>c8,>86,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
-       byte >c9,>ca,>c9,>ca,>85,>ca,>c9,>ca,>88,>82,>9d,>9d,>9d,>9d,>9d,>da,>db,>db
-       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>cb,>98,>8f,>9d,>9d,>9d,>9d,>d3,>d4,>d8,>d9
-       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>92,>93,>9d,>9d,>9d,>9d,>9d,>94,>97,>c9,>ca
-       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>86,>9d,>9d,>9d,>9d,>9d,>9d,>87,>cb,>91,>cb
-       byte >c9,>c2,>c9,>ca,>c9,>ca,>88,>82,>9d,>9d,>9d,>9d,>9d,>9d,>84,>ca,>85,>ca
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>97,>98,>98,>98,>98
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>97,>92,>93,>94,>93,>94
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>97,>98,>98,>86,>87,>c9,>ca,>c9,>ca
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>97,>92,>93,>94,>c8,>cb,>c8,>cb,>85,>cb
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>89,>87,>c9,>ca,>c9,>c2,>c9,>ca,>83,>ca
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>81,>cb,>c8,>cb,>c8,>cc,>c8,>cb,>c8,>cb
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>80,>8b,>c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca
+       byte >9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>c8,>cb,>c8,>cb,>c8,>cb,>c8,>cb
+       byte >96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>8b,>c9,>ca,>c9,>ca,>c9,>ca
+       byte >95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>c8,>cb,>c8,>cb,>c8,>cb
+       byte >aa,>9a,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>ca,>c9,>ca,>c9,>ca
+       byte >c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>99,>cb,>c8,>cb,>c8,>cb
+       byte >c9,>ca,>aa,>9a,>96,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>80,>8b,>c9,>ca,>c9,>ca
+       byte >c8,>cb,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>c8,>cb,>c8,>cb
+       byte >c9,>ca,>c9,>ca,>aa,>9a,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>8b,>c9,>ca
+       byte >c8,>cb,>c8,>cb,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>85,>cb
+       byte >c9,>ca,>c9,>ca,>c9,>c2,>aa,>9a,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>a2,>8b
+       byte >c8,>cb,>c8,>cb,>c8,>cc,>c8,>cb,>95,>96,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90
+       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca,>aa,>ab,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d
+       byte >85,>cb,>c8,>cb,>c8,>cb,>c8,>cb,>c8,>84,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >83,>ca,>c9,>ca,>c9,>ca,>c9,>c2,>c9,>84,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>cc,>c8,>84,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>ca,>c9,>84,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >c8,>cb,>c8,>cb,>85,>cb,>c8,>cb,>c8,>84,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d
+       byte >c9,>ca,>c9,>ca,>83,>ca,>c9,>ca,>88,>82,>9d,>9d,>9d,>9d,>9d,>97,>98,>98
+       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>cb,>8e,>8f,>9d,>9d,>9d,>9d,>91,>92,>93,>94
+       byte >c9,>ca,>c9,>ca,>c9,>ca,>c9,>86,>8f,>9d,>9d,>9d,>9d,>9d,>81,>87,>c9,>ca
+       byte >c8,>cb,>c8,>cb,>c8,>cb,>c8,>84,>9d,>9d,>9d,>9d,>9d,>9d,>81,>cb,>85,>cb
+       byte >c9,>c2,>c9,>ca,>c9,>ca,>88,>82,>9d,>9d,>9d,>9d,>9d,>9d,>81,>ca,>83,>ca
        byte >c8,>cc,>c8,>cb,>c8,>cb,>8e,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>81,>cb,>c8,>cb
        byte >c9,>ca,>c9,>ca,>88,>89,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>80,>8b,>c9,>ca
-       byte >c8,>cb,>c8,>cb,>8e,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>83,>90,>c8,>cb
+       byte >c8,>cb,>c8,>cb,>8e,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90,>c8,>cb
        byte >c9,>ca,>88,>89,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>8a,>8b
        byte >c8,>cb,>8e,>8f,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d,>90
        byte >c9,>ca,>8c,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>9d,>8d

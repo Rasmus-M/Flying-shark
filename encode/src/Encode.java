@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class Encode implements Runnable {
 
+    private static final boolean VERBOSE = false;
     private static final int WINDOW_HEIGHT = 24;
     private static final int[] MAP_HEIGHTS = {358, 450, 316, 364};
     private static final int BANK_OFFSET = 60;
@@ -62,7 +63,7 @@ public class Encode implements Runnable {
                 int maxSize = 0;
                 int screen = 0;
                 for (int y0 = height - WINDOW_HEIGHT; y0 >= 0; y0--) {
-                    System.out.println("Screen " + screen + ":");
+                    if (VERBOSE) System.out.println("Screen " + screen + ":");
                     Set<Integer> used = new HashSet<>();
                     Map<Integer, Integer> added = new HashMap<>();
                     Set<Integer> deleted = new HashSet<>();
@@ -132,26 +133,26 @@ public class Encode implements Runnable {
                     }
                     maxSize = Math.max(maxSize, used.size());
 
-                    System.out.print("Add: ");
+                    if (VERBOSE) System.out.print("Add: ");
                     ram_out.append("level_" + level + "_" + to3Digits(screen) + "_add:\n");
                     ram_out.append("       byte " + hexByte(added.size()) + "\n");
                     for (Integer i : added.keySet()) {
                         int globalIndex = added.get(i);
-                        System.out.print(hexByte(i) + ":" + hexWord(globalIndex) + " ");
+                        if (VERBOSE) System.out.print(hexByte(i) + ":" + hexWord(globalIndex) + " ");
                         ram_out.append("       byte " + hexByte(i) + ", " + hexByte(globalIndex >> 8) + ", " + hexByte(globalIndex & 0xff) + "              ; " + hexWord(tChars.get(globalIndex)) + "\n");
                     }
-                    System.out.println();
+                    if (VERBOSE) System.out.println();
 
-                    System.out.print("Delete: ");
+                    if (VERBOSE) System.out.print("Delete: ");
                     ram_out.append("level_" + level + "_" + to3Digits(screen) + "_delete:\n");
                     ram_out.append("       byte " + hexByte(deleted.size()) + "\n");
                     for (Integer i : deleted) {
-                        System.out.print(hexByte(i) + " ");
+                        if (VERBOSE) System.out.print(hexByte(i) + " ");
                         ram_out.append("       byte " + hexByte(i) + "\n");
                     }
-                    System.out.println();
+                    if (VERBOSE) System.out.println();
 
-                    System.out.println("Deleted: " + deleted.size() + ", Added: " + added.size() + ", Used = "+ used.size() + " of " + (iMax + 1));
+                    if (VERBOSE) System.out.println("Deleted: " + deleted.size() + ", Added: " + added.size() + ", Used = "+ used.size() + " of " + (iMax + 1));
                     screen++;
                 }
                 rom_out.append("       aorg >6000,0\n");
@@ -161,7 +162,7 @@ public class Encode implements Runnable {
                     int key = tChars.get(i);
                     int toChar = (key >> 8) & 0xff;
                     int fromChar = key & 0xff;
-                    System.out.println(hexWord(i) + ": " + hexWord(key));
+                    if (VERBOSE) System.out.println(hexWord(i) + ": " + hexWord(key));
                     rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
                     rom_out.append("level_" + level + "_pattern_" + to3Digits(i) + ":\n");
                     rom_out.append("       byte ");
@@ -190,7 +191,7 @@ public class Encode implements Runnable {
                         rom_out.append(hexByte(chars[fromChar * 8 + j] & 0xff)).append(j < 7 ? "," : "\n");
                     }
                 }
-                System.out.println("Map:");
+                if (VERBOSE) System.out.println("Map:");
                 rom_out.append("       aorg >6000,2\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("level_" + level + "_map:\n");
@@ -198,10 +199,10 @@ public class Encode implements Runnable {
                     int[] row = tMap[y];
                     rom_out.append("       byte ");
                     for (int x = 0; x < row.length; x++) {
-                        System.out.print(hexByte(row[x]));
+                        if (VERBOSE) System.out.print(hexByte(row[x]));
                         rom_out.append(hexByte(row[x])).append(x < row.length - 1 ? "," : "\n");
                     }
-                    System.out.println();
+                    if (VERBOSE) System.out.println();
                 }
                 rom_out.append("       aorg >6000,3\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
@@ -213,7 +214,7 @@ public class Encode implements Runnable {
                         rom_out.append(hexByte(row[x] + 0x80)).append(x < row.length - 1 ? "," : "\n");
                     }
                 }
-                System.out.println();
+                if (VERBOSE) System.out.println();
                 System.out.println("Max size: " + maxSize);
                 System.out.println();
 
