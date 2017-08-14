@@ -228,6 +228,8 @@ update_characters_1:
        andi r1,>0007                   ; Mod 8
 *      Upload characters
        li   r15,vdpwd
+       li   r14,vdpwa
+       li   r13,8
 *      Patterns
        mov  @cart_pattern_bank,r5
        seto *r5
@@ -274,14 +276,14 @@ upload_character_table_1:
        movb *r4+,*r15
        movb *r4+,*r15
        movb *r4+,*r15
-       ai   r0,8
+       a    r13,r0
        dec  r2
        jne  upload_character_table_1
        b    *r11
 upload_character_table_2:
-       ai   r0,8
-       movb @r0lb,@vdpwa               ; Send low byte of VDP RAM write address
-       movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
+       a    r13,r0
+       movb @r0lb,*r14                 ; Send low byte of VDP RAM write address
+       movb r0,*r14                    ; Send high byte of VDP RAM write address
        dec  r2
        jne  upload_character_table_1
        b    *r11
