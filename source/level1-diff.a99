@@ -1,3 +1,5 @@
+level_1_max:
+       byte >54
 level_1_000_add:
        byte >52
        byte >00, >00, >00              ; >2d2d

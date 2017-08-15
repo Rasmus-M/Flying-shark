@@ -1,3 +1,5 @@
+level_4_max:
+       byte >69
 level_4_000_add:
        byte >5e
        byte >00, >00, >00              ; >1300

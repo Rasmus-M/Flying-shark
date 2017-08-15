@@ -80,8 +80,10 @@ map_height:
        equ  scrly+2
 diff_pointer:
        equ  map_height+2
-cart_pattern_bank:
+max_chars:
        equ  diff_pointer+2
+cart_pattern_bank:
+       equ  max_chars+2
 cart_color_bank:
        equ  cart_pattern_bank+2
 cart_map_bank:
@@ -216,12 +218,11 @@ update_characters:
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
-       li   r0,ptrntb+>400             ; Update high character set (128-255)
+       li   r6,>400                    ; Update high character set (128-255)
        jmp  update_characters_1
 update_low_chars:
-       li   r0,ptrntb                  ; Update low character set (128-255)
+       clr  r6                         ; Update low character set (128-255)
 update_characters_1:
-       mov  r0,r6                      ; Save destination address
 *	   Calculate CPU RAM source offset
        mov  r3,r1                      ; Start with scroll offset
        dec  r1                         ; Add direction
@@ -233,24 +234,25 @@ update_characters_1:
 *      Patterns
        mov  @cart_pattern_bank,r5
        seto *r5
+       li   r0,ptrntb
+       a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       ai   r0,>0400
+       li   r0,ptrntb+>800
+       a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @vsync_0                    ; TODO
-       ai   r0,>0400
+       li   r0,ptrntb+>1000
+       a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       ai   r0,>0400
 *      Colors
        mov  @cart_color_bank,r5
        seto *r5
-       mov  r6,r0
-       ai   r0,>2000
+       li   r0,colrtb
+       a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @vsync_0                    ; TODO
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -261,8 +263,13 @@ update_characters_1:
 *
 * Upload character table
 *
+* R13: Offset between characters (8)
+* R14: vdpwa
+* R15: vdpwd
+*
+
 upload_character_table:
-       li   r2,128                     ; Char counter
+       mov  @max_chars,r2              ; Char counter
        li   r3,char_list
 upload_character_table_1:
        mov  *r3+,r4                    ; Get pattern address
@@ -432,7 +439,10 @@ init_level:
        ai   r0,-win_height
        sla  r0,3
        mov  r0,@scrly
-       mov  @diff_lists(r1),@diff_pointer
+       mov  @diff_lists(r1),r0
+       clr  @max_chars
+       movb *r0+,@max_chars+1
+       mov  r0,@diff_pointer
        mov  @level,r1
        sla  r1,3
        ai   r1,>6008

@@ -61,6 +61,7 @@ public class Encode implements Runnable {
                 List<Integer> tChars = new ArrayList<>();
                 Integer[] runningTChars = new Integer[128];
                 int maxSize = 0;
+                int maxIndex = 0;
                 int screen = 0;
                 for (int y0 = height - WINDOW_HEIGHT; y0 >= 0; y0--) {
                     if (VERBOSE) System.out.println("Screen " + screen + ":");
@@ -107,6 +108,7 @@ public class Encode implements Runnable {
                                             tChars.add(key);
                                         }
                                         runningTChars[runningIndex] = globalIndex;
+                                        maxIndex = Math.max(maxIndex, runningIndex);
                                         added.put(runningIndex, globalIndex);
                                         used.add(key);
                                     }
@@ -216,7 +218,11 @@ public class Encode implements Runnable {
                 }
                 if (VERBOSE) System.out.println();
                 System.out.println("Max size: " + maxSize);
+                System.out.println("Max index: " + maxIndex);
                 System.out.println();
+
+                ram_out.insert(0, "       byte " + hexByte(maxIndex + 1) + "\n");
+                ram_out.insert(0, "level_" + level + "_max:\n");
 
                 // Write output
                 FileWriter writer = new FileWriter("../source/level" + level + "-rom.a99");

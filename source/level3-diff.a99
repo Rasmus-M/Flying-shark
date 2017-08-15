@@ -1,3 +1,5 @@
+level_3_max:
+       byte >6b
 level_3_000_add:
        byte >55
        byte >00, >00, >00              ; >2402
