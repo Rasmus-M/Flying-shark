@@ -62,7 +62,7 @@ r6lb   equ  wrksp+13
 r7lb   equ  wrksp+15
 r8lb   equ  wrksp+17
 r9lb   equ  wrksp+19
-plyrws equ  >8320
+wrksp2 equ  >8320
 stack  equ  >8340
 padvar equ  stack+>10
 *
@@ -90,8 +90,24 @@ cart_map_bank:
        equ  cart_color_bank+2
 cart_map_high_bank:
        equ  cart_map_bank+2
-upload_character_table_pad:
+frame_ready:
        equ  cart_map_high_bank+2
+frame_count:
+       equ  frame_ready+2
+vdp_status:
+       equ  frame_count+2
+player_x:
+       equ  vdp_status+2
+player_y:
+       equ  player_x+2
+player_vx:
+       equ  player_y+2
+player_vy:
+       equ  player_vx+2
+player_fire:
+       equ  player_vy+2
+upload_character_table_pad:
+       equ  player_fire+2
 
 ********************************************************************************
 *
@@ -107,30 +123,69 @@ main:
 next_level:
        bl   @init_level                ; Initialize level
        bl   @draw_initial_screen
+       seto @frame_ready
+       clr  @frame_count
 main_loop:
-       bl   @vsync
-       bl   @set_name_table
+       bl   @game_frame
        bl   @update_char_list
        bl   @update_characters
        bl   @update_name_table
-       bl   @vsync
+       seto @frame_ready
        dec  @scrly
        jne  main_loop
        inc  @level
        jmp  next_level
+
+********************************************************************************
+*
+* Game frame
+*
+* Changes r12 in calling workspace
+*
+game_frame:
+       clr  r12
+       abs  @frame_ready               ; If frame ready?
+       jne  game_frame_1
+       tb   2                          ; Did an interrupt occur?
+       jne  game_frame_2
+       b    *r11
+game_frame_1:
+       tb   2                          ; Did an interrupt occur?
+       jeq  game_frame_1               ; No - wait for it
+game_frame_2:
+       lwpi wrksp2
+       movb @vdpsta,@vdp_status
+       abs  @frame_ready               ; If frame ready?
+       jeq  game_frame_3
+       bl   @set_name_table
+       clr  @frame_ready
+game_frame_3:
+       inc  @frame_count
+       mov  @frame_count,r12
+       andi r12,1
+       jne  game_frame_4
+*      Game logic goes here...
+       bl   @update_player_sprite
+       bl   @user_input
+       a    @player_vx,@player_x
+       a    @player_vy,@player_y
+game_frame_4:
+*      Return
+       lwpi wrksp
+       b    *r11
+*// game_frame
 
 *********************************************************************
 *
 * Wait for vertical retrace (CRU)
 *
 vsync:
-       movb @vdpsta, @vdpsta
-vsync_0:
+       movb @vdpsta, r12
        clr  r12
 vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
        jeq  vsync_1
-       movb @vdpsta, @vdpsta
+       movb @vdpsta, @vdp_status
        b    *r11
 *// vsync
 
@@ -165,6 +220,78 @@ set_name_table_4:
        mov  *r10, r11
        b    *r11
 *// set_name_table
+
+
+*********************************************************************************
+*
+* User input
+*
+user_input:
+       clr  @player_vx
+       clr  @player_vy
+       clr  @player_fire
+*      Read joystick #1 using CRU
+       li   r12,>0024                  ; CRU address of the column decoder
+       li   r0,>0600                   ; Column 6, i.e joystick #1
+       ldcr r0,3                       ; Select it
+       li   r12,>0006                  ; Base CRU address for joystick 1
+*      Fire
+       tb   0
+       jeq  user_input_1
+       seto @player_fire
+user_input_1:
+*      Left
+       tb   1
+       jeq  user_input_2
+       li   r0,>ff00
+       mov  r0,@player_vx
+       jmp  user_input_3
+user_input_2:
+*      Right
+       tb   2
+       jeq  user_input_3
+       li   r0,>0100
+       mov  r0,@player_vx
+user_input_3:
+*      Down
+       tb   3
+       jeq  user_input_4
+       li   r0,>0100
+       mov  r0,@player_vy
+       jmp  user_input_5
+user_input_4:
+*      Up
+       tb   4
+       jeq  user_input_5
+       li   r0,>ff00
+       mov  r0,@player_vy
+user_input_5:
+       b    *r11
+*// user_input
+
+*********************************************************************************
+*
+* Update player sprite
+*
+update_player_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @player_x,r0
+       movb r0,@sal+1
+       ai   r0,>1000
+       movb r0,@sal+5
+       mov  @player_y,r1
+       movb r1,@sal+0
+       ai   r1,>1000
+       movb r1,@sal+4
+*      Upload sprite attributes
+       li   r0, spratb
+       li   r1, sal
+       li   r2,9
+       bl   @vdpcp
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
 
 *********************************************************************************
 *
@@ -238,14 +365,17 @@ update_characters_1:
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
+       bl   @game_frame
        li   r0,ptrntb+>800
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
+       bl   @game_frame
        li   r0,ptrntb+>1000
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
+       bl   @game_frame
 *      Colors
        mov  @cart_color_bank,r5
        seto *r5
@@ -253,6 +383,7 @@ update_characters_1:
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
+       bl   @game_frame
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -453,6 +584,10 @@ init_level:
        mov  r1,@cart_map_bank
        inct r1
        mov  r1,@cart_map_high_bank
+       li   r0,>7800
+       movb r0,@player_x
+       li   r0,>9f00
+       movb r0,@player_y
 *      Reset character list
        li   r0,char_list
        li   r2,128
@@ -736,6 +871,7 @@ diff_list_3:
        copy "level3-diff.a99"
 diff_list_4:
        copy "level4-diff.a99"
+       even
 
 ****************************************
 * Sprite Locations
