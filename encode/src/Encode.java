@@ -9,7 +9,7 @@ public class Encode implements Runnable {
 
     private static final boolean VERBOSE = false;
     private static final int WINDOW_HEIGHT = 24;
-    private static final int[] MAP_HEIGHTS = {358, 450, 316, 364};
+    private static final int[] MAP_HEIGHTS = {382, 450, 340, 364};
     private static final int BANK_OFFSET = 60;
 
     private final int level;
@@ -118,7 +118,7 @@ public class Encode implements Runnable {
                             if (runningIndex != null) {
                                 tMap[y][x] = runningIndex;
                             } else {
-                                throw new Exception("No room found for key >" + hexWord(key));
+                                throw new Exception("No room found for key " + hexWord(key));
                             }
                         }
                     }

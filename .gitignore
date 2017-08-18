@@ -14,3 +14,5 @@ shark
 sharl
 make.log
 !/build/empty.bin
+/import/import.iml
+!/import/graphics.bin

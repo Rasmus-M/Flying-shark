@@ -25,17 +25,17 @@ level_4_000_add:
        byte >14, >00, >14              ; >012b
        byte >15, >00, >15              ; >0104
        byte >16, >00, >16              ; >0401
-       byte >17, >00, >17              ; >2b6d
-       byte >18, >00, >18              ; >046e
-       byte >19, >00, >19              ; >016d
-       byte >1a, >00, >1a              ; >016e
+       byte >17, >00, >17              ; >2b56
+       byte >18, >00, >18              ; >0457
+       byte >19, >00, >19              ; >0156
+       byte >1a, >00, >1a              ; >0157
        byte >1b, >00, >1b              ; >0102
        byte >1c, >00, >1c              ; >0103
        byte >1d, >00, >1d              ; >2b10
        byte >1e, >00, >1e              ; >0410
        byte >1f, >00, >1f              ; >0110
-       byte >20, >00, >20              ; >6d00
-       byte >21, >00, >21              ; >6e00
+       byte >20, >00, >20              ; >5600
+       byte >21, >00, >21              ; >5700
        byte >22, >00, >22              ; >1010
        byte >23, >00, >23              ; >0100
        byte >24, >00, >24              ; >2b02
@@ -60,12 +60,12 @@ level_4_000_add:
        byte >37, >00, >37              ; >6c01
        byte >38, >00, >38              ; >6f01
        byte >39, >00, >39              ; >8c8c
-       byte >3a, >00, >3a              ; >0064
-       byte >3b, >00, >3b              ; >0065
+       byte >3a, >00, >3a              ; >0054
+       byte >3b, >00, >3b              ; >0055
        byte >3c, >00, >3c              ; >8c60
        byte >3d, >00, >3d              ; >8c61
-       byte >3e, >00, >3e              ; >6400
-       byte >3f, >00, >3f              ; >6500
+       byte >3e, >00, >3e              ; >5400
+       byte >3f, >00, >3f              ; >5500
        byte >40, >00, >40              ; >1c01
        byte >41, >00, >41              ; >0001
        byte >42, >00, >42              ; >002b
@@ -95,7 +95,7 @@ level_4_000_add:
        byte >5a, >00, >5a              ; >8788
        byte >5b, >00, >5b              ; >8766
        byte >5c, >00, >5c              ; >8866
-       byte >5d, >00, >5d              ; >66c6
+       byte >5d, >00, >5d              ; >6601
 level_4_000_delete:
        byte >00
 level_4_001_add:
@@ -127,8 +127,8 @@ level_4_003_add:
        byte >05
        byte >51, >00, >6f              ; >1b12
        byte >63, >00, >70              ; >1210
-       byte >64, >00, >71              ; >6d58
-       byte >65, >00, >72              ; >6e59
+       byte >64, >00, >71              ; >5658
+       byte >65, >00, >72              ; >5759
        byte >66, >00, >73              ; >1b1b
 level_4_003_delete:
        byte >00
@@ -137,16 +137,16 @@ level_4_004_add:
        byte >50, >00, >79              ; >6391
        byte >4b, >00, >74              ; >0010
        byte >4c, >00, >75              ; >2d10
-       byte >4d, >00, >76              ; >6d6d
-       byte >4e, >00, >77              ; >6e6e
+       byte >4d, >00, >76              ; >5656
+       byte >4e, >00, >77              ; >5757
        byte >4f, >00, >78              ; >6291
 level_4_004_delete:
        byte >00
 level_4_005_add:
        byte >03
        byte >48, >00, >7a              ; >2d2d
-       byte >49, >00, >7b              ; >586d
-       byte >4a, >00, >7c              ; >596e
+       byte >49, >00, >7b              ; >5856
+       byte >4a, >00, >7c              ; >5957
 level_4_005_delete:
        byte >00
 level_4_006_add:
@@ -674,21 +674,21 @@ level_4_076_delete:
        byte >00
 level_4_077_add:
        byte >02
-       byte >1c, >00, >71              ; >6d58
-       byte >1d, >00, >72              ; >6e59
+       byte >1c, >00, >71              ; >5658
+       byte >1d, >00, >72              ; >5759
 level_4_077_delete:
        byte >00
 level_4_078_add:
        byte >03
-       byte >20, >00, >77              ; >6e6e
+       byte >20, >00, >77              ; >5757
        byte >1e, >00, >cb              ; >2d91
-       byte >1f, >00, >76              ; >6d6d
+       byte >1f, >00, >76              ; >5656
 level_4_078_delete:
        byte >00
 level_4_079_add:
        byte >02
-       byte >21, >00, >7b              ; >586d
-       byte >22, >00, >7c              ; >596e
+       byte >21, >00, >7b              ; >5856
+       byte >22, >00, >7c              ; >5957
 level_4_079_delete:
        byte >00
 level_4_080_add:
@@ -805,8 +805,8 @@ level_4_097_delete:
        byte >00
 level_4_098_add:
        byte >04
-       byte >49, >00, >e7              ; >626d
-       byte >4a, >00, >e8              ; >636e
+       byte >49, >00, >e7              ; >6256
+       byte >4a, >00, >e8              ; >6357
        byte >4b, >00, >c7              ; >3d2d
        byte >4c, >00, >c8              ; >3e2d
 level_4_098_delete:
@@ -818,8 +818,8 @@ level_4_099_delete:
 level_4_100_add:
        byte >05
        byte >50, >00, >ed              ; >2d3c
-       byte >06, >00, >e9              ; >6d60
-       byte >4d, >00, >ea              ; >6e61
+       byte >06, >00, >e9              ; >5660
+       byte >4d, >00, >ea              ; >5761
        byte >4e, >00, >eb              ; >0f1c
        byte >4f, >00, >ec              ; >2d3b
 level_4_100_delete:
@@ -931,10 +931,10 @@ level_4_117_delete:
        byte >00
 level_4_118_add:
        byte >04
-       byte >40, >00, >f9              ; >6e49
-       byte >39, >00, >f6              ; >6d91
-       byte >3d, >00, >f7              ; >6e91
-       byte >3f, >00, >f8              ; >6d48
+       byte >40, >00, >f9              ; >5749
+       byte >39, >00, >f6              ; >5691
+       byte >3d, >00, >f7              ; >5791
+       byte >3f, >00, >f8              ; >5648
 level_4_118_delete:
        byte >00
 level_4_119_add:
@@ -1123,15 +1123,15 @@ level_4_144_delete:
 level_4_145_add:
        byte >04
        byte >14, >00, >22              ; >1010
-       byte >15, >00, >71              ; >6d58
-       byte >18, >00, >72              ; >6e59
+       byte >15, >00, >71              ; >5658
+       byte >18, >00, >72              ; >5759
        byte >19, >00, >29              ; >1c1c
 level_4_145_delete:
        byte >00
 level_4_146_add:
        byte >02
-       byte >1a, >00, >76              ; >6d6d
-       byte >1b, >00, >77              ; >6e6e
+       byte >1a, >00, >76              ; >5656
+       byte >1b, >00, >77              ; >5757
 level_4_146_delete:
        byte >00
 level_4_147_add:
@@ -1144,8 +1144,8 @@ level_4_148_delete:
        byte >00
 level_4_149_add:
        byte >02
-       byte >1c, >00, >7b              ; >586d
-       byte >1d, >00, >7c              ; >596e
+       byte >1c, >00, >7b              ; >5856
+       byte >1d, >00, >7c              ; >5957
 level_4_149_delete:
        byte >00
 level_4_150_add:
@@ -1221,8 +1221,8 @@ level_4_159_delete:
        byte >00
 level_4_160_add:
        byte >02
-       byte >45, >00, >e7              ; >626d
-       byte >46, >00, >e8              ; >636e
+       byte >45, >00, >e7              ; >6256
+       byte >46, >00, >e8              ; >6357
 level_4_160_delete:
        byte >00
 level_4_161_add:
@@ -1233,8 +1233,8 @@ level_4_162_add:
        byte >04
        byte >47, >00, >eb              ; >0f1c
        byte >48, >00, >01              ; >1b00
-       byte >0b, >00, >e9              ; >6d60
-       byte >0c, >00, >ea              ; >6e61
+       byte >0b, >00, >e9              ; >5660
+       byte >0c, >00, >ea              ; >5761
 level_4_162_delete:
        byte >00
 level_4_163_add:
@@ -2140,8 +2140,8 @@ level_4_313_delete:
 level_4_314_add:
        byte >0b
        byte >20, >00, >25              ; >0403
-       byte >21, >01, >2b              ; >6402
-       byte >22, >01, >2c              ; >6503
+       byte >21, >01, >2b              ; >5402
+       byte >22, >01, >2c              ; >5503
        byte >23, >00, >de              ; >0002
        byte >24, >00, >db              ; >0003
        byte >25, >01, >2d              ; >6202
@@ -2155,10 +2155,10 @@ level_4_314_delete:
 level_4_315_add:
        byte >07
        byte >30, >00, >5c              ; >8866
-       byte >31, >01, >30              ; >6601
+       byte >31, >00, >5d              ; >6601
        byte >2b, >00, >13              ; >0101
-       byte >2c, >00, >3a              ; >0064
-       byte >2d, >00, >3b              ; >0065
+       byte >2c, >00, >3a              ; >0054
+       byte >2d, >00, >3b              ; >0055
        byte >2e, >00, >31              ; >6062
        byte >2f, >00, >32              ; >6163
 level_4_315_delete:
@@ -2196,8 +2196,8 @@ level_4_317_delete:
 level_4_318_add:
        byte >08
        byte >50, >00, >50              ; >6f87
-       byte >49, >00, >3e              ; >6400
-       byte >4a, >00, >3f              ; >6500
+       byte >49, >00, >3e              ; >5400
+       byte >4a, >00, >3f              ; >5500
        byte >4b, >00, >4b              ; >0086
        byte >4c, >00, >4c              ; >0187
        byte >4d, >00, >4d              ; >04c2
@@ -2299,8 +2299,8 @@ level_4_332_delete:
        byte >0d
 level_4_333_add:
        byte >03
-       byte >01, >00, >20              ; >6d00
-       byte >02, >00, >21              ; >6e00
+       byte >01, >00, >20              ; >5600
+       byte >02, >00, >21              ; >5700
        byte >08, >00, >23              ; >0100
 level_4_333_delete:
        byte >02
@@ -2310,10 +2310,10 @@ level_4_334_add:
        byte >07
        byte >13, >00, >1d              ; >2b10
        byte >15, >00, >1e              ; >0410
-       byte >09, >00, >17              ; >2b6d
-       byte >0a, >00, >18              ; >046e
-       byte >0c, >00, >19              ; >016d
-       byte >0d, >00, >1a              ; >016e
+       byte >09, >00, >17              ; >2b56
+       byte >0a, >00, >18              ; >0457
+       byte >0c, >00, >19              ; >0156
+       byte >0d, >00, >1a              ; >0157
        byte >1d, >00, >1f              ; >0110
 level_4_334_delete:
        byte >01
@@ -2327,11 +2327,11 @@ level_4_335_delete:
        byte >0e
 level_4_336_add:
        byte >05
-       byte >11, >01, >35              ; >6e01
-       byte >04, >01, >31              ; >1502
-       byte >06, >01, >32              ; >1503
-       byte >0b, >01, >33              ; >1501
-       byte >0e, >01, >34              ; >6d01
+       byte >11, >01, >34              ; >5701
+       byte >04, >01, >30              ; >1502
+       byte >06, >01, >31              ; >1503
+       byte >0b, >01, >32              ; >1501
+       byte >0e, >01, >33              ; >5601
 level_4_336_delete:
        byte >06
        byte >12
@@ -2342,15 +2342,15 @@ level_4_336_delete:
        byte >19
 level_4_337_add:
        byte >03
-       byte >10, >00, >76              ; >6d6d
-       byte >12, >00, >77              ; >6e6e
-       byte >05, >01, >36              ; >1515
+       byte >10, >00, >76              ; >5656
+       byte >12, >00, >77              ; >5757
+       byte >05, >01, >35              ; >1515
 level_4_337_delete:
        byte >00
 level_4_338_add:
        byte >02
-       byte >14, >01, >38              ; >5966
-       byte >0f, >01, >37              ; >5888
+       byte >14, >01, >37              ; >5966
+       byte >0f, >01, >36              ; >5888
 level_4_338_delete:
        byte >08
        byte >21
@@ -2363,24 +2363,23 @@ level_4_338_delete:
        byte >1f
 level_4_339_add:
        byte >02
-       byte >16, >00, >7b              ; >586d
-       byte >17, >00, >7c              ; >596e
+       byte >16, >00, >7b              ; >5856
+       byte >17, >00, >7c              ; >5957
 level_4_339_delete:
        byte >00
 level_4_340_add:
-       byte >0c
-       byte >21, >01, >3b              ; >6415
-       byte >22, >01, >3c              ; >6515
-       byte >23, >01, >3d              ; >0058
-       byte >24, >01, >3e              ; >0059
-       byte >25, >01, >3f              ; >6458
-       byte >26, >01, >40              ; >6559
-       byte >27, >01, >41              ; >6215
-       byte >28, >01, >42              ; >6315
-       byte >19, >01, >39              ; >0115
-       byte >29, >01, >43              ; >6658
-       byte >2a, >01, >44              ; >c659
-       byte >1f, >01, >3a              ; >0415
+       byte >0b
+       byte >21, >01, >3a              ; >5415
+       byte >22, >01, >3b              ; >5515
+       byte >23, >01, >3c              ; >0058
+       byte >24, >01, >3d              ; >0059
+       byte >25, >01, >3e              ; >5458
+       byte >26, >01, >3f              ; >5559
+       byte >27, >01, >40              ; >6215
+       byte >28, >01, >41              ; >6315
+       byte >19, >01, >38              ; >0115
+       byte >29, >01, >42              ; >6658
+       byte >1f, >01, >39              ; >0415
 level_4_340_delete:
        byte >0a
        byte >32

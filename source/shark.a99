@@ -133,7 +133,10 @@ main_loop:
        seto @frame_ready
        dec  @scrly
        jne  main_loop
+*      Next level
        inc  @level
+       li   r0,>fff8
+       szc  r0,@level
        jmp  next_level
 
 ********************************************************************************
@@ -445,9 +448,12 @@ update_name_table:
        mov  r2,r0                      ; Copy back into R0 for later
 *	   Calculate map source address in R1
        mov  @scrly,r1                  ; Get scroll offset in pixels
-       srl  r1,3                       ; Divide by 8 to get row offset
-;      dec  r1                         ; Prepared buffer has a 1 row offset
+       sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
+;       jgt  !
+;       jeq  !
+;       a    @map_height,r1             ; Wrap to end of map
+;!      mov  r1,r6                      ; Save row
        li   r2,map_width
        mpy  r2,r1                      ; Multiply by map width to get character offset
        li   r1,cart_base               ; Get the map base address
@@ -493,8 +499,13 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
-       ai   r0,scr_width
-       dec  r2
+       ai   r0,scr_width               ; Next VDP row
+;       inc  r6                         ; Next row
+;       c    r6,@map_height
+;       jlt  !
+;       li   r1,cart_base
+;       clr  r6
+!      dec  r2
        jne  update_name_table_5
 *	   Return
        dect r10                        ; Pop return address off the stack
@@ -584,10 +595,6 @@ init_level:
        mov  r1,@cart_map_bank
        inct r1
        mov  r1,@cart_map_high_bank
-       li   r0,>7800
-       movb r0,@player_x
-       li   r0,>9f00
-       movb r0,@player_y
 *      Reset character list
        li   r0,char_list
        li   r2,128
@@ -611,6 +618,10 @@ init:
        mov  r0,@eight
        li   r0,start_level
        mov  r0,@level
+       li   r0,>7800
+       movb r0,@player_x
+       li   r0,>9f00
+       movb r0,@player_y
 *      Copy code to pad
        li   r0,upload_character_table
        li   r1,upload_character_table_pad
@@ -860,7 +871,7 @@ vdpwr3:
 char_list:                             ; Pointers to pattern/color addresses for current characeter set
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
-       data 358, 450, 316, 364
+       data 382, 450, 340, 364
 diff_lists:
        data diff_list_1,diff_list_2,diff_list_3,diff_list_4
 diff_list_1:
