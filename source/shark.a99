@@ -45,6 +45,10 @@ win_height:
        equ  24                         ; Height of scrolling window in characters
 map_width:
        equ  18                         ; Map width
+x_min:
+       equ  56
+x_max:
+       equ  200
 
 **
 * Scratch pad
@@ -170,8 +174,6 @@ game_frame_3:
 *      Game logic goes here...
        bl   @update_player_sprite
        bl   @user_input
-       a    @player_vx,@player_x
-       a    @player_vy,@player_y
 game_frame_4:
 *      Return
        lwpi wrksp
@@ -278,18 +280,40 @@ user_input_5:
 *
 update_player_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Move
+       mov  @player_vx,r0
+       jgt  update_player_sprite_1
+       jlt  update_player_sprite_2
+       jmp  update_player_sprite_4
+update_player_sprite_1:
+       mov  @player_x,r0
+       ci   r0,(x_max-16)*256
+       jl   update_player_sprite_3
+       jmp  update_player_sprite_4
+update_player_sprite_2:
+       mov  @player_x,r0
+       ci   r0,x_min*256
+       jh   update_player_sprite_3
+       jmp  update_player_sprite_4
+update_player_sprite_3:
+       a    @player_vx,@player_x
+update_player_sprite_4:
+       a    @player_vy,@player_y
+*      Update sprite list
        mov  @player_x,r0
        movb r0,@sal+1
-       ai   r0,>1000
        movb r0,@sal+5
+       ai   r0,>1000
+       movb r0,@sal+9
        mov  @player_y,r1
        movb r1,@sal+0
-       ai   r1,>1000
        movb r1,@sal+4
+       ai   r1,>1000
+       movb r1,@sal+8
 *      Upload sprite attributes
        li   r0, spratb
        li   r1, sal
-       li   r2,9
+       li   r2,13
        bl   @vdpcp
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -573,6 +597,7 @@ draw_screen_4:
 * Initialize level
 *
 init_level:
+       mov  r11,*r10+                  ; Push return address onto the stack
 *      Init variables
        mov  @level,r1
        sla  r1,1
@@ -603,6 +628,8 @@ init_level_1:
        dec  r2
        jne  init_level_1
 *      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// init_scrbuf
 
@@ -611,6 +638,7 @@ init_level_1:
 * One time initializations
 *
 init:
+       mov  r11,*r10+                  ; Push return address onto the stack
 *      Init variables
        li   r0,1
        mov  r0,@one
@@ -622,6 +650,8 @@ init:
        movb r0,@player_x
        li   r0,>9f00
        movb r0,@player_y
+       clr  @player_vx
+       clr  @player_vy
 *      Copy code to pad
        li   r0,upload_character_table
        li   r1,upload_character_table_pad
@@ -630,7 +660,22 @@ init_1:
        mov  *r0+,*r1+
        dect r2
        jne  init_1
+*      Draw panel
+       li   r0,>0000
+       li   r1,MD4
+       li   r2,7
+       li   r3,24
+       li   r4,1
+       bl   @draw_box
+       li   r0,>1900
+       li   r1,MD4
+       li   r2,7
+       li   r3,24
+       li   r4,1
+       bl   @draw_box
 *      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// init
 
@@ -651,31 +696,46 @@ gmode_1:
        jne  gmode_1
 *      Patterns
        seto @>6008
-       li   r0, ptrntb
+       li   r0,ptrntb
        clr  r1
        li   r2,>800
        bl   @vdpwr
+       li   r0,8*240+ptrntb
+       li   r1,PAT240
+       li   r2,8*8
+       bl   @vdpcp
+       li   r0,8*240+ptrntb+>800
+       li   r1,PAT240
+       li   r2,8*8
+       bl   @vdpcp
+       li   r0,8*240+ptrntb+>1000
+       li   r1,PAT240
+       li   r2,8*8
+       bl   @vdpcp
 *      Colors
        seto @>600A
        li   r0,colrtb
        clr  r1
        li   r2,>800
        bl   @vdpwr
-*      Name table2
+       li   r0,8*240+colrtb
+       li   r1,COL240
+       li   r2,8*8
+       bl   @vdpcp
+*      Name tables
        li   r0,namet1
        li   r1,>ff00
        li   r2,>1000
        bl   @vdpwr
 *      Sprite patterns
-       li   r0, sprptb
-       li   r1, spr0
-       li   r2,32
+       li   r0,sprptb
+       li   r1,spr0
+       li   r2,60*32
        bl   @vdpcp
 *      Sprite attributes
-       li   r0, spratb
-       li   r1, sal
-       li   r2,9
-       bl   @vdpcp
+       li   r0,spratb
+       li   r1,>d000
+       bl   @vsbw
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -691,6 +751,53 @@ vregs:
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
 *// gmode
+
+*********************************************************************************
+*
+* Draw box to all name tables
+*
+* r0: col MSB, row LSB
+* r1: source
+* r2: width
+* r3: height
+* r4: source row offset
+*
+draw_box:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r15,vdpwd
+       mov  r0,r5
+       andi r0,>00ff
+       sla  r0,5
+       socb r5,@r0lb
+       ai   r0,namet1
+       mov  r0,r6
+       mov  r1,r7
+       mov  r2,r8
+       mov  r3,r9
+       li   r12,4
+draw_box_1:
+       mov  r9,r3
+draw_box_2:
+       bl   @vwad
+       mov  r8,r2
+draw_box_3:
+       movb *r1+,*r15
+       dec  r2
+       jne  draw_box_3
+       ai   r0,32
+       a    r4,r1
+       dec  r3
+       jne  draw_box_2
+       ai   r6,>400
+       mov  r6,r0
+       mov  r7,r1
+       dec  r12
+       jne  draw_box_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// draw_box
 
 *********************************************************************
 *
@@ -888,14 +995,10 @@ diff_list_4:
 * Sprite Locations
 ****************************************
 sal    byte >a0,>78,0,15               ; y, x, pattern#, color#
+       byte >a0,>78,4,1                ; y, x, pattern#, color#
        byte >b0,>88,0,1                ; y, x, pattern#, color#
        byte >d0,>00
-****************************************
-* Sprite Patterns
-****************************************
-spr0   DATA >0005,>005F,>FE38,>423D    ; Color 15
-       DATA >0101,>050D,>0000,>0000    ;
-       DATA >00A0,>00FA,>7F1C,>42BC    ;
-       DATA >8080,>A0B0,>8000,>0000    ;
+
+       copy   "graphics.a99"
 
        end  main
