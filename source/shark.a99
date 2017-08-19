@@ -284,13 +284,19 @@ update_player_sprite:
        mov  @player_vx,r0
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
+*      Center
+       clr  r1
        jmp  update_player_sprite_4
+*      Right
 update_player_sprite_1:
+       li   r1,>1000
        mov  @player_x,r0
        ci   r0,(x_max-16)*256
        jl   update_player_sprite_3
        jmp  update_player_sprite_4
+*      Left
 update_player_sprite_2:
+       li   r1,>0800
        mov  @player_x,r0
        ci   r0,x_min*256
        jh   update_player_sprite_3
@@ -301,15 +307,22 @@ update_player_sprite_4:
        a    @player_vy,@player_y
 *      Update sprite list
        mov  @player_x,r0
+*      x
        movb r0,@sal+1
        movb r0,@sal+5
        ai   r0,>1000
        movb r0,@sal+9
-       mov  @player_y,r1
-       movb r1,@sal+0
-       movb r1,@sal+4
-       ai   r1,>1000
-       movb r1,@sal+8
+*      y
+       mov  @player_y,r0
+       movb r0,@sal+0
+       movb r0,@sal+4
+       ai   r0,>1000
+       movb r0,@sal+8
+*      Pattern
+       movb r1,@sal+2
+       movb r1,@sal+10
+       ai   r1,>0400
+       movb r1,@sal+6
 *      Upload sprite attributes
        li   r0, spratb
        li   r1, sal
