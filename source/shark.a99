@@ -35,20 +35,24 @@ start_level:
        equ  0
 cart_base:
        equ  >603C
-scr_width:
-       equ  32                         ; Width of screen in characters
-scr_height:
-       equ  24                         ; Height of screen in characters
-win_width:
-       equ  18                         ; Width of scrolling window in characters
-win_height:
-       equ  24                         ; Height of scrolling window in characters
-map_width:
-       equ  18                         ; Map width
-x_min:
+scr_width:                             ; Width of screen in characters
+       equ  32
+scr_height:                            ; Height of screen in characters
+       equ  24
+win_width:                             ; Width of scrolling window in characters
+       equ  18
+win_height:                            ; Height of scrolling window in characters
+       equ  24
+map_width:                             ; Map width
+       equ  18
+x_min:                                 ; Minimum x position
        equ  56
-x_max:
+x_max:                                 ; Maximum x position
        equ  200
+n_sprites:                             ; Number of sprites
+       equ  16
+n_hw_sprites:                          ; Number of hardware sprites
+       equ  32
 
 **
 * Scratch pad
@@ -100,18 +104,74 @@ frame_count:
        equ  frame_ready+2
 vdp_status:
        equ  frame_count+2
-player_x:
-       equ  vdp_status+2
-player_y:
-       equ  player_x+2
-player_vx:
-       equ  player_y+2
-player_vy:
-       equ  player_vx+2
 player_fire:
-       equ  player_vy+2
+       equ  vdp_status+2
 upload_character_table_pad:
        equ  player_fire+2
+
+* Sprite definition structure
+sprite_def_type:                       ; Sprite type
+       equ  0
+sprite_def_width:                      ; Width
+       equ  2
+sprite_def_height:                     ; Height
+       equ  4
+sprite_def_left:                       ; Left
+       equ  6
+sprite_def_top:                        ; Top
+       equ  8
+sprite_def_size_x:                     ; Number of hw sprites x
+       equ  10
+sprite_def_size_y:                     ; Number of hw sprites y
+       equ  12
+sprite_def_planes:                     ; Number of hw sprite planes
+       equ  14
+sprite_def_pattern:                    ; Base pattern
+       equ  16
+sprite_def_color:                      ; Base color
+       equ  18
+sprite_def_size:                       ; Structure size
+       equ  20
+
+* Sprite structure
+sprite_def:                            ; Pointer to sprite definition structure
+       equ  0
+sprite_x:                              ; x position
+       equ  2
+sprite_y:                              ; y position
+       equ  4
+sprite_vx:                             ; x velocity
+       equ  6
+sprite_vy:                             ; y velocity
+       equ  8
+sprite_ax:                             ; x acceleration
+       equ  10
+sprite_ay:                             ; y acceleration
+       equ  12
+sprite_hw_1:                           ; Hardware sprite 1
+       equ  14
+sprite_hw_2:                           ; Hardware sprite 2
+       equ  16
+sprite_hw_3:                           ; Hardware sprite 3
+       equ  18
+sprite_hw_4:                           ; Hardware sprite 4
+       equ  20
+sprite_size:                           ; Structure size
+       equ  22
+
+* Hardware sprite structure
+hw_sprite:                             ; Pointer to sprite structure
+       equ  0
+hw_sprite_dx:                          ; Offset from sprite_x
+       equ  2
+hw_sprite_dy:                          ; Offset from sprite_y
+       equ  4
+hw_sprite_pattern:                     ; Pattern
+       equ  6
+hw_sprite_color:                       ; Color
+       equ  8
+hw_sprite_size:                        ; Structure size
+       equ  10
 
 ********************************************************************************
 *
@@ -172,8 +232,9 @@ game_frame_3:
        andi r12,1
        jne  game_frame_4
 *      Game logic goes here...
-       bl   @update_player_sprite
+       bl   @upload_sprites
        bl   @user_input
+       bl   @update_player_sprite
 game_frame_4:
 *      Return
        lwpi wrksp
@@ -232,8 +293,9 @@ set_name_table_4:
 * User input
 *
 user_input:
-       clr  @player_vx
-       clr  @player_vy
+       li   r1,sprite_player
+       clr  @sprite_vx(r1)
+       clr  @sprite_vy(r1)
        clr  @player_fire
 *      Read joystick #1 using CRU
        li   r12,>0024                  ; CRU address of the column decoder
@@ -249,27 +311,27 @@ user_input_1:
        tb   1
        jeq  user_input_2
        li   r0,>ff00
-       mov  r0,@player_vx
+       mov  r0,@sprite_vx(r1)
        jmp  user_input_3
 user_input_2:
 *      Right
        tb   2
        jeq  user_input_3
        li   r0,>0100
-       mov  r0,@player_vx
+       mov  r0,@sprite_vx(r1)
 user_input_3:
 *      Down
        tb   3
        jeq  user_input_4
        li   r0,>0100
-       mov  r0,@player_vy
+       mov  r0,@sprite_vy(r1)
        jmp  user_input_5
 user_input_4:
 *      Up
        tb   4
        jeq  user_input_5
        li   r0,>ff00
-       mov  r0,@player_vy
+       mov  r0,@sprite_vy(r1)
 user_input_5:
        b    *r11
 *// user_input
@@ -280,58 +342,84 @@ user_input_5:
 *
 update_player_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+       li   r1,sprite_player
 *      Move
-       mov  @player_vx,r0
+       mov  @sprite_vx(r1),r0
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
 *      Center
-       clr  r1
+       clr  r2
        jmp  update_player_sprite_4
 *      Right
 update_player_sprite_1:
-       li   r1,>1000
-       mov  @player_x,r0
+       li   r2,>1000
+       mov  @sprite_x(r1),r0
        ci   r0,(x_max-16)*256
        jl   update_player_sprite_3
        jmp  update_player_sprite_4
 *      Left
 update_player_sprite_2:
-       li   r1,>0800
-       mov  @player_x,r0
+       li   r2,>0800
+       mov  @sprite_x(r1),r0
        ci   r0,x_min*256
        jh   update_player_sprite_3
        jmp  update_player_sprite_4
 update_player_sprite_3:
-       a    @player_vx,@player_x
+       a    @sprite_vx(r1),@sprite_x(r1)
 update_player_sprite_4:
-       a    @player_vy,@player_y
-*      Update sprite list
-       mov  @player_x,r0
-*      x
-       movb r0,@sal+1
-       movb r0,@sal+5
-       ai   r0,>1000
-       movb r0,@sal+9
-*      y
-       mov  @player_y,r0
-       movb r0,@sal+0
-       movb r0,@sal+4
-       ai   r0,>1000
-       movb r0,@sal+8
-*      Pattern
-       movb r1,@sal+2
-       movb r1,@sal+10
-       ai   r1,>0400
-       movb r1,@sal+6
-*      Upload sprite attributes
-       li   r0, spratb
-       li   r1, sal
-       li   r2,13
-       bl   @vdpcp
+       a    @sprite_vy(r1),@sprite_y(r1)
+*      Update patterns
+       mov  @sprite_hw_1(r1),r3
+       mov  r2,@hw_sprite_pattern(r3)
+       mov  @sprite_hw_3(r1),r3
+       mov  r2,@hw_sprite_pattern(r3)
+       ai   r2,>0400
+       mov  @sprite_hw_2(r1),r3
+       mov  r2,@hw_sprite_pattern(r3)
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
+*// update_player_sprite
+
+*********************************************************************************
+*
+* Upload sprite attributes
+*
+upload_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,spratb
+       bl   @vwad
+       li   r15,vdpwd
+       li   r14,>c000
+       li   r2,n_hw_sprites
+       li   r3,hw_sprites
+upload_sprites_1:
+       mov  *r3,r1                     ; Get parent sprite
+       jeq  upload_sprites_2
+       mov  @sprite_y(r1),r0
+       a    @hw_sprite_dy(r3),r0
+       movb r0,*r15
+       mov  @sprite_x(r1),r0
+       a    @hw_sprite_dx(r3),r0
+       movb r0,*r15
+       movb @hw_sprite_pattern(r3),*r15
+       movb @hw_sprite_color(r3),*r15
+       jmp  upload_sprites_3
+upload_sprites_2:
+       movb r14,*r15
+       clr  *r15
+       clr  *r15
+       clr  *r15
+upload_sprites_3:
+       ai   r3,hw_sprite_size
+       dec  r2
+       jne  upload_sprites_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_sprites
 
 *********************************************************************************
 *
@@ -659,20 +747,25 @@ init:
        mov  r0,@eight
        li   r0,start_level
        mov  r0,@level
+       li   r1,sprite_player
        li   r0,>7800
-       movb r0,@player_x
+       movb r0,@sprite_x(r1)
        li   r0,>9f00
-       movb r0,@player_y
-       clr  @player_vx
-       clr  @player_vy
+       movb r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       clr  @sprite_vy(r1)
 *      Copy code to pad
        li   r0,upload_character_table
        li   r1,upload_character_table_pad
        li   r2,upload_character_table_end-upload_character_table
-init_1:
-       mov  *r0+,*r1+
-       dect r2
-       jne  init_1
+       bl   @copy_memory
+*      Init sprites
+       li   r0,sprites+(1*sprite_size)
+       li   r2,(n_sprites-1)*sprite_size
+       bl   @clear_memory
+       li   r0,hw_sprites+(3*hw_sprite_size)
+       li   r2,(n_hw_sprites-3)*hw_sprite_size
+       bl   @clear_memory
 *      Draw panel
        li   r0,>0000
        li   r1,MD4
@@ -691,6 +784,35 @@ init_1:
        mov  *r10, r11
        b    *r11
 *// init
+
+*********************************************************************
+*
+* Clear memory
+*
+* R0: Start address
+* R2: Length
+*
+clear_memory:
+       clr  *r0+
+       dect r2
+       jne  clear_memory
+       b    *r11
+*// clear_memory
+
+*********************************************************************
+*
+* Copy memory
+*
+* R0: Source address
+* R1: Destination address
+* R2: Length
+*
+copy_memory:
+       mov  *r0+,*r1+
+       dect r2
+       jne  copy_memory
+       b    *r11
+*// copy_memory
 
 *********************************************************************************
 *
@@ -992,6 +1114,86 @@ char_list:                             ; Pointers to pattern/color addresses for
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
        data 382, 450, 340, 364
+* Sprite definitions
+sprite_defs:
+       equ  $
+*      Player
+sprite_def_player:
+       data >0001                      ; Type
+       data >000f                      ; Width
+       data >000c                      ; Height
+       data >0000                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size x
+       data >0001                      ; Size y
+       data >0001                      ; Planes
+       data >0000                      ; Pattern
+       data >0f00                      ; Color
+*      Bullet
+sprite_def_bullet:
+       data >0002                      ; Type
+       data >0004                      ; Width
+       data >0004                      ; Height
+       data >0006                      ; Left
+       data >0009                      ; Top
+       data >0001                      ; Size x
+       data >0001                      ; Size y
+       data >0001                      ; Planes
+       data >cc00                      ; Pattern
+       data >0f00                      ; Color
+*      Gun turret
+sprite_def_turret:
+       data >0003                      ; Type
+       data >000c                      ; Width
+       data >000c                      ; Height
+       data >0001                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size x
+       data >0001                      ; Size y
+       data >0001                      ; Planes
+       data >cc00                      ; Pattern
+       data >0f00                      ; Color
+*      Sprites
+sprites:
+       equ  $
+sprite_player:
+       data sprite_def_player          ; Pointer to sprite definition structure
+       data >0000                      ; x position
+       data >0000                      ; y position
+       data >0000                      ; x velocity
+       data >0000                      ; y velocity
+       data >0000                      ; x acceleration
+       data >0000                      ; y acceleration
+       data hw_sprite_0                ; Hardware sprite 1
+       data hw_sprite_1                ; Hardware sprite 2
+       data hw_sprite_2                ; Hardware sprite 3
+       data 0                          ; Hardware sprite 4
+*      ...
+       bss  (n_sprites-1)*sprite_size
+* Hardware sprites
+hw_sprites:
+       equ  $
+hw_sprite_0:
+       data sprite_player              ; Pointer to sprite structure
+       data >0000                      ; Offset from sprite_x
+       data >0000                      ; Offset from sprite_y
+       data >0000                      ; Pattern
+       data >0f00                      ; Color
+hw_sprite_1:
+       data sprite_player              ; Pointer to sprite structure
+       data >0000                      ; Offset from sprite_x
+       data >0000                      ; Offset from sprite_y
+       data >0400                      ; Pattern
+       data >0100                      ; Color
+hw_sprite_2:
+       data sprite_player              ; Pointer to sprite structure
+       data >1000                      ; Offset from sprite_x
+       data >1000                      ; Offset from sprite_y
+       data >0000                      ; Pattern
+       data >0100                      ; Color
+*      ...
+       bss  (n_hw_sprites-3)*hw_sprite_size
+
 diff_lists:
        data diff_list_1,diff_list_2,diff_list_3,diff_list_4
 diff_list_1:
@@ -1002,15 +1204,6 @@ diff_list_3:
        copy "level3-diff.a99"
 diff_list_4:
        copy "level4-diff.a99"
-       even
-
-****************************************
-* Sprite Locations
-****************************************
-sal    byte >a0,>78,0,15               ; y, x, pattern#, color#
-       byte >a0,>78,4,1                ; y, x, pattern#, color#
-       byte >b0,>88,0,1                ; y, x, pattern#, color#
-       byte >d0,>00
 
        copy   "graphics.a99"
 
