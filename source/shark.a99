@@ -109,6 +109,14 @@ player_fire:
 upload_character_table_pad:
        equ  player_fire+2
 
+* Sprite definition types
+sprite_type_player:
+       equ  0
+sprite_type_bullet:
+       equ  1
+sprite_type_turret:
+       equ  2
+
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
        equ  0
@@ -234,7 +242,7 @@ game_frame_3:
 *      Game logic goes here...
        bl   @upload_sprites
        bl   @user_input
-       bl   @update_player_sprite
+       bl   @update_sprites
 game_frame_4:
 *      Return
        lwpi wrksp
@@ -338,49 +346,92 @@ user_input_5:
 
 *********************************************************************************
 *
+* Update sprites
+*
+update_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r2,n_sprites
+       li   r3,sprites
+update_sprites_1:
+       mov  *r3,r1                     ; Get sprite definition
+       jeq  update_sprites_2
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       sla  r1,1
+       mov  @sprite_type_jump_table(r1),r0
+       bl   *r0
+update_sprites_2:
+       ai   r3,sprite_size
+       dec  r2
+       jne  upload_sprites_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+sprite_type_jump_table:
+       data update_player_sprite
+       data update_bullet_sprite
+       data update_turret_sprite
+*// update_sprites
+
+*********************************************************************************
+*
 * Update player sprite
 *
 update_player_sprite:
-       mov  r11,*r10+                  ; Push return address onto the stack
-       li   r1,sprite_player
 *      Move
-       mov  @sprite_vx(r1),r0
+       mov  @sprite_vx(r3),r0
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
 *      Center
-       clr  r2
+       clr  r1
        jmp  update_player_sprite_4
 *      Right
 update_player_sprite_1:
-       li   r2,>1000
-       mov  @sprite_x(r1),r0
+       li   r1,>1000
+       mov  @sprite_x(r3),r0
        ci   r0,(x_max-16)*256
        jl   update_player_sprite_3
        jmp  update_player_sprite_4
 *      Left
 update_player_sprite_2:
-       li   r2,>0800
-       mov  @sprite_x(r1),r0
+       li   r1,>0800
+       mov  @sprite_x(r3),r0
        ci   r0,x_min*256
        jh   update_player_sprite_3
        jmp  update_player_sprite_4
 update_player_sprite_3:
-       a    @sprite_vx(r1),@sprite_x(r1)
+       a    @sprite_vx(r3),@sprite_x(r3)
 update_player_sprite_4:
-       a    @sprite_vy(r1),@sprite_y(r1)
+       a    @sprite_vy(r3),@sprite_y(r3)
 *      Update patterns
-       mov  @sprite_hw_1(r1),r3
-       mov  r2,@hw_sprite_pattern(r3)
-       mov  @sprite_hw_3(r1),r3
-       mov  r2,@hw_sprite_pattern(r3)
-       ai   r2,>0400
-       mov  @sprite_hw_2(r1),r3
-       mov  r2,@hw_sprite_pattern(r3)
+       mov  @sprite_hw_1(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
+       mov  @sprite_hw_3(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
+       ai   r1,>0400
+       mov  @sprite_hw_2(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
 *      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
        b    *r11
 *// update_player_sprite
+
+*********************************************************************************
+*
+* Update bullet sprite
+*
+update_bullet_sprite:
+*      Return
+       b    *r11
+*// update_bullet_sprite
+
+*********************************************************************************
+*
+* Update turret sprite
+*
+update_turret_sprite:
+*      Return
+       b    *r11
+*// update_turret_sprite
 
 *********************************************************************************
 *
@@ -1119,7 +1170,7 @@ sprite_defs:
        equ  $
 *      Player
 sprite_def_player:
-       data >0001                      ; Type
+       data sprite_type_player         ; Type
        data >000f                      ; Width
        data >000c                      ; Height
        data >0000                      ; Left
@@ -1131,7 +1182,7 @@ sprite_def_player:
        data >0f00                      ; Color
 *      Bullet
 sprite_def_bullet:
-       data >0002                      ; Type
+       data sprite_type_bullet         ; Type
        data >0004                      ; Width
        data >0004                      ; Height
        data >0006                      ; Left
@@ -1143,7 +1194,7 @@ sprite_def_bullet:
        data >0f00                      ; Color
 *      Gun turret
 sprite_def_turret:
-       data >0003                      ; Type
+       data sprite_type_turret         ; Type
        data >000c                      ; Width
        data >000c                      ; Height
        data >0001                      ; Left
