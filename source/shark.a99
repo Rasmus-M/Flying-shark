@@ -128,18 +128,20 @@ sprite_def_left:                       ; Left
        equ  6
 sprite_def_top:                        ; Top
        equ  8
-sprite_def_size_x:                     ; Number of hw sprites x
+sprite_def_size:                       ; Number of hw sprites
        equ  10
-sprite_def_size_y:                     ; Number of hw sprites y
+sprite_def_size_x:                     ; Number of hw sprites x
        equ  12
-sprite_def_planes:                     ; Number of hw sprite planes
+sprite_def_size_y:                     ; Number of hw sprites y
        equ  14
-sprite_def_pattern:                    ; Base pattern
+sprite_def_planes:                     ; Number of hw sprite planes
        equ  16
-sprite_def_color:                      ; Base color
+sprite_def_pattern:                    ; Base pattern
        equ  18
-sprite_def_size:                       ; Structure size
+sprite_def_color:                      ; Base color
        equ  20
+sprite_def_struct_size:                ; Structure size
+       equ  22
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -164,7 +166,7 @@ sprite_hw_3:                           ; Hardware sprite 3
        equ  18
 sprite_hw_4:                           ; Hardware sprite 4
        equ  20
-sprite_size:                           ; Structure size
+sprite_struct_size:                    ; Structure size
        equ  22
 
 * Hardware sprite structure
@@ -178,7 +180,7 @@ hw_sprite_pattern:                     ; Pattern
        equ  6
 hw_sprite_color:                       ; Color
        equ  8
-hw_sprite_size:                        ; Structure size
+hw_sprite_struct_size:                 ; Structure size
        equ  10
 
 ********************************************************************************
@@ -242,6 +244,7 @@ game_frame_3:
 *      Game logic goes here...
        bl   @upload_sprites
        bl   @user_input
+       bl   @fire
        bl   @update_sprites
 game_frame_4:
 *      Return
@@ -304,7 +307,6 @@ user_input:
        li   r1,sprite_player
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
-       clr  @player_fire
 *      Read joystick #1 using CRU
        li   r12,>0024                  ; CRU address of the column decoder
        li   r0,>0600                   ; Column 6, i.e joystick #1
@@ -312,8 +314,13 @@ user_input:
        li   r12,>0006                  ; Base CRU address for joystick 1
 *      Fire
        tb   0
-       jeq  user_input_1
+       jeq  user_input_0
+       mov  @player_fire,r0
+       jgt  user_input_1
        seto @player_fire
+       jmp  user_input_1
+user_input_0:
+       clr  @player_fire
 user_input_1:
 *      Left
        tb   1
@@ -346,6 +353,24 @@ user_input_5:
 
 *********************************************************************************
 *
+* Fire weapons
+*
+fire:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @player_fire,r0
+       jgt  fire_1
+       jeq  fire_1
+       bl   @create_bullet_sprite
+       neg  @player_fire
+*      Return
+fire_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// fire
+
+*********************************************************************************
+*
 * Update sprites
 *
 update_sprites:
@@ -360,9 +385,9 @@ update_sprites_1:
        mov  @sprite_type_jump_table(r1),r0
        bl   *r0
 update_sprites_2:
-       ai   r3,sprite_size
+       ai   r3,sprite_struct_size
        dec  r2
-       jne  upload_sprites_1
+       jne  update_sprites_1
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -420,7 +445,23 @@ update_player_sprite_4:
 * Update bullet sprite
 *
 update_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_y(r3),r0
+       ci   r0,>f000
+       jh   update_bullet_sprite_2
+       ci   r0,>c000
+       jl   update_bullet_sprite_2
+*      Remove
+update_bullet_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+       jmp  update_bullet_sprite_2
+*      Move
+update_bullet_sprite_2:
+       a    @sprite_vy(r3),@sprite_y(r3)
 *      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// update_bullet_sprite
 
@@ -432,6 +473,138 @@ update_turret_sprite:
 *      Return
        b    *r11
 *// update_turret_sprite
+
+*********************************************************************************
+*
+* Create bullet sprite
+*
+create_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  create_bullet_sprite_1
+       li   r2,sprite_player
+       mov  @sprite_x(r2),@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,>f000
+       mov  r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       li   r0,>fc00
+       mov  r0,@sprite_vy(r1)
+*      Return
+create_bullet_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// create_bullet_sprite
+
+*********************************************************************************
+*
+* Allocate sprite
+*
+* r0: Address of sprite definition
+*
+* On return r1 contains the address of the sprite,
+* or 0 if the allocation failed.
+*
+alloc_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r1,sprites
+       li   r2,n_sprites
+alloc_sprite_1:
+       mov  *r1,r3
+       jeq  alloc_sprite_2
+       ai   r1,sprite_struct_size
+       dec  r2
+       jne  alloc_sprite_1
+*      Failed
+alloc_sprite_5:
+       clr  r1
+       jmp  alloc_sprite_3
+*      Succeeded
+alloc_sprite_2:
+       mov  r0,r4
+       mov  r4,*r1
+       mov  @sprite_def_size(r4),r5
+       mov  r1,r6
+       ai   r6,sprite_hw_1
+alloc_sprite_4:
+       bl   @alloc_hw_sprite
+       mov  r0,r7
+       jeq  alloc_sprite_5
+       mov  r7,*r6+
+       clr  @hw_sprite_dx(r7)
+       clr  @hw_sprite_dy(r7)
+       mov  @sprite_def_pattern(r4),@hw_sprite_pattern(r7)
+       mov  @sprite_def_color(r4),@hw_sprite_color(r7)
+       dec  r5
+       jne  alloc_sprite_4
+*      Return
+alloc_sprite_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// alloc_sprite
+
+*********************************************************************************
+*
+* Allocate hardware sprite
+*
+* r1: Address of parent sprite
+*
+* On return r0 contain the address of the hw sprite,
+* or 0 if the allocation failed.
+*
+* Modifies r2-r3
+*
+alloc_hw_sprite:
+       li   r0,hw_sprites
+       li   r2,n_hw_sprites
+alloc_hw_sprite_1:
+       mov  *r0,r3
+       jeq  alloc_hw_sprite_2
+       ai   r0,hw_sprite_struct_size
+       dec  r2
+       jne  alloc_hw_sprite_1
+*      Failed
+       clr  r0
+       jmp  alloc_hw_sprite_3
+*      Succeeded
+alloc_hw_sprite_2:
+       mov  r1,*r0
+*      Return
+alloc_hw_sprite_3:
+       b    *r11
+*// allow_hw_sprite
+
+*********************************************************************************
+*
+* Deallocate sprite
+*
+* r1: Address of sprite
+*
+dealloc_sprite:
+       clr  *r1
+       mov  @sprite_hw_1(r1),r0
+       jeq  dealloc_sprite_1
+       clr *r0
+dealloc_sprite_1:
+       mov  @sprite_hw_2(r1),r0
+       jeq  dealloc_sprite_2
+       clr *r0
+dealloc_sprite_2:
+       mov  @sprite_hw_3(r1),r0
+       jeq  dealloc_sprite_3
+       clr *r0
+dealloc_sprite_3:
+       mov  @sprite_hw_4(r1),r0
+       jeq  dealloc_sprite_4
+       clr *r0
+dealloc_sprite_4:
+*      Return
+       b    *r11
+*// dealloc_sprite
 
 *********************************************************************************
 *
@@ -463,7 +636,7 @@ upload_sprites_2:
        clr  *r15
        clr  *r15
 upload_sprites_3:
-       ai   r3,hw_sprite_size
+       ai   r3,hw_sprite_struct_size
        dec  r2
        jne  upload_sprites_1
 *      Return
@@ -626,10 +799,6 @@ update_name_table:
        mov  @scrly,r1                  ; Get scroll offset in pixels
        sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
-;       jgt  !
-;       jeq  !
-;       a    @map_height,r1             ; Wrap to end of map
-;!      mov  r1,r6                      ; Save row
        li   r2,map_width
        mpy  r2,r1                      ; Multiply by map width to get character offset
        li   r1,cart_base               ; Get the map base address
@@ -676,12 +845,7 @@ update_name_table_6:
        dec  r3
        jne  update_name_table_6
        ai   r0,scr_width               ; Next VDP row
-;       inc  r6                         ; Next row
-;       c    r6,@map_height
-;       jlt  !
-;       li   r1,cart_base
-;       clr  r6
-!      dec  r2
+       dec  r2
        jne  update_name_table_5
 *	   Return
        dect r10                        ; Pop return address off the stack
@@ -811,11 +975,11 @@ init:
        li   r2,upload_character_table_end-upload_character_table
        bl   @copy_memory
 *      Init sprites
-       li   r0,sprites+(1*sprite_size)
-       li   r2,(n_sprites-1)*sprite_size
+       li   r0,sprites+(1*sprite_struct_size)
+       li   r2,(n_sprites-1)*sprite_struct_size
        bl   @clear_memory
-       li   r0,hw_sprites+(3*hw_sprite_size)
-       li   r2,(n_hw_sprites-3)*hw_sprite_size
+       li   r0,hw_sprites+(3*hw_sprite_struct_size)
+       li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
 *      Draw panel
        li   r0,>0000
@@ -1175,6 +1339,7 @@ sprite_def_player:
        data >000c                      ; Height
        data >0000                      ; Left
        data >0001                      ; Top
+       data >0003                      ; Size
        data >0001                      ; Size x
        data >0001                      ; Size y
        data >0001                      ; Planes
@@ -1187,6 +1352,7 @@ sprite_def_bullet:
        data >0004                      ; Height
        data >0006                      ; Left
        data >0009                      ; Top
+       data >0001                      ; Size
        data >0001                      ; Size x
        data >0001                      ; Size y
        data >0001                      ; Planes
@@ -1199,6 +1365,7 @@ sprite_def_turret:
        data >000c                      ; Height
        data >0001                      ; Left
        data >0001                      ; Top
+       data >0001                      ; Size
        data >0001                      ; Size x
        data >0001                      ; Size y
        data >0001                      ; Planes
@@ -1220,7 +1387,7 @@ sprite_player:
        data hw_sprite_2                ; Hardware sprite 3
        data 0                          ; Hardware sprite 4
 *      ...
-       bss  (n_sprites-1)*sprite_size
+       bss  (n_sprites-1)*sprite_struct_size
 * Hardware sprites
 hw_sprites:
        equ  $
@@ -1243,7 +1410,7 @@ hw_sprite_2:
        data >0000                      ; Pattern
        data >0100                      ; Color
 *      ...
-       bss  (n_hw_sprites-3)*hw_sprite_size
+       bss  (n_hw_sprites-3)*hw_sprite_struct_size
 
 diff_lists:
        data diff_list_1,diff_list_2,diff_list_3,diff_list_4
