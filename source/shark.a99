@@ -12,6 +12,7 @@
 
 **
 * Memory mapped addresses
+*
 vdpwd  equ  >8c00                      ; VDP write data
 vdpwa  equ  >8c02                      ; VDP set read/write address
 vdprd  equ  >8800                      ; VDP read data
@@ -20,6 +21,7 @@ sound  equ  >8400
 
 **
 * VDP memory map
+*
 ptrntb equ  >0000                      ; Pattern table base
 sprptb equ  >1800                      ; Sprite pattern table base
 colrtb equ  >2000                      ; Color table base
@@ -31,6 +33,7 @@ spratb equ  >3700                      ; Sprite attribute table base
 
 **
 * Constants
+*
 start_level:
        equ  0
 cart_base:
@@ -55,60 +58,8 @@ n_hw_sprites:                          ; Number of hardware sprites
        equ  32
 
 **
-* Scratch pad
+* Structures
 *
-rndsd  equ  >83c0                      ; Random number seed
-pad    equ  >8300
-wrksp  equ  pad                        ; Workspace
-r0lb   equ  wrksp+1                    ; R0 low byte required for VDP routines
-r1lb   equ  wrksp+3
-r2lb   equ  wrksp+5
-r3lb   equ  wrksp+7
-r4lb   equ  wrksp+9
-r5lb   equ  wrksp+11
-r6lb   equ  wrksp+13
-r7lb   equ  wrksp+15
-r8lb   equ  wrksp+17
-r9lb   equ  wrksp+19
-wrksp2 equ  >8320
-stack  equ  >8340
-padvar equ  stack+>10
-*
-* PAD variables
-*
-one:
-       equ  padvar
-eight:
-       equ  one+2
-level:
-       equ  eight+2
-scrly:
-       equ  level+2
-map_height:
-       equ  scrly+2
-diff_pointer:
-       equ  map_height+2
-max_chars:
-       equ  diff_pointer+2
-cart_pattern_bank:
-       equ  max_chars+2
-cart_color_bank:
-       equ  cart_pattern_bank+2
-cart_map_bank:
-       equ  cart_color_bank+2
-cart_map_high_bank:
-       equ  cart_map_bank+2
-frame_ready:
-       equ  cart_map_high_bank+2
-frame_count:
-       equ  frame_ready+2
-vdp_status:
-       equ  frame_count+2
-player_fire:
-       equ  vdp_status+2
-upload_character_table_pad:
-       equ  player_fire+2
-
 * Sprite definition types
 sprite_type_player:
        equ  0
@@ -166,8 +117,20 @@ sprite_hw_3:                           ; Hardware sprite 3
        equ  18
 sprite_hw_4:                           ; Hardware sprite 4
        equ  20
-sprite_struct_size:                    ; Structure size
+sprite_scroll_0:                       ; Reference scroll position
        equ  22
+sprite_struct_size:                    ; Structure size
+       equ  24
+
+* Sprite position structure
+sprite_pos_y:
+       equ  0
+sprite_pos_x:
+       equ  2
+sprite_pos_def:
+       equ  4
+sprite_pos_struct_size:
+       equ  6
 
 * Hardware sprite structure
 hw_sprite:                             ; Pointer to sprite structure
@@ -182,6 +145,65 @@ hw_sprite_color:                       ; Color
        equ  8
 hw_sprite_struct_size:                 ; Structure size
        equ  10
+
+**
+* Scratch pad
+*
+rndsd  equ  >83c0                      ; Random number seed
+pad    equ  >8300
+wrksp  equ  pad                        ; Workspace
+r0lb   equ  wrksp+1                    ; R0 low byte required for VDP routines
+r1lb   equ  wrksp+3
+r2lb   equ  wrksp+5
+r3lb   equ  wrksp+7
+r4lb   equ  wrksp+9
+r5lb   equ  wrksp+11
+r6lb   equ  wrksp+13
+r7lb   equ  wrksp+15
+r8lb   equ  wrksp+17
+r9lb   equ  wrksp+19
+wrksp2 equ  >8320
+stack  equ  >8340
+padvar equ  stack+>10
+*
+* PAD variables
+*
+one:
+       equ  padvar
+eight:
+       equ  one+2
+level:
+       equ  eight+2
+scrly:
+       equ  level+2
+scrly_current:
+       equ  scrly+2
+map_height:
+       equ  scrly_current+2
+diff_ptr:
+       equ  map_height+2
+max_chars:
+       equ  diff_ptr+2
+cart_pattern_bank:
+       equ  max_chars+2
+cart_color_bank:
+       equ  cart_pattern_bank+2
+cart_map_bank:
+       equ  cart_color_bank+2
+cart_map_high_bank:
+       equ  cart_map_bank+2
+frame_ready:
+       equ  cart_map_high_bank+2
+frame_count:
+       equ  frame_ready+2
+vdp_status:
+       equ  frame_count+2
+player_fire:
+       equ  vdp_status+2
+sprite_pos_ptr:
+       equ  player_fire+2
+upload_character_table_pad:
+       equ  sprite_pos_ptr+2
 
 ********************************************************************************
 *
@@ -205,6 +227,7 @@ main_loop:
        bl   @update_characters
        bl   @update_name_table
        seto @frame_ready
+       mov  @scrly,@scrly_current
        dec  @scrly
        jne  main_loop
 *      Next level
@@ -221,30 +244,33 @@ main_loop:
 *
 game_frame:
        clr  r12
-       abs  @frame_ready               ; If frame ready?
+       abs  @frame_ready               ; Is frame ready?
        jne  game_frame_1
        tb   2                          ; Did an interrupt occur?
        jne  game_frame_2
        b    *r11
+*      Frame is ready, wait for interrupt
 game_frame_1:
        tb   2                          ; Did an interrupt occur?
        jeq  game_frame_1               ; No - wait for it
+*      Interrupt occurred
 game_frame_2:
        lwpi wrksp2
        movb @vdpsta,@vdp_status
-       abs  @frame_ready               ; If frame ready?
+       abs  @frame_ready               ; Is frame ready?
        jeq  game_frame_3
        bl   @set_name_table
        clr  @frame_ready
 game_frame_3:
+       bl   @upload_sprites
        inc  @frame_count
        mov  @frame_count,r12
        andi r12,1
        jne  game_frame_4
 *      Game logic goes here...
-       bl   @upload_sprites
        bl   @user_input
        bl   @fire
+       bl   @add_sprites
        bl   @update_sprites
 game_frame_4:
 *      Return
@@ -371,6 +397,38 @@ fire_1:
 
 *********************************************************************************
 *
+* Add sprites
+*
+add_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_pos_ptr,r8
+       mov  *r8,r0
+       jlt  add_sprites_1
+       s    @scrly_current,r0
+       ci   r0,-16
+       jlt  add_sprites_1
+       mov  @sprite_pos_def(r8),r0
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_sprites_1
+       mov  @sprite_pos_x(r8),r0
+       ai   r0,x_min
+       sla  r0,8
+       mov  r0,@sprite_x(r1)
+       mov  @scrly_current,r0
+       ai   r0,-16
+       mov  r0,@sprite_scroll_0(r1)
+       li   r0,sprite_pos_struct_size
+       a    r0,@sprite_pos_ptr
+*      Return
+add_sprites_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_sprites
+
+*********************************************************************************
+*
 * Update sprites
 *
 update_sprites:
@@ -470,7 +528,23 @@ update_bullet_sprite_2:
 * Update turret sprite
 *
 update_turret_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_scroll_0(r3),r0
+       s    @scrly_current,r0
+       ci   r0,192
+       jgt  update_turret_sprite_1
+*      Move
+       sla  r0,8
+       mov  r0,@sprite_y(r3)
+       jmp  update_turret_sprite_2
+*      Remove
+update_turret_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_turret_sprite_2:
 *      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// update_turret_sprite
 
@@ -507,6 +581,8 @@ create_bullet_sprite_1:
 *
 * On return r1 contains the address of the sprite,
 * or 0 if the allocation failed.
+*
+* Modifies r0-r7
 *
 alloc_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -653,7 +729,7 @@ update_char_list:
        mov  @scrly,r0
        andi r0,7
        jne  update_char_list_5
-       mov  @diff_pointer,r0
+       mov  @diff_ptr,r0
        clr  r1
 *      Additions
        movb *r0+,r2                    ; Additions counter
@@ -681,7 +757,7 @@ update_char_list_3:
        dec  r2
        jne  update_char_list_3
 update_char_list_4:
-       mov  r0,@diff_pointer
+       mov  r0,@diff_ptr
 *      Return
 update_char_list_5:
        b    *r11
@@ -922,10 +998,13 @@ init_level:
        ai   r0,-win_height
        sla  r0,3
        mov  r0,@scrly
+       mov  r0,@scrly_current
        mov  @diff_lists(r1),r0
        clr  @max_chars
        movb *r0+,@max_chars+1
-       mov  r0,@diff_pointer
+       mov  r0,@diff_ptr
+       mov  @sprite_pos_lists(r1),@sprite_pos_ptr
+*      Cartridge addresses
        mov  @level,r1
        sla  r1,3
        ai   r1,>6008
@@ -1329,7 +1408,9 @@ char_list:                             ; Pointers to pattern/color addresses for
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
        data 382, 450, 340, 364
+**
 * Sprite definitions
+*
 sprite_defs:
        equ  $
 *      Player
@@ -1369,8 +1450,8 @@ sprite_def_turret:
        data >0001                      ; Size x
        data >0001                      ; Size y
        data >0001                      ; Planes
-       data >cc00                      ; Pattern
-       data >0f00                      ; Color
+       data >5000                      ; Pattern
+       data >0e00                      ; Color
 *      Sprites
 sprites:
        equ  $
@@ -1385,6 +1466,7 @@ sprite_player:
        data hw_sprite_0                ; Hardware sprite 1
        data hw_sprite_1                ; Hardware sprite 2
        data hw_sprite_2                ; Hardware sprite 3
+       data 0                          ; y0
        data 0                          ; Hardware sprite 4
 *      ...
        bss  (n_sprites-1)*sprite_struct_size
@@ -1411,7 +1493,29 @@ hw_sprite_2:
        data >0100                      ; Color
 *      ...
        bss  (n_hw_sprites-3)*hw_sprite_struct_size
-
+**
+* Sprite positions on map
+*
+sprite_pos_lists:
+       data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
+*      y, x, sprite def
+sprite_pos_list_1:
+       data 2776,48,sprite_def_turret
+       data 1056,48,sprite_def_turret
+       data 1040,32,sprite_def_turret
+       data 864,96,sprite_def_turret
+       data 848,80,sprite_def_turret
+       data 336,96,sprite_def_turret
+       data -1
+sprite_pos_list_2:
+       data -1
+sprite_pos_list_3:
+       data -1
+sprite_pos_list_4:
+       data -1
+**
+*
+*
 diff_lists:
        data diff_list_1,diff_list_2,diff_list_3,diff_list_4
 diff_list_1:
