@@ -29,7 +29,8 @@ namet1 equ  >2800                      ; Name table base 1 >A
 namet2 equ  >2c00                      ; Name table base 2 >B
 namet3 equ  >3000                      ; Name table base 3 >C
 namet4 equ  >3400                      ; Name table base 4 >D
-spratb equ  >3700                      ; Sprite attribute table base
+sprat1 equ  >3700                      ; Sprite attribute table base 1
+sprat2 equ  >3780                      ; Sprite attribute table base 2
 
 **
 * Constants
@@ -202,8 +203,12 @@ player_fire:
        equ  vdp_status+2
 sprite_pos_ptr:
        equ  player_fire+2
-upload_character_table_pad:
+sprite_table_flag:
        equ  sprite_pos_ptr+2
+upload_character_table_pad:
+       equ  sprite_table_flag+2
+pad_max:
+       equ  upload_character_table_pad+52
 
 ********************************************************************************
 *
@@ -262,6 +267,7 @@ game_frame_2:
        bl   @set_name_table
        clr  @frame_ready
 game_frame_3:
+       bl   @set_sprite_table
        bl   @upload_sprites
        inc  @frame_count
        mov  @frame_count,r12
@@ -324,6 +330,21 @@ set_name_table_4:
        b    *r11
 *// set_name_table
 
+*********************************************************************************
+*
+* Set sprite table
+*
+set_sprite_table:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_table_flag,r0
+       andi r0,1
+       ori  r0,>0500+(sprat1/>80)
+       bl   @vwtr
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// set_sprite_table
 
 *********************************************************************************
 *
@@ -688,8 +709,15 @@ dealloc_sprite_4:
 *
 upload_sprites:
        mov  r11,*r10+                  ; Push return address onto the stack
-       li   r0,spratb
+*      Set destination address
+       mov  @sprite_table_flag,r0
+       inv  r0
+       mov  r0,@sprite_table_flag
+       andi r0,1
+       sla  r0,7
+       ai   r0,sprat1
        bl   @vwad
+*      Init loop
        li   r15,vdpwd
        li   r14,>c000
        li   r2,n_hw_sprites
@@ -1048,6 +1076,7 @@ init:
        movb r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
+       clr  @sprite_table_flag
 *      Copy code to pad
        li   r0,upload_character_table
        li   r1,upload_character_table_pad
@@ -1162,7 +1191,10 @@ gmode_1:
        li   r2,60*32
        bl   @vdpcp
 *      Sprite attributes
-       li   r0,spratb
+       li   r0,sprat1
+       li   r1,>d000
+       bl   @vsbw
+       li   r0,sprat2
        li   r1,>d000
        bl   @vsbw
 *      Return
@@ -1176,7 +1208,7 @@ vregs:
        byte namet1/>400                ; Name table
        byte >9f                        ; Color table
        byte ptrntb/>800+>03            ; Pattern table
-       byte spratb/>80                 ; Sprite attribute table
+       byte sprat1/>80                 ; Sprite attribute table
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
 *// gmode
@@ -1514,7 +1546,7 @@ sprite_pos_list_3:
 sprite_pos_list_4:
        data -1
 **
-*
+* Character differences after each 8 pixels scrolled
 *
 diff_lists:
        data diff_list_1,diff_list_2,diff_list_3,diff_list_4
@@ -1526,7 +1558,9 @@ diff_list_3:
        copy "level3-diff.a99"
 diff_list_4:
        copy "level4-diff.a99"
-
+**
+* Sprite and panel graphics
+*
        copy   "graphics.a99"
 
        end  main
