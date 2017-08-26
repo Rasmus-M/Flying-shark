@@ -249,38 +249,62 @@ main_loop:
 *
 game_frame:
        clr  r12
-       abs  @frame_ready               ; Is frame ready?
-       jne  game_frame_1
        tb   2                          ; Did an interrupt occur?
-       jne  game_frame_2
+       jne  game_frame_2               ; Yes - jump
+*      No interrupt
+       abs  @frame_ready               ; Is frame ready?
+       jne  game_frame_1               ; Yes - jump
+*      No interrupt, frame not ready
        b    *r11
-*      Frame is ready, wait for interrupt
 game_frame_1:
+*      No interrupt, frame ready
        tb   2                          ; Did an interrupt occur?
        jeq  game_frame_1               ; No - wait for it
-*      Interrupt occurred
-game_frame_2:
-       lwpi wrksp2
        movb @vdpsta,@vdp_status
-       abs  @frame_ready               ; Is frame ready?
-       jeq  game_frame_3
+       mov  r10,@wrksp2+20
+       lwpi wrksp2
        bl   @set_name_table
        clr  @frame_ready
+       bl   @game_frame_actions
+       lwpi wrksp
+       b    *r11
+*      Interrupt occurred
+game_frame_2:
+       movb @vdpsta,@vdp_status
+       abs  @frame_ready               ; Is frame ready?
+       jne  game_frame_3
+*      Interrupt, frame not ready
+       mov  r10,@wrksp2+20
+       lwpi wrksp2
+       bl   @game_frame_actions
+       lwpi wrksp
+       b    *r11
 game_frame_3:
+*      Interrupt + frame ready
+       mov  r10,@wrksp2+20
+       lwpi wrksp2
+       bl   @set_name_table
+       clr  @frame_ready
+       bl   @game_frame_actions
+       lwpi wrksp
+       b    *r11
+*********************************************************************
+game_frame_actions:
+       mov  r11,*r10+
        bl   @set_sprite_table
-       bl   @upload_sprites
-       inc  @frame_count
-       mov  @frame_count,r12
-       andi r12,1
-       jne  game_frame_4
-*      Game logic goes here...
+       mov  @frame_count,r0
+       andi r0,1
+       jne  game_frame_actions_1
        bl   @user_input
        bl   @fire
        bl   @add_sprites
+game_frame_actions_1:
        bl   @update_sprites
-game_frame_4:
+       bl   @upload_sprites
+       inc  @frame_count
 *      Return
-       lwpi wrksp
+       dect r10
+       mov  *r10,r11
        b    *r11
 *// game_frame
 
@@ -1301,7 +1325,9 @@ vwad:
 * R1   MSB of R1 set to byte from VDP RAM
 *
 vsbr:
-       movb @r0lb,@vdpwa               ; Send low byte of VDP RAM write address
+       swpb r0
+       movb r0,@vdpwa                  ; Send low byte of VDP RAM write address
+       swpb r0
        movb r0,@vdpwa                  ; Send high byte of VDP RAM write address
        movb @vdprd,r1                  ; Read byte from VDP RAM
        b    *r11
