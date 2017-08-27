@@ -583,6 +583,24 @@ update_turret_sprite:
 *      Move
        sla  r0,8
        mov  r0,@sprite_y(r3)
+*      Pattern
+       li   r4,sprite_player
+       mov  @sprite_x(r4),r0           ; Player x
+       s    @sprite_x(r3),r0           ; Player x - turret x
+       sra  r0,12
+       ai   r0,8
+       mov  @sprite_y(r4),r1           ; Player y
+       s    @sprite_y(r3),r1           ; Player y - turret x
+       sra  r1,12
+       ai   r1,8
+       sla  r1,4
+       a    r0,r1
+       clr  r0
+       movb @octant_table(r1),r0
+       sla  r0,2
+       ai   r0,>4000
+       mov  @sprite_hw_1(r3),r1
+       movb r0,@hw_sprite_pattern(r1)
        jmp  update_turret_sprite_2
 *      Remove
 update_turret_sprite_1:
@@ -1598,7 +1616,25 @@ diff_list_4:
 **
 * Sprite and panel graphics
 *
-       copy   "sprites.a99"
-       copy   "panel.a99"
+       copy "sprites.a99"
+       copy "panel.a99"
+
+octant_table:
+       byte 7,7,7,7,7,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
+       byte 6,6,7,7,7,7,7,0,0,1,1,1,1,1,2,2
+       byte 6,6,6,6,6,7,7,0,0,1,1,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,0,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,4,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,5,5,4,4,3,3,2,2,2,2,2
+       byte 6,6,5,5,5,5,5,4,4,3,3,3,3,3,2,2
+       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,3,3,3,3,3
 
        end  main
