@@ -1,26 +1,4 @@
 ****************************************
-* Colorset Definitions                  
-****************************************
-COL240 DATA >1010,>1010,>1010,>1010    ;
-COL241 DATA >1010,>E0F0,>E0E0,>E0E0    ;
-COL242 DATA >1010,>E0F0,>E0E0,>1010    ;
-COL243 DATA >1010,>E0F0,>E0E0,>E0E0    ;
-COL244 DATA >E0E0,>E0E0,>E0E0,>E0E0    ;
-COL245 DATA >E0E0,>E0E0,>E0E0,>F0F0    ;
-COL246 DATA >E0E0,>E0E0,>E0E0,>F0F0    ;
-COL247 DATA >1010,>1010,>1010,>1010    ;
-****************************************
-* Character Patterns                    
-****************************************
-PAT240 DATA >0000,>0000,>0000,>0000    ;
-PAT241 DATA >0000,>0F1F,>3F3B,>3634    ;
-PAT242 DATA >0000,>FFFF,>FFFF,>0000    ;
-PAT243 DATA >0000,>F0F8,>FCFC,>7C3C    ;
-PAT244 DATA >3434,>3434,>3434,>3434    ;
-PAT245 DATA >3C3E,>3F3F,>1F0F,>0000    ;
-PAT246 DATA >3474,>F4EC,>98F0,>0000    ;
-PAT247 DATA >0000,>0000,>0000,>0000    ;
-****************************************
 * Sprite Patterns                       
 ****************************************
 SPR0   DATA >0005,>005F,>FE38,>423D    ; Color 15
@@ -263,58 +241,3 @@ SPR59  DATA >0000,>0000,>0802,>0505    ; Color 15
        DATA >2B05,>1200,>0100,>0000    ; 
        DATA >0000,>0020,>8020,>D4F0    ; 
        DATA >A054,>C000,>0000,>0000    ; 
-****************************************
-* Map Data                              
-****************************************
-MCOUNT DATA 1                          ;
-* == Map #4 ==                          
-MC4    DATA 1                          ;
-MS4    DATA >0008,>0018,>00C0          ; Width, Height, Size
-* -- Map Row 0 --                       
-MD4    DATA >F1F2,>F2F2,>F2F2,>F3F0    ;
-* -- Map Row 1 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 2 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 3 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 4 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 5 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 6 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 7 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 8 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 9 --                       
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 10 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 11 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 12 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 13 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 14 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 15 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 16 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 17 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 18 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 19 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 20 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 21 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 22 --                      
-       DATA >F4F0,>F0F0,>F0F0,>F4F0    ;
-* -- Map Row 23 --                      
-       DATA >F5F2,>F2F2,>F2F2,>F6F0    ;

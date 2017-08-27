@@ -50,9 +50,9 @@ win_height:                            ; Height of scrolling window in character
 map_width:                             ; Map width
        equ  18
 x_min:                                 ; Minimum x position
-       equ  56
+       equ  0
 x_max:                                 ; Maximum x position
-       equ  200
+       equ  144
 n_sprites:                             ; Number of sprites
        equ  16
 n_hw_sprites:                          ; Number of hardware sprites
@@ -258,14 +258,13 @@ game_frame:
        b    *r11
 game_frame_1:
 *      No interrupt, frame ready
-       tb   2                          ; Did an interrupt occur?
-       jeq  game_frame_1               ; No - wait for it
-       movb @vdpsta,@vdp_status
        mov  r10,@wrksp2+20
        lwpi wrksp2
-       bl   @set_name_table
-       clr  @frame_ready
        bl   @game_frame_actions
+       bl   @vsync
+       bl   @set_name_table
+       bl   @set_sprite_table
+       clr  @frame_ready
        lwpi wrksp
        b    *r11
 *      Interrupt occurred
@@ -277,21 +276,23 @@ game_frame_2:
        mov  r10,@wrksp2+20
        lwpi wrksp2
        bl   @game_frame_actions
+       bl   @set_sprite_table
        lwpi wrksp
        b    *r11
 game_frame_3:
 *      Interrupt + frame ready
        mov  r10,@wrksp2+20
        lwpi wrksp2
-       bl   @set_name_table
-       clr  @frame_ready
        bl   @game_frame_actions
+       bl   @vsync
+       bl   @set_name_table
+       bl   @set_sprite_table
+       clr  @frame_ready
        lwpi wrksp
        b    *r11
 *********************************************************************
 game_frame_actions:
        mov  r11,*r10+
-       bl   @set_sprite_table
        mov  @frame_count,r0
        andi r0,1
        jne  game_frame_actions_1
@@ -364,6 +365,7 @@ set_sprite_table:
        andi r0,1
        ori  r0,>0500+(sprat1/>80)
        bl   @vwtr
+       inv  @sprite_table_flag
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -735,8 +737,6 @@ upload_sprites:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Set destination address
        mov  @sprite_table_flag,r0
-       inv  r0
-       mov  r0,@sprite_table_flag
        andi r0,1
        sla  r0,7
        ai   r0,sprat1
@@ -933,7 +933,7 @@ update_name_table:
        a    r2,r1                      ; Add the character offset
 *	   Calculate buffer destination address in R0
        sla  r0,5                       ; Convert row offset to character offset
-       ai   r0,(scr_width-win_width)/2 ; Center
+;      ai   r0,(scr_width-win_width)/2 ; Center
 *	   Decide which buffer to update
        coc  @eight,r3                  ; Bit weight >08 determines the group
        jne  update_name_table_2        ; If not set we update buffer 2 or 3
@@ -972,6 +972,7 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
+       bl   @game_frame
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -996,7 +997,7 @@ draw_initial_screen:
        ai   r1,cart_base
        mov  r1,r4
 *      Map
-       li   r0,namet3+((scr_width-win_width)/2)
+       li   r0,namet3                  ; +((scr_width-win_width)/2)
        li   r2,win_height
        mov  @cart_map_bank,r5
        seto *r5
@@ -1011,7 +1012,7 @@ draw_screen_2:
        dec  r2
        jne  draw_screen_1
 *      Map - high
-       li   r0,namet4+((scr_width-win_width)/2)
+       li   r0,namet4                  ; +((scr_width-win_width)/2)
        mov  r4,r1
        li   r2,win_height
        mov  @cart_map_high_bank,r5
@@ -1094,7 +1095,7 @@ init:
        li   r0,start_level
        mov  r0,@level
        li   r1,sprite_player
-       li   r0,>7800
+       li   r0,>4000
        movb r0,@sprite_x(r1)
        li   r0,>9f00
        movb r0,@sprite_y(r1)
@@ -1114,17 +1115,11 @@ init:
        li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
 *      Draw panel
-       li   r0,>0000
-       li   r1,MD4
-       li   r2,7
+       li   r0,>1400
+       li   r1,MD0
+       li   r2,12
        li   r3,24
-       li   r4,1
-       bl   @draw_box
-       li   r0,>1900
-       li   r1,MD4
-       li   r2,7
-       li   r3,24
-       li   r4,1
+       li   r4,0
        bl   @draw_box
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -1182,17 +1177,29 @@ gmode_1:
        clr  r1
        li   r2,>800
        bl   @vdpwr
+       li   r0,8*112+ptrntb
+       li   r1,PAT112
+       li   r2,16*8
+       bl   @vdpcp
+       li   r0,8*112+ptrntb+>800
+       li   r1,PAT112
+       li   r2,16*8
+       bl   @vdpcp
+       li   r0,8*112+ptrntb+>1000
+       li   r1,PAT112
+       li   r2,16*8
+       bl   @vdpcp
        li   r0,8*240+ptrntb
        li   r1,PAT240
-       li   r2,8*8
+       li   r2,16*8
        bl   @vdpcp
        li   r0,8*240+ptrntb+>800
        li   r1,PAT240
-       li   r2,8*8
+       li   r2,16*8
        bl   @vdpcp
        li   r0,8*240+ptrntb+>1000
        li   r1,PAT240
-       li   r2,8*8
+       li   r2,16*8
        bl   @vdpcp
 *      Colors
        seto @>600A
@@ -1200,9 +1207,13 @@ gmode_1:
        clr  r1
        li   r2,>800
        bl   @vdpwr
+       li   r0,8*112+colrtb
+       li   r1,COL112
+       li   r2,16*8
+       bl   @vdpcp
        li   r0,8*240+colrtb
        li   r1,COL240
-       li   r2,8*8
+       li   r2,16*8
        bl   @vdpcp
 *      Name tables
        li   r0,namet1
@@ -1587,6 +1598,7 @@ diff_list_4:
 **
 * Sprite and panel graphics
 *
-       copy   "graphics.a99"
+       copy   "sprites.a99"
+       copy   "panel.a99"
 
        end  main
