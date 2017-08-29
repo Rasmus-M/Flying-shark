@@ -626,18 +626,25 @@ update_turret_sprite:
        jlt  update_turret_sprite_2
 *      Pattern
        li   r4,sprite_player
-       mov  @sprite_x(r4),r0           ; Player x
-       s    @sprite_x(r3),r0           ; Player x - turret x
-       sra  r0,12
-       ai   r0,8
-       mov  @sprite_y(r4),r1           ; Player y
-       srl  r1,8
-       mov  @sprite_y(r3),r5           ; Player y - turret x
+
+       mov  @sprite_y(r4),r0           ; Player y
+       srl  r0,8
+       mov  @sprite_y(r3),r5           ; Turret y
        srl  r5,8
-       s    r5,r1
-       sra  r1,4
-       ai   r1,8
-       sla  r1,4
+       s    r5,r0                      ; Player y - turret y
+       sra  r0,4                       ; / 16
+       ai   r0,12                      ; + 12
+       li   r1,19
+       mpy  r1,r0                      ; * 19
+
+       mov  @sprite_x(r4),r0           ; Player x
+       srl  r0,8
+       mov  @sprite_x(r3),r5           ; Turret x
+       srl  r5,8
+       s    r5,r0                      ; Player x - turret x
+       sra  r0,4                       ; / 16
+       ai   r0,9                       ; + 9
+
        a    r0,r1
        clr  r0
        movb @octant_table(r1),r0
@@ -659,6 +666,7 @@ update_turret_sprite:
        mov  *r10,r2
        mov  r1,@sprite_link(r3)        ; Link bullet to turret
        jeq  update_turret_sprite_2
+       mov  r3,@sprite_link(r1)        ; Link turret to bullet
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
        srl  r8,8
@@ -668,7 +676,8 @@ update_turret_sprite:
        mov  r0,@sprite_vx(r1)
        movb @octant_dir+1(r8),r0
        mov  r0,@sprite_vy(r1)
-       mov  r3,@sprite_link(r1)
+       mov  r0,@sprite_scroll_0(r1)
+       mov  @scrly,@sprite_scroll_0(r1)
        jmp  update_turret_sprite_2
 *      Remove
 update_turret_sprite_1:
@@ -701,12 +710,19 @@ update_enemy_bullet_sprite_2:
        clr  @sprite_link(r1)
        mov  r3,r1
        bl   @dealloc_sprite
-       jmp  update_enemy_bullet_sprite_1
+       jmp  update_enemy_bullet_sprite_3
 *      Move
 update_enemy_bullet_sprite_1:
        a    @sprite_vx(r3),@sprite_x(r3)
        a    @sprite_vy(r3),@sprite_y(r3)
+       mov  @sprite_scroll_0(r3),r0
+       s    @scrly,r0
+       jeq  update_enemy_bullet_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_0(r3)
 *      Return
+update_enemy_bullet_sprite_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1675,7 +1691,7 @@ sprite_pos_lists:
        data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
 *      y, x, sprite def
 sprite_pos_list_1:
-;      data 2776,48,sprite_def_turret
+       data 2776,48,sprite_def_turret
        data 1056,48,sprite_def_turret
        data 1040,32,sprite_def_turret
        data 864,96,sprite_def_turret
@@ -1708,25 +1724,35 @@ diff_list_4:
        copy "panel.a99"
 
 octant_table:
-       byte 7,7,7,7,7,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,1,1,1,1,1,1
-       byte 6,6,7,7,7,7,7,0,0,1,1,1,1,1,2,2
-       byte 6,6,6,6,6,7,7,0,0,1,1,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,0,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,4,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,5,5,4,4,3,3,2,2,2,2,2
-       byte 6,6,5,5,5,5,5,4,4,3,3,3,3,3,2,2
-       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,3,3,3,3,3
+       byte 7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
+       byte 6,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,2
+       byte 6,6,6,7,7,7,7,7,0,0,0,1,1,1,1,1,2,2,2
+       byte 6,6,6,6,6,6,7,7,0,0,0,1,1,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,7,0,1,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,6,9,2,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,5,4,3,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,5,5,4,4,4,3,3,2,2,2,2,2,2
+       byte 6,6,6,5,5,5,5,5,4,4,4,3,3,3,3,3,2,2,2
+       byte 6,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,2
+       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3
 
 octant_dir:
        byte 0,-1,1,-1,1,0,1,1
        byte 0,1,-1,1,-1,0,-1,-1
+       byte 0,0
 
        end  main
