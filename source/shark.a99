@@ -86,18 +86,12 @@ sprite_def_top:                        ; Top
        equ  8
 sprite_def_size:                       ; Number of hw sprites
        equ  10
-sprite_def_size_x:                     ; Number of hw sprites x
-       equ  12
-sprite_def_size_y:                     ; Number of hw sprites y
-       equ  14
-sprite_def_planes:                     ; Number of hw sprite planes
-       equ  16
 sprite_def_pattern:                    ; Base pattern
-       equ  18
+       equ  12
 sprite_def_color:                      ; Base color
-       equ  20
+       equ  14
 sprite_def_struct_size:                ; Structure size
-       equ  22
+       equ  16
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -110,28 +104,24 @@ sprite_vx:                             ; x velocity
        equ  6
 sprite_vy:                             ; y velocity
        equ  8
-sprite_ax:                             ; x acceleration
-       equ  10
-sprite_ay:                             ; y acceleration
-       equ  12
 sprite_hw_1:                           ; Hardware sprite 1
-       equ  14
+       equ  10
 sprite_hw_2:                           ; Hardware sprite 2
-       equ  16
+       equ  12
 sprite_hw_3:                           ; Hardware sprite 3
-       equ  18
+       equ  14
 sprite_hw_4:                           ; Hardware sprite 4
-       equ  20
+       equ  16
 sprite_scroll_0:                       ; Reference scroll position
-       equ  22
+       equ  18
 sprite_link:                           ; Linked sprite
-       equ  24
+       equ  20
 sprite_count:                          ; Counter
-       equ  26
+       equ  22
 sprite_path:                           ; Path
-       equ  28
+       equ  24
 sprite_struct_size:                    ; Structure size
-       equ  30
+       equ  26
 
 * Sprite position structure
 sprite_pos_y:
@@ -322,7 +312,7 @@ game_frame_actions:
        jne  game_frame_actions_1
        bl   @user_input
        bl   @fire
-       bl   @add_map_sprites
+       bl   @add_sprites
 game_frame_actions_1:
        bl   @update_sprites
        bl   @upload_sprites
@@ -457,7 +447,7 @@ fire:
        mov  @player_fire,r0
        jgt  fire_1
        jeq  fire_1
-       bl   @create_bullet_sprite
+       bl   @add_bullet_sprite
        neg  @player_fire
 *      Return
 fire_1:
@@ -468,14 +458,82 @@ fire_1:
 
 *********************************************************************************
 *
-* Create bullet sprite
+* Add sprites
 *
-create_bullet_sprite:
+add_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_pos_ptr,r8
+       mov  *r8,r0
+       jlt  add_sprites_1
+       s    @scrly_current,r0
+       ci   r0,-16
+       jlt  add_sprites_1
+       mov  @sprite_pos_def(r8),r0
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_sprites_1
+       mov  @sprite_pos_x(r8),r0       ; Init x
+       ai   r0,x_min
+       sla  r0,8
+       mov  r0,@sprite_x(r1)
+       li   r0,>e000                   ; -16
+       mov  r0,@sprite_y(r1)           ; Init y
+       mov  @scrly_current,r0
+       ai   r0,-16
+       mov  r0,@sprite_scroll_0(r1)
+       mov  @sprite_pos_path(r8),r2    ;Init path
+       jeq  add_sprites_2
+       mov  r2,@sprite_path(r1)
+       mov  @path_count(r2),@sprite_count(r1)
+add_sprites_2:
+       mov  @sprite_def(r1),r2
+       mov  @sprite_def_type(r2),r2
+       sla  r2,1
+       mov  @add_sprite_jump_table(r2),r0
+       jeq  add_sprites_3
+       bl   *r0
+*      Next item in list
+add_sprites_3:
+       li   r0,sprite_pos_struct_size
+       a    r0,@sprite_pos_ptr
+*      Return
+add_sprites_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+add_sprite_jump_table:
+       data 0                          ; Player
+       data 0                          ; Bullet
+       data 0                          ; Turret
+       data 0                          ; Enemy bullet
+       data add_enemy_plane_sprite     ; Enemy plane
+*// add_sprites
+
+*********************************************************************************
+*
+* Add enemy plane sprite
+*
+add_enemy_plane_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hw_2(r1),r2
+       li   r1,>0100
+       mov  r1,@hw_sprite_color(r2)
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_enemy_plane_sprite
+
+*********************************************************************************
+*
+* Add bullet sprite
+*
+add_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  create_bullet_sprite_1
+       jeq  add_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),@sprite_x(r1)
        mov  @sprite_y(r2),r0
@@ -485,49 +543,11 @@ create_bullet_sprite:
        li   r0,>fc00
        mov  r0,@sprite_vy(r1)
 *      Return
-create_bullet_sprite_1:
+add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// create_bullet_sprite
-
-*********************************************************************************
-*
-* Add map sprites
-*
-add_map_sprites:
-       mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_pos_ptr,r8
-       mov  *r8,r0
-       jlt  add_map_sprites_1
-       s    @scrly_current,r0
-       ci   r0,-16
-       jlt  add_map_sprites_1
-       mov  @sprite_pos_def(r8),r0
-       bl   @alloc_sprite
-       mov  r1,r1
-       jeq  add_map_sprites_1
-       mov  @sprite_pos_x(r8),r0
-       ai   r0,x_min
-       sla  r0,8
-       mov  r0,@sprite_x(r1)
-       mov  @scrly_current,r0
-       ai   r0,-16
-       mov  r0,@sprite_scroll_0(r1)
-       mov  @sprite_pos_path(r8),r2
-       jeq  add_map_sprites_2
-       mov  r2,@sprite_path(r1)
-       mov  @path_count(r2),@sprite_count(r1)
-*      Next item in list
-add_map_sprites_2:
-       li   r0,sprite_pos_struct_size
-       a    r0,@sprite_pos_ptr
-*      Return
-add_map_sprites_1:
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
-       b    *r11
-*// add_map_sprites
+*// add_bullet_sprite
 
 *********************************************************************************
 *
@@ -542,7 +562,8 @@ update_sprites_1:
        jeq  update_sprites_2
        mov  @sprite_def_type(r1),r1    ; Get sprite type
        sla  r1,1
-       mov  @sprite_type_jump_table(r1),r0
+       mov  @update_sprite_jump_table(r1),r0
+       jeq  update_sprites_2
        bl   *r0
 update_sprites_2:
        ai   r3,sprite_struct_size
@@ -552,7 +573,7 @@ update_sprites_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-sprite_type_jump_table:
+update_sprite_jump_table:
        data update_player_sprite
        data update_bullet_sprite
        data update_turret_sprite
@@ -674,7 +695,7 @@ update_turret_sprite:
        movb @octant_table(r1),r0
        mov  r0,r8                      ; Save octant
        sla  r0,2
-       ai   r0,>4000
+       ai   r0,>6000
        mov  @sprite_hw_1(r3),r1
        movb r0,@hw_sprite_pattern(r1)
 *      Create bullet
@@ -770,7 +791,11 @@ update_enemy_plane_sprite_4:
        a    @path_vx(r1),@sprite_x(r3)
        a    @path_vy(r1),@sprite_y(r3)
        mov  @sprite_hw_1(r3),r4
-       mov  @path_pattern(r1),@hw_sprite_pattern(r4)
+       mov  @path_pattern(r1),r0
+       mov  r0,@hw_sprite_pattern(r4)
+       mov  @sprite_hw_2(r3),r4
+       ai   r0,>2000
+       mov  r0,@hw_sprite_pattern(r4)
        dec  @sprite_count(r3)
        jmp  update_enemy_plane_sprite_2
 *      Remove
@@ -1387,7 +1412,7 @@ gmode_1:
 *      Sprite patterns
        li   r0,sprptb
        li   r1,spr0
-       li   r2,60*32
+       li   r2,64*32
        bl   @vdpcp
 *      Sprite attributes
        li   r0,sprat1
@@ -1654,9 +1679,6 @@ sprite_def_player:
        data >0000                      ; Left
        data >0001                      ; Top
        data >0003                      ; Size
-       data >0001                      ; Size x
-       data >0001                      ; Size y
-       data >0001                      ; Planes
        data >0000                      ; Pattern
        data >0f00                      ; Color
 *      Bullet
@@ -1667,10 +1689,7 @@ sprite_def_bullet:
        data >0006                      ; Left
        data >0009                      ; Top
        data >0001                      ; Size
-       data >0001                      ; Size x
-       data >0001                      ; Size y
-       data >0001                      ; Planes
-       data >cc00                      ; Pattern
+       data >d000                      ; Pattern
        data >0f00                      ; Color
 *      Gun turret
 sprite_def_turret:
@@ -1680,10 +1699,7 @@ sprite_def_turret:
        data >0001                      ; Left
        data >0001                      ; Top
        data >0001                      ; Size
-       data >0001                      ; Size x
-       data >0001                      ; Size y
-       data >0001                      ; Planes
-       data >5000                      ; Pattern
+       data >6000                      ; Pattern
        data >0e00                      ; Color
 *      Enemy bullet
 sprite_def_enemy_bullet:
@@ -1693,10 +1709,7 @@ sprite_def_enemy_bullet:
        data >0006                      ; Left
        data >0009                      ; Top
        data >0001                      ; Size
-       data >0001                      ; Size x
-       data >0001                      ; Size y
-       data >0001                      ; Planes
-       data >cc00                      ; Pattern
+       data >d000                      ; Pattern
        data >0f00                      ; Color
 *      Enemy plane
 sprite_def_enemy_plane:
@@ -1705,10 +1718,7 @@ sprite_def_enemy_plane:
        data >000c                      ; Height
        data >0001                      ; Left
        data >0002                      ; Top
-       data >0001                      ; Size
-       data >0001                      ; Size x
-       data >0001                      ; Size y
-       data >0001                      ; Planes
+       data >0002                      ; Size
        data >2000                      ; Pattern
        data >0800                      ; Color
 *      Sprites
@@ -1720,34 +1730,32 @@ sprite_player:
        data >0000                      ; y position
        data >0000                      ; x velocity
        data >0000                      ; y velocity
-       data >0000                      ; x acceleration
-       data >0000                      ; y acceleration
-       data hw_sprite_0                ; Hardware sprite 1
-       data hw_sprite_1                ; Hardware sprite 2
-       data hw_sprite_2                ; Hardware sprite 3
+       data player_hw_sprite_1         ; Hardware sprite 1
+       data player_hw_sprite_2         ; Hardware sprite 2
+       data player_hw_sprite_3         ; Hardware sprite 3
+       data 0                          ; Hardware sprite 4
        data 0                          ; y0
        data 0                          ; Link
        data 0                          ; Count
        data 0                          ; Path
-       data 0                          ; Hardware sprite 4
 *      ...
        bss  (n_sprites-1)*sprite_struct_size
 * Hardware sprites
 hw_sprites:
        equ  $
-hw_sprite_0:
+player_hw_sprite_1:
        data sprite_player              ; Pointer to sprite structure
        data >0000                      ; Offset from sprite_x
        data >0000                      ; Offset from sprite_y
        data >0000                      ; Pattern
        data >0f00                      ; Color
-hw_sprite_1:
+player_hw_sprite_2:
        data sprite_player              ; Pointer to sprite structure
        data >0000                      ; Offset from sprite_x
        data >0000                      ; Offset from sprite_y
        data >0400                      ; Pattern
        data >0100                      ; Color
-hw_sprite_2:
+player_hw_sprite_3:
        data sprite_player              ; Pointer to sprite structure
        data >1000                      ; Offset from sprite_x
        data >1000                      ; Offset from sprite_y
@@ -1762,8 +1770,8 @@ sprite_pos_lists:
        data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
 *      y, x, sprite def, path
 sprite_pos_list_1:
-       data 2776,16,sprite_def_enemy_plane,path_plane_1
-       data 2760,16,sprite_def_enemy_plane,path_plane_1
+       data 2776,0,sprite_def_enemy_plane,path_plane_1
+       data 2760,0,sprite_def_enemy_plane,path_plane_1
        data 1056,48,sprite_def_turret,0
        data 1040,32,sprite_def_turret,0
        data 864,96,sprite_def_turret,0
@@ -1780,11 +1788,11 @@ sprite_pos_list_4:
 *Paths
 *
 path_plane_1:
-       data 60,>0100,>0180,>3000
-       data 10,>0100,>0100,>2c00
-       data 10,>0100,>0000,>2800
-       data 10,>0100,->0100,>2400
-       data 60,>0100,->0180,>2000
+       data 60,>00c0,>0140,>3000
+       data 10,>00c0,>0100,>2c00
+       data 10,>00c0,>0000,>2800
+       data 10,>00c0,->0100,>2400
+       data 60,>00c0,->0140,>2000
        data -1
 
 **
