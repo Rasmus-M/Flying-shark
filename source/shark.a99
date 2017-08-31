@@ -70,6 +70,8 @@ sprite_type_turret:
        equ  2
 sprite_type_enemy_bullet:
        equ  3
+sprite_type_enemy_plane:
+       equ  4
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
@@ -124,8 +126,12 @@ sprite_scroll_0:                       ; Reference scroll position
        equ  22
 sprite_link:                           ; Linked sprite
        equ  24
-sprite_struct_size:                    ; Structure size
+sprite_count:                          ; Counter
        equ  26
+sprite_path:                           ; Path
+       equ  28
+sprite_struct_size:                    ; Structure size
+       equ  30
 
 * Sprite position structure
 sprite_pos_y:
@@ -134,8 +140,10 @@ sprite_pos_x:
        equ  2
 sprite_pos_def:
        equ  4
-sprite_pos_struct_size:
+sprite_pos_path:
        equ  6
+sprite_pos_struct_size:
+       equ  8
 
 * Hardware sprite structure
 hw_sprite:                             ; Pointer to sprite structure
@@ -150,6 +158,18 @@ hw_sprite_color:                       ; Color
        equ  8
 hw_sprite_struct_size:                 ; Structure size
        equ  10
+
+* Path structure
+path_count:
+       equ  0
+path_vx:
+       equ  2
+path_vy:
+       equ  4
+path_pattern:
+       equ  6
+path_struct_size:
+       equ  8
 
 **
 * Scratch pad
@@ -494,6 +514,12 @@ add_map_sprites:
        mov  @scrly_current,r0
        ai   r0,-16
        mov  r0,@sprite_scroll_0(r1)
+       mov  @sprite_pos_path(r8),r2
+       jeq  add_map_sprites_2
+       mov  r2,@sprite_path(r1)
+       mov  @path_count(r2),@sprite_count(r1)
+*      Next item in list
+add_map_sprites_2:
        li   r0,sprite_pos_struct_size
        a    r0,@sprite_pos_ptr
 *      Return
@@ -531,6 +557,7 @@ sprite_type_jump_table:
        data update_bullet_sprite
        data update_turret_sprite
        data update_enemy_bullet_sprite
+       data update_enemy_plane_sprite
 *// update_sprites
 
 *********************************************************************************
@@ -626,7 +653,6 @@ update_turret_sprite:
        jlt  update_turret_sprite_2
 *      Pattern
        li   r4,sprite_player
-
        mov  @sprite_y(r4),r0           ; Player y
        srl  r0,8
        mov  @sprite_y(r3),r5           ; Turret y
@@ -636,7 +662,6 @@ update_turret_sprite:
        ai   r0,12                      ; + 12
        li   r1,19
        mpy  r1,r0                      ; * 19
-
        mov  @sprite_x(r4),r0           ; Player x
        srl  r0,8
        mov  @sprite_x(r3),r5           ; Turret x
@@ -644,7 +669,6 @@ update_turret_sprite:
        s    r5,r0                      ; Player x - turret x
        sra  r0,4                       ; / 16
        ai   r0,9                       ; + 9
-
        a    r0,r1
        clr  r0
        movb @octant_table(r1),r0
@@ -727,6 +751,36 @@ update_enemy_bullet_sprite_3:
        mov  *r10, r11
        b    *r11
 *// update_enemy_bullet_sprite
+
+*********************************************************************************
+*
+* Update enemy plane sprite
+*
+update_enemy_plane_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_path(r3),r1
+       mov  @sprite_count(r3),r0
+       jgt  update_enemy_plane_sprite_4
+       ai   r1,path_struct_size
+       mov  @path_count(r1),r0
+       jlt  update_enemy_plane_sprite_1
+       mov  r0,@sprite_count(r3)
+       mov  r1,@sprite_path(r3)
+update_enemy_plane_sprite_4:
+       a    @path_vx(r1),@sprite_x(r3)
+       a    @path_vy(r1),@sprite_y(r3)
+       dec  @sprite_count(r3)
+       jmp  update_enemy_plane_sprite_2
+*      Remove
+update_enemy_plane_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_enemy_plane_sprite_2:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_enemy_plane_sprite
 
 *********************************************************************************
 *
@@ -1642,6 +1696,19 @@ sprite_def_enemy_bullet:
        data >0001                      ; Planes
        data >cc00                      ; Pattern
        data >0f00                      ; Color
+*      Enemy plane
+sprite_def_enemy_plane:
+       data sprite_type_enemy_plane    ; Type
+       data >000e                      ; Width
+       data >000c                      ; Height
+       data >0001                      ; Left
+       data >0002                      ; Top
+       data >0001                      ; Size
+       data >0001                      ; Size x
+       data >0001                      ; Size y
+       data >0001                      ; Planes
+       data >2000                      ; Pattern
+       data >0800                      ; Color
 *      Sprites
 sprites:
        equ  $
@@ -1658,6 +1725,8 @@ sprite_player:
        data hw_sprite_2                ; Hardware sprite 3
        data 0                          ; y0
        data 0                          ; Link
+       data 0                          ; Count
+       data 0                          ; Path
        data 0                          ; Hardware sprite 4
 *      ...
        bss  (n_sprites-1)*sprite_struct_size
@@ -1689,14 +1758,15 @@ hw_sprite_2:
 *
 sprite_pos_lists:
        data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
-*      y, x, sprite def
+*      y, x, sprite def, path
 sprite_pos_list_1:
-       data 2776,48,sprite_def_turret
-       data 1056,48,sprite_def_turret
-       data 1040,32,sprite_def_turret
-       data 864,96,sprite_def_turret
-       data 848,80,sprite_def_turret
-       data 336,96,sprite_def_turret
+       data 2776,16,sprite_def_enemy_plane,path_plane_1
+       data 2760,16,sprite_def_enemy_plane,path_plane_1
+       data 1056,48,sprite_def_turret,0
+       data 1040,32,sprite_def_turret,0
+       data 864,96,sprite_def_turret,0
+       data 848,80,sprite_def_turret,0
+       data 336,96,sprite_def_turret,0
        data -1
 sprite_pos_list_2:
        data -1
@@ -1704,6 +1774,14 @@ sprite_pos_list_3:
        data -1
 sprite_pos_list_4:
        data -1
+**
+*Paths
+*
+path_plane_1:
+       data 60,>0100,>0200,>3000
+       data 60,>0100,->0200,>2000
+       data -1
+
 **
 * Character differences after each 8 pixels scrolled
 *
