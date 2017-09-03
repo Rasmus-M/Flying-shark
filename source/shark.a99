@@ -497,6 +497,7 @@ add_sprites:
        mov  r2,@sprite_path(r1)               ; Init path pointer
        mov  @path_count(r2),@sprite_count(r1) ; Init counter
 add_sprites_2:
+*      Branch to custom initialisation routine
        mov  @sprite_def(r1),r2
        mov  @sprite_def_type(r2),r2
        sla  r2,1
@@ -518,7 +519,7 @@ add_sprite_jump_table:
        data 0                          ; Turret
        data 0                          ; Enemy bullet
        data add_enemy_plane_sprite     ; Enemy plane
-       data 0                          ; Tank
+       data add_tank_sprite            ; Tank
 *// add_sprites
 
 *********************************************************************************
@@ -535,6 +536,21 @@ add_enemy_plane_sprite:
        mov  *r10, r11
        b    *r11
 *// add_enemy_plane_sprite
+
+*********************************************************************************
+*
+* Add tank sprite
+*
+add_tank_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hw_2(r1),r2
+       li   r1,>0400
+       mov  r1,@hw_sprite_color(r2)
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_tank_sprite
 
 *********************************************************************************
 *
@@ -761,6 +777,8 @@ update_turret_sprite_2:
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_x(r3),r0
+       ci   r0,x_min*256
+       jl   update_enemy_bullet_sprite_2
        ci   r0,(x_max-2)*256
        jhe  update_enemy_bullet_sprite_2
        mov  @sprite_y(r3),r0
@@ -781,6 +799,7 @@ update_enemy_bullet_sprite_4:
 update_enemy_bullet_sprite_1:
        a    @sprite_vx(r3),@sprite_x(r3)
        a    @sprite_vy(r3),@sprite_y(r3)
+*      Move with scroll
        mov  @sprite_scroll_y(r3),r0
        s    @scrly,r0
        jeq  update_enemy_bullet_sprite_3
@@ -839,7 +858,7 @@ update_enemy_plane_sprite_2:
 
 *********************************************************************************
 *
-* Update enemy plane sprite
+* Update tank sprite
 *
 update_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -861,12 +880,19 @@ update_tank_sprite_4:
 *      Move
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_tank_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
 *      Patterns
+update_tank_sprite_3:
        mov  @sprite_hw_1(r3),r5
-       mov  @path_pattern(r4),r0
-       mov  r0,@hw_sprite_pattern(r5)
+       mov  @path_pattern(r4),@hw_sprite_pattern(r5)
        mov  @sprite_hw_2(r3),r5
-       ai   r0,>2000
+       li   r0,>8800
        mov  r0,@hw_sprite_pattern(r5)
        jmp  update_tank_sprite_2
 *      Remove
@@ -1853,7 +1879,7 @@ sprite_pos_lists:
 sprite_pos_list_1:
        data 2776,0,-16,sprite_def_enemy_plane,path_plane_1
        data 2760,0,-16,sprite_def_enemy_plane,path_plane_2
-       data 2704,0,32,sprite_def_tank,path_tank_1
+       data 2688,-16,32,sprite_def_tank,path_tank_1
        data 1056,48,-16,sprite_def_turret,0
        data 1040,32,-16,sprite_def_turret,0
        data 864,96,-16,sprite_def_turret,0
@@ -1884,7 +1910,7 @@ path_plane_2:
        data 150,>0080,->0140,>2000
        data -1
 path_tank_1:
-       data 140,>0040,0,>b400
+       data 320,>0040,0,>b400
        data -1
 
 **
