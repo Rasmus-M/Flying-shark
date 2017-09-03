@@ -49,10 +49,14 @@ win_height:                            ; Height of scrolling window in character
        equ  24
 map_width:                             ; Map width
        equ  18
-x_min:                                 ; Minimum x position
+map_left:                              ; Map start column
+       equ  14
+panel_left:                            ; Panel start column
        equ  0
+x_min:                                 ; Minimum x position
+       equ  map_left*8
 x_max:                                 ; Maximum x position
-       equ  144
+       equ  (map_left+map_width)*8
 n_sprites:                             ; Number of sprites
        equ  16
 n_hw_sprites:                          ; Number of hardware sprites
@@ -485,14 +489,12 @@ add_sprites:
        mov  @sprite_pos_y(r8),r0
        sla  r0,8
        mov  r0,@sprite_y(r1)           ; Init y
-*      Init scroll pos
-       mov  @scrly_current,r0
-;      ai   r0,-16
-       mov  r0,@sprite_scroll_y(r1)
+*      Record scroll position
+       mov  @scrly_current,@sprite_scroll_y(r1)
 *      Init path
-       mov  @sprite_pos_path(r8),r2    ; Init path
+       mov  @sprite_pos_path(r8),r2
        jeq  add_sprites_2
-       mov  r2,@sprite_path(r1)
+       mov  r2,@sprite_path(r1)               ; Init path pointer
        mov  @path_count(r2),@sprite_count(r1) ; Init counter
 add_sprites_2:
        mov  @sprite_def(r1),r2
@@ -759,8 +761,8 @@ update_turret_sprite_2:
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_x(r3),r0
-       ci   r0,(x_max-16)*256
-       jh   update_enemy_bullet_sprite_2
+       ci   r0,(x_max-2)*256
+       jhe  update_enemy_bullet_sprite_2
        mov  @sprite_y(r3),r0
        ci   r0,>f000
        jh   update_enemy_bullet_sprite_1
@@ -811,8 +813,8 @@ update_enemy_plane_sprite:
 update_enemy_plane_sprite_4:
 *      Check bounds
        mov  @sprite_x(r3),r0
-       ci   r0,(x_max-16)*256
-       jh   update_enemy_plane_sprite_1
+       ci   r0,(x_max-2)*256
+       jhe   update_enemy_plane_sprite_1
 *      Move
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
@@ -854,8 +856,8 @@ update_tank_sprite:
 update_tank_sprite_4:
 *      Check bounds
        mov  @sprite_x(r3),r0
-       ci   r0,(x_max-16)*256
-       jh   update_tank_sprite_1
+       ci   r0,(x_max-2)*256
+       jhe  update_tank_sprite_1
 *      Move
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
@@ -1191,7 +1193,7 @@ update_name_table:
        a    r2,r1                      ; Add the character offset
 *	   Calculate buffer destination address in R0
        sla  r0,5                       ; Convert row offset to character offset
-;      ai   r0,(scr_width-win_width)/2 ; Center
+       ai   r0,map_left
 *	   Decide which buffer to update
        coc  @eight,r3                  ; Bit weight >08 determines the group
        jne  update_name_table_2        ; If not set we update buffer 2 or 3
@@ -1255,7 +1257,7 @@ draw_initial_screen:
        ai   r1,cart_base
        mov  r1,r4
 *      Map
-       li   r0,namet3                  ; +((scr_width-win_width)/2)
+       li   r0,namet3+map_left
        li   r2,win_height
        mov  @cart_map_bank,r5
        seto *r5
@@ -1270,7 +1272,7 @@ draw_screen_2:
        dec  r2
        jne  draw_screen_1
 *      Map - high
-       li   r0,namet4                  ; +((scr_width-win_width)/2)
+       li   r0,namet4+map_left
        mov  r4,r1
        li   r2,win_height
        mov  @cart_map_high_bank,r5
@@ -1353,7 +1355,7 @@ init:
        li   r0,start_level
        mov  r0,@level
        li   r1,sprite_player
-       li   r0,>4000
+       li   r0,(x_min+((x_max-x_min)/2)-8)*256
        movb r0,@sprite_x(r1)
        li   r0,>9f00
        movb r0,@sprite_y(r1)
@@ -1373,7 +1375,7 @@ init:
        li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
 *      Draw panel
-       li   r0,>1400
+       li   r0,panel_left*256
        li   r1,MD0
        li   r2,12
        li   r3,24
@@ -1875,14 +1877,14 @@ path_plane_1:
        data 100,>0080,->0140,>2000
        data -1
 path_plane_2:
-       data 160,>0080,>0140,>3000
+       data 150,>0080,>0140,>3000
        data 10,>0080,>0100,>2c00
        data 10,>0080,>0000,>2800
        data 10,>0080,->0100,>2400
-       data 100,>0080,->0140,>2000
+       data 150,>0080,->0140,>2000
        data -1
 path_tank_1:
-       data 40,>0040,0,>b400
+       data 140,>0040,0,>b400
        data -1
 
 **
