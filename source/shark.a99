@@ -474,7 +474,6 @@ add_sprites:
        mov  *r8,r0
        jlt  add_sprites_1
        s    @scrly_current,r0
-       ci   r0,-16
        jlt  add_sprites_1
        mov  @sprite_pos_def(r8),r0
        bl   @alloc_sprite
@@ -1877,14 +1876,14 @@ sprite_pos_lists:
        data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
 *      scroll_y, x, y, sprite def, path
 sprite_pos_list_1:
-       data 2776,0,-16,sprite_def_enemy_plane,path_plane_1
-       data 2760,0,-16,sprite_def_enemy_plane,path_plane_2
-       data 2688,-16,32,sprite_def_tank,path_tank_1
-       data 1056,48,-16,sprite_def_turret,0
-       data 1040,32,-16,sprite_def_turret,0
-       data 864,96,-16,sprite_def_turret,0
-       data 848,80,-16,sprite_def_turret,0
-       data 336,96,-16,sprite_def_turret,0
+       data 2792,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 2704,-16,32,sprite_def_tank,path_tank_1
+       data 1072,48,-16,sprite_def_turret,0
+       data 1056,32,-16,sprite_def_turret,0
+       data 880,96,-16,sprite_def_turret,0
+       data 864,80,-16,sprite_def_turret,0
+       data 352,96,-16,sprite_def_turret,0
        data -1
 sprite_pos_list_2:
        data -1
