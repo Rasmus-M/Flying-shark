@@ -215,10 +215,8 @@ cart_map_bank:
        equ  cart_color_bank+2
 cart_map_high_bank:
        equ  cart_map_bank+2
-frame_ready:
-       equ  cart_map_high_bank+2
 frame_count:
-       equ  frame_ready+2
+       equ  cart_map_high_bank+2
 vdp_status:
        equ  frame_count+2
 player_fire:
@@ -246,15 +244,26 @@ main:
 next_level:
        bl   @init_level                ; Initialize level
        bl   @draw_initial_screen
-       seto @frame_ready
-       clr  @frame_count
 main_loop:
-       bl   @game_frame
+       clr  @frame_count
+       bl   @game_frame_actions
+       bl   @vsync
+       bl   @set_name_table
+       bl   @set_sprite_table
        bl   @update_char_list
        bl   @update_characters
        bl   @update_name_table
-       seto @frame_ready
-       mov  @scrly,@scrly_current
+*      Delay
+       li   r2,3
+       s    @frame_count,r2
+       jlt  !
+       jeq  !
+delay: bl   @vsync
+       bl   @interrupt_routine
+       dec  r2
+       jne  delay
+*      Change scroll position
+!      mov  @scrly,@scrly_current
        dec  @scrly
        jne  main_loop
 *      Next level
@@ -266,54 +275,26 @@ main_loop:
 
 ********************************************************************************
 *
-* Game frame
+* "Interrupt routine"
 *
 * Changes r12 in calling workspace
 *
-game_frame:
+interrupt_check:
        clr  r12
        tb   2                          ; Did an interrupt occur?
-       jne  game_frame_2               ; Yes - jump
-*      No interrupt
-       abs  @frame_ready               ; Is frame ready?
-       jne  game_frame_1               ; Yes - jump
-*      No interrupt, frame not ready
-       b    *r11
-game_frame_1:
-*      No interrupt, frame ready
-       mov  r10,@wrksp2+20
-       lwpi wrksp2
-       bl   @game_frame_actions
-       bl   @vsync
-       bl   @set_name_table
-       bl   @set_sprite_table
-       clr  @frame_ready
-       lwpi wrksp
-       b    *r11
-*      Interrupt occurred
-game_frame_2:
+       jeq  interrupt_routine_end      ; No - jump
        movb @vdpsta,@vdp_status
-       abs  @frame_ready               ; Is frame ready?
-       jne  game_frame_3
-*      Interrupt, frame not ready
-       mov  r10,@wrksp2+20
-       lwpi wrksp2
+*      Interrupt occurred
+interrupt_routine:
+       mov  r10,@wrksp2+20             ; Use same SP in new workspace
+       lwpi wrksp2                     ; Switch to new workspace
        bl   @game_frame_actions
+;      bl   @vsync
        bl   @set_sprite_table
-       lwpi wrksp
+       lwpi wrksp                      ; Switch to old workspace
+interrupt_routine_end:
        b    *r11
-game_frame_3:
-*      Interrupt + frame ready
-       mov  r10,@wrksp2+20
-       lwpi wrksp2
-       bl   @game_frame_actions
-       bl   @vsync
-       bl   @set_name_table
-       bl   @set_sprite_table
-       clr  @frame_ready
-       lwpi wrksp
-       b    *r11
-*// game_frame
+*// interrupt_routine
 
 *********************************************************************
 *
@@ -327,8 +308,8 @@ game_frame_actions:
        bl   @user_input
        bl   @fire
        bl   @add_sprites
+       bl   @update_sprites            ; Moved up
 game_frame_actions_1:
-       bl   @update_sprites
        bl   @upload_sprites
        inc  @frame_count
 *      Return
@@ -342,12 +323,12 @@ game_frame_actions_1:
 * Wait for vertical retrace (CRU)
 *
 vsync:
-       movb @vdpsta, r12
+       movb @vdpsta,r12
        clr  r12
 vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
        jeq  vsync_1
-       movb @vdpsta, @vdp_status
+       movb @vdpsta,@vdp_status
        b    *r11
 *// vsync
 
@@ -1135,17 +1116,17 @@ update_characters_1:
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @game_frame
+       bl   @interrupt_check
        li   r0,ptrntb+>800
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @game_frame
+       bl   @interrupt_check
        li   r0,ptrntb+>1000
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @game_frame
+       bl   @interrupt_check
 *      Colors
        mov  @cart_color_bank,r5
        seto *r5
@@ -1153,7 +1134,7 @@ update_characters_1:
        a    r6,r0
        bl   @vwad
        bl   @upload_character_table_pad
-       bl   @game_frame
+       bl   @interrupt_check
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1262,7 +1243,7 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
-       bl   @game_frame
+       bl   @interrupt_check
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -1918,8 +1899,8 @@ path_plane_2:
        data 150,>0080,->0140,>2000
        data -1
 path_tank_1:
-       data 160,>0080,>0000,>0000
-       data 160,>0000,>0000,>0000
+       data 80,>0100,>0000,>0000
+       data 80,>0000,>0000,>0000
        data -1
 
 **
