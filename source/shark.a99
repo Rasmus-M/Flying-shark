@@ -729,7 +729,7 @@ update_turret_sprite:
        dect r10                        ; Pop r2
        mov  *r10,r2
        mov  r1,@sprite_link(r3)        ; Link bullet to turret
-       jeq  update_turret_sprite_2
+       jeq  update_turret_sprite_2     ; If bullet could not be created
        mov  r3,@sprite_link(r1)        ; Link turret to bullet
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
@@ -745,12 +745,12 @@ update_turret_sprite:
        jmp  update_turret_sprite_2
 *      Remove
 update_turret_sprite_1:
-       mov  @sprite_link(r3),r1
-       jeq  update_turret_sprite_3
-       clr  @sprite_link(r1)           ; Unlink bullet
+       mov  @sprite_link(r3),r1        ; Get bullet linked to turret
+       jeq  update_turret_sprite_3     ; Skip if none
+       clr  @sprite_link(r1)           ; Unlink bullet from turret
 update_turret_sprite_3:
        mov  r3,r1
-       bl   @dealloc_sprite
+       bl   @dealloc_sprite            ; Deallocate turret
 update_turret_sprite_2:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -764,6 +764,7 @@ update_turret_sprite_2:
 *
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Check bounds
        mov  @sprite_x(r3),r0
        ci   r0,x_min*256
        jl   update_enemy_bullet_sprite_2
@@ -776,12 +777,12 @@ update_enemy_bullet_sprite:
        jl   update_enemy_bullet_sprite_1
 *      Remove
 update_enemy_bullet_sprite_2:
-       mov  @sprite_link(r3),r1
-       jeq  update_enemy_bullet_sprite_4
-       clr  @sprite_link(r1)           ; Remobe link to bullet
+       mov  @sprite_link(r3),r1        ; Get sprite that fired bullet
+       jeq  update_enemy_bullet_sprite_4 ; Skip if none
+       clr  @sprite_link(r1)           ; Remove link to bullet
 update_enemy_bullet_sprite_4:
        mov  r3,r1
-       bl   @dealloc_sprite
+       bl   @dealloc_sprite            ; Deallocate bullet
        jmp  update_enemy_bullet_sprite_3
 *      Move
 update_enemy_bullet_sprite_1:
@@ -979,22 +980,26 @@ alloc_hw_sprite_3:
 * r1: Address of sprite
 *
 dealloc_sprite:
-       clr  *r1
-       mov  @sprite_hw_1(r1),r0
-       jeq  dealloc_sprite_1
-       clr *r0
+       clr  *r1                        ; Clear reference to sprite definition
+       mov  @sprite_hw_1(r1),r0        ; Get hardware sprite
+       jeq  dealloc_sprite_1           ; Skip if not set
+       clr *r0                         ; Clear reference to sprite
+       clr  @sprite_hw_1(r1)           ; Clear reference to hardware sprite
 dealloc_sprite_1:
        mov  @sprite_hw_2(r1),r0
        jeq  dealloc_sprite_2
        clr *r0
+       clr  @sprite_hw_2(r1)
 dealloc_sprite_2:
        mov  @sprite_hw_3(r1),r0
        jeq  dealloc_sprite_3
        clr *r0
+       clr  @sprite_hw_3(r1)
 dealloc_sprite_3:
        mov  @sprite_hw_4(r1),r0
        jeq  dealloc_sprite_4
        clr *r0
+       clr  @sprite_hw_4(r1)
 dealloc_sprite_4:
 *      Return
        b    *r11
@@ -1826,7 +1831,7 @@ sprite_player:
        data player_hw_sprite_2         ; Hardware sprite 2
        data player_hw_sprite_3         ; Hardware sprite 3
        data 0                          ; Hardware sprite 4
-       data 0                          ; y0
+       data 0                          ; Scroll pos
        data 0                          ; Link
        data 0                          ; Count
        data 0                          ; Path
