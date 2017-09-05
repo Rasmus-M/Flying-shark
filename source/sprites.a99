@@ -249,11 +249,11 @@ SPR61  DATA >0008,>0008,>4000,>0000    ; Color 15
        DATA >4000,>0000,>1000,>0000    ; 
        DATA >4000,>0800,>0000,>0200    ; 
        DATA >0000,>0400,>0040,>0000    ; 
-SPR62  DATA >0000,>0011,>080D,>0615    ; Color 15
-       DATA >0306,>0E1C,>1020,>4000    ; 
-       DATA >0002,>0C18,>78B0,>E060    ; 
-       DATA >8840,>E030,>0800,>0000    ; 
-SPR63  DATA >0000,>0000,>0802,>0505    ; Color 1
+SPR62  DATA >0000,>0000,>0802,>0505    ; Color 1
        DATA >2B05,>1200,>0100,>0000    ; 
        DATA >0000,>0020,>8020,>D4F0    ; 
        DATA >A054,>C000,>0000,>0000    ; 
+SPR63  DATA >FFFF,>FFFF,>FFFF,>FFFF    ; Color 15
+       DATA >FFFF,>FFFF,>FFFF,>FFFF    ;
+       DATA >FFFF,>FFFF,>FFFF,>FFFF    ;
+       DATA >FFFF,>FFFF,>FFFF,>FFFF    ;

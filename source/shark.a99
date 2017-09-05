@@ -78,6 +78,8 @@ sprite_type_enemy_plane:
        equ  4
 sprite_type_tank:
        equ  5
+sprite_type_mask:
+       equ  6
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
@@ -154,8 +156,10 @@ hw_sprite_pattern:                     ; Pattern
        equ  6
 hw_sprite_color:                       ; Color
        equ  8
-hw_sprite_struct_size:                 ; Structure size
+hw_sprite_priority:                    ; Priority: 0, 1, 2 (0 highest)
        equ  10
+hw_sprite_struct_size:                 ; Structure size
+       equ  12
 
 * Path structure
 path_count:
@@ -515,8 +519,8 @@ add_sprite_jump_table:
 add_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_hw_2(r1),r2
-       li   r1,>0100
-       mov  r1,@hw_sprite_color(r2)
+       li   r0,>0100
+       mov  r0,@hw_sprite_color(r2)
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -529,12 +533,31 @@ add_enemy_plane_sprite:
 *
 add_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_hw_2(r1),r2
-       li   r1,>0c00
-       mov  r1,@hw_sprite_color(r2)
-       li   r1,>1c00
-       mov  r1,@hw_sprite_pattern(r2)
+       mov  @sprite_hw_1(r1),r2        ; Get turret sprite
+       li   r0,1
+       mov  r0,@hw_sprite_priority(r2) ; Medium priority
+       mov  @sprite_hw_2(r1),r2        ; Get chassis sprite
+       li   r0,>0a00
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>1c00
+       mov  r0,@hw_sprite_pattern(r2)
+*      Create a mask sprite
+       mov  r1,r8
+       li   r0,sprite_def_mask
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_tank_sprite_1
+       mov  @sprite_x(r8),@sprite_x(r1)
+       mov  @sprite_y(r8),r0
+       srl  r0,8
+       a    @sprite_scroll_y(r8),r0
+       mov  r0,@sprite_scroll_y(r1)
+       mov  @sprite_hw_1(r1),r2
+       clr  @hw_sprite_priority(r2)    ; Highest priority
+       li   r0,16
+       mov  r0,@sprite_count(r1)
 *      Return
+add_tank_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -596,6 +619,7 @@ update_sprite_jump_table:
        data update_enemy_bullet_sprite
        data update_enemy_plane_sprite
        data update_tank_sprite
+       data update_mask_sprite
 *// update_sprites
 
 *********************************************************************************
@@ -894,6 +918,34 @@ update_tank_sprite_2:
 
 *********************************************************************************
 *
+* Update mask sprite
+*
+update_mask_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       dec  @sprite_count(r3)
+       jeq  update_mask_sprite_1
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly_current,r0          ; Move with scroll
+       ci   r0,192                     ; Check for out of screen
+       jgt  update_mask_sprite_1       ; Remove if out of screen
+*      Move
+       sla  r0,8
+       mov  r0,@sprite_y(r3)           ; Set y
+       jmp  update_mask_sprite_2
+*      Remove
+update_mask_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_mask_sprite_2:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_mask_sprite
+
+*********************************************************************************
+*
 * Allocate sprite
 *
 * r0: Address of sprite definition
@@ -933,6 +985,8 @@ alloc_sprite_4:
        clr  @hw_sprite_dy(r7)
        mov  @sprite_def_pattern(r4),@hw_sprite_pattern(r7)
        mov  @sprite_def_color(r4),@hw_sprite_color(r7)
+       li   r0,2
+       mov  r0,@hw_sprite_priority(r7)
        dec  r5
        jne  alloc_sprite_4
 *      Return
@@ -1020,9 +1074,13 @@ upload_sprites:
 *      Init loop
        li   r15,vdpwd
        li   r14,>c000
+       clr  r4                         ; Priority
+upload_sprites_0:
        li   r2,n_hw_sprites
        li   r3,hw_sprites
 upload_sprites_1:
+       c    r4,@hw_sprite_priority(r3) ; Check priority
+       jne  upload_sprites_3
        mov  *r3,r1                     ; Get parent sprite
        jeq  upload_sprites_2
        mov  @sprite_y(r1),r0
@@ -1043,6 +1101,9 @@ upload_sprites_3:
        ai   r3,hw_sprite_struct_size
        dec  r2
        jne  upload_sprites_1
+       inc  r4
+       ci   r4,3
+       jne  upload_sprites_0
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1818,6 +1879,16 @@ sprite_def_tank:
        data >0002                      ; Size
        data >a800                      ; Pattern
        data >0100                      ; Color
+*      Mask
+sprite_def_mask:
+       data sprite_type_mask           ; Type
+       data >0010                      ; Width
+       data >0010                      ; Height
+       data >0000                      ; Left
+       data >0000                      ; Top
+       data >0001                      ; Size
+       data >fc00                      ; Pattern
+       data >0100                      ; Color
 *      Sprites
 sprites:
        equ  $
@@ -1846,18 +1917,21 @@ player_hw_sprite_1:
        data >0000                      ; Offset from sprite_y
        data >0000                      ; Pattern
        data >0f00                      ; Color
+       data 1                          ; Priority
 player_hw_sprite_2:
        data sprite_player              ; Pointer to sprite structure
        data >0000                      ; Offset from sprite_x
        data >0000                      ; Offset from sprite_y
        data >0400                      ; Pattern
        data >0100                      ; Color
+       data 1                          ; Priority
 player_hw_sprite_3:
        data sprite_player              ; Pointer to sprite structure
        data >1000                      ; Offset from sprite_x
        data >1000                      ; Offset from sprite_y
        data >0000                      ; Pattern
        data >0100                      ; Color
+       data 2                          ; Priority
 *      ...
        bss  (n_hw_sprites-3)*hw_sprite_struct_size
 **
@@ -1905,7 +1979,7 @@ path_plane_2:
        data -1
 path_tank_1:
        data 80,>0100,>0000,>0000
-       data 80,>0000,>0000,>0000
+       data 200,>0000,>0000,>0000
        data -1
 
 **
