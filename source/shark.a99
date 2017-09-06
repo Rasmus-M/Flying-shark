@@ -229,8 +229,10 @@ sprite_pos_ptr:
        equ  player_fire+2
 sprite_table_flag:
        equ  sprite_pos_ptr+2
-upload_character_table_pad:
+octant:
        equ  sprite_table_flag+2
+upload_character_table_pad:
+       equ  octant+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -593,6 +595,47 @@ add_bullet_sprite_1:
 
 *********************************************************************************
 *
+* Add bullet sprite
+*
+* r3: parent sprite
+* @octant: octant of player relative to sprite
+*
+add_enemy_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_link(r3),r0
+       jne  add_enemy_bullet_2
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       li   r0,sprite_def_enemy_bullet
+       bl   @alloc_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       mov  r1,@sprite_link(r3)        ; Link bullet to parent sprite
+       jeq  add_enemy_bullet_1         ; If bullet could not be created
+       mov  r3,@sprite_link(r1)        ; Link parent sprite to bullet
+       mov  @sprite_x(r3),@sprite_x(r1)
+       mov  @sprite_y(r3),@sprite_y(r1)
+       mov  @octant,r2
+       sla  r2,1
+       clr  r0
+       movb @octant_dir(r2),r0
+       mov  r0,@sprite_vx(r1)
+       movb @octant_dir+1(r2),r0
+       mov  r0,@sprite_vy(r1)
+       mov  r0,@sprite_scroll_y(r1)
+       mov  @scrly,@sprite_scroll_y(r1)
+add_enemy_bullet_1:
+       dect r10                        ; Pop r2
+       mov  *r10,r2
+*      Return
+add_enemy_bullet_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_enemy_bullet_sprite
+
+*********************************************************************************
+*
 * Update sprites
 *
 update_sprites:
@@ -719,56 +762,14 @@ update_turret_sprite:
        ci   r0,>f000
        jhe  update_turret_sprite_2
 *      Pattern
-       li   r4,sprite_player
-       mov  @sprite_y(r4),r0           ; Player y
-       srl  r0,8
-       mov  @sprite_y(r3),r5           ; Turret y
-       srl  r5,8
-       s    r5,r0                      ; Player y - turret y
-       sra  r0,4                       ; / 16
-       ai   r0,12                      ; + 12
-       li   r1,19
-       mpy  r1,r0                      ; * 19
-       mov  @sprite_x(r4),r0           ; Player x
-       srl  r0,8
-       mov  @sprite_x(r3),r5           ; Turret x
-       srl  r5,8
-       s    r5,r0                      ; Player x - turret x
-       sra  r0,4                       ; / 16
-       ai   r0,9                       ; + 9
-       a    r0,r1
-       clr  r0
-       movb @octant_table(r1),r0
-       mov  r0,r8                      ; Save octant
-       sla  r0,2
-       ai   r0,>6000
-       mov  @sprite_hw_1(r3),r1
-       movb r0,@hw_sprite_pattern(r1)
+       bl   @get_octant
+       mov  r0,@octant                 ; Save octant
+       sla  r0,10                      ; Multiply by 2 and move to MSB
+       ai   r0,>6000                   ; Add pattern base
+       mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
+       movb r0,@hw_sprite_pattern(r1)  ; Set pattern
 *      Create bullet
-       mov  @sprite_link(r3),r0
-       jne  update_turret_sprite_2
-       mov  r2,*r10+                   ; Push r2
-       mov  r3,*r10+                   ; Push r3
-       li   r0,sprite_def_enemy_bullet
-       bl   @alloc_sprite
-       dect r10                        ; Pop r3
-       mov  *r10,r3
-       dect r10                        ; Pop r2
-       mov  *r10,r2
-       mov  r1,@sprite_link(r3)        ; Link bullet to turret
-       jeq  update_turret_sprite_2     ; If bullet could not be created
-       mov  r3,@sprite_link(r1)        ; Link turret to bullet
-       mov  @sprite_x(r3),@sprite_x(r1)
-       mov  @sprite_y(r3),@sprite_y(r1)
-       srl  r8,8
-       sla  r8,1
-       clr  r0
-       movb @octant_dir(r8),r0
-       mov  r0,@sprite_vx(r1)
-       movb @octant_dir+1(r8),r0
-       mov  r0,@sprite_vy(r1)
-       mov  r0,@sprite_scroll_y(r1)
-       mov  @scrly,@sprite_scroll_y(r1)
+       bl   @add_enemy_bullet_sprite
        jmp  update_turret_sprite_2
 *      Remove
 update_turret_sprite_1:
@@ -903,10 +904,14 @@ update_tank_sprite_4:
        sla  r0,8
        a    r0,@sprite_y(r3)
        mov  @scrly,@sprite_scroll_y(r3)
-*      Patterns
+*      Pattern
 update_tank_sprite_3:
-;      mov  @sprite_hw_1(r3),r5
-;      mov  @sprite_hw_2(r3),r5
+       bl   @get_octant
+       mov  r0,@octant                 ; Save octant
+       sla  r0,10                      ; Multiply by 2 and move to MSB
+       ai   r0,>a000                   ; Add pattern base
+       mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
+       movb r0,@hw_sprite_pattern(r1)  ; Set pattern
        jmp  update_tank_sprite_2
 *      Remove
 update_tank_sprite_1:
@@ -946,6 +951,42 @@ update_mask_sprite_2:
        mov  *r10, r11
        b    *r11
 *// update_mask_sprite
+
+
+*********************************************************************************
+*
+* Get octant of player relative to sprite
+*
+* r3: points to sprite
+*
+* On return r0 contains the octant.
+* Modifies r1, r4, r5.
+*
+*
+get_octant:
+       li   r4,sprite_player
+       mov  @sprite_y(r4),r0           ; Player y
+       srl  r0,8
+       mov  @sprite_y(r3),r5           ; Turret y
+       srl  r5,8
+       s    r5,r0                      ; Player y - turret y
+       sra  r0,4                       ; / 16
+       ai   r0,12                      ; + 12
+       li   r1,19
+       mpy  r1,r0                      ; * 19
+       mov  @sprite_x(r4),r0           ; Player x
+       srl  r0,8
+       mov  @sprite_x(r3),r5           ; Turret x
+       srl  r5,8
+       s    r5,r0                      ; Player x - turret x
+       sra  r0,4                       ; / 16
+       ai   r0,9                       ; + 9
+       a    r0,r1
+       clr  r0
+       movb @octant_table(r1),r0
+       swpb r0
+       b    *r11
+*// get_octant
 
 *********************************************************************************
 *
