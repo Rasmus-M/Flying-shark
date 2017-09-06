@@ -411,27 +411,27 @@ user_input_1:
 *      Left
        tb   1
        jeq  user_input_2
-       li   r0,>ff00
+       li   r0,>fe80
        mov  r0,@sprite_vx(r1)
        jmp  user_input_3
 user_input_2:
 *      Right
        tb   2
        jeq  user_input_3
-       li   r0,>0100
+       li   r0,>0180
        mov  r0,@sprite_vx(r1)
 user_input_3:
 *      Down
        tb   3
        jeq  user_input_4
-       li   r0,>0100
+       li   r0,>0180
        mov  r0,@sprite_vy(r1)
        jmp  user_input_5
 user_input_4:
 *      Up
        tb   4
        jeq  user_input_5
-       li   r0,>ff00
+       li   r0,>fe80
        mov  r0,@sprite_vy(r1)
 user_input_5:
        b    *r11
@@ -542,6 +542,9 @@ add_tank_sprite:
        li   r0,>1c00
        mov  r0,@hw_sprite_pattern(r2)
 *      Create a mask sprite
+       mov  @sprite_x(r1),r0
+       ci   r0,(x_min-16)*256
+       jne  add_tank_sprite_1
        mov  r1,r8
        li   r0,sprite_def_mask
        bl   @alloc_sprite
@@ -1318,7 +1321,7 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
-       bl   @interrupt_check
+;       bl   @interrupt_check
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -1955,6 +1958,7 @@ sprite_pos_list_1:
        data 2792,0,-16,sprite_def_enemy_plane,path_plane_1
        data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
        data 2704,-16,32,sprite_def_tank,path_tank_1
+       data 2672,-16,64,sprite_def_tank,path_tank_2
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
        data 880,96,-16,sprite_def_turret,0
@@ -1973,21 +1977,25 @@ sprite_pos_list_4:
 * count, vx, vy, pattern
 *
 path_plane_1:
-       data 100,>0080,>0140,>3000
-       data 10,>0080,>0100,>2c00
-       data 10,>0080,>0000,>2800
-       data 10,>0080,->0100,>2400
-       data 100,>0080,->0140,>2000
+       data 60,>00c0,>0200,>3000
+       data 10,>00c0,>0100,>2c00
+       data 10,>00c0,>0000,>2800
+       data 10,>00c0,->0100,>2400
+       data 60,>00c0,->0200,>2000
        data -1
 path_plane_2:
-       data 150,>0080,>0140,>3000
-       data 10,>0080,>0100,>2c00
-       data 10,>0080,>0000,>2800
-       data 10,>0080,->0100,>2400
-       data 150,>0080,->0140,>2000
+       data 95,>00c0,>0200,>3000
+       data 10,>00c0,>0100,>2c00
+       data 10,>00c0,>0000,>2800
+       data 10,>00c0,->0100,>2400
+       data 95,>00c0,->0200,>2000
        data -1
 path_tank_1:
        data 80,>0100,>0000,>0000
+       data 200,>0000,>0000,>0000
+       data -1
+path_tank_2:
+       data 48,>0100,>0000,>0000
        data 200,>0000,>0000,>0000
        data -1
 
