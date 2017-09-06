@@ -1075,9 +1075,18 @@ upload_sprites:
        li   r15,vdpwd
        li   r14,>c000
        clr  r4                         ; Priority
+       mov  @sprite_table_flag,r0
+       jne  upload_sprites_4
+       li   r5,hw_sprites              ; Start
+       li   r6,hw_sprite_struct_size   ; Increment
+       jmp  upload_sprites_0
+upload_sprites_4:
+       li   r5,hw_sprites+((n_hw_sprites-1)*hw_sprite_struct_size)
+       li   r6,-hw_sprite_struct_size
+*      Loop
 upload_sprites_0:
        li   r2,n_hw_sprites
-       li   r3,hw_sprites
+       mov  r5,r3                      ; Start address
 upload_sprites_1:
        c    r4,@hw_sprite_priority(r3) ; Check priority
        jne  upload_sprites_3
@@ -1098,7 +1107,7 @@ upload_sprites_2:
        clr  *r15
        clr  *r15
 upload_sprites_3:
-       ai   r3,hw_sprite_struct_size
+       a    r6,r3
        dec  r2
        jne  upload_sprites_1
        inc  r4
