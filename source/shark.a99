@@ -541,7 +541,7 @@ add_tank_sprite:
        li   r0,1
        mov  r0,@hw_sprite_priority(r2) ; Medium priority
        mov  @sprite_hw_2(r1),r2        ; Get chassis sprite
-       li   r0,>0a00
+       li   r0,>0c00
        mov  r0,@hw_sprite_color(r2)
        li   r0,>1c00
        mov  r0,@hw_sprite_pattern(r2)
