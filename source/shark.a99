@@ -231,8 +231,10 @@ sprite_table_flag:
        equ  sprite_pos_ptr+2
 octant:
        equ  sprite_table_flag+2
-upload_character_table_pad:
+max_hw_sprite:
        equ  octant+2
+upload_character_table_pad:
+       equ  max_hw_sprite+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -1066,6 +1068,12 @@ alloc_hw_sprite_1:
 *      Succeeded
 alloc_hw_sprite_2:
        mov  r1,*r0
+*      Record max hardware sprite
+       neg  r2
+       ai   r2,n_hw_sprites
+       c    r2,@max_hw_sprite
+       jlt  alloc_hw_sprite_3
+       mov  r2,@max_hw_sprite
 *      Return
 alloc_hw_sprite_3:
        b    *r11
@@ -1076,6 +1084,8 @@ alloc_hw_sprite_3:
 * Deallocate sprite
 *
 * r1: Address of sprite
+*
+* Modifies r0-r1
 *
 dealloc_sprite:
        clr  *r1                        ; Clear reference to sprite definition
@@ -1099,7 +1109,18 @@ dealloc_sprite_3:
        clr *r0
        clr  @sprite_hw_4(r1)
 dealloc_sprite_4:
+       li   r0,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r0
+       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
+dealloc_sprite_5:
+       mov  *r1,r0
+       jne  dealloc_sprite_6
+       dec  @max_hw_sprite
+       ai   r1,-hw_sprite_struct_size
+       ci   r1,hw_sprites
+       jhe  dealloc_sprite_5
 *      Return
+dealloc_sprite_6:
        b    *r11
 *// dealloc_sprite
 
@@ -1117,25 +1138,27 @@ upload_sprites:
        bl   @vwad
 *      Init loop
        li   r15,vdpwd
-       li   r14,>c000
        clr  r4                         ; Priority
        mov  @sprite_table_flag,r0
-       jne  upload_sprites_4
-       li   r5,hw_sprites              ; Start
-       li   r6,hw_sprite_struct_size   ; Increment
-       jmp  upload_sprites_0
-upload_sprites_4:
-       li   r5,hw_sprites+((n_hw_sprites-1)*hw_sprite_struct_size)
-       li   r6,-hw_sprite_struct_size
-*      Loop
-upload_sprites_0:
-       li   r2,n_hw_sprites
-       mov  r5,r3                      ; Start address
+       jne  upload_sprites_1
+       li   r6,hw_sprites              ; Start
+       li   r5,hw_sprite_struct_size   ; Increment
+       jmp  upload_sprites_2
 upload_sprites_1:
+       li   r5,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r5
+       ai   r6,hw_sprites
+       li   r5,-hw_sprite_struct_size
+*      Loop
+upload_sprites_2:
+       mov  @max_hw_sprite,r2
+       inc  r2
+       mov  r6,r3                      ; Start address
+upload_sprites_3:
        c    r4,@hw_sprite_priority(r3) ; Check priority
-       jne  upload_sprites_3
+       jne  upload_sprites_4
        mov  *r3,r1                     ; Get parent sprite
-       jeq  upload_sprites_2
+       jeq  upload_sprites_4
        mov  @sprite_y(r1),r0
        a    @hw_sprite_dy(r3),r0
        movb r0,*r15
@@ -1144,20 +1167,18 @@ upload_sprites_1:
        movb r0,*r15
        movb @hw_sprite_pattern(r3),*r15
        movb @hw_sprite_color(r3),*r15
-       jmp  upload_sprites_3
-upload_sprites_2:
-       movb r14,*r15
-       clr  *r15
-       clr  *r15
-       clr  *r15
-upload_sprites_3:
-       a    r6,r3
+upload_sprites_4:
+       a    r5,r3
        dec  r2
-       jne  upload_sprites_1
+       jne  upload_sprites_3
        inc  r4
        ci   r4,3
-       jne  upload_sprites_0
+       jne  upload_sprites_2
+*      End marker
+       li   r0,>d000
+       movb r0,*r15
 *      Return
+upload_sprites_5:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1362,7 +1383,7 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
-;       bl   @interrupt_check
+;      bl   @interrupt_check
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -1504,6 +1525,8 @@ init:
        li   r0,hw_sprites+(3*hw_sprite_struct_size)
        li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
+       li   r0,2
+       mov  r0,@max_hw_sprite
 *      Draw panel
        li   r0,panel_left*256
        li   r1,MD0
@@ -1980,7 +2003,7 @@ player_hw_sprite_2:
        data 1                          ; Priority
 player_hw_sprite_3:
        data sprite_player              ; Pointer to sprite structure
-       data >1000                      ; Offset from sprite_x
+       data >0e00                      ; Offset from sprite_x
        data >1000                      ; Offset from sprite_y
        data >0000                      ; Pattern
        data >0100                      ; Color
