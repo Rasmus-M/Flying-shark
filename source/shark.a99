@@ -541,7 +541,7 @@ add_tank_sprite:
        li   r0,1
        mov  r0,@hw_sprite_priority(r2) ; Medium priority
        mov  @sprite_hw_2(r1),r2        ; Get chassis sprite
-       li   r0,>0c00
+       li   r0,>0e00
        mov  r0,@hw_sprite_color(r2)
        li   r0,>1c00
        mov  r0,@hw_sprite_pattern(r2)
@@ -851,6 +851,8 @@ update_enemy_plane_sprite:
 update_enemy_plane_sprite_4:
 *      Check bounds
        mov  @sprite_x(r3),r0
+       ci   r0,x_min*256
+       jl   update_enemy_plane_sprite_1
        ci   r0,(x_max-2)*256
        jhe   update_enemy_plane_sprite_1
 *      Move
@@ -2025,6 +2027,10 @@ sprite_pos_list_1:
        data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
        data 2704,-16,32,sprite_def_tank,path_tank_1
        data 2672,-16,64,sprite_def_tank,path_tank_2
+
+       data 2664,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 2648,140,-16,sprite_def_enemy_plane,path_plane_4
+
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
        data 880,96,-16,sprite_def_turret,0
@@ -2055,6 +2061,20 @@ path_plane_2:
        data 10,>00c0,>0000,>2800
        data 10,>00c0,->0100,>2400
        data 95,>00c0,->0200,>2000
+       data -1
+path_plane_3:
+       data 60,->00c0,>0200,>3000
+       data 10,->00c0,>0100,>3400
+       data 10,->00c0,>0000,>3800
+       data 10,->00c0,->0100,>3c00
+       data 60,->00c0,->0200,>2000
+       data -1
+path_plane_4:
+       data 95,->00c0,>0200,>3000
+       data 10,->00c0,>0100,>3400
+       data 10,->00c0,>0000,>3800
+       data 10,->00c0,->0100,>3c00
+       data 95,->00c0,->0200,>2000
        data -1
 path_tank_1:
        data 80,>0100,>0000,>0000
