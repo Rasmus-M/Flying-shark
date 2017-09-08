@@ -618,13 +618,19 @@ add_enemy_bullet_sprite:
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
        mov  @octant,r2
+       jeq  add_enemy_bullet_3
        sla  r2,1
        clr  r0
        movb @octant_dir(r2),r0
        mov  r0,@sprite_vx(r1)
        movb @octant_dir+1(r2),r0
        mov  r0,@sprite_vy(r1)
-       mov  r0,@sprite_scroll_y(r1)
+       jmp  add_enemy_bullet_4
+add_enemy_bullet_3:
+       li   r2,sprite_player
+
+
+add_enemy_bullet_4:
        mov  @scrly,@sprite_scroll_y(r1)
 add_enemy_bullet_1:
        dect r10                        ; Pop r2
@@ -1894,6 +1900,36 @@ char_list:                             ; Pointers to pattern/color addresses for
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
        data 382, 450, 340, 364
+octant_table:
+       byte 7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
+       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
+       byte 6,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,2
+       byte 6,6,6,7,7,7,7,7,0,0,0,1,1,1,1,1,2,2,2
+       byte 6,6,6,6,6,6,7,7,0,0,0,1,1,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,7,0,1,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,6,9,2,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,6,6,5,4,3,2,2,2,2,2,2,2,2
+       byte 6,6,6,6,6,6,5,5,4,4,4,3,3,2,2,2,2,2,2
+       byte 6,6,6,5,5,5,5,5,4,4,4,3,3,3,3,3,2,2,2
+       byte 6,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,2
+       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
+       byte 5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3
+octant_dir:
+       byte 0,-1,1,-1,1,0,1,1
+       byte 0,1,-1,1,-1,0,-1,-1
+       byte 0,0
 **
 * Sprite definitions
 *
@@ -2015,77 +2051,6 @@ player_hw_sprite_3:
 *      ...
        bss  (n_hw_sprites-3)*hw_sprite_struct_size
 **
-* Sprite positions on map
-*
-* scroll_y, x, y, sprite def, path
-*
-sprite_pos_lists:
-       data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
-*
-sprite_pos_list_1:
-       data 2792,0,-16,sprite_def_enemy_plane,path_plane_1
-       data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
-       data 2704,-16,32,sprite_def_tank,path_tank_1
-       data 2672,-16,64,sprite_def_tank,path_tank_2
-
-       data 2664,140,-16,sprite_def_enemy_plane,path_plane_3
-       data 2648,140,-16,sprite_def_enemy_plane,path_plane_4
-
-       data 1072,48,-16,sprite_def_turret,0
-       data 1056,32,-16,sprite_def_turret,0
-       data 880,96,-16,sprite_def_turret,0
-       data 864,80,-16,sprite_def_turret,0
-       data 352,96,-16,sprite_def_turret,0
-       data -1
-sprite_pos_list_2:
-       data -1
-sprite_pos_list_3:
-       data -1
-sprite_pos_list_4:
-       data -1
-**
-* Paths
-*
-* count, vx, vy, pattern
-*
-path_plane_1:
-       data 60,>00c0,>0200,>3000
-       data 10,>00c0,>0100,>2c00
-       data 10,>00c0,>0000,>2800
-       data 10,>00c0,->0100,>2400
-       data 60,>00c0,->0200,>2000
-       data -1
-path_plane_2:
-       data 95,>00c0,>0200,>3000
-       data 10,>00c0,>0100,>2c00
-       data 10,>00c0,>0000,>2800
-       data 10,>00c0,->0100,>2400
-       data 95,>00c0,->0200,>2000
-       data -1
-path_plane_3:
-       data 60,->00c0,>0200,>3000
-       data 10,->00c0,>0100,>3400
-       data 10,->00c0,>0000,>3800
-       data 10,->00c0,->0100,>3c00
-       data 60,->00c0,->0200,>2000
-       data -1
-path_plane_4:
-       data 95,->00c0,>0200,>3000
-       data 10,->00c0,>0100,>3400
-       data 10,->00c0,>0000,>3800
-       data 10,->00c0,->0100,>3c00
-       data 95,->00c0,->0200,>2000
-       data -1
-path_tank_1:
-       data 80,>0100,>0000,>0000
-       data 200,>0000,>0000,>0000
-       data -1
-path_tank_2:
-       data 48,>0100,>0000,>0000
-       data 200,>0000,>0000,>0000
-       data -1
-
-**
 * Character differences after each 8 pixels scrolled
 *
 diff_lists:
@@ -2103,37 +2068,9 @@ diff_list_4:
 *
        copy "sprites.a99"
        copy "panel.a99"
-
-octant_table:
-       byte 7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
-       byte 6,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,2
-       byte 6,6,6,7,7,7,7,7,0,0,0,1,1,1,1,1,2,2,2
-       byte 6,6,6,6,6,6,7,7,0,0,0,1,1,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,7,0,1,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,6,9,2,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,5,4,3,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,5,5,4,4,4,3,3,2,2,2,2,2,2
-       byte 6,6,6,5,5,5,5,5,4,4,4,3,3,3,3,3,2,2,2
-       byte 6,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,2
-       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3
-
-octant_dir:
-       byte 0,-1,1,-1,1,0,1,1
-       byte 0,1,-1,1,-1,0,-1,-1
-       byte 0,0
+**
+* Sprite positions and paths
+*
+       copy "paths.a99"
 
        end  main

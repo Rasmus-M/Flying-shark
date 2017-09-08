@@ -1,0 +1,69 @@
+**
+* Sprite positions on map
+*
+* scroll_y, x, y, sprite def, path
+*
+sprite_pos_lists:
+       data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
+*
+sprite_pos_list_1:
+       data 2792,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 2704,-16,32,sprite_def_tank,path_tank_1
+       data 2672,-16,48,sprite_def_tank,path_tank_2
+       data 2664,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 2648,140,-16,sprite_def_enemy_plane,path_plane_4
+       data 1072,48,-16,sprite_def_turret,0
+       data 1056,32,-16,sprite_def_turret,0
+       data 880,96,-16,sprite_def_turret,0
+       data 864,80,-16,sprite_def_turret,0
+       data 352,96,-16,sprite_def_turret,0
+       data -1
+sprite_pos_list_2:
+       data -1
+sprite_pos_list_3:
+       data -1
+sprite_pos_list_4:
+       data -1
+**
+* Paths
+*
+* count, vx, vy, pattern
+*
+path_plane_1:
+       data 60,>00c0,>0200,>3000
+       data 10,>00c0,>0100,>2c00
+       data 10,>00c0,>0000,>2800
+       data 10,>00c0,->0100,>2400
+       data 60,>00c0,->0200,>2000
+       data -1
+path_plane_2:
+       data 95,>00c0,>0200,>3000
+       data 10,>00c0,>0100,>2c00
+       data 10,>00c0,>0000,>2800
+       data 10,>00c0,->0100,>2400
+       data 95,>00c0,->0200,>2000
+       data -1
+path_plane_3:
+       data 60,->00c0,>0200,>3000
+       data 10,->00c0,>0100,>3400
+       data 10,->00c0,>0000,>3800
+       data 10,->00c0,->0100,>3c00
+       data 60,->00c0,->0200,>2000
+       data -1
+path_plane_4:
+       data 95,->00c0,>0200,>3000
+       data 10,->00c0,>0100,>3400
+       data 10,->00c0,>0000,>3800
+       data 10,->00c0,->0100,>3c00
+       data 95,->00c0,->0200,>2000
+       data -1
+path_tank_1:
+       data 80,>0100,>0000,>0000
+       data 250,>0000,>0000,>0000
+       data -1
+path_tank_2:
+       data 48,>0100,>0000,>0000
+       data 250,>0000,>0000,>0000
+       data -1
+
