@@ -914,6 +914,8 @@ update_tank_sprite_3:
        ai   r0,>a000                   ; Add pattern base
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
+*      Create bullet
+       bl   @add_enemy_bullet_sprite
        jmp  update_tank_sprite_2
 *      Remove
 update_tank_sprite_1:
@@ -2000,7 +2002,7 @@ player_hw_sprite_2:
        data >0000                      ; Offset from sprite_y
        data >0400                      ; Pattern
        data >0100                      ; Color
-       data 1                          ; Priority
+       data 2                          ; Priority
 player_hw_sprite_3:
        data sprite_player              ; Pointer to sprite structure
        data >0e00                      ; Offset from sprite_x
