@@ -16,3 +16,5 @@ make.log
 !/build/empty.bin
 /import/import.iml
 !/import/graphics.bin
+/atan/atan.iml
+/sharm

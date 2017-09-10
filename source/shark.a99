@@ -229,10 +229,10 @@ sprite_pos_ptr:
        equ  player_fire+2
 sprite_table_flag:
        equ  sprite_pos_ptr+2
-octant:
+angle:
        equ  sprite_table_flag+2
 max_hw_sprite:
-       equ  octant+2
+       equ  angle+2
 upload_character_table_pad:
        equ  max_hw_sprite+2
 pad_max:
@@ -600,7 +600,9 @@ add_bullet_sprite_1:
 * Add bullet sprite
 *
 * r3: parent sprite
-* @octant: octant of player relative to sprite
+* @angle: angle of player relative to sprite
+*
+* Modifies r0-r1, r4-r7
 *
 add_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -617,20 +619,15 @@ add_enemy_bullet_sprite:
        mov  r3,@sprite_link(r1)        ; Link parent sprite to bullet
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-       mov  @octant,r2
-       jeq  add_enemy_bullet_3
-       sla  r2,1
-       clr  r0
-       movb @octant_dir(r2),r0
+*      Direction
+       mov  @angle,r2
+       sla  r2,2
+       mov  @unit_vectors(r2),r0
+       sla  r0,1
        mov  r0,@sprite_vx(r1)
-       movb @octant_dir+1(r2),r0
+       mov  @unit_vectors+2(r2),r0
+       sla  r0,1
        mov  r0,@sprite_vy(r1)
-       jmp  add_enemy_bullet_4
-add_enemy_bullet_3:
-       li   r2,sprite_player
-
-
-add_enemy_bullet_4:
        mov  @scrly,@sprite_scroll_y(r1)
 add_enemy_bullet_1:
        dect r10                        ; Pop r2
@@ -770,9 +767,9 @@ update_turret_sprite:
        ci   r0,>f000
        jhe  update_turret_sprite_2
 *      Pattern
-       bl   @get_octant
-       mov  r0,@octant                 ; Save octant
-       sla  r0,10                      ; Multiply by 2 and move to MSB
+       bl   @get_angle
+       movb @angle+1,r0                ; Get angle in MSB
+       andi r0,>1c00                   ; Isolate octant
        ai   r0,>6000                   ; Add pattern base
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
@@ -871,6 +868,9 @@ update_enemy_plane_sprite_4:
        mov  @sprite_hw_2(r3),r5
        ai   r0,>2000
        mov  r0,@hw_sprite_pattern(r5)
+*      Create bullet
+       bl   @get_angle
+       bl   @add_enemy_bullet_sprite
        jmp  update_enemy_plane_sprite_2
 *      Remove
 update_enemy_plane_sprite_1:
@@ -916,9 +916,9 @@ update_tank_sprite_4:
        mov  @scrly,@sprite_scroll_y(r3)
 *      Pattern
 update_tank_sprite_3:
-       bl   @get_octant
-       mov  r0,@octant                 ; Save octant
-       sla  r0,10                      ; Multiply by 2 and move to MSB
+       bl   @get_angle
+       movb @angle+1,r0                ; Get angle in MSB
+       andi r0,>1c00                   ; Isolate octant
        ai   r0,>a000                   ; Add pattern base
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
@@ -967,15 +967,15 @@ update_mask_sprite_2:
 
 *********************************************************************************
 *
-* Get octant of player relative to sprite
+* Get angle of player relative to sprite
 *
 * r3: points to sprite
 *
-* On return r0 contains the octant.
-* Modifies r1, r4, r5.
+* On return @angle contains the angle (0-31)
+* Modifies r1, r4, r5
 *
 *
-get_octant:
+get_angle:
        li   r4,sprite_player
        mov  @sprite_y(r4),r0           ; Player y
        srl  r0,8
@@ -994,11 +994,10 @@ get_octant:
        sra  r0,4                       ; / 16
        ai   r0,9                       ; + 9
        a    r0,r1
-       clr  r0
-       movb @octant_table(r1),r0
-       swpb r0
+       clr  @angle
+       movb @angle_table(r1),@angle+1
        b    *r11
-*// get_octant
+*// get_angle
 
 *********************************************************************************
 *
@@ -1900,36 +1899,6 @@ char_list:                             ; Pointers to pattern/color addresses for
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
        data 382, 450, 340, 364
-octant_table:
-       byte 7,7,7,7,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,0,0,0,0,0,0,0,0,0,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,0,0,0,0,0,0,0,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
-       byte 7,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,1
-       byte 6,7,7,7,7,7,7,0,0,0,0,0,1,1,1,1,1,1,2
-       byte 6,6,6,7,7,7,7,7,0,0,0,1,1,1,1,1,2,2,2
-       byte 6,6,6,6,6,6,7,7,0,0,0,1,1,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,7,0,1,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,6,9,2,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,6,6,5,4,3,2,2,2,2,2,2,2,2
-       byte 6,6,6,6,6,6,5,5,4,4,4,3,3,2,2,2,2,2,2
-       byte 6,6,6,5,5,5,5,5,4,4,4,3,3,3,3,3,2,2,2
-       byte 6,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,2
-       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,5,4,4,4,4,4,3,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,5,4,4,4,4,4,4,4,3,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,5,4,4,4,4,4,4,4,4,4,3,3,3,3,3
-       byte 5,5,5,5,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3
-octant_dir:
-       byte 0,-1,1,-1,1,0,1,1
-       byte 0,1,-1,1,-1,0,-1,-1
-       byte 0,0
 **
 * Sprite definitions
 *
@@ -2072,5 +2041,7 @@ diff_list_4:
 * Sprite positions and paths
 *
        copy "paths.a99"
+
+       copy "geometry.a99"
 
        end  main
