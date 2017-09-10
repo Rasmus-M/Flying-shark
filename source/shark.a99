@@ -1027,7 +1027,8 @@ alloc_sprite_5:
 *      Succeeded
 alloc_sprite_2:
        mov  r0,r4
-       mov  r4,*r1
+       mov  r4,*r1                     ; Set sprite definition
+       clr  @sprite_link(r1)
        mov  @sprite_def_size(r4),r5
        mov  r1,r6
        ai   r6,sprite_hw_1
