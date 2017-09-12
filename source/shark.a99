@@ -101,6 +101,14 @@ sprite_def_color:                      ; Base color
 sprite_def_struct_size:                ; Structure size
        equ  16
 
+* Sprite states
+sprite_state_normal:
+       equ  0
+sprite_state_damaged:
+       equ  1
+sprite_state_destroyed:
+       equ  2
+
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
        equ  0
@@ -128,8 +136,10 @@ sprite_count:                          ; Counter
        equ  22
 sprite_path:                           ; Path
        equ  24
-sprite_struct_size:                    ; Structure size
+sprite_state:                          ; State
        equ  26
+sprite_struct_size:                    ; Structure size
+       equ  28
 
 * Sprite position structure
 sprite_pos_scroll_y:
@@ -170,8 +180,10 @@ path_vy:
        equ  4
 path_pattern:
        equ  6
-path_struct_size:
+path_action:
        equ  8
+path_struct_size:
+       equ  10
 
 **
 * Scratch pad
@@ -233,8 +245,10 @@ angle:
        equ  sprite_table_flag+2
 max_hw_sprite:
        equ  angle+2
-upload_character_table_pad:
+rand_no:
        equ  max_hw_sprite+2
+upload_character_table_pad:
+       equ  rand_no+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -247,6 +261,7 @@ main:
        limi 0                          ; Interrupts off
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
+       mov  @rndsd,@rand_no
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
 next_level:
@@ -606,8 +621,6 @@ add_bullet_sprite_1:
 *
 add_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_link(r3),r0
-       jne  add_enemy_bullet_2
        mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        li   r0,sprite_def_enemy_bullet
@@ -633,7 +646,6 @@ add_enemy_bullet_1:
        dect r10                        ; Pop r2
        mov  *r10,r2
 *      Return
-add_enemy_bullet_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -774,6 +786,8 @@ update_turret_sprite:
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
 *      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_turret_sprite_2
        bl   @add_enemy_bullet_sprite
        jmp  update_turret_sprite_2
 *      Remove
@@ -869,6 +883,13 @@ update_enemy_plane_sprite_4:
        ai   r0,>2000
        mov  r0,@hw_sprite_pattern(r5)
 *      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_enemy_plane_sprite_2
+       mov  @path_action(r4),r0
+       jeq  update_enemy_plane_sprite_2
+       bl   @rand
+       ci   r0,>f000
+       jl   update_enemy_plane_sprite_2
        bl   @get_angle
        bl   @add_enemy_bullet_sprite
        jmp  update_enemy_plane_sprite_2
@@ -923,6 +944,10 @@ update_tank_sprite_3:
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
 *      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_tank_sprite_2
+       mov  @path_action(r4),r0
+       jeq  update_tank_sprite_2
        bl   @add_enemy_bullet_sprite
        jmp  update_tank_sprite_2
 *      Remove
@@ -972,12 +997,12 @@ update_mask_sprite_2:
 * r3: points to sprite
 *
 * On return @angle contains the angle (0-31)
-* Modifies r1, r4, r5
+* Modifies r1, r5, r6
 *
 *
 get_angle:
-       li   r4,sprite_player
-       mov  @sprite_y(r4),r0           ; Player y
+       li   r6,sprite_player
+       mov  @sprite_y(r6),r0           ; Player y
        srl  r0,8
        mov  @sprite_y(r3),r5           ; Turret y
        srl  r5,8
@@ -986,7 +1011,7 @@ get_angle:
        ai   r0,12                      ; + 12
        li   r1,19
        mpy  r1,r0                      ; * 19
-       mov  @sprite_x(r4),r0           ; Player x
+       mov  @sprite_x(r6),r0           ; Player x
        srl  r0,8
        mov  @sprite_x(r3),r5           ; Turret x
        srl  r5,8
@@ -1029,6 +1054,7 @@ alloc_sprite_2:
        mov  r0,r4
        mov  r4,*r1                     ; Set sprite definition
        clr  @sprite_link(r1)
+       clr  @sprite_state(r1)
        mov  @sprite_def_size(r4),r5
        mov  r1,r6
        ai   r6,sprite_hw_1
@@ -1515,19 +1541,7 @@ init:
        mov  r0,@eight
        li   r0,start_level
        mov  r0,@level
-       li   r1,sprite_player
-       li   r0,(x_min+((x_max-x_min)/2)-8)*256
-       movb r0,@sprite_x(r1)
-       li   r0,>9f00
-       movb r0,@sprite_y(r1)
-       clr  @sprite_vx(r1)
-       clr  @sprite_vy(r1)
        clr  @sprite_table_flag
-*      Copy code to pad
-       li   r0,upload_character_table
-       li   r1,upload_character_table_pad
-       li   r2,upload_character_table_end-upload_character_table
-       bl   @copy_memory
 *      Init sprites
        li   r0,sprites+(1*sprite_struct_size)
        li   r2,(n_sprites-1)*sprite_struct_size
@@ -1535,8 +1549,29 @@ init:
        li   r0,hw_sprites+(3*hw_sprite_struct_size)
        li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
-       li   r0,2
-       mov  r0,@max_hw_sprite
+*      Init player sprite
+       li   r0,sprite_def_player
+       bl   @alloc_sprite
+       li   r0,(x_min+((x_max-x_min)/2)-8)*256
+       movb r0,@sprite_x(r1)
+       li   r0,>9f00
+       movb r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       clr  @sprite_vy(r1)
+       li   r0,>0100
+       mov  @sprite_hw_2(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       mov  @sprite_hw_3(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>0e00
+       mov  r0,@hw_sprite_dx(r2)
+       li   r0,>1000
+       mov  r0,@hw_sprite_dy(r2)
+*      Copy code to pad
+       li   r0,upload_character_table
+       li   r1,upload_character_table_pad
+       li   r2,upload_character_table_end-upload_character_table
+       bl   @copy_memory
 *      Draw panel
        li   r0,panel_left*256
        li   r1,MD0
@@ -1894,6 +1929,19 @@ vdpwr3:
 
 *********************************************************************
 *
+* Random number generator
+*
+rand:
+       li   r0,28643                   ; A prime number to multiply by
+       mpy  @rand_no,r0
+       ai   r0,31873                   ; Add a prime number
+       src  r0,7                       ; Shift to break odd/even pattern
+       mov  r0,@rand_no
+       b    *r11
+*// rand
+
+*********************************************************************
+*
 * Data
 *
 char_list:                             ; Pointers to pattern/color addresses for current characeter set
@@ -1977,49 +2025,12 @@ sprite_def_mask:
        data >0100                      ; Color
 *      Sprites
 sprites:
-       equ  $
+       bss n_sprites*sprite_struct_size
 sprite_player:
-       data sprite_def_player          ; Pointer to sprite definition structure
-       data >0000                      ; x position
-       data >0000                      ; y position
-       data >0000                      ; x velocity
-       data >0000                      ; y velocity
-       data player_hw_sprite_1         ; Hardware sprite 1
-       data player_hw_sprite_2         ; Hardware sprite 2
-       data player_hw_sprite_3         ; Hardware sprite 3
-       data 0                          ; Hardware sprite 4
-       data 0                          ; Scroll pos
-       data 0                          ; Link
-       data 0                          ; Count
-       data 0                          ; Path
-*      ...
-       bss  (n_sprites-1)*sprite_struct_size
+       equ  sprites
 * Hardware sprites
 hw_sprites:
-       equ  $
-player_hw_sprite_1:
-       data sprite_player              ; Pointer to sprite structure
-       data >0000                      ; Offset from sprite_x
-       data >0000                      ; Offset from sprite_y
-       data >0000                      ; Pattern
-       data >0f00                      ; Color
-       data 1                          ; Priority
-player_hw_sprite_2:
-       data sprite_player              ; Pointer to sprite structure
-       data >0000                      ; Offset from sprite_x
-       data >0000                      ; Offset from sprite_y
-       data >0400                      ; Pattern
-       data >0100                      ; Color
-       data 2                          ; Priority
-player_hw_sprite_3:
-       data sprite_player              ; Pointer to sprite structure
-       data >0e00                      ; Offset from sprite_x
-       data >1000                      ; Offset from sprite_y
-       data >0000                      ; Pattern
-       data >0100                      ; Color
-       data 2                          ; Priority
-*      ...
-       bss  (n_hw_sprites-3)*hw_sprite_struct_size
+       bss  n_hw_sprites*hw_sprite_struct_size
 **
 * Character differences after each 8 pixels scrolled
 *
