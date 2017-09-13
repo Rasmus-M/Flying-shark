@@ -334,6 +334,7 @@ game_frame_actions:
        bl   @fire
        bl   @add_sprites
        bl   @update_sprites
+       bl   @sprite_collisions
 *      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
@@ -992,7 +993,6 @@ update_mask_sprite_2:
        b    *r11
 *// update_mask_sprite
 
-
 *********************************************************************************
 *
 * Get angle of player relative to sprite
@@ -1162,6 +1162,68 @@ dealloc_sprite_5:
 dealloc_sprite_6:
        b    *r11
 *// dealloc_sprite
+
+*********************************************************************************
+*
+* Sprite collisions
+*
+sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r2,n_sprites
+       li   r3,sprites
+sprite_collisions_1:
+       mov  *r3,r1                     ; Get sprite definition
+       jeq  sprite_collisions_2
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       sla  r1,1
+       mov  @sprite_collisions_jump_table(r1),r0
+       jeq  sprite_collisions_2
+       bl   *r0
+sprite_collisions_2:
+       ai   r3,sprite_struct_size
+       dec  r2
+       jne  sprite_collisions_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+sprite_collisions_jump_table:
+       data player_sprite_collisions   ; Player
+       data 0                          ; Bullet
+       data enemy_sprite_collisions    ; Turret
+       data 0                          ; Enemy bullet
+       data enemy_sprite_collisions    ; Enemy plane
+       data enemy_sprite_collisions    ; Tank
+       data 0                          ; Mask
+*// sprite_collisions
+
+*********************************************************************************
+*
+* Player sprite collisions
+* Collides with enemies and enemy bullets
+*
+player_sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// player_sprite_collisions
+
+*********************************************************************************
+*
+* Enemy sprite collisions
+* Collides with bullets
+*
+enemy_sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// enemy_sprite_collisions
 
 *********************************************************************************
 *
