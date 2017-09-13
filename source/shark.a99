@@ -270,9 +270,11 @@ next_level:
 main_loop:
        clr  @frame_count
        bl   @game_frame_actions
+*      Change VDP tables at vsync
        bl   @vsync
        bl   @set_name_table
        bl   @set_sprite_table
+*      Scroll the background
        bl   @update_char_list
        bl   @update_characters
        bl   @update_name_table
@@ -300,7 +302,7 @@ delay: bl   @vsync
 *
 * "Interrupt routine"
 *
-* Changes r12 in calling workspace
+* Changes r12 of calling workspace
 *
 interrupt_check:
        clr  r12
@@ -312,7 +314,6 @@ interrupt_routine:
        mov  r10,@wrksp2+20             ; Use same SP in new workspace
        lwpi wrksp2                     ; Switch to new workspace
        bl   @game_frame_actions
-;      bl   @vsync
        bl   @set_sprite_table
        lwpi wrksp                      ; Switch to old workspace
 interrupt_routine_end:
@@ -328,10 +329,12 @@ game_frame_actions:
        mov  @frame_count,r0
        andi r0,1
        jne  game_frame_actions_1
+*      Every 2nd frame
        bl   @user_input
        bl   @fire
        bl   @add_sprites
-       bl   @update_sprites            ; Moved up
+       bl   @update_sprites
+*      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
        inc  @frame_count
@@ -1474,10 +1477,6 @@ draw_screen_4:
        ai   r0,scr_width
        dec  r2
        jne  draw_screen_3
-*      Update chars
-       inc  @scrly
-       bl   @update_char_list
-       dec  @scrly
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
