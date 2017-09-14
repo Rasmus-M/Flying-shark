@@ -103,11 +103,11 @@ sprite_def_struct_size:                ; Structure size
 
 * Sprite states
 sprite_state_normal:
-       equ  0
+       equ  2
 sprite_state_damaged:
        equ  1
 sprite_state_destroyed:
-       equ  2
+       equ  0
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -1065,7 +1065,8 @@ alloc_sprite_2:
        mov  r0,r4
        mov  r4,*r1                     ; Set sprite definition
        clr  @sprite_link(r1)
-       clr  @sprite_state(r1)
+       li   r0,sprite_state_normal
+       mov  r0,@sprite_state(r1)
        mov  @sprite_def_size(r4),r5
        mov  r1,r6
        ai   r6,sprite_hw_1
@@ -1271,14 +1272,18 @@ enemy_sprite_collisions_1:
        mov  @sprite_x(r5),r0
        s    r7,r0
        abs  r0
-       ci   r0,>1000
+       ci   r0,>0800
        jgt  enemy_sprite_collisions_2
        mov  @sprite_y(r5),r1
        s    r8,r1
        abs  r1
-       ci   r1,>1000
+       ci   r1,>0800
        jgt  enemy_sprite_collisions_2
 *      Collision
+       mov  r5,r1
+       bl   @dealloc_sprite
+       dec  @sprite_state(r3)
+       jne  enemy_sprite_collisions_3
        mov  r3,r1
        bl   @dealloc_sprite
        jmp  enemy_sprite_collisions_3
