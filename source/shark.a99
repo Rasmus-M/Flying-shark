@@ -243,8 +243,10 @@ sprite_table_flag:
        equ  sprite_pos_ptr+2
 angle:
        equ  sprite_table_flag+2
-max_hw_sprite:
+max_sprite:
        equ  angle+2
+max_hw_sprite:
+       equ  max_sprite+2
 rand_no:
        equ  max_hw_sprite+2
 upload_character_table_pad:
@@ -692,6 +694,7 @@ update_sprite_jump_table:
 *********************************************************************************
 *
 * Update player sprite
+* Cannot use r2-r3
 *
 update_player_sprite:
 *      Move
@@ -745,6 +748,7 @@ update_player_sprite_6:
 *********************************************************************************
 *
 * Update bullet sprite
+* Cannot use r2-r3
 *
 update_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -769,6 +773,7 @@ update_bullet_sprite_1:
 *********************************************************************************
 *
 * Update turret sprite
+* Cannot use r2-r3
 *
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -812,6 +817,7 @@ update_turret_sprite_2:
 *********************************************************************************
 *
 * Update enemy bullet sprite
+* Cannot use r2-r3
 *
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -856,6 +862,7 @@ update_enemy_bullet_sprite_3:
 *********************************************************************************
 *
 * Update enemy plane sprite
+* Cannot use r2-r3
 *
 update_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -911,6 +918,7 @@ update_enemy_plane_sprite_2:
 *********************************************************************************
 *
 * Update tank sprite
+* Cannot use r2-r3
 *
 update_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -968,6 +976,7 @@ update_tank_sprite_2:
 *********************************************************************************
 *
 * Update mask sprite
+* Cannot use r2-r3
 *
 update_mask_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1048,12 +1057,11 @@ alloc_sprite_1:
        ai   r1,sprite_struct_size
        dec  r2
        jne  alloc_sprite_1
-*      Failed
-alloc_sprite_5:
-       clr  r1
-       jmp  alloc_sprite_3
-*      Succeeded
+*      Failed allocation sprite
+       jmp  alloc_sprite_6
+*      Succeeded allocation sprite
 alloc_sprite_2:
+       mov  r2,@alloc_sprite_cnt
        mov  r0,r4
        mov  r4,*r1                     ; Set sprite definition
        clr  @sprite_link(r1)
@@ -1074,11 +1082,26 @@ alloc_sprite_4:
        mov  r0,@hw_sprite_priority(r7)
        dec  r5
        jne  alloc_sprite_4
+*      Succeeded allocation sprite + hardware sprites
+       li   r2,n_sprites
+       s    @alloc_sprite_cnt,r2       ; Sprite no
+       c    r2,@max_sprite
+       jlt  alloc_sprite_3
+       mov  r2,@max_sprite
+       jmp  alloc_sprite_3
+*      Failed allocation hardware sprites
+alloc_sprite_5:
+       clr  *r1                        ; Deallocate again
+*      Failed allocation sprite
+alloc_sprite_6:
+       clr  r1
 *      Return
 alloc_sprite_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
+alloc_sprite_cnt:
+       data 0
 *// alloc_sprite
 
 *********************************************************************************
@@ -1148,18 +1171,31 @@ dealloc_sprite_3:
        clr *r0
        clr  @sprite_hw_4(r1)
 dealloc_sprite_4:
-       li   r0,hw_sprite_struct_size
-       mpy  @max_hw_sprite,r0
-       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
+*      Adjust max_sprite
+       li   r0,sprite_struct_size
+       mpy @max_sprite,r0
+       ai   r1,sprites
 dealloc_sprite_5:
        mov  *r1,r0
        jne  dealloc_sprite_6
+       dec  @max_sprite
+       ai   r1,-sprite_struct_size
+       ci   r1,sprites
+       jhe  dealloc_sprite_5
+*      Adjust max_hw_sprite
+dealloc_sprite_6:
+       li   r0,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r0
+       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
+dealloc_sprite_7:
+       mov  *r1,r0
+       jne  dealloc_sprite_8
        dec  @max_hw_sprite
        ai   r1,-hw_sprite_struct_size
        ci   r1,hw_sprites
-       jhe  dealloc_sprite_5
+       jhe  dealloc_sprite_7
 *      Return
-dealloc_sprite_6:
+dealloc_sprite_8:
        b    *r11
 *// dealloc_sprite
 
@@ -1169,7 +1205,8 @@ dealloc_sprite_6:
 *
 sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
-       li   r2,n_sprites
+       mov  @max_sprite,r2
+       inc  r2
        li   r3,sprites
 sprite_collisions_1:
        mov  *r3,r1                     ; Get sprite definition
@@ -1201,6 +1238,8 @@ sprite_collisions_jump_table:
 *
 * Player sprite collisions
 * Collides with enemies and enemy bullets
+* r3 points to enemy sprite
+* Cannot modify r2-r3
 *
 player_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1215,11 +1254,40 @@ player_sprite_collisions:
 *
 * Enemy sprite collisions
 * Collides with bullets
+* r3 points to enemy sprite
+* Cannot modify r2-r3
 *
 enemy_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
-
+       mov  @max_sprite,r4
+       inc  r4
+       li   r5,sprites
+       li   r6,sprite_def_bullet
+       mov  @sprite_x(r3),r7
+       mov  @sprite_y(r3),r8
+enemy_sprite_collisions_1:
+       c    *r5,r6
+       jne  enemy_sprite_collisions_2
+       mov  @sprite_x(r5),r0
+       s    r7,r0
+       abs  r0
+       ci   r0,>1000
+       jgt  enemy_sprite_collisions_2
+       mov  @sprite_y(r5),r1
+       s    r8,r1
+       abs  r1
+       ci   r1,>1000
+       jgt  enemy_sprite_collisions_2
+*      Collision
+       mov  r3,r1
+       bl   @dealloc_sprite
+       jmp  enemy_sprite_collisions_3
+enemy_sprite_collisions_2:
+       ai   r5,sprite_struct_size
+       dec  r4
+       jne  enemy_sprite_collisions_1
 *      Return
+enemy_sprite_collisions_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1607,9 +1675,11 @@ init:
        li   r0,sprites+(1*sprite_struct_size)
        li   r2,(n_sprites-1)*sprite_struct_size
        bl   @clear_memory
+       seto @max_sprite
        li   r0,hw_sprites+(3*hw_sprite_struct_size)
        li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
        bl   @clear_memory
+       seto @max_hw_sprite
 *      Init player sprite
        li   r0,sprite_def_player
        bl   @alloc_sprite
