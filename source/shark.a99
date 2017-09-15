@@ -525,7 +525,7 @@ add_sprites_1:
 add_sprite_jump_table:
        data 0                          ; Player
        data 0                          ; Bullet
-       data 0                          ; Turret
+       data add_turret_sprite          ; Turret
        data 0                          ; Enemy bullet
        data add_enemy_plane_sprite     ; Enemy plane
        data add_tank_sprite            ; Tank
@@ -533,17 +533,25 @@ add_sprite_jump_table:
 
 *********************************************************************************
 *
+* Add turret sprite
+*
+add_turret_sprite:
+       li   r0,6
+       mov  r0,@sprite_hits_left(r1)
+*      Return
+       b    *r11
+*// add_turret_sprite
+
+*********************************************************************************
+*
 * Add enemy plane sprite
 *
 add_enemy_plane_sprite:
-       mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_hw_2(r1),r2
        li   r0,>0100
        mov  r0,@hw_sprite_color(r2)
        dec  @sprite_hits_left          ; Only one hit left
 *      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
        b    *r11
 *// add_enemy_plane_sprite
 
@@ -613,7 +621,7 @@ add_bullet_sprite_1:
 
 *********************************************************************************
 *
-* Add bullet sprite
+* Add enemy bullet sprite
 *
 * r3: parent sprite
 * @angle: angle of player relative to sprite
@@ -783,6 +791,9 @@ update_turret_sprite:
        ci   r0,>f000
        jhe  update_turret_sprite_2
 *      Pattern
+       mov  @sprite_hits_left(r3),r0
+       ci   r0,3
+       jle  update_turret_sprite_2
        bl   @get_angle
        movb @angle+1,r0                ; Get angle in MSB
        andi r0,>1c00                   ; Isolate octant
@@ -933,6 +944,9 @@ update_tank_sprite_4:
        mov  @sprite_x(r3),r0
        ci   r0,(x_max-2)*256
        jhe  update_tank_sprite_1
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000
+       jhe  update_tank_sprite_1
 *      Move
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
@@ -945,6 +959,14 @@ update_tank_sprite_4:
        mov  @scrly,@sprite_scroll_y(r3)
 *      Pattern
 update_tank_sprite_3:
+       c    @sprite_hits_left(r3),@one
+       jgt  update_tank_sprite_5
+*      Path pattern
+       mov  @sprite_hw_1(r3),r1
+       mov  @path_pattern(r4),@hw_sprite_pattern(r1)
+       jmp  update_tank_sprite_2
+*      Point at player
+update_tank_sprite_5:
        bl   @get_angle
        movb @angle+1,r0                ; Get angle in MSB
        andi r0,>1c00                   ; Isolate octant
@@ -1302,24 +1324,85 @@ enemy_sprite_collisions_3:
 enemy_hit_jump_table:
        data 0                          ; Player
        data 0                          ; Bullet
-       data 0                          ; Turret
+       data turret_hit                 ; Turret
        data 0                          ; Enemy bullet
        data enemy_plane_hit            ; Enemy plane
-       data 0                          ; Tank
+       data tank_hit                   ; Tank
        data 0                          ; Mask
 *// enemy_sprite_collisions
 
 *********************************************************************************
 *
+* Turret hit
+* r3 points to turret sprite
+* Cannot modify r2-r3
+*
+turret_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hits_left(r3),r0
+       jeq  turret_hit_1
+       ci   r0,3
+       jne  turret_hit_2
+*      Allocate a new hardware sprite
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       mov  r3,r1
+       bl   @alloc_hw_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       dect r10                        ; Pop r3
+       mov  *r10,r2
+       mov  r0,r1
+       jeq  turret_hit_2
+       mov  r1,@sprite_hw_2(r3)
+       li   r0,>f800
+       mov  r0,@hw_sprite_pattern(r1)
+       li   r0,1
+       mov  r0,@hw_sprite_priority(r1)
+       li   r0,>0100
+       mov  r0,@hw_sprite_color(r1)
+       jmp  turret_hit_2
+turret_hit_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Return
+turret_hit_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// turret_hit
+
+*********************************************************************************
+*
 * Enemy plane hit
-* r3 points to enemy plane
+* r3 points to enemy plane sprite
 * Cannot modify r2-r3
 *
 enemy_plane_hit:
-       mov  r11,*r10+                  ; Push return address onto the stack
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
+*      Set color of 1st hardware sprite
+;       mov  @sprite_hw_1(r3),r1
+;       li   r0,>0a00
+;       mov  r0,@hw_sprite_color(r1)
+*      Deallocate the 2nd hardware sprite
+       mov  @sprite_hw_2(r3),r1
+       clr  *r1
+       clr  @sprite_hw_2(r3)
+*      Return
+       b    *r11
+*// enemy_plane_hit
+
+*********************************************************************************
+*
+* Tank hit
+* r3 points to tank sprite
+* Cannot modify r2-r3
+*
+tank_hit:
+       mov  @sprite_hits_left(r3),r0
+       jgt  tank_hit_1
 *      Set color of 1st hardware sprite
        mov  @sprite_hw_1(r3),r1
        li   r0,>0a00
@@ -1328,11 +1411,19 @@ enemy_plane_hit:
        mov  @sprite_hw_2(r3),r1
        clr  *r1
        clr  @sprite_hw_2(r3)
+*      Path
+       li   r1,path_explosion
+       jmp  tank_hit_2
+tank_hit_1:
+       li   r1,path_stop
+tank_hit_2:
+       mov  r1,@sprite_path(r3)               ; Init path pointer
+       mov  @path_count(r1),@sprite_count(r3) ; Init counter
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// enemy_plane_hit
+*// tank_hit
 
 *********************************************************************************
 *
@@ -1499,7 +1590,6 @@ update_characters_1:
 * R14: vdpwa
 * R15: vdpwd
 *
-
 upload_character_table:
        mov  @max_chars,r2              ; Char counter
        li   r3,char_list

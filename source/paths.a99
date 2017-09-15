@@ -66,6 +66,9 @@ path_tank_2:
        data 48,>0100,>0000,>0000,>0000
        data 250,>0000,>0000,>0000,>0001
        data -1
+path_stop:
+       data 1000,0,0,>f800,0
+       data -1
 path_explosion:
        data 6,0,0,>e000,0
        data 6,0,0,>e400,0
