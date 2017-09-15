@@ -13,6 +13,29 @@ sprite_pos_list_1:
        data 2672,-16,48,sprite_def_tank,path_tank_2
        data 2664,140,-16,sprite_def_enemy_plane,path_plane_3
        data 2648,140,-16,sprite_def_enemy_plane,path_plane_4
+
+*      Test data
+       data 2416,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 2400,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 2316,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 2300,140,-16,sprite_def_enemy_plane,path_plane_4
+
+       data 2216,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 2200,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 2116,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 2100,140,-16,sprite_def_enemy_plane,path_plane_4
+
+       data 2016,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 2000,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 1916,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 1900,140,-16,sprite_def_enemy_plane,path_plane_4
+
+       data 1816,0,-16,sprite_def_enemy_plane,path_plane_1
+       data 1800,0,-16,sprite_def_enemy_plane,path_plane_2
+       data 1716,140,-16,sprite_def_enemy_plane,path_plane_3
+       data 1700,140,-16,sprite_def_enemy_plane,path_plane_4
+
+*      Real data
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
        data 880,96,-16,sprite_def_turret,0
@@ -20,6 +43,14 @@ sprite_pos_list_1:
        data 352,96,-16,sprite_def_turret,0
        data -1
 sprite_pos_list_2:
+       data 2736,16,-16,sprite_def_turret,0
+       data 2720,16,-16,sprite_def_turret,0
+       data 2656,16,-16,sprite_def_turret,0
+       data 2640,16,-16,sprite_def_turret,0
+       data 2480,96,-16,sprite_def_turret,0
+       data 2464,96,-16,sprite_def_turret,0
+       data 2400,96,-16,sprite_def_turret,0
+       data 2384,96,-16,sprite_def_turret,0
        data -1
 sprite_pos_list_3:
        data -1
