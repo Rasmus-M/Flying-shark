@@ -28,7 +28,7 @@ sprite_pos_list_4:
 **
 * Paths
 *
-* count, vx, vy, pattern
+* count, vx, vy, pattern, action
 *
 path_plane_1:
        data 60,>00c0,>0200,>3000,>0000
@@ -65,5 +65,13 @@ path_tank_1:
 path_tank_2:
        data 48,>0100,>0000,>0000,>0000
        data 250,>0000,>0000,>0000,>0001
+       data -1
+path_explosion:
+       data 8,0,0,>e000,0
+       data 8,0,0,>e400,0
+       data 8,0,0,>e800,0
+       data 8,0,0,>ec00,0
+       data 8,0,0,>f000,0
+       data 8,0,0,>f400,0
        data -1
 
