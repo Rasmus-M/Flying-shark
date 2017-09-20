@@ -12,6 +12,15 @@ public class Encode implements Runnable {
     private static final int[] MAP_HEIGHTS = {382, 450, 340, 364};
     private static final int BANK_OFFSET = 60;
 
+    private static Map<Integer, Integer> animap = new HashMap<>();
+    static {
+        animap.put(72, 0);
+        animap.put(73, 1);
+        animap.put(74, 2);
+        animap.put(75, 3);
+        animap.put(44, 4);
+    }
+
     private final int level;
     private final String fileName;
     private final int width;
@@ -44,11 +53,18 @@ public class Encode implements Runnable {
             fis.close();
             if (len == width * height) {
                 System.out.println(len + " bytes loaded.");
+                // Read characters
                 byte[] chars = new byte[0x1000];
                 fis = new FileInputStream("chars.bin");
                 len = fis.read(chars);
                 fis.close();
                 int patOffs = len / 2;
+                byte[] animChars = new byte[0x1000];
+                fis = new FileInputStream("animated.bin");
+                len = fis.read(animChars);
+                fis.close();
+                int aniPatOffs = len / 2;
+                // Process map
                 int[][] map = new int[height][width];
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
@@ -157,45 +173,84 @@ public class Encode implements Runnable {
                     if (VERBOSE) System.out.println("Deleted: " + deleted.size() + ", Added: " + added.size() + ", Used = "+ used.size() + " of " + (iMax + 1));
                     screen++;
                 }
-                rom_out.append("       aorg >6000,0\n");
-                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 System.out.println("TChars: " + tChars.size());
-                for (int i = 0; i < tChars.size(); i++) {
-                    int key = tChars.get(i);
-                    int toChar = (key >> 8) & 0xff;
-                    int fromChar = key & 0xff;
-                    if (VERBOSE) System.out.println(hexWord(i) + ": " + hexWord(key));
-                    rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
-                    rom_out.append("level_" + level + "_pattern_" + to3Digits(i) + ":\n");
-                    rom_out.append("       byte ");
-                    for (int j = 0; j < 8; j++) {
-                        rom_out.append(hexByte(chars[patOffs + toChar * 8 + j] & 0xff)).append(j < 7 ? "," : "\n");
+                for (int scrollOffset = 0; scrollOffset < 8; scrollOffset++) {
+                    rom_out.append("*******************************************\n");
+                    rom_out.append("       aorg >6000," + scrollOffset + "\n");
+                    rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
+                    // Patterns
+                    rom_out.append("*******************************************\n");
+                    rom_out.append("* Patterns offset " + scrollOffset + "\n");
+                    rom_out.append("*******************************************\n");
+                    for (int i = 0; i < tChars.size(); i++) {
+                        int key = tChars.get(i);
+                        int toChar = (key >> 8) & 0xff;
+                        int toAniIndex = animap.getOrDefault(toChar, -1);
+                        int fromChar = key & 0xff;
+                        int fromAniIndex = animap.getOrDefault(fromChar, -1);
+                        if (VERBOSE) System.out.println(hexWord(i) + ": " + hexWord(key));
+                        rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
+                        rom_out.append("level_" + level + "_pattern_" + to3Digits(i) + "_" + scrollOffset + ":\n");
+                        rom_out.append("       byte ");
+                        int n = 0;
+                        for (int j = scrollOffset; j < 8; j++, n++) {
+                            byte b;
+                            if (toAniIndex == -1) {
+                                b = chars[patOffs + toChar * 8 + j];
+                            } else {
+                                b = animChars[aniPatOffs + toAniIndex * 64 + (7 - scrollOffset) * 8 + j];
+                            }
+                            rom_out.append(hexByte(b & 0xff)).append(n < 7 ? "," : "\n");
+                        }
+                        for (int j = 0; j < scrollOffset; j++, n++) {
+                            byte b;
+                            if (fromAniIndex == -1) {
+                                b = chars[patOffs + fromChar * 8 + j];
+                            } else {
+                                b = animChars[aniPatOffs + fromAniIndex * 64 + (7 - scrollOffset) * 8 + j];
+                            }
+                            rom_out.append(hexByte(b & 0xff)).append(n < 7 ? "," : "\n");
+                        }
                     }
-                    rom_out.append("       byte ");
-                    for (int j = 0; j < 8; j++) {
-                        rom_out.append(hexByte(chars[patOffs + fromChar * 8 + j] & 0xff)).append(j < 7 ? "," : "\n");
-                    }
-                }
-                rom_out.append("       aorg >6000,1\n");
-                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
-                for (int i = 0; i < tChars.size(); i++) {
-                    int key = tChars.get(i);
-                    int toChar = (key >> 8) & 0xff;
-                    int fromChar = key & 0xff;
-                    rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
-                    rom_out.append("level_" + level + "_color_" + to3Digits(i) + ":\n");
-                    rom_out.append("       byte ");
-                    for (int j = 0; j < 8; j++) {
-                        rom_out.append(hexByte(chars[toChar * 8 + j] & 0xff)).append(j < 7 ? "," : "\n");
-                    }
-                    rom_out.append("       byte ");
-                    for (int j = 0; j < 8; j++) {
-                        rom_out.append(hexByte(chars[fromChar * 8 + j] & 0xff)).append(j < 7 ? "," : "\n");
+                    rom_out.append("       bss  " + hexWord(0x1000 - tChars.size() * 8) + "\n");
+                    // Colors
+                    rom_out.append("*******************************************\n");
+                    rom_out.append("* Colors offset " + scrollOffset + "\n");
+                    rom_out.append("*******************************************\n");
+                    for (int i = 0; i < tChars.size(); i++) {
+                        int key = tChars.get(i);
+                        int toChar = (key >> 8) & 0xff;
+                        int toAniIndex = animap.getOrDefault(toChar, -1);
+                        int fromChar = key & 0xff;
+                        int fromAniIndex = animap.getOrDefault(fromChar, -1);
+                        rom_out.append("* From " + hexByte(fromChar) + " to " + hexByte(toChar) + "\n");
+                        rom_out.append("level_" + level + "_color_" + to3Digits(i)  + "_" + scrollOffset + ":\n");
+                        rom_out.append("       byte ");
+                        int n = 0;
+                        for (int j = scrollOffset; j < 8; j++, n++) {
+                            byte b;
+                            if (toAniIndex == -1) {
+                                b = chars[toChar * 8 + j];
+                            } else {
+                                b = animChars[toAniIndex * 64 + (7 - scrollOffset) * 8 + j];
+                            }
+                            rom_out.append(hexByte(b & 0xff)).append(n < 7 ? "," : "\n");
+                        }
+                        for (int j = 0; j < scrollOffset; j++, n++) {
+                            byte b;
+                            if (fromAniIndex == -1) {
+                                b = chars[fromChar * 8 + j];
+                            } else {
+                                b = animChars[fromAniIndex * 64 + (7 - scrollOffset) * 8 + j];
+                            }
+                            rom_out.append(hexByte(b & 0xff)).append(n < 7 ? "," : "\n");
+                        }
                     }
                 }
                 if (VERBOSE) System.out.println("Map:");
-                rom_out.append("       aorg >6000,2\n");
+                rom_out.append("       aorg >6000,8\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
+                rom_out.append("*******************************************\n");
                 rom_out.append("level_" + level + "_map:\n");
                 for (int y = 0; y < tMap.length; y++) {
                     int[] row = tMap[y];
@@ -206,8 +261,9 @@ public class Encode implements Runnable {
                     }
                     if (VERBOSE) System.out.println();
                 }
-                rom_out.append("       aorg >6000,3\n");
+                rom_out.append("       aorg >6000,9\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
+                rom_out.append("*******************************************\n");
                 rom_out.append("level_" + level + "_map_high:\n");
                 for (int y = 0; y < tMap.length; y++) {
                     int[] row = tMap[y];

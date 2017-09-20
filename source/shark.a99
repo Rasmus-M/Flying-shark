@@ -219,10 +219,8 @@ max_chars:
        equ  diff_ptr+2
 cart_pattern_bank:
        equ  max_chars+2
-cart_color_bank:
-       equ  cart_pattern_bank+2
 cart_map_bank:
-       equ  cart_color_bank+2
+       equ  cart_pattern_bank+2
 cart_map_high_bank:
        equ  cart_map_bank+2
 frame_count:
@@ -1504,7 +1502,7 @@ update_char_list_1:
        srl  r1,7                       ; Char offset
        movb *r0+,r3                    ; Global char number MSB
        movb *r0+,@r3lb                 ; Global char number LSB
-       sla  r3,4                       ; 16 bytes per pattern/color
+       sla  r3,3                       ; 8 bytes per pattern/color
        ai   r3,cart_base               ; Add cartridge base address
        mov  r3,@char_list(r1)          ; Store in character list
        dec  r2
@@ -1542,17 +1540,19 @@ update_characters:
 update_low_chars:
        clr  r6                         ; Update low character set (128-255)
 update_characters_1:
-*	   Calculate CPU RAM source offset
-       mov  r3,r1                      ; Start with scroll offset
-       dec  r1                         ; Add direction
-       andi r1,>0007                   ; Mod 8
+*	   Select source ROM bank
+       mov  r3,r5                      ; Start with scroll offset
+       dec  r5                         ; Add direction
+       andi r5,>0007                   ; Mod 8
+       sla  r5,1                       ; Bank select offset
+       a    @cart_pattern_bank,r5      ; Add base pattern bank select
+       seto *r5
 *      Upload characters
        li   r15,vdpwd
        li   r14,vdpwa
        li   r13,8
 *      Patterns
-       mov  @cart_pattern_bank,r5
-       seto *r5
+       clr  r1
        li   r0,ptrntb
        a    r6,r0
        bl   @vwad
@@ -1569,8 +1569,7 @@ update_characters_1:
        bl   @upload_character_table_pad
        bl   @interrupt_check
 *      Colors
-       mov  @cart_color_bank,r5
-       seto *r5
+       li   r1,>1000
        li   r0,colrtb
        a    r6,r0
        bl   @vwad
@@ -1586,16 +1585,19 @@ update_characters_1:
 *
 * Upload character table
 *
-* R13: Offset between characters (8)
-* R14: vdpwa
-* R15: vdpwd
+* VDP write address must have been set up in advance.
+*
+* r1:  Source offset
+* r13: Offset between characters (8)
+* r14: vdpwa
+* r15: vdpwd
 *
 upload_character_table:
        mov  @max_chars,r2              ; Char counter
        li   r3,char_list
 upload_character_table_1:
        mov  *r3+,r4                    ; Get pattern address
-       jlt  upload_character_table_2   ; If negative, characeter is not used
+       jlt  upload_character_table_2   ; If negative, character is not used
        a    r1,r4                      ; Add source offset
        movb *r4+,*r15
        movb *r4+,*r15
@@ -1765,13 +1767,13 @@ init_level:
        mov  r0,@diff_ptr
        mov  @sprite_pos_lists(r1),@sprite_pos_ptr
 *      Cartridge addresses
-       mov  @level,r1
-       sla  r1,3
-       ai   r1,>6008
+       mov  @level,r1                  ; Level * 20 (10 banks per level)
+       sla  r1,2
+       a    @level,r1
+       sla  r1,2
+       ai   r1,>6008                   ; First 4 banks are for code
        mov  r1,@cart_pattern_bank
-       inct r1
-       mov  r1,@cart_color_bank
-       inct r1
+       ai   r1,16
        mov  r1,@cart_map_bank
        inct r1
        mov  r1,@cart_map_high_bank
