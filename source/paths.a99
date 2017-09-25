@@ -41,20 +41,71 @@ sprite_pos_list_1:
        data 880,96,-16,sprite_def_turret,0
        data 864,80,-16,sprite_def_turret,0
        data 352,96,-16,sprite_def_turret,0
+
        data -1
+
 sprite_pos_list_2:
        data 2736,16,-16,sprite_def_turret,0
        data 2720,16,-16,sprite_def_turret,0
        data 2656,16,-16,sprite_def_turret,0
        data 2640,16,-16,sprite_def_turret,0
+
        data 2480,96,-16,sprite_def_turret,0
        data 2464,96,-16,sprite_def_turret,0
        data 2400,96,-16,sprite_def_turret,0
        data 2384,96,-16,sprite_def_turret,0
+
+       data 2224,48,-16,sprite_def_turret,0
+       data 2208,48,-16,sprite_def_turret,0
+       data 2144,48,-16,sprite_def_turret,0
+       data 2128,48,-16,sprite_def_turret,0
+
+       data 1968,96,-16,sprite_def_turret,0
+       data 1952,96,-16,sprite_def_turret,0
+       data 1888,96,-16,sprite_def_turret,0
+       data 1872,96,-16,sprite_def_turret,0
+
+       data 1616,32,-16,sprite_def_turret,0
+       data 1616,96,-16,sprite_def_turret,0
+       data 1600,32,-16,sprite_def_turret,0
+       data 1504,96,-16,sprite_def_turret,0
+       data 1488,96,-16,sprite_def_turret,0
+       data 1456,32,-16,sprite_def_turret,0
+       data 1440,32,-16,sprite_def_turret,0
+       data 1424,96,-16,sprite_def_turret,0
+
        data -1
 sprite_pos_list_3:
+       data 1760,80,-16,sprite_def_turret,0
+       data 1760,96,-16,sprite_def_turret,0
+       data 1664,80,-16,sprite_def_turret,0
+       data 1664,96,-16,sprite_def_turret,0
+       data 1456,16,-16,sprite_def_turret,0
+       data 1456,32,-16,sprite_def_turret,0
+       data 1360,16,-16,sprite_def_turret,0
+       data 1360,32,-16,sprite_def_turret,0
+       data 960,48,-16,sprite_def_turret,0
+       data 960,64,-16,sprite_def_turret,0
+       data 864,48,-16,sprite_def_turret,0
+       data 864,64,-16,sprite_def_turret,0
+       data 624,48,-16,sprite_def_turret,0
+       data 624,96,-16,sprite_def_turret,0
+       data 608,48,-16,sprite_def_turret,0
+       data 608,96,-16,sprite_def_turret,0
+       data 544,96,-16,sprite_def_turret,0
+       data 528,96,-16,sprite_def_turret,0
+
        data -1
+
 sprite_pos_list_4:
+       data 664,64,-16,sprite_def_turret,0
+       data 648,16,-16,sprite_def_turret,0
+       data 664,112,-16,sprite_def_turret,0
+       data 608,64,-16,sprite_def_turret,0
+       data 560,16,-16,sprite_def_turret,0
+       data 560,112,-16,sprite_def_turret,0
+       data 544,64,-16,sprite_def_turret,0
+
        data -1
 **
 * Paths

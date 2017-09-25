@@ -36,7 +36,7 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 * Constants
 *
 start_level:
-       equ  0
+       equ  3
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -287,7 +287,7 @@ delay: bl   @vsync
        jne  main_loop
 *      Next level
        inc  @level
-       li   r0,>fff8
+       li   r0,>fffc
        szc  r0,@level
        jmp  next_level
 *// main
@@ -567,10 +567,11 @@ add_tank_sprite:
        mov  r0,@hw_sprite_color(r2)
        li   r0,>1c00
        mov  r0,@hw_sprite_pattern(r2)
-*      Create a mask sprite
+*      Create a mask sprite if entering from the left
        mov  @sprite_x(r1),r0
        ci   r0,(x_min-16)*256
        jne  add_tank_sprite_1
+*      Create mask sprite
        mov  r1,r8
        li   r0,sprite_def_mask
        bl   @alloc_sprite
