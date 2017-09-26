@@ -36,7 +36,7 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 * Constants
 *
 start_level:
-       equ  0
+       equ  1
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
