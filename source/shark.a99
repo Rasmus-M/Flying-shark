@@ -36,7 +36,7 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 * Constants
 *
 start_level:
-       equ  1
+       equ  0
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -940,9 +940,9 @@ update_tank_sprite:
        mov  r4,@sprite_path(r3)        ; Save updated path pointer
 update_tank_sprite_4:
 *      Check bounds
-       mov  @sprite_x(r3),r0
-       ci   r0,(x_max-2)*256
-       jhe  update_tank_sprite_1
+;       mov  @sprite_x(r3),r0
+;       ci   r0,(x_max-2)*256
+;       jhe  update_tank_sprite_1
        mov  @sprite_y(r3),r0
        ci   r0,>c000
        jhe  update_tank_sprite_1
@@ -958,20 +958,28 @@ update_tank_sprite_4:
        mov  @scrly,@sprite_scroll_y(r3)
 *      Pattern
 update_tank_sprite_3:
+       mov  @path_pattern(r4),r7       ; Get path pattern
        c    @sprite_hits_left(r3),@one
        jgt  update_tank_sprite_5
-*      Path pattern
+*      Hit or exploded - follow path pattern
        mov  @sprite_hw_1(r3),r1
-       mov  @path_pattern(r4),@hw_sprite_pattern(r1)
+       mov  r7,@hw_sprite_pattern(r1)
        jmp  update_tank_sprite_2
 *      Point at player
 update_tank_sprite_5:
        bl   @get_angle
        movb @angle+1,r0                ; Get angle in MSB
        andi r0,>1c00                   ; Isolate octant
-       ai   r0,>a000                   ; Add pattern base
+       ai   r0,>8000                   ; Add pattern base
+       ci   r7,>1800
+       jeq  update_tank_sprite_6
+       ai   r0,>2000
+update_tank_sprite_6:
        mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
        movb r0,@hw_sprite_pattern(r1)  ; Set pattern
+*      Update background sprite
+       mov  @sprite_hw_2(r3),r1
+       mov  r7,@hw_sprite_pattern(r1)
 *      Create bullet
        mov  @sprite_link(r3),r0
        jne  update_tank_sprite_2
@@ -1378,18 +1386,17 @@ turret_hit_2:
 * Cannot modify r2-r3
 *
 enemy_plane_hit:
+       mov  @sprite_hits_left(r3),r0
+       jeq  enemy_plane_hit_1
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
-*      Set color of 1st hardware sprite
-;       mov  @sprite_hw_1(r3),r1
-;       li   r0,>0a00
-;       mov  r0,@hw_sprite_color(r1)
 *      Deallocate the 2nd hardware sprite
        mov  @sprite_hw_2(r3),r1
        clr  *r1
        clr  @sprite_hw_2(r3)
 *      Return
+enemy_plane_hit_1:
        b    *r11
 *// enemy_plane_hit
 
@@ -2276,7 +2283,7 @@ sprite_def_tank:
        data >0001                      ; Left
        data >0002                      ; Top
        data >0002                      ; Size
-       data >a800                      ; Pattern
+       data >1c00                      ; Pattern
        data >0100                      ; Color
 *      Mask
 sprite_def_mask:
