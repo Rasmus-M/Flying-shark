@@ -883,12 +883,18 @@ update_enemy_plane_sprite:
        mov  r4,@sprite_path(r3)          ; Save updated path pointer
 update_enemy_plane_sprite_4:
 *      Check bounds
+       mov  @path_vx(r4),r0
+       jgt  update_enemy_plane_sprite_5
        mov  @sprite_x(r3),r0
        ci   r0,x_min*256
        jl   update_enemy_plane_sprite_1
+       jmp  update_enemy_plane_sprite_6
+update_enemy_plane_sprite_5:
+       mov  @sprite_x(r3),r0
        ci   r0,(x_max-2)*256
        jhe   update_enemy_plane_sprite_1
 *      Move
+update_enemy_plane_sprite_6:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Patterns

@@ -19,8 +19,16 @@ sprite_pos_list_1:
        data 2672,96,-16,sprite_def_enemy_plane,path_plane_4
        data 2640,96,-16,sprite_def_enemy_plane,path_plane_4
 
-       data 2416,143,0,sprite_def_tank,path_tank_3
+       data 2464,-16,32,sprite_def_enemy_plane,path_plane_5
+       data 2448,-16,32,sprite_def_enemy_plane,path_plane_5
+       data 2432,-16,32,sprite_def_enemy_plane,path_plane_5
 
+       data 2416,143,0,sprite_def_tank,path_tank_3
+       data 2384,143,32,sprite_def_tank,path_tank_3
+
+*       data 2368,-16,32,sprite_def_enemy_plane,path_plane_5
+*       data 2360,-16,32,sprite_def_enemy_plane,path_plane_5
+*       data 2352,-16,32,sprite_def_enemy_plane,path_plane_5
 
 *      Test data
 ;       data 2416,0,-16,sprite_def_enemy_plane,path_plane_1
@@ -147,6 +155,15 @@ path_plane_4:
        data 10,->00c0,>0000,>3800,>0000
        data 10,->00c0,->0100,>3c00,>0000
        data 60,->00c0,->0200,>2000,>0000
+       data -1
+path_plane_5:
+       data 60,>0180,>0000,>2800,>0000
+       data 20,>0140,>0140,>2c00,>0000
+       data 20,>0000,>0180,>3000,>0000
+       data 20,->0140,>0140,>3400,>0000
+       data 20,->0180,>0000,>3800,>0000
+       data 20,->0140,->0140,>3c00,>0000
+       data 80,>0000,->0180,>2000,>0000
        data -1
 path_tank_1:
        data 80,>0100,>0000,>1c00,>0000
