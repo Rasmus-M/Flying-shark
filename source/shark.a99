@@ -225,8 +225,10 @@ cart_map_bank:
        equ  cart_pattern_bank+2
 cart_map_high_bank:
        equ  cart_map_bank+2
-frame_count:
+cart_diff_bank:
        equ  cart_map_high_bank+2
+frame_count:
+       equ  cart_diff_bank+2
 vdp_status:
        equ  frame_count+2
 player_fire:
@@ -1505,6 +1507,8 @@ upload_sprites_5:
 * Update character list
 *
 update_char_list:
+       mov  @cart_diff_bank,r0         ; Select ROM bank
+       seto *r0
        mov  @scrly,r0
        andi r0,7
        jne  update_char_list_5
@@ -1778,22 +1782,24 @@ init_level:
        sla  r0,3
        mov  r0,@scrly
        mov  r0,@scrly_current
-       mov  @diff_lists(r1),r0
-       clr  @max_chars
-       movb *r0+,@max_chars+1
-       mov  r0,@diff_ptr
        mov  @sprite_pos_lists(r1),@sprite_pos_ptr
 *      Cartridge addresses
-       mov  @level,r1                  ; Level * 20 (10 banks per level)
-       sla  r1,2
-       a    @level,r1
-       sla  r1,2
+       li   r0,22
+       mpy  @level,r0                  ; Level * 22 (11 banks per level)
        ai   r1,>6008                   ; First 4 banks are for code
        mov  r1,@cart_pattern_bank
        ai   r1,16
        mov  r1,@cart_map_bank
        inct r1
        mov  r1,@cart_map_high_bank
+       inct r1
+       mov  r1,@cart_diff_bank
+*      Init diff list
+       seto *r1
+       li   r0,cart_base
+       clr  @max_chars
+       movb *r0+,@max_chars+1
+       mov  r0,@diff_ptr
 *      Reset character list
        li   r0,char_list
        li   r2,128
@@ -2312,19 +2318,6 @@ sprite_player:
 * Hardware sprites
 hw_sprites:
        bss  n_hw_sprites*hw_sprite_struct_size
-**
-* Character differences after each 8 pixels scrolled
-*
-diff_lists:
-       data diff_list_1,diff_list_2,diff_list_3,diff_list_4
-diff_list_1:
-       copy "level1-diff.a99"
-diff_list_2:
-       copy "level2-diff.a99"
-diff_list_3:
-       copy "level3-diff.a99"
-diff_list_4:
-       copy "level4-diff.a99"
 **
 * Sprite and panel graphics
 *

@@ -16318,3 +16318,2399 @@ level_4_map_high:
        byte >c8,>c9,>ca,>ca,>85,>85,>a7,>a8,>85,>d1,>ca,>ca,>b3,>b4,>ca,>ca,>ca,>ca
        byte >d2,>d3,>d4,>d5,>85,>85,>aa,>ab,>85,>d6,>d7,>d7,>b7,>b8,>d8,>d9,>da,>db
        byte >93,>93,>91,>92,>ba,>bb,>85,>85,>ba,>bb,>93,>93,>93,>93,>b1,>b2,>dc,>dd
+       aorg >6000,10
+       bss  >003c
+*******************************************
+level_4_max:
+       byte >69
+level_4_000_add:
+       byte >5e
+       byte >00, >00, >00              ; >1300
+       byte >01, >00, >01              ; >1b00
+       byte >02, >00, >02              ; >1c00
+       byte >03, >00, >03              ; >1700
+       byte >04, >00, >04              ; >1a00
+       byte >05, >00, >05              ; >0000
+       byte >06, >00, >06              ; >9191
+       byte >07, >00, >07              ; >3d91
+       byte >08, >00, >08              ; >3e91
+       byte >09, >00, >09              ; >0091
+       byte >0a, >00, >0a              ; >0062
+       byte >0b, >00, >0b              ; >0063
+       byte >0c, >00, >0c              ; >9102
+       byte >0d, >00, >0d              ; >9103
+       byte >0e, >00, >0e              ; >9101
+       byte >0f, >00, >0f              ; >6201
+       byte >10, >00, >10              ; >6301
+       byte >11, >00, >11              ; >0204
+       byte >12, >00, >12              ; >0304
+       byte >13, >00, >13              ; >0101
+       byte >14, >00, >14              ; >012b
+       byte >15, >00, >15              ; >0104
+       byte >16, >00, >16              ; >0401
+       byte >17, >00, >17              ; >2b56
+       byte >18, >00, >18              ; >0457
+       byte >19, >00, >19              ; >0156
+       byte >1a, >00, >1a              ; >0157
+       byte >1b, >00, >1b              ; >0102
+       byte >1c, >00, >1c              ; >0103
+       byte >1d, >00, >1d              ; >2b10
+       byte >1e, >00, >1e              ; >0410
+       byte >1f, >00, >1f              ; >0110
+       byte >20, >00, >20              ; >5600
+       byte >21, >00, >21              ; >5700
+       byte >22, >00, >22              ; >1010
+       byte >23, >00, >23              ; >0100
+       byte >24, >00, >24              ; >2b02
+       byte >25, >00, >25              ; >0403
+       byte >26, >00, >26              ; >101c
+       byte >27, >00, >27              ; >0084
+       byte >28, >00, >28              ; >0085
+       byte >29, >00, >29              ; >1c1c
+       byte >2a, >00, >2a              ; >8400
+       byte >2b, >00, >2b              ; >8500
+       byte >2c, >00, >2c              ; >1c10
+       byte >2d, >00, >2d              ; >2b60
+       byte >2e, >00, >2e              ; >0461
+       byte >2f, >00, >2f              ; >01c2
+       byte >30, >00, >30              ; >016b
+       byte >31, >00, >31              ; >6062
+       byte >32, >00, >32              ; >6163
+       byte >33, >00, >33              ; >c26c
+       byte >34, >00, >34              ; >6b6f
+       byte >35, >00, >35              ; >628c
+       byte >36, >00, >36              ; >638c
+       byte >37, >00, >37              ; >6c01
+       byte >38, >00, >38              ; >6f01
+       byte >39, >00, >39              ; >8c8c
+       byte >3a, >00, >3a              ; >0054
+       byte >3b, >00, >3b              ; >0055
+       byte >3c, >00, >3c              ; >8c60
+       byte >3d, >00, >3d              ; >8c61
+       byte >3e, >00, >3e              ; >5400
+       byte >3f, >00, >3f              ; >5500
+       byte >40, >00, >40              ; >1c01
+       byte >41, >00, >41              ; >0001
+       byte >42, >00, >42              ; >002b
+       byte >43, >00, >43              ; >0158
+       byte >44, >00, >44              ; >0159
+       byte >45, >00, >45              ; >2b87
+       byte >46, >00, >46              ; >0487
+       byte >47, >00, >47              ; >2b01
+       byte >48, >00, >48              ; >5858
+       byte >49, >00, >49              ; >5959
+       byte >4a, >00, >4a              ; >8787
+       byte >4b, >00, >4b              ; >0086
+       byte >4c, >00, >4c              ; >0187
+       byte >4d, >00, >4d              ; >04c2
+       byte >4e, >00, >4e              ; >046b
+       byte >4f, >00, >4f              ; >6c87
+       byte >50, >00, >50              ; >6f87
+       byte >51, >00, >51              ; >8686
+       byte >52, >00, >52              ; >5801
+       byte >53, >00, >53              ; >5901
+       byte >54, >00, >54              ; >8702
+       byte >55, >00, >55              ; >8703
+       byte >56, >00, >56              ; >8600
+       byte >57, >00, >57              ; >8701
+       byte >58, >00, >58              ; >8760
+       byte >59, >00, >59              ; >8761
+       byte >5a, >00, >5a              ; >8788
+       byte >5b, >00, >5b              ; >8766
+       byte >5c, >00, >5c              ; >8866
+       byte >5d, >00, >5d              ; >6601
+level_4_000_delete:
+       byte >00
+level_4_001_add:
+       byte >07
+       byte >60, >00, >62              ; >1c1a
+       byte >61, >00, >63              ; >3b3d
+       byte >62, >00, >64              ; >3c3e
+       byte >5c, >00, >5e              ; >0f13
+       byte >5d, >00, >5f              ; >131b
+       byte >5e, >00, >60              ; >1c17
+       byte >5f, >00, >61              ; >1a1c
+level_4_001_delete:
+       byte >00
+level_4_002_add:
+       byte >0a
+       byte >52, >00, >65              ; >0f0f
+       byte >53, >00, >66              ; >121c
+       byte >54, >00, >67              ; >581c
+       byte >55, >00, >68              ; >591c
+       byte >56, >00, >69              ; >1b1a
+       byte >57, >00, >6a              ; >1b1c
+       byte >58, >00, >6b              ; >3d3b
+       byte >59, >00, >6c              ; >3e3c
+       byte >5a, >00, >6d              ; >913b
+       byte >5b, >00, >6e              ; >913c
+level_4_002_delete:
+       byte >00
+level_4_003_add:
+       byte >05
+       byte >51, >00, >6f              ; >1b12
+       byte >63, >00, >70              ; >1210
+       byte >64, >00, >71              ; >5658
+       byte >65, >00, >72              ; >5759
+       byte >66, >00, >73              ; >1b1b
+level_4_003_delete:
+       byte >00
+level_4_004_add:
+       byte >06
+       byte >50, >00, >79              ; >6391
+       byte >4b, >00, >74              ; >0010
+       byte >4c, >00, >75              ; >2d10
+       byte >4d, >00, >76              ; >5656
+       byte >4e, >00, >77              ; >5757
+       byte >4f, >00, >78              ; >6291
+level_4_004_delete:
+       byte >00
+level_4_005_add:
+       byte >03
+       byte >48, >00, >7a              ; >2d2d
+       byte >49, >00, >7b              ; >5856
+       byte >4a, >00, >7c              ; >5957
+level_4_005_delete:
+       byte >00
+level_4_006_add:
+       byte >03
+       byte >43, >00, >7d              ; >0f58
+       byte >44, >00, >7e              ; >0f59
+       byte >45, >00, >7f              ; >1c91
+level_4_006_delete:
+       byte >02
+       byte >46
+       byte >47
+level_4_007_add:
+       byte >00
+level_4_007_delete:
+       byte >02
+       byte >41
+       byte >42
+level_4_008_add:
+       byte >03
+       byte >40, >00, >80              ; >b62d
+       byte >41, >00, >81              ; >1c1b
+       byte >42, >00, >82              ; >171b
+level_4_008_delete:
+       byte >00
+level_4_009_add:
+       byte >02
+       byte >46, >00, >83              ; >b6b6
+       byte >47, >00, >84              ; >1610
+level_4_009_delete:
+       byte >00
+level_4_010_add:
+       byte >03
+       byte >3c, >00, >85              ; >2db6
+       byte >3d, >00, >86              ; >9116
+       byte >3e, >00, >87              ; >9110
+level_4_010_delete:
+       byte >01
+       byte >3f
+level_4_011_add:
+       byte >01
+       byte >39, >00, >88              ; >002d
+level_4_011_delete:
+       byte >02
+       byte >3a
+       byte >3b
+level_4_012_add:
+       byte >02
+       byte >35, >00, >89              ; >4a00
+       byte >36, >00, >8a              ; >4b00
+level_4_012_delete:
+       byte >02
+       byte >37
+       byte >38
+level_4_013_add:
+       byte >04
+       byte >31, >00, >8b              ; >484a
+       byte >32, >00, >8c              ; >494b
+       byte >33, >00, >8d              ; >2d00
+       byte >34, >00, >8e              ; >9100
+level_4_013_delete:
+       byte >00
+level_4_014_add:
+       byte >08
+       byte >30, >00, >92              ; >6248
+       byte >37, >00, >93              ; >6349
+       byte >38, >00, >94              ; >622d
+       byte >3a, >00, >95              ; >632d
+       byte >3b, >00, >96              ; >911b
+       byte >2d, >00, >8f              ; >910f
+       byte >2e, >00, >90              ; >621b
+       byte >2f, >00, >91              ; >631b
+level_4_014_delete:
+       byte >00
+level_4_015_add:
+       byte >02
+       byte >67, >00, >32              ; >6163
+       byte >3f, >00, >31              ; >6062
+level_4_015_delete:
+       byte >00
+level_4_016_add:
+       byte >02
+       byte >2a, >00, >97              ; >9160
+       byte >2b, >00, >98              ; >9161
+level_4_016_delete:
+       byte >00
+level_4_017_add:
+       byte >00
+level_4_017_delete:
+       byte >02
+       byte >27
+       byte >28
+level_4_018_add:
+       byte >01
+       byte >24, >00, >99              ; >3a91
+level_4_018_delete:
+       byte >01
+       byte >25
+level_4_019_add:
+       byte >03
+       byte >20, >00, >9a              ; >453a
+       byte >21, >00, >9b              ; >4600
+       byte >23, >00, >9c              ; >4700
+level_4_019_delete:
+       byte >00
+level_4_020_add:
+       byte >03
+       byte >16, >00, >9d              ; >4345
+       byte >17, >00, >9e              ; >4446
+       byte >18, >00, >9f              ; >3f47
+level_4_020_delete:
+       byte >07
+       byte >19
+       byte >1a
+       byte >1b
+       byte >1c
+       byte >1d
+       byte >1e
+       byte >1f
+level_4_021_add:
+       byte >04
+       byte >11, >00, >a0              ; >4043
+       byte >12, >00, >a1              ; >4144
+       byte >13, >00, >a2              ; >423f
+       byte >14, >00, >a3              ; >3900
+level_4_021_delete:
+       byte >01
+       byte >15
+level_4_022_add:
+       byte >04
+       byte >0c, >00, >a4              ; >9140
+       byte >0d, >00, >a5              ; >9141
+       byte >0e, >00, >a6              ; >9142
+       byte >0f, >00, >a7              ; >9139
+level_4_022_delete:
+       byte >01
+       byte >10
+level_4_023_add:
+       byte >00
+level_4_023_delete:
+       byte >00
+level_4_024_add:
+       byte >00
+level_4_024_delete:
+       byte >03
+       byte >00
+       byte >01
+       byte >04
+level_4_025_add:
+       byte >00
+level_4_025_delete:
+       byte >03
+       byte >60
+       byte >5d
+       byte >5f
+level_4_026_add:
+       byte >00
+level_4_026_delete:
+       byte >05
+       byte >53
+       byte >54
+       byte >55
+       byte >56
+       byte >5c
+level_4_027_add:
+       byte >00
+level_4_027_delete:
+       byte >03
+       byte >63
+       byte >64
+       byte >65
+level_4_028_add:
+       byte >00
+level_4_028_delete:
+       byte >07
+       byte >50
+       byte >51
+       byte >4b
+       byte >4c
+       byte >4d
+       byte >4e
+       byte >4f
+level_4_029_add:
+       byte >00
+level_4_029_delete:
+       byte >04
+       byte >49
+       byte >0a
+       byte >4a
+       byte >0b
+level_4_030_add:
+       byte >03
+       byte >00, >00, >a8              ; >0f91
+       byte >01, >00, >a9              ; >0f00
+       byte >03, >00, >01              ; >1b00
+level_4_030_delete:
+       byte >02
+       byte >43
+       byte >44
+level_4_031_add:
+       byte >00
+level_4_031_delete:
+       byte >00
+level_4_032_add:
+       byte >01
+       byte >04, >00, >aa              ; >1a1b
+level_4_032_delete:
+       byte >02
+       byte >40
+       byte >42
+level_4_033_add:
+       byte >02
+       byte >0a, >00, >61              ; >1a1c
+       byte >0b, >00, >62              ; >1c1a
+level_4_033_delete:
+       byte >03
+       byte >46
+       byte >47
+       byte >5e
+level_4_034_add:
+       byte >02
+       byte >10, >00, >ab              ; >0e0f
+       byte >15, >00, >ac              ; >101a
+level_4_034_delete:
+       byte >03
+       byte >57
+       byte >3c
+       byte >3d
+level_4_035_add:
+       byte >01
+       byte >19, >00, >ad              ; >100e
+level_4_035_delete:
+       byte >01
+       byte >39
+level_4_036_add:
+       byte >05
+       byte >1a, >00, >ae              ; >910e
+       byte >1b, >00, >af              ; >1e10
+       byte >1c, >00, >b0              ; >2410
+       byte >1d, >00, >b1              ; >2491
+       byte >1e, >00, >b2              ; >1f91
+level_4_036_delete:
+       byte >03
+       byte >35
+       byte >45
+       byte >36
+level_4_037_add:
+       byte >03
+       byte >25, >00, >b4              ; >2d24
+       byte >27, >00, >b5              ; >261f
+       byte >1f, >00, >b3              ; >231e
+level_4_037_delete:
+       byte >04
+       byte >31
+       byte >32
+       byte >33
+       byte >48
+level_4_038_add:
+       byte >04
+       byte >28, >00, >b6              ; >1e91
+       byte >2d, >00, >b7              ; >2d23
+       byte >2e, >00, >7a              ; >2d2d
+       byte >2f, >00, >b8              ; >2d26
+level_4_038_delete:
+       byte >05
+       byte >30
+       byte >37
+       byte >38
+       byte >3a
+       byte >3b
+level_4_039_add:
+       byte >00
+level_4_039_delete:
+       byte >02
+       byte >67
+       byte >3f
+level_4_040_add:
+       byte >02
+       byte >2a, >00, >b9              ; >0026
+       byte >2b, >00, >ba              ; >0024
+level_4_040_delete:
+       byte >00
+level_4_041_add:
+       byte >03
+       byte >30, >00, >bb              ; >4a2d
+       byte >31, >00, >8a              ; >4b00
+       byte >32, >00, >88              ; >002d
+level_4_041_delete:
+       byte >00
+level_4_042_add:
+       byte >03
+       byte >33, >00, >8b              ; >484a
+       byte >35, >00, >8c              ; >494b
+       byte >36, >00, >8d              ; >2d00
+level_4_042_delete:
+       byte >00
+level_4_043_add:
+       byte >02
+       byte >37, >00, >bc              ; >0048
+       byte >38, >00, >bd              ; >2d49
+level_4_043_delete:
+       byte >00
+level_4_044_add:
+       byte >00
+level_4_044_delete:
+       byte >01
+       byte >2c
+level_4_045_add:
+       byte >02
+       byte >39, >00, >bf              ; >4b49
+       byte >2c, >00, >be              ; >4a48
+level_4_045_delete:
+       byte >00
+level_4_046_add:
+       byte >03
+       byte >3a, >00, >89              ; >4a00
+       byte >3b, >00, >c0              ; >4a49
+       byte >3c, >00, >c1              ; >2d48
+level_4_046_delete:
+       byte >00
+level_4_047_add:
+       byte >00
+level_4_047_delete:
+       byte >00
+level_4_048_add:
+       byte >01
+       byte >3d, >00, >c2              ; >4b48
+level_4_048_delete:
+       byte >00
+level_4_049_add:
+       byte >00
+level_4_049_delete:
+       byte >00
+level_4_050_add:
+       byte >01
+       byte >24, >00, >c3              ; >0049
+level_4_050_delete:
+       byte >02
+       byte >58
+       byte >59
+level_4_051_add:
+       byte >00
+level_4_051_delete:
+       byte >03
+       byte >20
+       byte >21
+       byte >23
+level_4_052_add:
+       byte >00
+level_4_052_delete:
+       byte >03
+       byte >16
+       byte >17
+       byte >18
+level_4_053_add:
+       byte >00
+level_4_053_delete:
+       byte >04
+       byte >11
+       byte >12
+       byte >13
+       byte >14
+level_4_054_add:
+       byte >00
+level_4_054_delete:
+       byte >07
+       byte >00
+       byte >01
+       byte >03
+       byte >0c
+       byte >0d
+       byte >0e
+       byte >0f
+level_4_055_add:
+       byte >00
+level_4_055_delete:
+       byte >02
+       byte >66
+       byte >09
+level_4_056_add:
+       byte >00
+level_4_056_delete:
+       byte >05
+       byte >41
+       byte >02
+       byte >04
+       byte >07
+       byte >08
+level_4_057_add:
+       byte >00
+level_4_057_delete:
+       byte >05
+       byte >61
+       byte >62
+       byte >29
+       byte >0a
+       byte >0b
+level_4_058_add:
+       byte >00
+level_4_058_delete:
+       byte >05
+       byte >52
+       byte >15
+       byte >26
+       byte >5a
+       byte >5b
+level_4_059_add:
+       byte >00
+level_4_059_delete:
+       byte >04
+       byte >10
+       byte >22
+       byte >34
+       byte >19
+level_4_060_add:
+       byte >00
+level_4_060_delete:
+       byte >04
+       byte >1a
+       byte >1b
+       byte >1c
+       byte >3e
+level_4_061_add:
+       byte >00
+level_4_061_delete:
+       byte >00
+level_4_062_add:
+       byte >00
+level_4_062_delete:
+       byte >04
+       byte >06
+       byte >28
+       byte >1e
+       byte >2f
+level_4_063_add:
+       byte >00
+level_4_063_delete:
+       byte >03
+       byte >27
+       byte >1d
+       byte >1f
+level_4_064_add:
+       byte >03
+       byte >00, >00, >c4              ; >912d
+       byte >01, >00, >c5              ; >9148
+       byte >02, >00, >c6              ; >9149
+level_4_064_delete:
+       byte >04
+       byte >25
+       byte >2a
+       byte >2b
+       byte >2d
+level_4_065_add:
+       byte >02
+       byte >03, >00, >06              ; >9191
+       byte >04, >00, >09              ; >0091
+level_4_065_delete:
+       byte >00
+level_4_066_add:
+       byte >03
+       byte >06, >00, >a8              ; >0f91
+       byte >07, >00, >a9              ; >0f00
+       byte >08, >00, >01              ; >1b00
+level_4_066_delete:
+       byte >00
+level_4_067_add:
+       byte >02
+       byte >09, >00, >65              ; >0f0f
+       byte >0a, >00, >73              ; >1b1b
+level_4_067_delete:
+       byte >00
+level_4_068_add:
+       byte >00
+level_4_068_delete:
+       byte >00
+level_4_069_add:
+       byte >00
+level_4_069_delete:
+       byte >00
+level_4_070_add:
+       byte >04
+       byte >0b, >00, >c7              ; >3d2d
+       byte >0c, >00, >c8              ; >3e2d
+       byte >0d, >00, >78              ; >6291
+       byte >0e, >00, >79              ; >6391
+level_4_070_delete:
+       byte >00
+level_4_071_add:
+       byte >05
+       byte >10, >00, >64              ; >3c3e
+       byte >11, >00, >31              ; >6062
+       byte >12, >00, >32              ; >6163
+       byte >13, >00, >8e              ; >9100
+       byte >0f, >00, >63              ; >3b3d
+level_4_071_delete:
+       byte >00
+level_4_072_add:
+       byte >06
+       byte >14, >00, >6d              ; >913b
+       byte >15, >00, >6e              ; >913c
+       byte >16, >00, >97              ; >9160
+       byte >17, >00, >98              ; >9161
+       byte >18, >00, >8f              ; >910f
+       byte >19, >00, >96              ; >911b
+level_4_072_delete:
+       byte >00
+level_4_073_add:
+       byte >00
+level_4_073_delete:
+       byte >00
+level_4_074_add:
+       byte >00
+level_4_074_delete:
+       byte >02
+       byte >24
+       byte >3d
+level_4_075_add:
+       byte >00
+level_4_075_delete:
+       byte >00
+level_4_076_add:
+       byte >02
+       byte >1a, >00, >c9              ; >5800
+       byte >1b, >00, >ca              ; >5900
+level_4_076_delete:
+       byte >00
+level_4_077_add:
+       byte >02
+       byte >1c, >00, >71              ; >5658
+       byte >1d, >00, >72              ; >5759
+level_4_077_delete:
+       byte >00
+level_4_078_add:
+       byte >03
+       byte >20, >00, >77              ; >5757
+       byte >1e, >00, >cb              ; >2d91
+       byte >1f, >00, >76              ; >5656
+level_4_078_delete:
+       byte >00
+level_4_079_add:
+       byte >02
+       byte >21, >00, >7b              ; >5856
+       byte >22, >00, >7c              ; >5957
+level_4_079_delete:
+       byte >00
+level_4_080_add:
+       byte >06
+       byte >23, >00, >cc              ; >020f
+       byte >24, >00, >cd              ; >030f
+       byte >25, >00, >ce              ; >5a58
+       byte >26, >00, >cf              ; >5b59
+       byte >27, >00, >d0              ; >3d1b
+       byte >28, >00, >d1              ; >3e1b
+level_4_080_delete:
+       byte >00
+level_4_081_add:
+       byte >04
+       byte >29, >00, >d2              ; >0202
+       byte >2a, >00, >25              ; >0403
+       byte >2b, >00, >d3              ; >5a5a
+       byte >2d, >00, >d4              ; >5b5b
+level_4_081_delete:
+       byte >00
+level_4_082_add:
+       byte >03
+       byte >34, >00, >d5              ; >023b
+       byte >3d, >00, >d6              ; >033c
+       byte >2f, >00, >12              ; >0304
+level_4_082_delete:
+       byte >00
+level_4_083_add:
+       byte >00
+level_4_083_delete:
+       byte >00
+level_4_084_add:
+       byte >02
+       byte >3a, >00, >d7              ; >3d02
+       byte >3b, >00, >d8              ; >3e04
+level_4_084_delete:
+       byte >00
+level_4_085_add:
+       byte >00
+level_4_085_delete:
+       byte >01
+       byte >37
+level_4_086_add:
+       byte >02
+       byte >37, >00, >6b              ; >3d3b
+       byte >3e, >00, >6c              ; >3e3c
+level_4_086_delete:
+       byte >00
+level_4_087_add:
+       byte >00
+level_4_087_delete:
+       byte >00
+level_4_088_add:
+       byte >00
+level_4_088_delete:
+       byte >00
+level_4_089_add:
+       byte >00
+level_4_089_delete:
+       byte >00
+level_4_090_add:
+       byte >02
+       byte >40, >00, >da              ; >6361
+       byte >3f, >00, >d9              ; >6260
+level_4_090_delete:
+       byte >00
+level_4_091_add:
+       byte >04
+       byte >41, >00, >dd              ; >005b
+       byte >42, >00, >de              ; >0002
+       byte >39, >00, >dc              ; >005a
+       byte >2c, >00, >db              ; >0003
+level_4_091_delete:
+       byte >00
+level_4_092_add:
+       byte >03
+       byte >43, >00, >07              ; >3d91
+       byte >44, >00, >08              ; >3e91
+       byte >45, >00, >df              ; >0f02
+level_4_092_delete:
+       byte >00
+level_4_093_add:
+       byte >00
+level_4_093_delete:
+       byte >00
+level_4_094_add:
+       byte >00
+level_4_094_delete:
+       byte >02
+       byte >0b
+       byte >0c
+level_4_095_add:
+       byte >02
+       byte >0b, >00, >e0              ; >003d
+       byte >0c, >00, >e1              ; >003e
+level_4_095_delete:
+       byte >01
+       byte >13
+level_4_096_add:
+       byte >06
+       byte >13, >00, >e2              ; >1000
+       byte >14, >00, >02              ; >1c00
+       byte >15, >00, >e3              ; >2d0f
+       byte >46, >00, >e6              ; >2d1b
+       byte >18, >00, >e4              ; >2d58
+       byte >19, >00, >e5              ; >2d59
+level_4_096_delete:
+       byte >00
+level_4_097_add:
+       byte >02
+       byte >47, >00, >22              ; >1010
+       byte >48, >00, >29              ; >1c1c
+level_4_097_delete:
+       byte >00
+level_4_098_add:
+       byte >04
+       byte >49, >00, >e7              ; >6256
+       byte >4a, >00, >e8              ; >6357
+       byte >4b, >00, >c7              ; >3d2d
+       byte >4c, >00, >c8              ; >3e2d
+level_4_098_delete:
+       byte >00
+level_4_099_add:
+       byte >00
+level_4_099_delete:
+       byte >00
+level_4_100_add:
+       byte >05
+       byte >50, >00, >ed              ; >2d3c
+       byte >06, >00, >e9              ; >5660
+       byte >4d, >00, >ea              ; >5761
+       byte >4e, >00, >eb              ; >0f1c
+       byte >4f, >00, >ec              ; >2d3b
+level_4_100_delete:
+       byte >00
+level_4_101_add:
+       byte >00
+level_4_101_delete:
+       byte >00
+level_4_102_add:
+       byte >02
+       byte >51, >00, >94              ; >622d
+       byte >52, >00, >95              ; >632d
+level_4_102_delete:
+       byte >00
+level_4_103_add:
+       byte >01
+       byte >53, >00, >8e              ; >9100
+level_4_103_delete:
+       byte >00
+level_4_104_add:
+       byte >03
+       byte >23, >00, >ee              ; >1c0f
+       byte >24, >00, >ef              ; >001b
+       byte >25, >00, >96              ; >911b
+level_4_104_delete:
+       byte >03
+       byte >26
+       byte >27
+       byte >28
+level_4_105_add:
+       byte >00
+level_4_105_delete:
+       byte >00
+level_4_106_add:
+       byte >00
+level_4_106_delete:
+       byte >00
+level_4_107_add:
+       byte >00
+level_4_107_delete:
+       byte >00
+level_4_108_add:
+       byte >00
+level_4_108_delete:
+       byte >04
+       byte >01
+       byte >02
+       byte >3a
+       byte >3b
+level_4_109_add:
+       byte >00
+level_4_109_delete:
+       byte >00
+level_4_110_add:
+       byte >08
+       byte >01, >00, >f0              ; >0210
+       byte >02, >00, >f1              ; >0310
+       byte >54, >00, >f5              ; >4a91
+       byte >26, >00, >ce              ; >5a58
+       byte >27, >00, >cf              ; >5b59
+       byte >28, >00, >f2              ; >0258
+       byte >3a, >00, >f3              ; >0359
+       byte >3b, >00, >f4              ; >911c
+level_4_110_delete:
+       byte >00
+level_4_111_add:
+       byte >00
+level_4_111_delete:
+       byte >00
+level_4_112_add:
+       byte >02
+       byte >0d, >00, >be              ; >4a48
+       byte >0e, >00, >bf              ; >4b49
+level_4_112_delete:
+       byte >02
+       byte >34
+       byte >3d
+level_4_113_add:
+       byte >00
+level_4_113_delete:
+       byte >00
+level_4_114_add:
+       byte >00
+level_4_114_delete:
+       byte >02
+       byte >40
+       byte >3f
+level_4_115_add:
+       byte >00
+level_4_115_delete:
+       byte >05
+       byte >41
+       byte >42
+       byte >36
+       byte >39
+       byte >2c
+level_4_116_add:
+       byte >03
+       byte >34, >00, >bc              ; >0048
+       byte >07, >00, >6d              ; >913b
+       byte >2c, >00, >6e              ; >913c
+level_4_116_delete:
+       byte >01
+       byte >45
+level_4_117_add:
+       byte >01
+       byte >36, >00, >8d              ; >2d00
+level_4_117_delete:
+       byte >00
+level_4_118_add:
+       byte >04
+       byte >40, >00, >f9              ; >5749
+       byte >39, >00, >f6              ; >5691
+       byte >3d, >00, >f7              ; >5791
+       byte >3f, >00, >f8              ; >5648
+level_4_118_delete:
+       byte >00
+level_4_119_add:
+       byte >00
+level_4_119_delete:
+       byte >02
+       byte >0b
+       byte >0c
+level_4_120_add:
+       byte >00
+level_4_120_delete:
+       byte >09
+       byte >13
+       byte >14
+       byte >15
+       byte >46
+       byte >18
+       byte >19
+       byte >1a
+       byte >1b
+       byte >1e
+level_4_121_add:
+       byte >00
+level_4_121_delete:
+       byte >02
+       byte >1c
+       byte >1d
+level_4_122_add:
+       byte >02
+       byte >0b, >00, >78              ; >6291
+       byte >0c, >00, >79              ; >6391
+level_4_122_delete:
+       byte >00
+level_4_123_add:
+       byte >00
+level_4_123_delete:
+       byte >00
+level_4_124_add:
+       byte >02
+       byte >13, >00, >da              ; >6361
+       byte >08, >00, >d9              ; >6260
+level_4_124_delete:
+       byte >01
+       byte >4e
+level_4_125_add:
+       byte >00
+level_4_125_delete:
+       byte >00
+level_4_126_add:
+       byte >00
+level_4_126_delete:
+       byte >02
+       byte >51
+       byte >52
+level_4_127_add:
+       byte >00
+level_4_127_delete:
+       byte >02
+       byte >09
+       byte >0a
+level_4_128_add:
+       byte >00
+level_4_128_delete:
+       byte >03
+       byte >23
+       byte >24
+       byte >25
+level_4_129_add:
+       byte >00
+level_4_129_delete:
+       byte >00
+level_4_130_add:
+       byte >00
+level_4_130_delete:
+       byte >02
+       byte >49
+       byte >4a
+level_4_131_add:
+       byte >00
+level_4_131_delete:
+       byte >00
+level_4_132_add:
+       byte >00
+level_4_132_delete:
+       byte >05
+       byte >20
+       byte >05
+       byte >06
+       byte >4d
+       byte >1f
+level_4_133_add:
+       byte >00
+level_4_133_delete:
+       byte >03
+       byte >04
+       byte >47
+       byte >48
+level_4_134_add:
+       byte >00
+level_4_134_delete:
+       byte >06
+       byte >01
+       byte >02
+       byte >54
+       byte >28
+       byte >3a
+       byte >3b
+level_4_135_add:
+       byte >00
+level_4_135_delete:
+       byte >00
+level_4_136_add:
+       byte >00
+level_4_136_delete:
+       byte >00
+level_4_137_add:
+       byte >00
+level_4_137_delete:
+       byte >00
+level_4_138_add:
+       byte >00
+level_4_138_delete:
+       byte >07
+       byte >37
+       byte >4b
+       byte >3c
+       byte >4c
+       byte >0d
+       byte >0e
+       byte >3e
+level_4_139_add:
+       byte >00
+level_4_139_delete:
+       byte >00
+level_4_140_add:
+       byte >00
+level_4_140_delete:
+       byte >06
+       byte >30
+       byte >50
+       byte >31
+       byte >34
+       byte >38
+       byte >4f
+level_4_141_add:
+       byte >00
+level_4_141_delete:
+       byte >04
+       byte >33
+       byte >35
+       byte >36
+       byte >2e
+level_4_142_add:
+       byte >00
+level_4_142_delete:
+       byte >06
+       byte >00
+       byte >40
+       byte >32
+       byte >39
+       byte >3d
+       byte >3f
+level_4_143_add:
+       byte >05
+       byte >00, >00, >09              ; >0091
+       byte >01, >00, >dc              ; >005a
+       byte >02, >00, >dd              ; >005b
+       byte >04, >00, >e0              ; >003d
+       byte >05, >00, >e1              ; >003e
+level_4_143_delete:
+       byte >03
+       byte >21
+       byte >22
+       byte >53
+level_4_144_add:
+       byte >05
+       byte >06, >00, >fa              ; >1091
+       byte >09, >00, >e2              ; >1000
+       byte >0a, >00, >c9              ; >5800
+       byte >0d, >00, >ca              ; >5900
+       byte >0e, >00, >02              ; >1c00
+level_4_144_delete:
+       byte >02
+       byte >26
+       byte >27
+level_4_145_add:
+       byte >04
+       byte >14, >00, >22              ; >1010
+       byte >15, >00, >71              ; >5658
+       byte >18, >00, >72              ; >5759
+       byte >19, >00, >29              ; >1c1c
+level_4_145_delete:
+       byte >00
+level_4_146_add:
+       byte >02
+       byte >1a, >00, >76              ; >5656
+       byte >1b, >00, >77              ; >5757
+level_4_146_delete:
+       byte >00
+level_4_147_add:
+       byte >00
+level_4_147_delete:
+       byte >00
+level_4_148_add:
+       byte >00
+level_4_148_delete:
+       byte >00
+level_4_149_add:
+       byte >02
+       byte >1c, >00, >7b              ; >5856
+       byte >1d, >00, >7c              ; >5957
+level_4_149_delete:
+       byte >00
+level_4_150_add:
+       byte >09
+       byte >20, >00, >fc              ; >9159
+       byte >21, >00, >fd              ; >2d1c
+       byte >22, >00, >75              ; >2d10
+       byte >23, >00, >e4              ; >2d58
+       byte >24, >00, >e5              ; >2d59
+       byte >25, >00, >fe              ; >4a1c
+       byte >26, >00, >ff              ; >4b1c
+       byte >1e, >00, >87              ; >9110
+       byte >1f, >00, >fb              ; >9158
+level_4_150_delete:
+       byte >00
+level_4_151_add:
+       byte >04
+       byte >30, >00, >8c              ; >494b
+       byte >27, >00, >7a              ; >2d2d
+       byte >28, >00, >88              ; >002d
+       byte >2e, >00, >8b              ; >484a
+level_4_151_delete:
+       byte >00
+level_4_152_add:
+       byte >04
+       byte >31, >00, >bb              ; >4a2d
+       byte >32, >00, >8a              ; >4b00
+       byte >33, >00, >be              ; >4a48
+       byte >34, >00, >bf              ; >4b49
+level_4_152_delete:
+       byte >00
+level_4_153_add:
+       byte >00
+level_4_153_delete:
+       byte >00
+level_4_154_add:
+       byte >06
+       byte >35, >00, >6b              ; >3d3b
+       byte >36, >00, >6c              ; >3e3c
+       byte >37, >00, >c7              ; >3d2d
+       byte >38, >00, >c8              ; >3e2d
+       byte >39, >00, >c1              ; >2d48
+       byte >3a, >00, >bd              ; >2d49
+level_4_154_delete:
+       byte >00
+level_4_155_add:
+       byte >00
+level_4_155_delete:
+       byte >00
+level_4_156_add:
+       byte >03
+       byte >3b, >00, >ec              ; >2d3b
+       byte >3c, >00, >ed              ; >2d3c
+       byte >3d, >00, >bc              ; >0048
+level_4_156_delete:
+       byte >00
+level_4_157_add:
+       byte >03
+       byte >40, >00, >8d              ; >2d00
+       byte >3e, >00, >de              ; >0002
+       byte >3f, >00, >db              ; >0003
+level_4_157_delete:
+       byte >00
+level_4_158_add:
+       byte >02
+       byte >41, >00, >05              ; >0000
+       byte >42, >00, >cb              ; >2d91
+level_4_158_delete:
+       byte >00
+level_4_159_add:
+       byte >00
+level_4_159_delete:
+       byte >00
+level_4_160_add:
+       byte >02
+       byte >45, >00, >e7              ; >6256
+       byte >46, >00, >e8              ; >6357
+level_4_160_delete:
+       byte >00
+level_4_161_add:
+       byte >00
+level_4_161_delete:
+       byte >00
+level_4_162_add:
+       byte >04
+       byte >47, >00, >eb              ; >0f1c
+       byte >48, >00, >01              ; >1b00
+       byte >0b, >00, >e9              ; >5660
+       byte >0c, >00, >ea              ; >5761
+level_4_162_delete:
+       byte >00
+level_4_163_add:
+       byte >02
+       byte >49, >00, >65              ; >0f0f
+       byte >4a, >00, >73              ; >1b1b
+level_4_163_delete:
+       byte >00
+level_4_164_add:
+       byte >03
+       byte >13, >00, >94              ; >622d
+       byte >08, >00, >c4              ; >912d
+       byte >4b, >00, >95              ; >632d
+level_4_164_delete:
+       byte >00
+level_4_165_add:
+       byte >01
+       byte >4c, >00, >8e              ; >9100
+level_4_165_delete:
+       byte >00
+level_4_166_add:
+       byte >03
+       byte >4d, >00, >ee              ; >1c0f
+       byte >4e, >00, >ef              ; >001b
+       byte >4f, >00, >96              ; >911b
+level_4_166_delete:
+       byte >00
+level_4_167_add:
+       byte >00
+level_4_167_delete:
+       byte >02
+       byte >04
+       byte >05
+level_4_168_add:
+       byte >00
+level_4_168_delete:
+       byte >01
+       byte >06
+level_4_169_add:
+       byte >00
+level_4_169_delete:
+       byte >00
+level_4_170_add:
+       byte >00
+level_4_170_delete:
+       byte >00
+level_4_171_add:
+       byte >01
+       byte >04, >00, >e0              ; >003d
+level_4_171_delete:
+       byte >00
+level_4_172_add:
+       byte >06
+       byte >50, >00, >ce              ; >5a58
+       byte >51, >00, >cf              ; >5b59
+       byte >52, >01, >00              ; >1c58
+       byte >53, >01, >01              ; >1c59
+       byte >05, >00, >f0              ; >0210
+       byte >06, >00, >f1              ; >0310
+level_4_172_delete:
+       byte >00
+level_4_173_add:
+       byte >00
+level_4_173_delete:
+       byte >00
+level_4_174_add:
+       byte >00
+level_4_174_delete:
+       byte >09
+       byte >20
+       byte >21
+       byte >22
+       byte >23
+       byte >24
+       byte >25
+       byte >26
+       byte >1e
+       byte >1f
+level_4_175_add:
+       byte >00
+level_4_175_delete:
+       byte >00
+level_4_176_add:
+       byte >01
+       byte >1e, >00, >26              ; >101c
+level_4_176_delete:
+       byte >00
+level_4_177_add:
+       byte >00
+level_4_177_delete:
+       byte >00
+level_4_178_add:
+       byte >02
+       byte >20, >00, >d8              ; >3e04
+       byte >1f, >00, >d7              ; >3d02
+level_4_178_delete:
+       byte >02
+       byte >33
+       byte >34
+level_4_179_add:
+       byte >00
+level_4_179_delete:
+       byte >00
+level_4_180_add:
+       byte >03
+       byte >21, >00, >d5              ; >023b
+       byte >22, >00, >d6              ; >033c
+       byte >23, >00, >87              ; >9110
+level_4_180_delete:
+       byte >03
+       byte >31
+       byte >32
+       byte >3d
+level_4_181_add:
+       byte >00
+level_4_181_delete:
+       byte >07
+       byte >30
+       byte >40
+       byte >01
+       byte >02
+       byte >2e
+       byte >3e
+       byte >3f
+level_4_182_add:
+       byte >02
+       byte >01, >00, >bb              ; >4a2d
+       byte >02, >00, >8a              ; >4b00
+level_4_182_delete:
+       byte >05
+       byte >09
+       byte >39
+       byte >0a
+       byte >3a
+       byte >0d
+level_4_183_add:
+       byte >02
+       byte >09, >00, >8b              ; >484a
+       byte >0a, >00, >8c              ; >494b
+level_4_183_delete:
+       byte >02
+       byte >15
+       byte >18
+level_4_184_add:
+       byte >02
+       byte >15, >00, >bf              ; >4b49
+       byte >0d, >00, >be              ; >4a48
+level_4_184_delete:
+       byte >02
+       byte >37
+       byte >38
+level_4_185_add:
+       byte >00
+level_4_185_delete:
+       byte >00
+level_4_186_add:
+       byte >04
+       byte >24, >00, >c8              ; >3e2d
+       byte >25, >00, >c1              ; >2d48
+       byte >26, >00, >bd              ; >2d49
+       byte >18, >00, >c7              ; >3d2d
+level_4_186_delete:
+       byte >02
+       byte >47
+       byte >48
+level_4_187_add:
+       byte >00
+level_4_187_delete:
+       byte >00
+level_4_188_add:
+       byte >01
+       byte >08, >00, >bc              ; >0048
+level_4_188_delete:
+       byte >02
+       byte >13
+       byte >4b
+level_4_189_add:
+       byte >01
+       byte >13, >00, >8d              ; >2d00
+level_4_189_delete:
+       byte >02
+       byte >49
+       byte >4a
+level_4_190_add:
+       byte >00
+level_4_190_delete:
+       byte >05
+       byte >16
+       byte >17
+       byte >4d
+       byte >4e
+       byte >4f
+level_4_191_add:
+       byte >00
+level_4_191_delete:
+       byte >00
+level_4_192_add:
+       byte >00
+level_4_192_delete:
+       byte >02
+       byte >45
+       byte >46
+level_4_193_add:
+       byte >00
+level_4_193_delete:
+       byte >02
+       byte >11
+       byte >12
+level_4_194_add:
+       byte >00
+level_4_194_delete:
+       byte >04
+       byte >1a
+       byte >0b
+       byte >1b
+       byte >0c
+level_4_195_add:
+       byte >00
+level_4_195_delete:
+       byte >04
+       byte >00
+       byte >04
+       byte >1c
+       byte >1d
+level_4_196_add:
+       byte >00
+level_4_196_delete:
+       byte >05
+       byte >50
+       byte >51
+       byte >52
+       byte >53
+       byte >0e
+level_4_197_add:
+       byte >02
+       byte >00, >00, >db              ; >0003
+       byte >04, >00, >09              ; >0091
+level_4_197_delete:
+       byte >00
+level_4_198_add:
+       byte >05
+       byte >11, >00, >c5              ; >9148
+       byte >12, >00, >c6              ; >9149
+       byte >0b, >01, >02              ; >1c02
+       byte >0c, >00, >02              ; >1c00
+       byte >0e, >00, >c4              ; >912d
+level_4_198_delete:
+       byte >00
+level_4_199_add:
+       byte >00
+level_4_199_delete:
+       byte >00
+level_4_200_add:
+       byte >00
+level_4_200_delete:
+       byte >01
+       byte >1e
+level_4_201_add:
+       byte >00
+level_4_201_delete:
+       byte >00
+level_4_202_add:
+       byte >01
+       byte >16, >00, >26              ; >101c
+level_4_202_delete:
+       byte >02
+       byte >20
+       byte >1f
+level_4_203_add:
+       byte >00
+level_4_203_delete:
+       byte >01
+       byte >4c
+level_4_204_add:
+       byte >02
+       byte >05, >00, >d7              ; >3d02
+       byte >06, >00, >d8              ; >3e04
+level_4_204_delete:
+       byte >04
+       byte >21
+       byte >22
+       byte >42
+       byte >23
+level_4_205_add:
+       byte >01
+       byte >17, >00, >8e              ; >9100
+level_4_205_delete:
+       byte >00
+level_4_206_add:
+       byte >06
+       byte >1a, >00, >d5              ; >023b
+       byte >1b, >00, >d6              ; >033c
+       byte >1c, >00, >f0              ; >0210
+       byte >1d, >00, >f1              ; >0310
+       byte >1e, >00, >87              ; >9110
+       byte >1f, >00, >cb              ; >2d91
+level_4_206_delete:
+       byte >00
+level_4_207_add:
+       byte >00
+level_4_207_delete:
+       byte >00
+level_4_208_add:
+       byte >00
+level_4_208_delete:
+       byte >00
+level_4_209_add:
+       byte >00
+level_4_209_delete:
+       byte >00
+level_4_210_add:
+       byte >00
+level_4_210_delete:
+       byte >00
+level_4_211_add:
+       byte >00
+level_4_211_delete:
+       byte >00
+level_4_212_add:
+       byte >00
+level_4_212_delete:
+       byte >00
+level_4_213_add:
+       byte >00
+level_4_213_delete:
+       byte >00
+level_4_214_add:
+       byte >00
+level_4_214_delete:
+       byte >00
+level_4_215_add:
+       byte >03
+       byte >20, >00, >de              ; >0002
+       byte >21, >00, >dc              ; >005a
+       byte >22, >00, >dd              ; >005b
+level_4_215_delete:
+       byte >00
+level_4_216_add:
+       byte >03
+       byte >30, >00, >c3              ; >0049
+       byte >23, >00, >e2              ; >1000
+       byte >2e, >00, >04              ; >1a00
+level_4_216_delete:
+       byte >00
+level_4_217_add:
+       byte >02
+       byte >31, >00, >61              ; >1a1c
+       byte >32, >00, >62              ; >1c1a
+level_4_217_delete:
+       byte >00
+level_4_218_add:
+       byte >02
+       byte >33, >01, >03              ; >121a
+       byte >34, >00, >89              ; >4a00
+level_4_218_delete:
+       byte >00
+level_4_219_add:
+       byte >03
+       byte >37, >00, >84              ; >1610
+       byte >38, >00, >6f              ; >1b12
+       byte >39, >00, >70              ; >1210
+level_4_219_delete:
+       byte >00
+level_4_220_add:
+       byte >05
+       byte >40, >01, >07              ; >4b10
+       byte >3a, >01, >04              ; >1016
+       byte >3d, >00, >81              ; >1c1b
+       byte >3e, >01, >05              ; >1c12
+       byte >3f, >01, >06              ; >4a10
+level_4_220_delete:
+       byte >00
+level_4_221_add:
+       byte >00
+level_4_221_delete:
+       byte >00
+level_4_222_add:
+       byte >00
+level_4_222_delete:
+       byte >04
+       byte >11
+       byte >12
+       byte >0b
+       byte >0e
+level_4_223_add:
+       byte >00
+level_4_223_delete:
+       byte >00
+level_4_224_add:
+       byte >07
+       byte >11, >01, >08              ; >001c
+       byte >12, >00, >fd              ; >2d1c
+       byte >42, >00, >c4              ; >912d
+       byte >45, >00, >c5              ; >9148
+       byte >46, >00, >c6              ; >9149
+       byte >0b, >00, >75              ; >2d10
+       byte >0e, >00, >74              ; >0010
+level_4_224_delete:
+       byte >00
+level_4_225_add:
+       byte >00
+level_4_225_delete:
+       byte >00
+level_4_226_add:
+       byte >03
+       byte >47, >00, >a8              ; >0f91
+       byte >48, >00, >a9              ; >0f00
+       byte >49, >00, >01              ; >1b00
+level_4_226_delete:
+       byte >00
+level_4_227_add:
+       byte >02
+       byte >4a, >00, >65              ; >0f0f
+       byte >4b, >00, >73              ; >1b1b
+level_4_227_delete:
+       byte >00
+level_4_228_add:
+       byte >00
+level_4_228_delete:
+       byte >02
+       byte >05
+       byte >06
+level_4_229_add:
+       byte >00
+level_4_229_delete:
+       byte >01
+       byte >17
+level_4_230_add:
+       byte >02
+       byte >05, >00, >78              ; >6291
+       byte >06, >00, >79              ; >6391
+level_4_230_delete:
+       byte >05
+       byte >1a
+       byte >1b
+       byte >1c
+       byte >1d
+       byte >1e
+level_4_231_add:
+       byte >03
+       byte >17, >00, >31              ; >6062
+       byte >1a, >00, >32              ; >6163
+       byte >1b, >00, >8e              ; >9100
+level_4_231_delete:
+       byte >00
+level_4_232_add:
+       byte >04
+       byte >1c, >01, >09              ; >2d60
+       byte >4c, >00, >e6              ; >2d1b
+       byte >1d, >01, >0a              ; >2d61
+       byte >1e, >00, >e3              ; >2d0f
+level_4_232_delete:
+       byte >00
+level_4_233_add:
+       byte >00
+level_4_233_delete:
+       byte >00
+level_4_234_add:
+       byte >00
+level_4_234_delete:
+       byte >02
+       byte >43
+       byte >44
+level_4_235_add:
+       byte >00
+level_4_235_delete:
+       byte >00
+level_4_236_add:
+       byte >00
+level_4_236_delete:
+       byte >02
+       byte >35
+       byte >36
+level_4_237_add:
+       byte >00
+level_4_237_delete:
+       byte >01
+       byte >2a
+level_4_238_add:
+       byte >01
+       byte >07, >00, >c0              ; >4a49
+level_4_238_delete:
+       byte >05
+       byte >29
+       byte >2b
+       byte >2c
+       byte >2d
+       byte >2f
+level_4_239_add:
+       byte >00
+level_4_239_delete:
+       byte >04
+       byte >00
+       byte >20
+       byte >21
+       byte >22
+level_4_240_add:
+       byte >01
+       byte >00, >00, >c2              ; >4b48
+level_4_240_delete:
+       byte >04
+       byte >30
+       byte >23
+       byte >0c
+       byte >2e
+level_4_241_add:
+       byte >00
+level_4_241_delete:
+       byte >02
+       byte >31
+       byte >32
+level_4_242_add:
+       byte >01
+       byte >0c, >00, >c3              ; >0049
+level_4_242_delete:
+       byte >02
+       byte >33
+       byte >16
+level_4_243_add:
+       byte >00
+level_4_243_delete:
+       byte >03
+       byte >37
+       byte >38
+       byte >39
+level_4_244_add:
+       byte >00
+level_4_244_delete:
+       byte >05
+       byte >40
+       byte >3a
+       byte >3d
+       byte >3e
+       byte >3f
+level_4_245_add:
+       byte >00
+level_4_245_delete:
+       byte >00
+level_4_246_add:
+       byte >00
+level_4_246_delete:
+       byte >00
+level_4_247_add:
+       byte >00
+level_4_247_delete:
+       byte >02
+       byte >14
+       byte >19
+level_4_248_add:
+       byte >00
+level_4_248_delete:
+       byte >04
+       byte >11
+       byte >12
+       byte >0b
+       byte >0e
+level_4_249_add:
+       byte >00
+level_4_249_delete:
+       byte >00
+level_4_250_add:
+       byte >00
+level_4_250_delete:
+       byte >03
+       byte >47
+       byte >48
+       byte >49
+level_4_251_add:
+       byte >00
+level_4_251_delete:
+       byte >00
+level_4_252_add:
+       byte >00
+level_4_252_delete:
+       byte >00
+level_4_253_add:
+       byte >00
+level_4_253_delete:
+       byte >00
+level_4_254_add:
+       byte >00
+level_4_254_delete:
+       byte >07
+       byte >42
+       byte >24
+       byte >05
+       byte >45
+       byte >06
+       byte >46
+       byte >18
+level_4_255_add:
+       byte >00
+level_4_255_delete:
+       byte >08
+       byte >10
+       byte >03
+       byte >17
+       byte >1a
+       byte >4a
+       byte >1b
+       byte >4b
+       byte >0f
+level_4_256_add:
+       byte >03
+       byte >03, >01, >0b              ; >a82d
+       byte >04, >01, >0c              ; >8300
+       byte >05, >01, >0d              ; >8b00
+level_4_256_delete:
+       byte >07
+       byte >3b
+       byte >1c
+       byte >3c
+       byte >4c
+       byte >1d
+       byte >1e
+       byte >1f
+level_4_257_add:
+       byte >04
+       byte >06, >01, >0e              ; >81a8
+       byte >0b, >01, >0f              ; >5283
+       byte >0e, >01, >10              ; >5383
+       byte >0f, >01, >11              ; >6a8b
+level_4_257_delete:
+       byte >00
+level_4_258_add:
+       byte >04
+       byte >10, >01, >12              ; >8181
+       byte >11, >01, >13              ; >5052
+       byte >12, >01, >14              ; >5153
+       byte >14, >01, >15              ; >6a6a
+level_4_258_delete:
+       byte >00
+level_4_259_add:
+       byte >04
+       byte >16, >01, >16              ; >7f81
+       byte >17, >01, >17              ; >8050
+       byte >18, >01, >18              ; >8051
+       byte >19, >01, >19              ; >826a
+level_4_259_delete:
+       byte >00
+level_4_260_add:
+       byte >03
+       byte >1a, >01, >1a              ; >2d7f
+       byte >1b, >01, >1b              ; >2d80
+       byte >1c, >01, >1c              ; >2d82
+level_4_260_delete:
+       byte >00
+level_4_261_add:
+       byte >00
+level_4_261_delete:
+       byte >00
+level_4_262_add:
+       byte >00
+level_4_262_delete:
+       byte >00
+level_4_263_add:
+       byte >00
+level_4_263_delete:
+       byte >00
+level_4_264_add:
+       byte >00
+level_4_264_delete:
+       byte >00
+level_4_265_add:
+       byte >00
+level_4_265_delete:
+       byte >00
+level_4_266_add:
+       byte >00
+level_4_266_delete:
+       byte >01
+       byte >00
+level_4_267_add:
+       byte >00
+level_4_267_delete:
+       byte >00
+level_4_268_add:
+       byte >00
+level_4_268_delete:
+       byte >00
+level_4_269_add:
+       byte >00
+level_4_269_delete:
+       byte >00
+level_4_270_add:
+       byte >00
+level_4_270_delete:
+       byte >00
+level_4_271_add:
+       byte >00
+level_4_271_delete:
+       byte >00
+level_4_272_add:
+       byte >00
+level_4_272_delete:
+       byte >00
+level_4_273_add:
+       byte >00
+level_4_273_delete:
+       byte >01
+       byte >0c
+level_4_274_add:
+       byte >00
+level_4_274_delete:
+       byte >00
+level_4_275_add:
+       byte >00
+level_4_275_delete:
+       byte >00
+level_4_276_add:
+       byte >00
+level_4_276_delete:
+       byte >02
+       byte >34
+       byte >07
+level_4_277_add:
+       byte >01
+       byte >00, >00, >89              ; >4a00
+level_4_277_delete:
+       byte >00
+level_4_278_add:
+       byte >02
+       byte >07, >00, >c2              ; >4b48
+       byte >0c, >00, >c3              ; >0049
+level_4_278_delete:
+       byte >00
+level_4_279_add:
+       byte >00
+level_4_279_delete:
+       byte >00
+level_4_280_add:
+       byte >00
+level_4_280_delete:
+       byte >00
+level_4_281_add:
+       byte >00
+level_4_281_delete:
+       byte >00
+level_4_282_add:
+       byte >00
+level_4_282_delete:
+       byte >00
+level_4_283_add:
+       byte >00
+level_4_283_delete:
+       byte >00
+level_4_284_add:
+       byte >00
+level_4_284_delete:
+       byte >00
+level_4_285_add:
+       byte >00
+level_4_285_delete:
+       byte >00
+level_4_286_add:
+       byte >00
+level_4_286_delete:
+       byte >00
+level_4_287_add:
+       byte >00
+level_4_287_delete:
+       byte >00
+level_4_288_add:
+       byte >00
+level_4_288_delete:
+       byte >00
+level_4_289_add:
+       byte >00
+level_4_289_delete:
+       byte >00
+level_4_290_add:
+       byte >00
+level_4_290_delete:
+       byte >00
+level_4_291_add:
+       byte >00
+level_4_291_delete:
+       byte >00
+level_4_292_add:
+       byte >00
+level_4_292_delete:
+       byte >00
+level_4_293_add:
+       byte >00
+level_4_293_delete:
+       byte >00
+level_4_294_add:
+       byte >00
+level_4_294_delete:
+       byte >00
+level_4_295_add:
+       byte >00
+level_4_295_delete:
+       byte >03
+       byte >03
+       byte >04
+       byte >05
+level_4_296_add:
+       byte >01
+       byte >03, >00, >c0              ; >4a49
+level_4_296_delete:
+       byte >04
+       byte >06
+       byte >0b
+       byte >0e
+       byte >0f
+level_4_297_add:
+       byte >00
+level_4_297_delete:
+       byte >04
+       byte >10
+       byte >11
+       byte >12
+       byte >14
+level_4_298_add:
+       byte >00
+level_4_298_delete:
+       byte >04
+       byte >16
+       byte >17
+       byte >18
+       byte >19
+level_4_299_add:
+       byte >00
+level_4_299_delete:
+       byte >03
+       byte >1a
+       byte >1b
+       byte >1c
+level_4_300_add:
+       byte >00
+level_4_300_delete:
+       byte >00
+level_4_301_add:
+       byte >00
+level_4_301_delete:
+       byte >00
+level_4_302_add:
+       byte >00
+level_4_302_delete:
+       byte >00
+level_4_303_add:
+       byte >00
+level_4_303_delete:
+       byte >00
+level_4_304_add:
+       byte >00
+level_4_304_delete:
+       byte >00
+level_4_305_add:
+       byte >00
+level_4_305_delete:
+       byte >00
+level_4_306_add:
+       byte >00
+level_4_306_delete:
+       byte >00
+level_4_307_add:
+       byte >00
+level_4_307_delete:
+       byte >00
+level_4_308_add:
+       byte >00
+level_4_308_delete:
+       byte >00
+level_4_309_add:
+       byte >00
+level_4_309_delete:
+       byte >00
+level_4_310_add:
+       byte >03
+       byte >04, >01, >1d              ; >212d
+       byte >05, >01, >1e              ; >292d
+       byte >06, >01, >1f              ; >282d
+level_4_310_delete:
+       byte >00
+level_4_311_add:
+       byte >04
+       byte >10, >01, >23              ; >1d28
+       byte >0b, >01, >20              ; >2221
+       byte >0e, >01, >21              ; >2029
+       byte >0f, >01, >22              ; >0129
+level_4_311_delete:
+       byte >00
+level_4_312_add:
+       byte >07
+       byte >11, >01, >24              ; >0421
+       byte >12, >01, >25              ; >0429
+       byte >14, >01, >26              ; >0428
+       byte >16, >01, >27              ; >0422
+       byte >17, >01, >28              ; >0420
+       byte >18, >00, >16              ; >0401
+       byte >19, >01, >29              ; >041d
+level_4_312_delete:
+       byte >00
+level_4_313_add:
+       byte >02
+       byte >1a, >00, >11              ; >0204
+       byte >1b, >00, >12              ; >0304
+level_4_313_delete:
+       byte >00
+level_4_314_add:
+       byte >0b
+       byte >20, >01, >2b              ; >5402
+       byte >21, >01, >2c              ; >5503
+       byte >22, >00, >de              ; >0002
+       byte >23, >00, >db              ; >0003
+       byte >24, >01, >2d              ; >6202
+       byte >29, >01, >2e              ; >6303
+       byte >2a, >01, >2f              ; >661d
+       byte >1c, >00, >1b              ; >0102
+       byte >1d, >00, >1c              ; >0103
+       byte >1e, >01, >2a              ; >0402
+       byte >1f, >00, >25              ; >0403
+level_4_314_delete:
+       byte >00
+level_4_315_add:
+       byte >07
+       byte >30, >00, >5c              ; >8866
+       byte >31, >00, >5d              ; >6601
+       byte >2b, >00, >13              ; >0101
+       byte >2c, >00, >3a              ; >0054
+       byte >2d, >00, >3b              ; >0055
+       byte >2e, >00, >31              ; >6062
+       byte >2f, >00, >32              ; >6163
+level_4_315_delete:
+       byte >00
+level_4_316_add:
+       byte >0e
+       byte >32, >00, >52              ; >5801
+       byte >33, >00, >53              ; >5901
+       byte >34, >00, >54              ; >8702
+       byte >35, >00, >55              ; >8703
+       byte >36, >00, >2a              ; >8400
+       byte >37, >00, >2b              ; >8500
+       byte >38, >00, >56              ; >8600
+       byte >39, >00, >57              ; >8701
+       byte >3a, >00, >37              ; >6c01
+       byte >3b, >00, >38              ; >6f01
+       byte >3c, >00, >58              ; >8760
+       byte >3d, >00, >59              ; >8761
+       byte >3e, >00, >5a              ; >8788
+       byte >3f, >00, >5b              ; >8766
+level_4_316_delete:
+       byte >00
+level_4_317_add:
+       byte >08
+       byte >40, >00, >48              ; >5858
+       byte >42, >00, >49              ; >5959
+       byte >43, >00, >4a              ; >8787
+       byte >44, >00, >27              ; >0084
+       byte >45, >00, >28              ; >0085
+       byte >46, >00, >51              ; >8686
+       byte >47, >00, >33              ; >c26c
+       byte >48, >00, >34              ; >6b6f
+level_4_317_delete:
+       byte >00
+level_4_318_add:
+       byte >08
+       byte >50, >00, >50              ; >6f87
+       byte >49, >00, >3e              ; >5400
+       byte >4a, >00, >3f              ; >5500
+       byte >4b, >00, >4b              ; >0086
+       byte >4c, >00, >4c              ; >0187
+       byte >4d, >00, >4d              ; >04c2
+       byte >4e, >00, >4e              ; >046b
+       byte >4f, >00, >4f              ; >6c87
+level_4_318_delete:
+       byte >00
+level_4_319_add:
+       byte >00
+level_4_319_delete:
+       byte >00
+level_4_320_add:
+       byte >07
+       byte >51, >00, >43              ; >0158
+       byte >52, >00, >44              ; >0159
+       byte >53, >00, >45              ; >2b87
+       byte >54, >00, >46              ; >0487
+       byte >55, >00, >2f              ; >01c2
+       byte >56, >00, >30              ; >016b
+       byte >57, >00, >47              ; >2b01
+level_4_320_delete:
+       byte >00
+level_4_321_add:
+       byte >04
+       byte >58, >00, >14              ; >012b
+       byte >59, >00, >15              ; >0104
+       byte >5a, >00, >41              ; >0001
+       byte >5b, >00, >42              ; >002b
+level_4_321_delete:
+       byte >00
+level_4_322_add:
+       byte >04
+       byte >03, >00, >0f              ; >6201
+       byte >5c, >00, >10              ; >6301
+       byte >5d, >00, >40              ; >1c01
+       byte >5e, >00, >02              ; >1c00
+level_4_322_delete:
+       byte >00
+level_4_323_add:
+       byte >01
+       byte >5f, >00, >29              ; >1c1c
+level_4_323_delete:
+       byte >00
+level_4_324_add:
+       byte >03
+       byte >60, >00, >3d              ; >8c61
+       byte >61, >00, >26              ; >101c
+       byte >07, >00, >3c              ; >8c60
+level_4_324_delete:
+       byte >00
+level_4_325_add:
+       byte >02
+       byte >62, >00, >39              ; >8c8c
+       byte >63, >00, >22              ; >1010
+level_4_325_delete:
+       byte >00
+level_4_326_add:
+       byte >03
+       byte >64, >00, >35              ; >628c
+       byte >65, >00, >36              ; >638c
+       byte >66, >00, >2c              ; >1c10
+level_4_326_delete:
+       byte >00
+level_4_327_add:
+       byte >00
+level_4_327_delete:
+       byte >00
+level_4_328_add:
+       byte >02
+       byte >67, >00, >2d              ; >2b60
+       byte >68, >00, >2e              ; >0461
+level_4_328_delete:
+       byte >00
+level_4_329_add:
+       byte >00
+level_4_329_delete:
+       byte >01
+       byte >28
+level_4_330_add:
+       byte >00
+level_4_330_delete:
+       byte >03
+       byte >01
+       byte >08
+       byte >0c
+level_4_331_add:
+       byte >00
+level_4_331_delete:
+       byte >03
+       byte >00
+       byte >02
+       byte >13
+level_4_332_add:
+       byte >01
+       byte >00, >00, >24              ; >2b02
+level_4_332_delete:
+       byte >02
+       byte >15
+       byte >0d
+level_4_333_add:
+       byte >03
+       byte >01, >00, >20              ; >5600
+       byte >02, >00, >21              ; >5700
+       byte >08, >00, >23              ; >0100
+level_4_333_delete:
+       byte >02
+       byte >09
+       byte >0a
+level_4_334_add:
+       byte >07
+       byte >13, >00, >1d              ; >2b10
+       byte >15, >00, >1e              ; >0410
+       byte >25, >00, >1f              ; >0110
+       byte >09, >00, >17              ; >2b56
+       byte >0a, >00, >18              ; >0457
+       byte >0c, >00, >19              ; >0156
+       byte >0d, >00, >1a              ; >0157
+level_4_334_delete:
+       byte >01
+       byte >26
+level_4_335_add:
+       byte >00
+level_4_335_delete:
+       byte >03
+       byte >04
+       byte >0b
+       byte >0e
+level_4_336_add:
+       byte >05
+       byte >11, >01, >34              ; >5701
+       byte >04, >01, >30              ; >1502
+       byte >06, >01, >31              ; >1503
+       byte >0b, >01, >32              ; >1501
+       byte >0e, >01, >33              ; >5601
+level_4_336_delete:
+       byte >06
+       byte >12
+       byte >14
+       byte >16
+       byte >17
+       byte >27
+       byte >19
+level_4_337_add:
+       byte >03
+       byte >10, >00, >76              ; >5656
+       byte >12, >00, >77              ; >5757
+       byte >05, >01, >35              ; >1515
+level_4_337_delete:
+       byte >00
+level_4_338_add:
+       byte >02
+       byte >14, >01, >37              ; >5966
+       byte >0f, >01, >36              ; >5888
+level_4_338_delete:
+       byte >08
+       byte >20
+       byte >21
+       byte >22
+       byte >23
+       byte >24
+       byte >29
+       byte >2a
+       byte >1e
+level_4_339_add:
+       byte >02
+       byte >16, >00, >7b              ; >5856
+       byte >17, >00, >7c              ; >5957
+level_4_339_delete:
+       byte >00
+level_4_340_add:
+       byte >0b
+       byte >20, >01, >3a              ; >5415
+       byte >21, >01, >3b              ; >5515
+       byte >22, >01, >3c              ; >0058
+       byte >23, >01, >3d              ; >0059
+       byte >24, >01, >3e              ; >5458
+       byte >26, >01, >3f              ; >5559
+       byte >27, >01, >40              ; >6215
+       byte >28, >01, >41              ; >6315
+       byte >19, >01, >38              ; >0115
+       byte >29, >01, >42              ; >6658
+       byte >1e, >01, >39              ; >0415
+level_4_340_delete:
+       byte >0a
+       byte >32
+       byte >33
+       byte >34
+       byte >35
+       byte >38
+       byte >39
+       byte >3c
+       byte >3d
+       byte >3e
+       byte >3f

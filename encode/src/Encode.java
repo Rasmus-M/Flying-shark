@@ -72,7 +72,7 @@ public class Encode implements Runnable {
                     }
                 }
                 StringBuilder rom_out = new StringBuilder();
-                StringBuilder ram_out = new StringBuilder();
+                StringBuilder diff_out = new StringBuilder();
                 int[][] tMap = new int[height][width];
                 List<Integer> tChars = new ArrayList<>();
                 Integer[] runningTChars = new Integer[128];
@@ -152,21 +152,21 @@ public class Encode implements Runnable {
                     maxSize = Math.max(maxSize, used.size());
 
                     if (VERBOSE) System.out.print("Add: ");
-                    ram_out.append("level_" + level + "_" + to3Digits(screen) + "_add:\n");
-                    ram_out.append("       byte " + hexByte(added.size()) + "\n");
+                    diff_out.append("level_" + level + "_" + to3Digits(screen) + "_add:\n");
+                    diff_out.append("       byte " + hexByte(added.size()) + "\n");
                     for (Integer i : added.keySet()) {
                         int globalIndex = added.get(i);
                         if (VERBOSE) System.out.print(hexByte(i) + ":" + hexWord(globalIndex) + " ");
-                        ram_out.append("       byte " + hexByte(i) + ", " + hexByte(globalIndex >> 8) + ", " + hexByte(globalIndex & 0xff) + "              ; " + hexWord(tChars.get(globalIndex)) + "\n");
+                        diff_out.append("       byte " + hexByte(i) + ", " + hexByte(globalIndex >> 8) + ", " + hexByte(globalIndex & 0xff) + "              ; " + hexWord(tChars.get(globalIndex)) + "\n");
                     }
                     if (VERBOSE) System.out.println();
 
                     if (VERBOSE) System.out.print("Delete: ");
-                    ram_out.append("level_" + level + "_" + to3Digits(screen) + "_delete:\n");
-                    ram_out.append("       byte " + hexByte(deleted.size()) + "\n");
+                    diff_out.append("level_" + level + "_" + to3Digits(screen) + "_delete:\n");
+                    diff_out.append("       byte " + hexByte(deleted.size()) + "\n");
                     for (Integer i : deleted) {
                         if (VERBOSE) System.out.print(hexByte(i) + " ");
-                        ram_out.append("       byte " + hexByte(i) + "\n");
+                        diff_out.append("       byte " + hexByte(i) + "\n");
                     }
                     if (VERBOSE) System.out.println();
 
@@ -272,20 +272,21 @@ public class Encode implements Runnable {
                         rom_out.append(hexByte(row[x] + 0x80)).append(x < row.length - 1 ? "," : "\n");
                     }
                 }
+                rom_out.append("       aorg >6000,10\n");
+                rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
+                rom_out.append("*******************************************\n");
+                rom_out.append("level_" + level + "_max:\n");
+                rom_out.append("       byte " + hexByte(maxIndex + 1) + "\n");
+                rom_out.append(diff_out);
+
                 if (VERBOSE) System.out.println();
                 System.out.println("Max size: " + maxSize);
                 System.out.println("Max index: " + maxIndex);
                 System.out.println();
 
-                ram_out.insert(0, "       byte " + hexByte(maxIndex + 1) + "\n");
-                ram_out.insert(0, "level_" + level + "_max:\n");
-
                 // Write output
                 FileWriter writer = new FileWriter("../source/level" + level + "-rom.a99");
                 writer.write(rom_out.toString());
-                writer.close();
-                writer = new FileWriter("../source/level" + level + "-diff.a99");
-                writer.write(ram_out.toString());
                 writer.close();
             } else {
                 throw new Exception("Error: " + len + " bytes found. Expected " + (width * height) + " bytes.");

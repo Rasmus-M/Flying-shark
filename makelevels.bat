@@ -13,6 +13,7 @@ tools\pad.exe build/level1-rom_6000_b6 build/level1_b6.bin 8192
 tools\pad.exe build/level1-rom_6000_b7 build/level1_b7.bin 8192
 tools\pad.exe build/level1-rom_6000_b8 build/level1_b8.bin 8192
 tools\pad.exe build/level1-rom_6000_b9 build/level1_b9.bin 8192
+tools\pad.exe build/level1-rom_6000_b10 build/level1_b10.bin 8192
 
 tools\pad.exe build/level2-rom_6000_b0 build/level2_b0.bin 8192
 tools\pad.exe build/level2-rom_6000_b1 build/level2_b1.bin 8192
@@ -24,6 +25,7 @@ tools\pad.exe build/level2-rom_6000_b6 build/level2_b6.bin 8192
 tools\pad.exe build/level2-rom_6000_b7 build/level2_b7.bin 8192
 tools\pad.exe build/level2-rom_6000_b8 build/level2_b8.bin 8192
 tools\pad.exe build/level2-rom_6000_b9 build/level2_b9.bin 8192
+tools\pad.exe build/level2-rom_6000_b10 build/level2_b10.bin 8192
 
 tools\pad.exe build/level3-rom_6000_b0 build/level3_b0.bin 8192
 tools\pad.exe build/level3-rom_6000_b1 build/level3_b1.bin 8192
@@ -35,6 +37,7 @@ tools\pad.exe build/level3-rom_6000_b6 build/level3_b6.bin 8192
 tools\pad.exe build/level3-rom_6000_b7 build/level3_b7.bin 8192
 tools\pad.exe build/level3-rom_6000_b8 build/level3_b8.bin 8192
 tools\pad.exe build/level3-rom_6000_b9 build/level3_b9.bin 8192
+tools\pad.exe build/level3-rom_6000_b10 build/level3_b10.bin 8192
 
 tools\pad.exe build/level4-rom_6000_b0 build/level4_b0.bin 8192
 tools\pad.exe build/level4-rom_6000_b1 build/level4_b1.bin 8192
@@ -46,3 +49,4 @@ tools\pad.exe build/level4-rom_6000_b6 build/level4_b6.bin 8192
 tools\pad.exe build/level4-rom_6000_b7 build/level4_b7.bin 8192
 tools\pad.exe build/level4-rom_6000_b8 build/level4_b8.bin 8192
 tools\pad.exe build/level4-rom_6000_b9 build/level4_b9.bin 8192
+tools\pad.exe build/level4-rom_6000_b10 build/level4_b10.bin 8192
