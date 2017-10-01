@@ -37,6 +37,8 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 *
 start_level:
        equ  0
+delay:
+       equ  4
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -273,14 +275,15 @@ main_loop:
        bl   @update_characters
        bl   @update_name_table
 *      Delay
-       li   r2,3
+       li   r2,delay
        s    @frame_count,r2
        jlt  !
        jeq  !
-delay: bl   @vsync
+main_delay:
+       bl   @vsync
        bl   @interrupt_routine
        dec  r2
-       jne  delay
+       jne  main_delay
 *      Change scroll position
 !      mov  @scrly,@scrly_current
        dec  @scrly
@@ -1914,27 +1917,27 @@ gmode_1:
        li   r2,>800
        bl   @vdpwr
        li   r0,8*112+ptrntb
-       li   r1,PAT112
+       li   r1,PAT112T
        li   r2,16*8
        bl   @vdpcp
        li   r0,8*112+ptrntb+>800
-       li   r1,PAT112
+       li   r1,PAT112M
        li   r2,16*8
        bl   @vdpcp
        li   r0,8*112+ptrntb+>1000
-       li   r1,PAT112
+       li   r1,PAT112B
        li   r2,16*8
        bl   @vdpcp
        li   r0,8*240+ptrntb
-       li   r1,PAT240
+       li   r1,PAT240T
        li   r2,16*8
        bl   @vdpcp
        li   r0,8*240+ptrntb+>800
-       li   r1,PAT240
+       li   r1,PAT240M
        li   r2,16*8
        bl   @vdpcp
        li   r0,8*240+ptrntb+>1000
-       li   r1,PAT240
+       li   r1,PAT240B
        li   r2,16*8
        bl   @vdpcp
 *      Colors
