@@ -36,9 +36,11 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 * Constants
 *
 start_level:
-       equ  1
-delay:
-       equ  3
+       equ  0
+action_speed:
+       equ >00a0
+scroll_interval:
+       equ  4
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -213,8 +215,12 @@ scrly:
        equ  level+2
 scrly_current:
        equ  scrly+2
-map_height:
+take_off_end:
        equ  scrly_current+2
+landing_start:
+       equ  take_off_end+2
+map_height:
+       equ  landing_start+2
 diff_ptr:
        equ  map_height+2
 max_chars:
@@ -229,14 +235,14 @@ cart_diff_bank:
        equ  cart_map_high_bank+2
 frame_count:
        equ  cart_diff_bank+2
-vdp_status:
+action_count:
        equ  frame_count+2
+vdp_status:
+       equ  action_count+2
 player_fire:
        equ  vdp_status+2
-player_z:
-       equ  player_fire+2
 sprite_pos_ptr:
-       equ  player_z+2
+       equ  player_fire+2
 sprite_table_flag:
        equ  sprite_pos_ptr+2
 angle:
@@ -267,6 +273,7 @@ main:
 next_level:
        bl   @init_level                ; Initialize level
        bl   @draw_initial_screen
+       clr  @action_count
 main_loop:
        clr  @frame_count
        bl   @game_frame_actions
@@ -279,7 +286,7 @@ main_loop:
        bl   @update_characters
        bl   @update_name_table
 *      Delay
-       li   r2,delay
+       li   r2,scroll_interval
        s    @frame_count,r2
        jlt  !
        jeq  !
@@ -326,19 +333,24 @@ interrupt_routine_end:
 * Game frame actions
 *
 game_frame_actions:
+
        mov  r11,*r10+
-       mov  @frame_count,r0
-       andi r0,1
-       jne  game_frame_actions_1
+       mov  @action_count,r0
+       ci   r0,>0100
+       jlt  game_frame_actions_1
 *      Every 2nd frame
        bl   @user_input
        bl   @fire
        bl   @add_sprites
        bl   @update_sprites
        bl   @sprite_collisions
+       li   r0,>0100
+       s    r0,@action_count
 *      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
+       li   r0,action_speed
+       a    r0,@action_count
        inc  @frame_count
 *      Return
        dect r10
@@ -743,11 +755,32 @@ update_player_sprite_7:
        a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
 *      Update z position
 update_player_sprite_6:
-       mov  @player_z,r0
+       c    @scrly,@take_off_end
+       jlt  update_player_sprite_8
+*      Take off
+       mov  @scrly,r0
+       s    @take_off_end,r0
+       srl  r0,2
+       neg  r0
+       sla  r0,8
+       ai   r0,>1000
        mov  @sprite_hw_3(r3),r4
-       mov  r0,@hw_sprite_dx(r4)
        mov  r0,@hw_sprite_dy(r4)
+       ai   r0,->0100
+       mov  r0,@hw_sprite_dx(r4)
+       jmp  update_player_sprite_9
+update_player_sprite_8:
+       c    @scrly,@landing_start
+       jgt  update_player_sprite_9
+       mov  @scrly,r0
+       srl  r0,2
+       sla  r0,8
+       mov  @sprite_hw_3(r3),r4
+       mov  r0,@hw_sprite_dy(r4)
+       ai   r0,->0100
+       mov  r0,@hw_sprite_dx(r4)
 *      Update patterns
+update_player_sprite_9:
        mov  @sprite_hw_1(r3),r4
        mov  r1,@hw_sprite_pattern(r4)
        mov  @sprite_hw_3(r3),r4
@@ -1789,6 +1822,10 @@ init_level:
        sla  r0,3
        mov  r0,@scrly
        mov  r0,@scrly_current
+       ai   r0,-64
+       mov  r0,@take_off_end
+       li   r0,64
+       mov  r0,@landing_start
        mov  @sprite_pos_lists(r1),@sprite_pos_ptr
 *      Cartridge addresses
        li   r0,22
@@ -1861,9 +1898,8 @@ init:
        mov  @sprite_hw_3(r1),r2
        mov  r0,@hw_sprite_color(r2)
        li   r0,>0f00
-       mov  r0,@player_z
        mov  r0,@hw_sprite_dx(r2)
-       ai   r0,>0100
+       li   r0,>1000
        mov  r0,@hw_sprite_dy(r2)
 *      Copy code to pad
        li   r0,upload_character_table
