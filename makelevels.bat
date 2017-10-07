@@ -50,3 +50,5 @@ tools\pad.exe build/level4-rom_6000_b7 build/level4_b7.bin 8192
 tools\pad.exe build/level4-rom_6000_b8 build/level4_b8.bin 8192
 tools\pad.exe build/level4-rom_6000_b9 build/level4_b9.bin 8192
 tools\pad.exe build/level4-rom_6000_b10 build/level4_b10.bin 8192
+
+call makecart.bat

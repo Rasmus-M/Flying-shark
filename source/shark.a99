@@ -36,9 +36,9 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 * Constants
 *
 start_level:
-       equ  0
+       equ  1
 delay:
-       equ  4
+       equ  3
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -233,8 +233,10 @@ vdp_status:
        equ  frame_count+2
 player_fire:
        equ  vdp_status+2
-sprite_pos_ptr:
+player_z:
        equ  player_fire+2
+sprite_pos_ptr:
+       equ  player_z+2
 sprite_table_flag:
        equ  sprite_pos_ptr+2
 angle:
@@ -709,38 +711,43 @@ update_player_sprite:
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
 *      Center
-       clr  r1
+       clr  r1                         ; Pattern
        jmp  update_player_sprite_4
 *      Right
 update_player_sprite_1:
-       li   r1,>1000
+       li   r1,>1000                   ; Pattern
        mov  @sprite_x(r3),r0
-       ci   r0,(x_max-16)*256
+       ci   r0,(x_max-16)*256          ; Check x bounds
        jl   update_player_sprite_3
        jmp  update_player_sprite_4
 *      Left
 update_player_sprite_2:
-       li   r1,>0800
+       li   r1,>0800                   ; Pattern
        mov  @sprite_x(r3),r0
-       ci   r0,x_min*256
+       ci   r0,x_min*256               ; Check x bounds
        jh   update_player_sprite_3
        jmp  update_player_sprite_4
 update_player_sprite_3:
-       a    @sprite_vx(r3),@sprite_x(r3)
+       a    @sprite_vx(r3),@sprite_x(r3)    ; Move x
 update_player_sprite_4:
        mov  @sprite_vy(r3),r0
-       jgt  update_player_sprite_5
+       jgt  update_player_sprite_5     ; Check y bounds
        mov  @sprite_y(r3),r0
        jeq  update_player_sprite_6
        jmp  update_player_sprite_7
 update_player_sprite_5:
        mov  @sprite_y(r3),r0
-       ci   r0,>b000
+       ci   r0,>b000                   ; Check y bounds
        jhe  update_player_sprite_6
 update_player_sprite_7:
-       a    @sprite_vy(r3),@sprite_y(r3)
-*      Update patterns
+       a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
+*      Update z position
 update_player_sprite_6:
+       mov  @player_z,r0
+       mov  @sprite_hw_3(r3),r4
+       mov  r0,@hw_sprite_dx(r4)
+       mov  r0,@hw_sprite_dy(r4)
+*      Update patterns
        mov  @sprite_hw_1(r3),r4
        mov  r1,@hw_sprite_pattern(r4)
        mov  @sprite_hw_3(r3),r4
@@ -1845,14 +1852,18 @@ init:
        movb r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
+       mov  @sprite_hw_1(r1),r2
+       clr  @hw_sprite_priority(r2)
        li   r0,>0100
        mov  @sprite_hw_2(r1),r2
        mov  r0,@hw_sprite_color(r2)
+       mov  @one,@hw_sprite_priority(r2)
        mov  @sprite_hw_3(r1),r2
        mov  r0,@hw_sprite_color(r2)
-       li   r0,>0e00
+       li   r0,>0f00
+       mov  r0,@player_z
        mov  r0,@hw_sprite_dx(r2)
-       li   r0,>1000
+       ai   r0,>0100
        mov  r0,@hw_sprite_dy(r2)
 *      Copy code to pad
        li   r0,upload_character_table
