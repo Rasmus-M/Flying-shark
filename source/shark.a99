@@ -40,7 +40,7 @@ start_level:
 action_speed:
        equ >00a0
 scroll_interval:
-       equ  4
+       equ  3
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
