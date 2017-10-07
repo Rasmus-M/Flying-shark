@@ -38,9 +38,11 @@ sprat2 equ  >3780                      ; Sprite attribute table base 2
 start_level:
        equ  0
 action_speed:
-       equ >00a0
+       equ >0080
 scroll_interval:
-       equ  3
+       equ  4
+player_speed:
+       equ  >0200
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -447,27 +449,27 @@ user_input_1:
 *      Left
        tb   1
        jeq  user_input_2
-       li   r0,>fe80
+       li   r0,-player_speed
        mov  r0,@sprite_vx(r1)
        jmp  user_input_3
 user_input_2:
 *      Right
        tb   2
        jeq  user_input_3
-       li   r0,>0180
+       li   r0,player_speed
        mov  r0,@sprite_vx(r1)
 user_input_3:
 *      Down
        tb   3
        jeq  user_input_4
-       li   r0,>0180
+       li   r0,player_speed
        mov  r0,@sprite_vy(r1)
        jmp  user_input_5
 user_input_4:
 *      Up
        tb   4
        jeq  user_input_5
-       li   r0,>fe80
+       li   r0,-player_speed
        mov  r0,@sprite_vy(r1)
 user_input_5:
        b    *r11
