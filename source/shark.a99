@@ -658,6 +658,7 @@ add_bullet_sprite:
        clr  @sprite_vx(r1)
        li   r0,>fc00
        mov  r0,@sprite_vy(r1)
+       clr  @sprite_path(r1)
 *      Return
 add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -827,19 +828,37 @@ update_player_sprite_9:
 *
 update_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Manage path
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       jeq  update_bullet_sprite_3
+       dec  @sprite_count(r3)          ; Count down
+       jgt  update_bullet_sprite_4
+*      Next path segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
+       jlt  update_bullet_sprite_2     ; Negative means end
+       mov  r0,@sprite_count(r3)       ; Save new count
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update with path
+update_bullet_sprite_4:
+       nop
+*      Update without path
+update_bullet_sprite_3:
        mov  @sprite_y(r3),r0
        ci   r0,>f000
        jh   update_bullet_sprite_1
        ci   r0,>c000
        jl   update_bullet_sprite_1
 *      Remove
+update_bullet_sprite_2:
        mov  r3,r1
        bl   @dealloc_sprite
-       jmp  update_bullet_sprite_1
+       jmp  update_bullet_sprite_5
 *      Move
 update_bullet_sprite_1:
        a    @sprite_vy(r3),@sprite_y(r3)
 *      Return
+update_bullet_sprite_5:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -970,7 +989,15 @@ update_enemy_plane_sprite_5:
 update_enemy_plane_sprite_6:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_enemy_plane_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
 *      Patterns
+update_enemy_plane_sprite_3:
        mov  @sprite_hw_1(r3),r5
        mov  @path_pattern(r4),r0
        mov  r0,@hw_sprite_pattern(r5)
