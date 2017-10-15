@@ -67,6 +67,8 @@ n_sprites:                             ; Number of sprites
        equ  16
 n_hw_sprites:                          ; Number of hardware sprites
        equ  32
+chzero:                                ; Character code for zero
+       equ  240
 
 **
 * Structures
@@ -203,7 +205,7 @@ r8lb   equ  wrksp+17
 r9lb   equ  wrksp+19
 wrksp2 equ  >8320
 stack  equ  >8340
-padvar equ  stack+>10
+padvar equ  stack+>20
 *
 * PAD variables
 *
@@ -255,8 +257,12 @@ max_hw_sprite:
        equ  max_sprite+2
 rand_no:
        equ  max_hw_sprite+2
-upload_character_table_pad:
+score_msw:
        equ  rand_no+2
+score_lsw:
+       equ  score_msw+2
+upload_character_table_pad:
+       equ  score_lsw+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -272,9 +278,10 @@ main:
        mov  @rndsd,@rand_no
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
+new_game:
+       bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
-       bl   @draw_initial_screen
        clr  @action_count
 main_loop:
        clr  @frame_count
@@ -1468,7 +1475,7 @@ turret_hit:
 *      Check turret hits left
        mov  @sprite_hits_left(r3),r0
        jeq  turret_hit_1
-       ci   r0,3
+       ci   r0,2
        jne  turret_hit_2
 *      Allocate a new hardware sprite when patially hit
        mov  r2,*r10+                   ; Push r2
@@ -1513,6 +1520,8 @@ enemy_plane_hit:
        mov  r1,@hw_sprite_color(r5)
        mov  r3,r1
        bl   @dealloc_sprite
+       li   r0,100
+       bl   @add_score
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1629,6 +1638,65 @@ upload_sprites_5:
        mov  *r10, r11
        b    *r11
 *// upload_sprites
+
+*********************************************************************
+*
+* Add score
+*
+* r0 contains the score to add
+*
+add_score:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       a    r0,@score_lsw
+       jnc  add_score_1
+       inc  @score_msw
+add_score_1:
+       bl   @display_score
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_score
+
+*********************************************************************
+*
+* Display score
+*
+display_score:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r2,*r10+
+       mov  r3,*r10+
+       mov  @score_msw,r0
+       mov  @score_lsw,r1
+       li   r2,6                       ; Counter
+       li   r3,10                      ; Divisor
+       li   r4,numbuf+5                ; Start backwards
+*      Digit loop
+display_score_1:
+       div  r3,r0                      ; Divide to get digit as remainder in r1
+       ai   r1,chzero                  ; Add char code for zero
+       swpb r1                         ; Swap to high byte
+       movb r1,*r4                     ; Store digit in buffer
+       dec  r4                         ; Next digit in buffer (working backwards)
+       mov  r0,r1
+       clr  r0
+       dec  r2                         ; Count down
+       jne  display_score_1            ; Digit loop
+*      Display to VDP
+       li   r0,10*32+3
+       li   r1,numbuf
+       li   r2,6
+       bl   @display_text
+*      Return
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+numbuf byte chzero, chzero, chzero, chzero, chzero, chzero
+*// display_score
 
 *********************************************************************************
 *
@@ -1897,6 +1965,83 @@ draw_screen_4:
 
 *********************************************************************************
 *
+* One time initializations
+*
+init:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Init variables
+       li   r0,1
+       mov  r0,@one
+       li   r0,8
+       mov  r0,@eight
+*      Copy code to pad
+       li   r0,upload_character_table
+       li   r1,upload_character_table_pad
+       li   r2,upload_character_table_end-upload_character_table
+       bl   @copy_memory
+*      Draw panel
+       li   r0,panel_left*256
+       li   r1,MD0
+       li   r2,12
+       li   r3,24
+       li   r4,0
+       bl   @draw_box
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init
+
+*********************************************************************************
+*
+* Initialize game
+*
+init_game:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Init variables
+       li   r0,start_level
+       mov  r0,@level
+       clr  @score_lsw
+       clr  @score_msw
+       clr  @sprite_table_flag
+*      Init sprites
+       li   r0,sprites+(1*sprite_struct_size)
+       li   r2,(n_sprites-1)*sprite_struct_size
+       bl   @clear_memory
+       seto @max_sprite
+       li   r0,hw_sprites+(3*hw_sprite_struct_size)
+       li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
+       bl   @clear_memory
+       seto @max_hw_sprite
+*      Init player sprite
+       li   r0,sprite_def_player
+       bl   @alloc_sprite
+       li   r0,(x_min+((x_max-x_min)/2)-8)*256
+       movb r0,@sprite_x(r1)
+       li   r0,>9f00
+       movb r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       clr  @sprite_vy(r1)
+       mov  @sprite_hw_1(r1),r2
+       clr  @hw_sprite_priority(r2)
+       li   r0,>0100
+       mov  @sprite_hw_2(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       mov  @one,@hw_sprite_priority(r2)
+       mov  @sprite_hw_3(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>0f00
+       mov  r0,@hw_sprite_dx(r2)
+       li   r0,>1000
+       mov  r0,@hw_sprite_dy(r2)
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init_game
+
+*********************************************************************************
+*
 * Initialize level
 *
 init_level:
@@ -1939,73 +2084,15 @@ init_level_1:
        seto *r0+
        dec  r2
        jne  init_level_1
+*      Draw initial screen
+       bl   @draw_initial_screen
+       clr  r0
+       bl   @add_score
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// init_scrbuf
-
-*********************************************************************************
-*
-* One time initializations
-*
-init:
-       mov  r11,*r10+                  ; Push return address onto the stack
-*      Init variables
-       li   r0,1
-       mov  r0,@one
-       li   r0,8
-       mov  r0,@eight
-       li   r0,start_level
-       mov  r0,@level
-       clr  @sprite_table_flag
-*      Init sprites
-       li   r0,sprites+(1*sprite_struct_size)
-       li   r2,(n_sprites-1)*sprite_struct_size
-       bl   @clear_memory
-       seto @max_sprite
-       li   r0,hw_sprites+(3*hw_sprite_struct_size)
-       li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
-       bl   @clear_memory
-       seto @max_hw_sprite
-*      Init player sprite
-       li   r0,sprite_def_player
-       bl   @alloc_sprite
-       li   r0,(x_min+((x_max-x_min)/2)-8)*256
-       movb r0,@sprite_x(r1)
-       li   r0,>9f00
-       movb r0,@sprite_y(r1)
-       clr  @sprite_vx(r1)
-       clr  @sprite_vy(r1)
-       mov  @sprite_hw_1(r1),r2
-       clr  @hw_sprite_priority(r2)
-       li   r0,>0100
-       mov  @sprite_hw_2(r1),r2
-       mov  r0,@hw_sprite_color(r2)
-       mov  @one,@hw_sprite_priority(r2)
-       mov  @sprite_hw_3(r1),r2
-       mov  r0,@hw_sprite_color(r2)
-       li   r0,>0f00
-       mov  r0,@hw_sprite_dx(r2)
-       li   r0,>1000
-       mov  r0,@hw_sprite_dy(r2)
-*      Copy code to pad
-       li   r0,upload_character_table
-       li   r1,upload_character_table_pad
-       li   r2,upload_character_table_end-upload_character_table
-       bl   @copy_memory
-*      Draw panel
-       li   r0,panel_left*256
-       li   r1,MD0
-       li   r2,12
-       li   r3,24
-       li   r4,0
-       bl   @draw_box
-*      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
-       b    *r11
-*// init
+*// init_level
 
 *********************************************************************
 *
@@ -2174,6 +2261,57 @@ draw_box_3:
        mov  *r10, r11
        b    *r11
 *// draw_box
+
+*********************************************************************
+*
+* Display text to all name table buffers
+*
+* r0: Screen offset (characters) of upper left corner
+* r1: Source address
+* r2: Length
+*
+* Modifies R0-R5
+*
+display_text:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r15,vdpwd
+       ai   r0,namet1
+       mov  r1,r13
+       mov  r2,r14
+       bl   @vwad
+*      1st
+!      movb *r1+,*r15
+       dec  r2
+       jne  -!
+       ai   r0,>400
+       bl   @vwad
+       mov  r13,r1
+       mov  r14,r2
+*      2nd
+!      movb *r1+,*r15
+       dec  r2
+       jne  -!
+       ai   r0,>400
+       bl   @vwad
+       mov  r13,r1
+       mov  r14,r2
+*      3rd
+!      movb *r1+,*r15
+       dec  r2
+       jne  -!
+       ai   r0,>400
+       bl   @vwad
+       mov  r13,r1
+       mov  r14,r2
+*      4th
+!      movb *r1+,*r15
+       dec  r2
+       jne  -!
+*      Return
+       dect r10                        * Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// display_text
 
 *********************************************************************
 *
