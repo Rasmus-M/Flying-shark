@@ -67,8 +67,6 @@ n_sprites:                             ; Number of sprites
        equ  16
 n_hw_sprites:                          ; Number of hardware sprites
        equ  32
-default_hits_left:
-       equ  2
 
 **
 * Structures
@@ -106,8 +104,10 @@ sprite_def_pattern:                    ; Base pattern
        equ  12
 sprite_def_color:                      ; Base color
        equ  14
-sprite_def_struct_size:                ; Structure size
+sprite_def_hits_left:                  ; Base hits left
        equ  16
+sprite_def_struct_size:                ; Structure size
+       equ  18
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -557,8 +557,6 @@ add_sprite_jump_table:
 * r1: pointer to sprite
 *
 add_turret_sprite:
-       li   r0,6
-       mov  r0,@sprite_hits_left(r1)
 *      Return
        b    *r11
 *// add_turret_sprite
@@ -574,7 +572,6 @@ add_enemy_plane_sprite:
        mov  @sprite_hw_2(r1),r2
        li   r0,>0100
        mov  r0,@hw_sprite_color(r2)
-       dec  @sprite_hits_left          ; Only one hit left
        bl   @add_mask_sprite
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -660,7 +657,6 @@ add_bullet_sprite:
 ;      a    @sprite_vy(r2),r0
        mov  r0,@sprite_vy(r1)
        clr  @sprite_path(r1)
-       mov  @one,@sprite_hits_left(r1)
 *      Return
 add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -1211,8 +1207,7 @@ alloc_sprite_2:
        mov  r0,r4
        mov  r4,*r1                     ; Set sprite definition
        clr  @sprite_link(r1)
-       li   r0,default_hits_left
-       mov  r0,@sprite_hits_left(r1)
+       mov  @sprite_def_hits_left(r4),@sprite_hits_left(r1)
        mov  @sprite_def_size(r4),r5
        mov  r1,r6
        ai   r6,sprite_hw_1
@@ -1515,7 +1510,6 @@ enemy_plane_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  r5,r1
        bl   @dealloc_sprite            ; Deallocate bullet
-       mov  @sprite_hits_left(r3),r0
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
@@ -1524,7 +1518,6 @@ enemy_plane_hit:
        clr  *r1
        clr  @sprite_hw_2(r3)
 *      Return
-enemy_plane_hit_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1544,23 +1537,17 @@ tank_hit:
 *      Check tank hits left
        mov  @sprite_hits_left(r3),r0
        jgt  tank_hit_1
-*      Set color of 1st hardware sprite
-       mov  @sprite_hw_1(r3),r1
-       li   r0,>0a00
-       mov  r0,@hw_sprite_color(r1)
-*      Deallocate the 2nd hardware sprite
-       mov  @sprite_hw_2(r3),r1
-       clr  *r1
-       clr  @sprite_hw_2(r3)
-*      Path
-       li   r1,path_explosion
+*      Remove
+       mov  r3,r1
+       bl   @dealloc_sprite
        jmp  tank_hit_2
+*      Stop
 tank_hit_1:
        li   r1,path_stop
-tank_hit_2:
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
 *      Return
+tank_hit_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -2400,6 +2387,7 @@ sprite_def_player:
        data >0003                      ; Size
        data >0000                      ; Pattern
        data >0f00                      ; Color
+       data 3                          ; Hits left
 *      Bullet
 sprite_def_bullet:
        data sprite_type_bullet         ; Type
@@ -2410,6 +2398,7 @@ sprite_def_bullet:
        data >0001                      ; Size
        data >d000                      ; Pattern
        data >0f00                      ; Color
+       data 1                          ; Hits left
 *      Gun turret
 sprite_def_turret:
        data sprite_type_turret         ; Type
@@ -2420,6 +2409,7 @@ sprite_def_turret:
        data >0001                      ; Size
        data >6000                      ; Pattern
        data >0e00                      ; Color
+       data 6                          ; Hits left
 *      Enemy bullet
 sprite_def_enemy_bullet:
        data sprite_type_enemy_bullet   ; Type
@@ -2430,6 +2420,7 @@ sprite_def_enemy_bullet:
        data >0001                      ; Size
        data >d000                      ; Pattern
        data >0f00                      ; Color
+       data 1                          ; Hits left
 *      Enemy plane
 sprite_def_enemy_plane:
        data sprite_type_enemy_plane    ; Type
@@ -2440,6 +2431,7 @@ sprite_def_enemy_plane:
        data >0002                      ; Size
        data >2000                      ; Pattern
        data >0800                      ; Color
+       data 1                          ; Hits left
 *      Tank
 sprite_def_tank:
        data sprite_type_tank           ; Type
@@ -2450,6 +2442,7 @@ sprite_def_tank:
        data >0002                      ; Size
        data >1c00                      ; Pattern
        data >0100                      ; Color
+       data 2                          ; Hits left
 *      Mask
 sprite_def_mask:
        data sprite_type_mask           ; Type
@@ -2460,6 +2453,7 @@ sprite_def_mask:
        data >0001                      ; Size
        data >fc00                      ; Pattern
        data >0100                      ; Color
+       data 0                          ; Hits left
 *      Sprites
 sprites:
        bss n_sprites*sprite_struct_size
