@@ -1508,15 +1508,11 @@ turret_hit_2:
 *
 enemy_plane_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  r5,r1
-       bl   @dealloc_sprite            ; Deallocate bullet
-       li   r1,path_explosion
-       mov  r1,@sprite_path(r3)               ; Init path pointer
-       mov  @path_count(r1),@sprite_count(r3) ; Init counter
-*      Deallocate the 2nd hardware sprite
-       mov  @sprite_hw_2(r3),r1
-       clr  *r1
-       clr  @sprite_hw_2(r3)
+       bl   @explode_bullet
+       li   r1,>0800
+       mov  r1,@hw_sprite_color(r5)
+       mov  r3,r1
+       bl   @dealloc_sprite
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1563,6 +1559,8 @@ explode_bullet:
        li   r1,path_explosion
        mov  r1,@sprite_path(r5)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
+       mov  @sprite_x(r3),@sprite_x(r5)
+       mov  @sprite_y(r3),@sprite_y(r5)
        mov  @scrly,@sprite_scroll_y(r5)
        clr  @sprite_hits_left(r5)
        mov  @sprite_hw_1(r5),r5
