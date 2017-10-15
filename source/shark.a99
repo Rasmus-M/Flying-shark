@@ -656,9 +656,11 @@ add_bullet_sprite:
        ai   r0,>f000
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
-       li   r0,>fc00
+       li   r0,>fa00
+;      a    @sprite_vy(r2),r0
        mov  r0,@sprite_vy(r1)
        clr  @sprite_path(r1)
+       mov  @one,@sprite_hits_left(r1)
 *      Return
 add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -692,10 +694,10 @@ add_enemy_bullet_sprite:
        mov  @angle,r2
        sla  r2,2
        mov  @unit_vectors(r2),r0
-       sla  r0,1
+       sla  r0,2
        mov  r0,@sprite_vx(r1)
        mov  @unit_vectors+2(r2),r0
-       sla  r0,1
+       sla  r0,2
        mov  r0,@sprite_vy(r1)
        mov  @scrly,@sprite_scroll_y(r1)
 add_enemy_bullet_1:
@@ -841,7 +843,20 @@ update_bullet_sprite:
        mov  r4,@sprite_path(r3)        ; Save updated path pointer
 *      Update with path
 update_bullet_sprite_4:
-       nop
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_bullet_sprite_6
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+*      Pattern
+update_bullet_sprite_6
+       mov  @sprite_hw_1(r3),r5
+       mov  @path_pattern(r4),r0
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_2(r3),r5
+       jmp  update_bullet_sprite_5
 *      Update without path
 update_bullet_sprite_3:
        mov  @sprite_y(r3),r0
@@ -1398,7 +1413,7 @@ enemy_sprite_collisions:
        mov  @sprite_x(r3),r7
        mov  @sprite_y(r3),r8
 enemy_sprite_collisions_1:
-       c    *r5,r6
+       c    *r5,r6                     ; Check for bullet
        jne  enemy_sprite_collisions_2
        mov  @sprite_x(r5),r0
        s    r7,r0
@@ -1411,9 +1426,9 @@ enemy_sprite_collisions_1:
        ci   r1,>0800
        jgt  enemy_sprite_collisions_2
 *      Collision
-       mov  r5,r1
-       bl   @dealloc_sprite            ; Deallocate bullet
-       mov  @sprite_hits_left(r3),r0
+       mov  @sprite_hits_left(r5),r0   ; Check bullet hits left
+       jeq  enemy_sprite_collisions_2
+       mov  @sprite_hits_left(r3),r0   ; Check enemy hits left
        jeq  enemy_sprite_collisions_3
        dec  r0
        mov  r0,@sprite_hits_left(r3)
@@ -1448,15 +1463,19 @@ enemy_hit_jump_table:
 *
 * Turret hit
 * r3 points to turret sprite
+* r5 points to bullet sprite
 * Cannot modify r2-r3
 *
 turret_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check turret hits left
        mov  @sprite_hits_left(r3),r0
        jeq  turret_hit_1
        ci   r0,3
        jne  turret_hit_2
-*      Allocate a new hardware sprite
+*      Allocate a new hardware sprite when patially hit
        mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        mov  r3,r1
@@ -1489,11 +1508,14 @@ turret_hit_2:
 *
 * Enemy plane hit
 * r3 points to enemy plane sprite
+* r5 points to bullet sprite
 * Cannot modify r2-r3
 *
 enemy_plane_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r5,r1
+       bl   @dealloc_sprite            ; Deallocate bullet
        mov  @sprite_hits_left(r3),r0
-       jeq  enemy_plane_hit_1
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
@@ -1503,6 +1525,8 @@ enemy_plane_hit:
        clr  @sprite_hw_2(r3)
 *      Return
 enemy_plane_hit_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// enemy_plane_hit
 
@@ -1510,9 +1534,14 @@ enemy_plane_hit_1:
 *
 * Tank hit
 * r3 points to tank sprite
+* r5 points to bullet sprite
 * Cannot modify r2-r3
 *
 tank_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check tank hits left
        mov  @sprite_hits_left(r3),r0
        jgt  tank_hit_1
 *      Set color of 1st hardware sprite
@@ -1536,6 +1565,25 @@ tank_hit_2:
        mov  *r10, r11
        b    *r11
 *// tank_hit
+
+*********************************************************************************
+*
+* Explode bullet
+*
+* r5 points to bullet sprite
+*
+explode_bullet:
+       li   r1,path_explosion
+       mov  r1,@sprite_path(r5)
+       mov  @path_count(r1),@sprite_count(r5) ; Init counter
+       mov  @scrly,@sprite_scroll_y(r5)
+       clr  @sprite_hits_left(r5)
+       mov  @sprite_hw_1(r5),r5
+       li   r1,>0a00
+       mov  r1,@hw_sprite_color(r5)
+*      Return
+       b    *r11
+*// explode_bullet
 
 *********************************************************************************
 *
