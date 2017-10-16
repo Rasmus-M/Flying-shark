@@ -189,4 +189,13 @@ path_explosion:
        data 4,0,0,>f000,0
        data 4,0,0,>f400,0
        data -1
+path_explosion_long:
+       data 6,0,0,>e000,0
+       data 6,0,0,>e400,0
+       data 6,0,0,>e800,0
+       data 6,0,0,>ec00,0
+       data 6,0,0,>f000,0
+       data 6,0,0,>f400,0
+       data 120,0,0,>0000,0
+       data -1
 

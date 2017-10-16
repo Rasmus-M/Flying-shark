@@ -768,9 +768,17 @@ update_player_sprite:
        mov  r4,@sprite_path(r3)        ; Save updated path pointer
 *      Update with path
 update_player_sprite_10:
-       nop
+       mov  @path_pattern(r4),r0
+       mov  @sprite_hw_1(r3),r5
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_2(r3),r5
+       ai   r0,>0400
+       mov  r0,@hw_sprite_pattern(r5)
+       jmp  update_player_sprite_12
+*      Path complete
 update_player_sprite_11:
-       nop
+       clr  @sprite_path(r3)
+       mov  @one,@sprite_hits_left(r3)
 *      Move
 update_player_sprite_0:
        mov  @sprite_vx(r3),r0
@@ -844,6 +852,7 @@ update_player_sprite_9:
        mov  @sprite_hw_2(r3),r4
        mov  r1,@hw_sprite_pattern(r4)
 *      Return
+update_player_sprite_12:
        b    *r11
 *// update_player_sprite
 
@@ -1414,6 +1423,8 @@ sprite_collisions_jump_table:
 *
 player_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hits_left(r3),r0
+       jeq  player_sprite_collisions_3
        mov  @max_sprite,r4
        jeq  player_sprite_collisions_3
        li   r5,sprites+sprite_struct_size
@@ -1435,21 +1446,15 @@ player_sprite_collisions_1:
        ci   r1,>0800
        jgt  player_sprite_collisions_2
 *      Collision
-;      TODO
        clr  @sprite_hits_left(r3)
-       mov  @sprite_hw_1(r3),r1
-       li   r0,>0a00
-       mov  r0,@hw_sprite_color(r1)
+       li   r1,path_explosion_long
+       mov  r1,@sprite_path(r3)
+       mov  @path_count(r1),@sprite_count(r5) ; Init counter
        jmp  player_sprite_collisions_3
 player_sprite_collisions_2:
        ai   r5,sprite_struct_size
        dec  r4
        jne  player_sprite_collisions_1
-*      No collision
-;      TODO
-       mov  @sprite_hw_1(r3),r1
-       li   r0,>0f00
-       mov  r0,@hw_sprite_color(r1)
 *      Return
 player_sprite_collisions_3:
        dect r10                        ; Pop return address off the stack
