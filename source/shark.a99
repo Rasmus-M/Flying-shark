@@ -108,8 +108,10 @@ sprite_def_color:                      ; Base color
        equ  14
 sprite_def_hits_left:                  ; Base hits left
        equ  16
-sprite_def_struct_size:                ; Structure size
+sprite_def_deadly:                     ; Is sprite deadly?
        equ  18
+sprite_def_struct_size:                ; Structure size
+       equ  20
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -1388,13 +1390,47 @@ sprite_collisions_jump_table:
 *
 * Player sprite collisions
 * Collides with enemies and enemy bullets
-* r3 points to enemy sprite
+* r3 points to player sprite
 * Cannot modify r2-r3
 *
 player_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
-
+       mov  @max_sprite,r4
+       jeq  player_sprite_collisions_3
+       li   r5,sprites+sprite_struct_size
+       mov  @sprite_x(r3),r7
+       mov  @sprite_y(r3),r8
+player_sprite_collisions_1:
+       mov  *r5,r6                     ; Get sprite definition
+       jeq  player_sprite_collisions_2
+       mov  @sprite_def_deadly(r6),r0
+       jeq  player_sprite_collisions_2
+       mov  @sprite_x(r5),r0
+       s    r7,r0
+       abs  r0
+       ci   r0,>0800
+       jgt  player_sprite_collisions_2
+       mov  @sprite_y(r5),r1
+       s    r8,r1
+       abs  r1
+       ci   r1,>0800
+       jgt  player_sprite_collisions_2
+*      Collision
+;      TODO
+       mov  @sprite_hw_1(r3),r1
+       li   r0,>0a00
+       mov  r0,@hw_sprite_color(r1)
+       jmp  player_sprite_collisions_3
+player_sprite_collisions_2:
+       ai   r5,sprite_struct_size
+       dec  r4
+       jne  player_sprite_collisions_1
+;      TODO
+       mov  @sprite_hw_1(r3),r1
+       li   r0,>0f00
+       mov  r0,@hw_sprite_color(r1)
 *      Return
+player_sprite_collisions_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -2539,84 +2575,10 @@ map_heights:
 * Sprite definitions
 *
 sprite_defs:
-       equ  $
-*      Player
-sprite_def_player:
-       data sprite_type_player         ; Type
-       data >000f                      ; Width
-       data >000c                      ; Height
-       data >0000                      ; Left
-       data >0001                      ; Top
-       data >0003                      ; Size
-       data >0000                      ; Pattern
-       data >0f00                      ; Color
-       data 3                          ; Hits left
-*      Bullet
-sprite_def_bullet:
-       data sprite_type_bullet         ; Type
-       data >0004                      ; Width
-       data >0004                      ; Height
-       data >0006                      ; Left
-       data >0009                      ; Top
-       data >0001                      ; Size
-       data >d000                      ; Pattern
-       data >0f00                      ; Color
-       data 1                          ; Hits left
-*      Gun turret
-sprite_def_turret:
-       data sprite_type_turret         ; Type
-       data >000c                      ; Width
-       data >000c                      ; Height
-       data >0001                      ; Left
-       data >0001                      ; Top
-       data >0001                      ; Size
-       data >6000                      ; Pattern
-       data >0e00                      ; Color
-       data 6                          ; Hits left
-*      Enemy bullet
-sprite_def_enemy_bullet:
-       data sprite_type_enemy_bullet   ; Type
-       data >0004                      ; Width
-       data >0004                      ; Height
-       data >0006                      ; Left
-       data >0009                      ; Top
-       data >0001                      ; Size
-       data >d000                      ; Pattern
-       data >0f00                      ; Color
-       data 1                          ; Hits left
-*      Enemy plane
-sprite_def_enemy_plane:
-       data sprite_type_enemy_plane    ; Type
-       data >000e                      ; Width
-       data >000c                      ; Height
-       data >0001                      ; Left
-       data >0002                      ; Top
-       data >0002                      ; Size
-       data >2000                      ; Pattern
-       data >0800                      ; Color
-       data 1                          ; Hits left
-*      Tank
-sprite_def_tank:
-       data sprite_type_tank           ; Type
-       data >000e                      ; Width
-       data >000c                      ; Height
-       data >0001                      ; Left
-       data >0002                      ; Top
-       data >0002                      ; Size
-       data >1c00                      ; Pattern
-       data >0100                      ; Color
-       data 2                          ; Hits left
-*      Mask
-sprite_def_mask:
-       data sprite_type_mask           ; Type
-       data >0010                      ; Width
-       data >0010                      ; Height
-       data >0000                      ; Left
-       data >0000                      ; Top
-       data >0001                      ; Size
-       data >fc00                      ; Pattern
-       data >0100                      ; Color
-       data 0                          ; Hits left
+       copy "sprite-defs.a99"
+**
+* Sprites
+*
 *      Sprites
 sprites:
        bss n_sprites*sprite_struct_size

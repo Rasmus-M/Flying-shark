@@ -1,0 +1,84 @@
+*      Player
+sprite_def_player:
+       data sprite_type_player         ; Type
+       data >000f                      ; Width
+       data >000c                      ; Height
+       data >0000                      ; Left
+       data >0001                      ; Top
+       data >0003                      ; Size
+       data >0000                      ; Pattern
+       data >0f00                      ; Color
+       data 1                          ; Hits left
+       data 0                          ; Deadly?
+*      Bullet
+sprite_def_bullet:
+       data sprite_type_bullet         ; Type
+       data >0004                      ; Width
+       data >0004                      ; Height
+       data >0006                      ; Left
+       data >0009                      ; Top
+       data >0001                      ; Size
+       data >d000                      ; Pattern
+       data >0f00                      ; Color
+       data 1                          ; Hits left
+       data 0                          ; Deadly?
+*      Gun turret
+sprite_def_turret:
+       data sprite_type_turret         ; Type
+       data >000c                      ; Width
+       data >000c                      ; Height
+       data >0001                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size
+       data >6000                      ; Pattern
+       data >0e00                      ; Color
+       data 6                          ; Hits left
+       data 1                          ; Deadly?
+*      Enemy bullet
+sprite_def_enemy_bullet:
+       data sprite_type_enemy_bullet   ; Type
+       data >0004                      ; Width
+       data >0004                      ; Height
+       data >0006                      ; Left
+       data >0009                      ; Top
+       data >0001                      ; Size
+       data >d000                      ; Pattern
+       data >0f00                      ; Color
+       data 1                          ; Hits left
+       data 1                          ; Deadly?
+*      Enemy plane
+sprite_def_enemy_plane:
+       data sprite_type_enemy_plane    ; Type
+       data >000e                      ; Width
+       data >000c                      ; Height
+       data >0001                      ; Left
+       data >0002                      ; Top
+       data >0002                      ; Size
+       data >2000                      ; Pattern
+       data >0800                      ; Color
+       data 1                          ; Hits left
+       data 1                          ; Deadly?
+*      Tank
+sprite_def_tank:
+       data sprite_type_tank           ; Type
+       data >000e                      ; Width
+       data >000c                      ; Height
+       data >0001                      ; Left
+       data >0002                      ; Top
+       data >0002                      ; Size
+       data >1c00                      ; Pattern
+       data >0100                      ; Color
+       data 2                          ; Hits left
+       data 1                          ; Deadly?
+*      Mask
+sprite_def_mask:
+       data sprite_type_mask           ; Type
+       data >0010                      ; Width
+       data >0010                      ; Height
+       data >0000                      ; Left
+       data >0000                      ; Top
+       data >0001                      ; Size
+       data >fc00                      ; Pattern
+       data >0100                      ; Color
+       data 0                          ; Hits left
+       data 0                          ; Deadly?
