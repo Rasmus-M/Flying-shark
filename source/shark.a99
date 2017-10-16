@@ -779,7 +779,8 @@ update_player_sprite_4:
        mov  @sprite_vy(r3),r0
        jgt  update_player_sprite_5     ; Check y bounds
        mov  @sprite_y(r3),r0
-       jeq  update_player_sprite_6
+       ci   r0,>0100
+       jle  update_player_sprite_6
        jmp  update_player_sprite_7
 update_player_sprite_5:
        mov  @sprite_y(r3),r0
@@ -1499,6 +1500,8 @@ turret_hit:
 turret_hit_1:
        mov  r3,r1
        bl   @dealloc_sprite
+       li   r0,175
+       bl   @add_score
 *      Return
 turret_hit_2:
        dect r10                        ; Pop return address off the stack
@@ -1545,6 +1548,8 @@ tank_hit:
 *      Remove
        mov  r3,r1
        bl   @dealloc_sprite
+       li   r0,200
+       bl   @add_score
        jmp  tank_hit_2
 *      Stop
 tank_hit_1:
@@ -1697,6 +1702,27 @@ display_score_1:
        b    *r11
 numbuf byte chzero, chzero, chzero, chzero, chzero, chzero
 *// display_score
+
+*********************************************************************
+*
+* Display level
+*
+display_level:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @level,r0
+       ai   r0,chzero+1
+       mov  r0,@lvlbuf
+*      Display to VDP
+       li   r0,14*32+6
+       li   r1,lvlbuf+1
+       li   r2,1
+       bl   @display_text
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+lvlbuf byte chzero, chzero
+*// display_level
 
 *********************************************************************************
 *
@@ -2087,7 +2113,8 @@ init_level_1:
 *      Draw initial screen
        bl   @draw_initial_screen
        clr  r0
-       bl   @add_score
+       bl   @display_score
+       bl   @display_level
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11

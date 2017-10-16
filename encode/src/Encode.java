@@ -14,11 +14,15 @@ public class Encode implements Runnable {
 
     private static Map<Integer, Integer> animap = new HashMap<>();
     static {
-        animap.put(72, 0);
-        animap.put(73, 1);
-        animap.put(74, 2);
-        animap.put(75, 3);
-        animap.put(44, 4);
+        animap.put(78, 0);
+        animap.put(79, 1);
+        animap.put(72, 2);
+        animap.put(73, 3);
+        animap.put(74, 4);
+        animap.put(75, 5);
+        animap.put(44, 6);
+        animap.put(76, 7);
+        animap.put(77, 8);
     }
 
     private final int level;
