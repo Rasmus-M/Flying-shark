@@ -196,6 +196,5 @@ path_explosion_long:
        data 6,0,0,>ec00,0
        data 6,0,0,>f000,0
        data 6,0,0,>f400,0
-       data 60,0,0,>0000,0
        data -1
 

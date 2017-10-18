@@ -440,8 +440,8 @@ user_input:
        li   r1,sprite_player
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
-       mov  @sprite_hits_left(r1),r0
-       jeq  user_input_5
+       mov  @sprite_path(r1),r0        ; Is player controlled by path?
+       jne  user_input_5
 *      Read joystick #1 using CRU
        li   r12,>0024                  ; CRU address of the column decoder
        li   r0,>0600                   ; Column 6, i.e joystick #1
@@ -778,9 +778,17 @@ update_player_sprite_10:
 *      Path complete
 update_player_sprite_11:
        clr  @sprite_path(r3)
+       li   r0,60
+       mov  r0,@sprite_count(r3)
+*      Check for immunity countdown
+update_player_sprite_0:
+       mov  @sprite_count(r3),r0
+       jeq  update_player_sprite_13
+       dec  @sprite_count(r3)
+       jgt  update_player_sprite_13
        mov  @one,@sprite_hits_left(r3)
 *      Move
-update_player_sprite_0:
+update_player_sprite_13:
        mov  @sprite_vx(r3),r0
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
