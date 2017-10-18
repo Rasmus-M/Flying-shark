@@ -7,80 +7,57 @@ sprite_pos_lists:
        data sprite_pos_list_1,sprite_pos_list_2,sprite_pos_list_3,sprite_pos_list_4
 *
 sprite_pos_list_1:
+*      2 planes from left
        data 2792,0,-16,sprite_def_enemy_plane,path_plane_1
        data 2776,0,-16,sprite_def_enemy_plane,path_plane_2
-
+*      2 planes from right
        data 2736,112,-16,sprite_def_enemy_plane,path_plane_3
        data 2704,112,-16,sprite_def_enemy_plane,path_plane_4
-
+*      2 tanks from left, stopping
        data 2704,-16,32,sprite_def_tank,path_tank_1
        data 2672,-16,48,sprite_def_tank,path_tank_2
-
+*      2 planes from right
        data 2672,96,-16,sprite_def_enemy_plane,path_plane_4
        data 2640,96,-16,sprite_def_enemy_plane,path_plane_4
-
+*      3 planes from left, circle, leave top
        data 2464,-16,32,sprite_def_enemy_plane,path_plane_5
        data 2448,-16,32,sprite_def_enemy_plane,path_plane_5
        data 2432,-16,32,sprite_def_enemy_plane,path_plane_5
-
+*      2 tanks from right, up, leave right
        data 2416,143,0,sprite_def_tank,path_tank_3
        data 2384,143,32,sprite_def_tank,path_tank_3
-
-*       data 2368,-16,32,sprite_def_enemy_plane,path_plane_5
-*       data 2360,-16,32,sprite_def_enemy_plane,path_plane_5
-*       data 2352,-16,32,sprite_def_enemy_plane,path_plane_5
-
-*      Test data
-;       data 2416,0,-16,sprite_def_enemy_plane,path_plane_1
-;       data 2400,0,-16,sprite_def_enemy_plane,path_plane_2
-;       data 2316,140,-16,sprite_def_enemy_plane,path_plane_3
-;       data 2300,140,-16,sprite_def_enemy_plane,path_plane_4
-;
-;       data 2216,0,-16,sprite_def_enemy_plane,path_plane_1
-;       data 2200,0,-16,sprite_def_enemy_plane,path_plane_2
-;       data 2116,140,-16,sprite_def_enemy_plane,path_plane_3
-;       data 2100,140,-16,sprite_def_enemy_plane,path_plane_4
-;
-;       data 2016,0,-16,sprite_def_enemy_plane,path_plane_1
-;       data 2000,0,-16,sprite_def_enemy_plane,path_plane_2
-;       data 1916,140,-16,sprite_def_enemy_plane,path_plane_3
-;       data 1900,140,-16,sprite_def_enemy_plane,path_plane_4
-;
-;       data 1816,0,-16,sprite_def_enemy_plane,path_plane_1
-;       data 1800,0,-16,sprite_def_enemy_plane,path_plane_2
-;       data 1716,140,-16,sprite_def_enemy_plane,path_plane_3
-;       data 1700,140,-16,sprite_def_enemy_plane,path_plane_4
-
-*      Real data
+;      TODO
+*      5 turrets
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
        data 880,96,-16,sprite_def_turret,0
        data 864,80,-16,sprite_def_turret,0
        data 352,96,-16,sprite_def_turret,0
-
+*      End
        data -1
 
 sprite_pos_list_2:
+*      Ship with 4 turrets
        data 2736,16,-16,sprite_def_turret,0
        data 2720,16,-16,sprite_def_turret,0
        data 2656,16,-16,sprite_def_turret,0
        data 2640,16,-16,sprite_def_turret,0
-
+*      Ship with 4 turrets
        data 2480,96,-16,sprite_def_turret,0
        data 2464,96,-16,sprite_def_turret,0
        data 2400,96,-16,sprite_def_turret,0
        data 2384,96,-16,sprite_def_turret,0
-
+*      Ship with 4 turrets
        data 2224,48,-16,sprite_def_turret,0
        data 2208,48,-16,sprite_def_turret,0
        data 2144,48,-16,sprite_def_turret,0
        data 2128,48,-16,sprite_def_turret,0
-
+*      Ship with 4 turrets
        data 1968,96,-16,sprite_def_turret,0
        data 1952,96,-16,sprite_def_turret,0
        data 1888,96,-16,sprite_def_turret,0
        data 1872,96,-16,sprite_def_turret,0
-
+*      Ship with 8 turrets
        data 1616,32,-16,sprite_def_turret,0
        data 1616,96,-16,sprite_def_turret,0
        data 1600,32,-16,sprite_def_turret,0
@@ -89,31 +66,37 @@ sprite_pos_list_2:
        data 1456,32,-16,sprite_def_turret,0
        data 1440,32,-16,sprite_def_turret,0
        data 1424,96,-16,sprite_def_turret,0
-
+*      End
        data -1
+
 sprite_pos_list_3:
+*      Ship with 4 turrets
        data 1760,80,-16,sprite_def_turret,0
        data 1760,96,-16,sprite_def_turret,0
        data 1664,80,-16,sprite_def_turret,0
        data 1664,96,-16,sprite_def_turret,0
+*      Ship with 4 turrets
        data 1456,16,-16,sprite_def_turret,0
        data 1456,32,-16,sprite_def_turret,0
        data 1360,16,-16,sprite_def_turret,0
        data 1360,32,-16,sprite_def_turret,0
+*      Ship with 4 turrets
        data 960,48,-16,sprite_def_turret,0
        data 960,64,-16,sprite_def_turret,0
        data 864,48,-16,sprite_def_turret,0
        data 864,64,-16,sprite_def_turret,0
+*      2 ship with 6 turrets
        data 624,48,-16,sprite_def_turret,0
        data 624,96,-16,sprite_def_turret,0
        data 608,48,-16,sprite_def_turret,0
        data 608,96,-16,sprite_def_turret,0
        data 544,96,-16,sprite_def_turret,0
        data 528,96,-16,sprite_def_turret,0
-
+*      End
        data -1
 
 sprite_pos_list_4:
+*      7 turrets
        data 664,64,-16,sprite_def_turret,0
        data 648,16,-16,sprite_def_turret,0
        data 664,112,-16,sprite_def_turret,0
@@ -121,7 +104,7 @@ sprite_pos_list_4:
        data 560,16,-16,sprite_def_turret,0
        data 560,112,-16,sprite_def_turret,0
        data 544,64,-16,sprite_def_turret,0
-
+*      End
        data -1
 **
 * Paths
