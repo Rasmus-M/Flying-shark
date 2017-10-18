@@ -34,13 +34,15 @@ sprite_pos_list_1:
        data 2416,143,0,sprite_def_tank,path_tank_right_up_out_right
        data 2400,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long
        data 2384,143,32,sprite_def_tank,path_tank_right_up_out_right
+*      3 planes from left, circle, leave top
+       data 2368,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
+       data 2352,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
+       data 2336,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
+*      2320 tank
+       data 2320,80,40,sprite_def_tank,path_tank_down_wait
 
 ;      TODO
 
-*      3 planes from left, circle, leave top
-;       data 2464,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
-;       data 2448,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
-;       data 2432,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
 *      5 turrets
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
@@ -191,12 +193,12 @@ path_plane_dive_right_right_long:
        data -1
 *      3/4 Circle from left to top
 path_plane_circle_left_top:
-       data 60,>0180,>0000,>2800,>0001
-       data 20,>0140,>0140,>2c00,>0001
-       data 20,>0000,>0180,>3000,>0001
-       data 20,->0140,>0140,>3400,>0001
-       data 20,->0180,>0000,>3800,>0001
-       data 20,->0140,->0140,>3c00,>0001
+       data 70,>0180,>0000,>2800,>0001
+       data 18,>0140,>0140,>2c00,>0001
+       data 18,>0000,>0180,>3000,>0001
+       data 18,->0140,>0140,>3400,>0001
+       data 18,->0180,>0000,>3800,>0001
+       data 18,->0140,->0140,>3c00,>0001
        data 180,>0000,->0180,>2000,>0000
        data -1
 *      From left and stopping (short)
@@ -214,6 +216,11 @@ path_tank_right_up_out_right:
        data 64,->0080,>0000,>1c00,>0000
        data 192,>0000,->0080,>1800,>0001
        data 64,>0080,>0000,>1c00,>0000
+       data -1
+*      From right, up, out right
+path_tank_down_wait:
+       data 16,>0000,>0080,>1800,>0001
+       data 200,>0000,>0000,>1800,>0001
        data -1
 *      Tank stopping when hit
 path_tank_stop:
