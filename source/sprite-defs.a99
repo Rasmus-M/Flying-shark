@@ -10,6 +10,7 @@ sprite_def_player:
        data >0f00                      ; Color
        data 1                          ; Hits left
        data 0                          ; Deadly?
+       data 1                          ; Fire rate
 *      Bullet
 sprite_def_bullet:
        data sprite_type_bullet         ; Type
@@ -22,6 +23,7 @@ sprite_def_bullet:
        data >0f00                      ; Color
        data 1                          ; Hits left
        data 0                          ; Deadly?
+       data 0                          ; Fire rate
 *      Gun turret
 sprite_def_turret:
        data sprite_type_turret         ; Type
@@ -34,6 +36,7 @@ sprite_def_turret:
        data >0e00                      ; Color
        data 6                          ; Hits left
        data 1                          ; Deadly?
+       data 16                          ; Fire rate
 *      Enemy bullet
 sprite_def_enemy_bullet:
        data sprite_type_enemy_bullet   ; Type
@@ -46,6 +49,7 @@ sprite_def_enemy_bullet:
        data >0f00                      ; Color
        data 1                          ; Hits left
        data 1                          ; Deadly?
+       data 0                          ; Fire rate
 *      Enemy plane
 sprite_def_enemy_plane:
        data sprite_type_enemy_plane    ; Type
@@ -58,6 +62,7 @@ sprite_def_enemy_plane:
        data >0800                      ; Color
        data 1                          ; Hits left
        data 1                          ; Deadly?
+       data 8                          ; Fire rate
 *      Tank
 sprite_def_tank:
        data sprite_type_tank           ; Type
@@ -69,7 +74,8 @@ sprite_def_tank:
        data >1c00                      ; Pattern
        data >0100                      ; Color
        data 2                          ; Hits left
-       data 1                          ; Deadly?
+       data 0                          ; Deadly?
+       data 12                         ; Fire rate
 *      Mask
 sprite_def_mask:
        data sprite_type_mask           ; Type
@@ -82,3 +88,4 @@ sprite_def_mask:
        data >0100                      ; Color
        data 0                          ; Hits left
        data 0                          ; Deadly?
+       data 0                          ; Fire rate

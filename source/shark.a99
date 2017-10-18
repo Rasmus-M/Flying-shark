@@ -110,8 +110,10 @@ sprite_def_hits_left:                  ; Base hits left
        equ  16
 sprite_def_deadly:                     ; Is sprite deadly?
        equ  18
-sprite_def_struct_size:                ; Structure size
+sprite_def_fire_rate:                  ; How often can the sprite fire?
        equ  20
+sprite_def_struct_size:                ; Structure size
+       equ  22
 
 * Sprite structure
 sprite_def:                            ; Pointer to sprite definition structure
@@ -142,8 +144,10 @@ sprite_path:                           ; Path
        equ  24
 sprite_hits_left:                      ; Hits left before sprite is destroyed
        equ  26
-sprite_struct_size:                    ; Structure size
+sprite_fire_delay:                     ; Count down until sprite can fire next
        equ  28
+sprite_struct_size:                    ; Structure size
+       equ  30
 
 * Sprite position structure
 sprite_pos_scroll_y:
@@ -950,6 +954,9 @@ update_turret_sprite:
 *      Create bullet
        mov  @sprite_link(r3),r0
        jne  update_turret_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_turret_sprite_2
+       mov  @sprite_def_turret+sprite_def_fire_rate,@sprite_fire_delay(r3)
        bl   @add_enemy_bullet_sprite
        jmp  update_turret_sprite_2
 *      Remove
@@ -1066,9 +1073,12 @@ update_enemy_plane_sprite_3:
        jne  update_enemy_plane_sprite_2
        mov  @path_action(r4),r0
        jeq  update_enemy_plane_sprite_2
-       bl   @rand
-       ci   r0,>f000
-       jl   update_enemy_plane_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_enemy_plane_sprite_2
+;       bl   @rand
+;       ci   r0,>f000
+;       jl   update_enemy_plane_sprite_2
+       mov  @sprite_def_enemy_plane+sprite_def_fire_rate,@sprite_fire_delay(r3)
        bl   @get_angle
        bl   @add_enemy_bullet_sprite
        jmp  update_enemy_plane_sprite_2
@@ -1147,6 +1157,9 @@ update_tank_sprite_6:
        jne  update_tank_sprite_2
        mov  @path_action(r4),r0
        jeq  update_tank_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_tank_sprite_2
+       mov  @sprite_def_tank+sprite_def_fire_rate,@sprite_fire_delay(r3)
        bl   @add_enemy_bullet_sprite
        jmp  update_tank_sprite_2
 *      Remove
@@ -1251,9 +1264,10 @@ alloc_sprite_2:
        mov  r2,@alloc_sprite_cnt
        mov  r0,r4
        mov  r4,*r1                     ; Set sprite definition
-       clr  @sprite_link(r1)
        clr  @sprite_path(r1)
+       clr  @sprite_link(r1)
        mov  @sprite_def_hits_left(r4),@sprite_hits_left(r1)
+       mov  @one,@sprite_fire_delay(r1)
        mov  @sprite_def_size(r4),r5
        mov  r1,r6
        ai   r6,sprite_hw_1
@@ -1455,7 +1469,7 @@ player_sprite_collisions_1:
        jgt  player_sprite_collisions_2
 *      Collision
        clr  @sprite_hits_left(r3)
-       li   r1,path_explosion_long
+       li   r1,path_explosion
        mov  r1,@sprite_path(r3)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
        jmp  player_sprite_collisions_3
@@ -1623,7 +1637,7 @@ tank_hit:
        jmp  tank_hit_2
 *      Stop
 tank_hit_1:
-       li   r1,path_stop
+       li   r1,path_tank_stop
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
 *      Return
@@ -2118,6 +2132,7 @@ init_game:
        movb r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
+       clr  @sprite_count(r1)
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)
        li   r0,>0100
