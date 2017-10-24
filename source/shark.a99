@@ -199,39 +199,34 @@ path_struct_size:
 rndsd  equ  >83c0                      ; Random number seed
 pad    equ  >8300
 wrksp  equ  pad                        ; Workspace
-r0lb   equ  wrksp+1                    ; R0 low byte required for VDP routines
+r0lb   equ  wrksp+1                    ; r0 low byte required for VDP routines
 r1lb   equ  wrksp+3
 r2lb   equ  wrksp+5
 r3lb   equ  wrksp+7
-r4lb   equ  wrksp+9
-r5lb   equ  wrksp+11
-r6lb   equ  wrksp+13
-r7lb   equ  wrksp+15
-r8lb   equ  wrksp+17
-r9lb   equ  wrksp+19
-wrksp2 equ  >8320
-stack  equ  >8340
-padvar equ  stack+>20
+wrksp2 equ  pad+>20                    ; Interrupt routine work space
+sndws  equ  wrksp2+>20                 ; Sound player work space
+stack  equ  sndws+>20                  ; Stack (grows up)
+padvar equ  stack+>20                  ; Start of pad variables
 *
 * PAD variables
 *
-one:
+one:                                   ; Constant 1
        equ  padvar
-eight:
+eight:                                 ; Constant 8
        equ  one+2
-level:
+level:                                 ; Play level
        equ  eight+2
-scrly:
+scrly:                                 ; Vertical scroll offset (next)
        equ  level+2
-scrly_current:
+scrly_current:                         ; Vertical scroll offset (current)
        equ  scrly+2
-take_off_end:
+take_off_end:                          ; Scroll offset where takeoff will end
        equ  scrly_current+2
-landing_start:
+landing_start:                         ; Scroll offser where landing will start
        equ  take_off_end+2
-map_height:
+map_height:                            ; Height of current level in characters
        equ  landing_start+2
-diff_ptr:
+diff_ptr:                              ;
        equ  map_height+2
 max_chars:
        equ  diff_ptr+2
@@ -267,8 +262,12 @@ score_msw:
        equ  rand_no+2
 score_lsw:
        equ  score_msw+2
-upload_character_table_pad:
+music:                                 ; Pointer to music
        equ  score_lsw+2
+loop_music:                            ; Is music looping?
+       equ  music+2
+upload_character_table_pad:
+       equ  loop_music+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -348,7 +347,6 @@ interrupt_routine_end:
 * Game frame actions
 *
 game_frame_actions:
-
        mov  r11,*r10+
        mov  @action_count,r0
        ci   r0,>0100
@@ -364,6 +362,7 @@ game_frame_actions:
 *      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
+       bl   @play_sound
        li   r0,action_speed
        a    r0,@action_count
        inc  @frame_count
@@ -501,6 +500,8 @@ fire:
        jeq  fire_1
        bl   @add_bullet_sprite
        neg  @player_fire
+       li   r1,fireball
+       bl   @init_sfx
 *      Return
 fire_1:
        dect r10                        ; Pop return address off the stack
@@ -2200,6 +2201,9 @@ init_level_1:
        clr  r0
        bl   @display_score
        bl   @display_level
+*      Music
+       li   r1,underworld
+       bl   @init_music
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -2614,9 +2618,94 @@ rand:
 
 *********************************************************************
 *
+* Play music
+*
+play_sound:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @music,r0
+       jeq  play_sound_2
+       stwp r0
+       mov  r0,@play_sound_1+2
+       bl   @stplaysfx30
+play_sound_1:
+       lwpi 0
+       mov  @sndws+14,r0               ; Check if music is done
+       jne  play_sound_2
+       mov  @loop_music,r0
+       jeq  play_sound_2
+*      Restart music
+       mov  @music,r1
+       bl   @init_music
+*      Return
+play_sound_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// play_sound
+
+*********************************************************************
+*
+* Initialize music
+*
+* r1: Pointer to music
+*
+init_music:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @mute_sound
+       mov  r1,@music
+       stwp r0
+       mov  r0,@init_music_1+2
+       lwpi wrksp2
+       mov  @music,r1
+       clr  r2
+       bl   @stinitsfx30
+       seto @loop_music                ; Set music to loop
+init_music_1:
+       lwpi 0
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// init_music
+
+*********************************************************************
+*
+* Initialize sound fx
+*
+* r1: Pointer to sound fx data
+*
+init_sfx:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  r2
+       bl   @playsfx
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// init_fx
+
+*********************************************************************
+*
+* Mute sound
+*
+mute_sound:
+       li   r0,mute_table              ; Mute all
+       li   r2,4
+mute_sound_1:
+       movb *r0+,@sound
+       dec  r2
+       jne  mute_sound_1
+       clr  @music
+       b    *r11
+mute_table:
+       byte >9f, >bf, >df, >ff
+*// mute_sound
+
+*********************************************************************
+*
 * Data
 *
-char_list:                             ; Pointers to pattern/color addresses for current characeter set
+char_list:                             ; Pointers to pattern/color addresses for current character set
        bss  128*2                      ; Or -1 if the character is not currently used
 map_heights:
        data 382, 450, 340, 364
@@ -2645,7 +2734,19 @@ hw_sprites:
 * Sprite positions and paths
 *
        copy "paths.a99"
-
+**
+* Geometry lookup tables
+*
        copy "geometry.a99"
-
+**
+* Music and sound fx
+*
+       copy "tiplayersfx30hz.a99"
+underworld:
+       bcopy "..\sound\underworld.vgm.spf"
+fireball:
+       bcopy "..\sound\fireball.vgm.spf"
+**
+*      End
+*
        end  main
