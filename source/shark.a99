@@ -33,6 +33,12 @@ sprat1 equ  >3700                      ; Sprite attribute table base 1
 sprat2 equ  >3780                      ; Sprite attribute table base 2
 
 **
+* Assembly options
+*
+sound_30hz:
+       equ  0
+
+**
 * Constants
 *
 start_level:
@@ -2627,7 +2633,11 @@ play_sound:
        jeq  play_sound_2
        stwp r0
        mov  r0,@play_sound_1+2
+       .ifeq  sound_30hz,1
        bl   @stplaysfx30
+       .else
+       bl   @stplaysfx
+       .endif
 play_sound_1:
        lwpi 0
        mov  @sndws+14,r0               ; Check if music is done
@@ -2659,7 +2669,11 @@ init_music:
        lwpi wrksp2
        mov  @music,r1
        clr  r2
+       .ifeq  sound_30hz,1
        bl   @stinitsfx30
+       .else
+       bl   @stinitsfx
+       .endif
        seto @loop_music                ; Set music to loop
 init_music_1:
        lwpi 0
@@ -2679,7 +2693,11 @@ init_sfx:
        mov  r11,*r10+                  ; Push return address onto the stack
        clr  r2
        li   r3,1
+       .ifeq  sound_30hz,1
        bl   @sfxinitsfx30
+       .else
+       bl   @sfxinitsfx
+       .endif
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -2743,11 +2761,19 @@ hw_sprites:
 **
 * Music and sound fx
 *
+       .ifeq  sound_30hz,1
        copy "tiplayersfx30hz.a99"
+level_1_music:
+       bcopy "..\sound\level1.vgm.30.spf"
+shot_1:
+       bcopy "..\sound\shot1.vgm.30.spf"
+       .else
+       copy "tiplayersfx.a99"
 level_1_music:
        bcopy "..\sound\level1.vgm.spf"
 shot_1:
        bcopy "..\sound\shot1.vgm.spf"
+       .endif
 **
 *      End
 *
