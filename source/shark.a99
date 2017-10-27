@@ -11,28 +11,6 @@
        def  main
 
 **
-* Memory mapped addresses
-*
-vdpwd  equ  >8c00                      ; VDP write data
-vdpwa  equ  >8c02                      ; VDP set read/write address
-vdprd  equ  >8800                      ; VDP read data
-vdpsta equ  >8802                      ; VDP status
-sound  equ  >8400
-
-**
-* VDP memory map
-*
-ptrntb equ  >0000                      ; Pattern table base
-sprptb equ  >1800                      ; Sprite pattern table base
-colrtb equ  >2000                      ; Color table base
-namet1 equ  >2800                      ; Name table base 1 >A
-namet2 equ  >2c00                      ; Name table base 2 >B
-namet3 equ  >3000                      ; Name table base 3 >C
-namet4 equ  >3400                      ; Name table base 4 >D
-sprat1 equ  >3700                      ; Sprite attribute table base 1
-sprat2 equ  >3780                      ; Sprite attribute table base 2
-
-**
 * Assembly options
 *
 sound_30hz:
@@ -75,6 +53,28 @@ n_hw_sprites:                          ; Number of hardware sprites
        equ  32
 chzero:                                ; Character code for zero
        equ  240
+
+**
+* Memory mapped addresses
+*
+vdpwd  equ  >8c00                      ; VDP write data
+vdpwa  equ  >8c02                      ; VDP set read/write address
+vdprd  equ  >8800                      ; VDP read data
+vdpsta equ  >8802                      ; VDP status
+sound  equ  >8400
+
+**
+* VDP memory map
+*
+ptrntb equ  >0000                      ; Pattern table base
+sprptb equ  >1800                      ; Sprite pattern table base
+colrtb equ  >2000                      ; Color table base
+namet1 equ  >2800                      ; Name table base 1 >A
+namet2 equ  >2c00                      ; Name table base 2 >B
+namet3 equ  >3000                      ; Name table base 3 >C
+namet4 equ  >3400                      ; Name table base 4 >D
+sprat1 equ  >3700                      ; Sprite attribute table base 1
+sprat2 equ  >3780                      ; Sprite attribute table base 2
 
 **
 * Structures
@@ -2692,7 +2692,7 @@ init_music_1:
 init_sfx:
        mov  r11,*r10+                  ; Push return address onto the stack
        clr  r2
-       li   r3,1
+       clr  r3
        .ifeq  sound_30hz,1
        bl   @sfxinitsfx30
        .else
@@ -2761,6 +2761,7 @@ hw_sprites:
 **
 * Music and sound fx
 *
+       aorg >2000
        .ifeq  sound_30hz,1
        copy "tiplayersfx30hz.a99"
 level_1_music:
