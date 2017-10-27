@@ -500,7 +500,7 @@ fire:
        jeq  fire_1
        bl   @add_bullet_sprite
        neg  @player_fire
-       li   r1,fireball
+       li   r1,shot_1
        bl   @init_sfx
 *      Return
 fire_1:
@@ -1880,6 +1880,7 @@ update_characters_1:
        li   r14,vdpwa
        li   r13,8
 *      Patterns
+       bl   @interrupt_check
        clr  r1
        li   r0,ptrntb
        a    r6,r0
@@ -2013,7 +2014,7 @@ update_name_table_6:
        movb *r1+,*r15
        dec  r3
        jne  update_name_table_6
-;      bl   @interrupt_check
+       bl   @interrupt_check
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -2202,7 +2203,7 @@ init_level_1:
        bl   @display_score
        bl   @display_level
 *      Music
-       li   r1,underworld
+       li   r1,level_1_music
        bl   @init_music
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -2677,7 +2678,8 @@ init_music_1:
 init_sfx:
        mov  r11,*r10+                  ; Push return address onto the stack
        clr  r2
-       bl   @playsfx
+       li   r3,1
+       bl   @sfxinitsfx30
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -2742,10 +2744,10 @@ hw_sprites:
 * Music and sound fx
 *
        copy "tiplayersfx30hz.a99"
-underworld:
-       bcopy "..\sound\underworld.vgm.spf"
-fireball:
-       bcopy "..\sound\fireball.vgm.spf"
+level_1_music:
+       bcopy "..\sound\level1.vgm.spf"
+shot_1:
+       bcopy "..\sound\shot1.vgm.spf"
 **
 *      End
 *
