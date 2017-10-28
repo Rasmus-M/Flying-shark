@@ -14,7 +14,7 @@
 * Assembly options
 *
 sound_30hz:
-       equ  0
+       equ  1
 
 **
 * Constants
@@ -505,9 +505,9 @@ fire:
        jgt  fire_1
        jeq  fire_1
        bl   @add_bullet_sprite
-       neg  @player_fire
        li   r1,shot_1
        bl   @init_sfx
+       neg  @player_fire
 *      Return
 fire_1:
        dect r10                        ; Pop return address off the stack
@@ -2666,7 +2666,7 @@ init_music:
        mov  r1,@music
        stwp r0
        mov  r0,@init_music_1+2
-       lwpi wrksp2
+       lwpi callwp
        mov  @music,r1
        clr  r2
        .ifeq  sound_30hz,1
@@ -2691,13 +2691,19 @@ init_music_1:
 *
 init_sfx:
        mov  r11,*r10+                  ; Push return address onto the stack
+       stwp r0
+       mov  r0,@init_sfx_1+2
+       mov  r1,@callwp+2
+       lwpi callwp
        clr  r2
-       clr  r3
+       li   r3,1
        .ifeq  sound_30hz,1
        bl   @sfxinitsfx30
        .else
        bl   @sfxinitsfx
        .endif
+init_sfx_1:
+       lwpi 0
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
