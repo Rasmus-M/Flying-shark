@@ -298,9 +298,10 @@ main_loop:
        clr  @frame_count
        bl   @game_frame_actions
 *      Change VDP tables at vsync
-       bl   @vsync
+       bl   @vsync_0
        bl   @set_name_table
        bl   @set_sprite_table
+       bl   @play_sound
 *      Scroll the background
        bl   @update_char_list
        bl   @update_characters
@@ -311,7 +312,7 @@ main_loop:
        jlt  !
        jeq  !
 main_delay:
-       bl   @vsync
+       bl   @vsync_1
        bl   @interrupt_routine
        dec  r2
        jne  main_delay
@@ -341,6 +342,7 @@ interrupt_check:
 interrupt_routine:
        mov  r10,@wrksp2+20             ; Use same SP in new workspace
        lwpi wrksp2                     ; Switch to new workspace
+       bl   @play_sound
        bl   @game_frame_actions
        bl   @set_sprite_table
        lwpi wrksp                      ; Switch to old workspace
@@ -368,7 +370,6 @@ game_frame_actions:
 *      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
-       bl   @play_sound
        li   r0,action_speed
        a    r0,@action_count
        inc  @frame_count
@@ -383,7 +384,8 @@ game_frame_actions_1:
 * Wait for vertical retrace (CRU)
 *
 vsync:
-       movb @vdpsta,r12
+       movb @vdpsta,r12                ; Clear interrupt
+vsync_0:
        clr  r12
 vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
@@ -1820,6 +1822,8 @@ lvlbuf byte chzero, chzero
 * Update character list
 *
 update_char_list:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @interrupt_check
        mov  @cart_diff_bank,r0         ; Select ROM bank
        seto *r0
        mov  @scrly,r0
@@ -1854,8 +1858,10 @@ update_char_list_3:
        jne  update_char_list_3
 update_char_list_4:
        mov  r0,@diff_ptr
-*      Return
 update_char_list_5:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
        b    *r11
 *// update_char_list
 
@@ -1865,6 +1871,7 @@ update_char_list_5:
 *
 update_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @interrupt_check
        mov  @scrly,r3                  ; Read scroll offset into register
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
@@ -1886,7 +1893,6 @@ update_characters_1:
        li   r14,vdpwa
        li   r13,8
 *      Patterns
-       bl   @interrupt_check
        clr  r1
        li   r0,ptrntb
        a    r6,r0
