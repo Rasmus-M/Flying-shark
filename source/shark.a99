@@ -312,7 +312,7 @@ main_loop:
        jlt  !
        jeq  !
 main_delay:
-       bl   @vsync_1
+       bl   @vsync
        bl   @interrupt_routine
        dec  r2
        jne  main_delay
