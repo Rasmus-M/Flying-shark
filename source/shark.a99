@@ -297,8 +297,12 @@ next_level:
 main_loop:
        clr  @frame_count
        bl   @game_frame_actions
+       movb @vdpsta,r12                ; Test for interrrupt (and clear)
+       jgt  main_set_tables            ; No - skip
+       bl   @play_sound                ; Play if interrupt
 *      Change VDP tables at vsync
-       bl   @vsync_0
+main_set_tables:
+       bl   @vsync                     ; Wait for vsync
        bl   @set_name_table
        bl   @set_sprite_table
        bl   @play_sound
@@ -384,8 +388,6 @@ game_frame_actions_1:
 * Wait for vertical retrace (CRU)
 *
 vsync:
-       movb @vdpsta,r12                ; Clear interrupt
-vsync_0:
        clr  r12
 vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
