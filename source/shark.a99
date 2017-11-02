@@ -1822,8 +1822,6 @@ lvlbuf byte chzero, chzero
 * Update character list
 *
 update_char_list:
-       mov  r11,*r10+                  ; Push return address onto the stack
-       bl   @interrupt_check
        mov  @cart_diff_bank,r0         ; Select ROM bank
        seto *r0
        mov  @scrly,r0
@@ -1860,8 +1858,6 @@ update_char_list_4:
        mov  r0,@diff_ptr
 update_char_list_5:
 *      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10,r11
        b    *r11
 *// update_char_list
 
