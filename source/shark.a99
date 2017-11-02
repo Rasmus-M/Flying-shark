@@ -14,7 +14,7 @@
 * Assembly options
 *
 sound_30hz:
-       equ  0
+       equ  1
 
 **
 * Constants
