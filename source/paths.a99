@@ -220,7 +220,7 @@ path_tank_right_up_out_right:
 *      From right, up, out right
 path_tank_down_wait:
        data 16,>0000,>0080,>1800,>0001
-       data 200,>0000,>0000,>1800,>0001
+       data 400,>0000,>0000,>1800,>0001
        data -1
 *      Tank stopping when hit
 path_tank_stop:
