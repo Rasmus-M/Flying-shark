@@ -2790,6 +2790,8 @@ level_1_music:
        bcopy "..\sound\level1.vgm.30.spf"
 shot_1:
        bcopy "..\sound\shot1.vgm.30.spf"
+expl_1:
+       bcopy "..\sound\expl1.vgm.30.spf"
        .else
        copy "tiplayersfx.a99"
 level_1_music:

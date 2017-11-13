@@ -22,3 +22,5 @@ make.log
 /sound/Flying_Shark.sid
 /sound/Hishouzame_Flying_Shark_(Sharp_X68000).zip
 /sound/Hishouzame_Flying_Shark_(Sharp_X68000)/
+!/build/TITLE.TIAC
+!/build/TITLE.TIAP
