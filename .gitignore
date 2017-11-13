@@ -15,7 +15,6 @@ sharl
 make.log
 !/build/empty.bin
 /import/import.iml
-!/import/graphics.bin
 /atan/atan.iml
 /sharm
 !/mag/animated.bin
@@ -24,3 +23,4 @@ make.log
 /sound/Hishouzame_Flying_Shark_(Sharp_X68000)/
 !/build/TITLE.TIAC
 !/build/TITLE.TIAP
+other/
