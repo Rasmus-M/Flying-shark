@@ -40,6 +40,18 @@ sprite_pos_list_1:
        data 2336,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
 *      2320 tank
        data 2320,80,40,sprite_def_tank,path_tank_down_wait
+*      1 plane from right
+       data 2304,112,-16,sprite_def_enemy_plane,path_plane_dive_right_right_short
+*      2 planes from right
+       data 2216,112,-16,sprite_def_enemy_plane,path_plane_dive_right_left_long
+       data 2200,112,-16,sprite_def_enemy_plane,path_plane_dive_right_right_short
+*      1 tank from left, up, leave left
+       data 2192,-16,32,sprite_def_tank,path_tank_left_up_out_left
+*      2 planes from right
+       data 2184,112,-16,sprite_def_enemy_plane,path_plane_dive_right_right_short
+       data 2168,112,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long
+*      1 tank from left, up, leave left
+       data 2160,-16,56,sprite_def_tank,path_tank_left_up_out_left
 
 ;      TODO
 
@@ -217,7 +229,13 @@ path_tank_right_up_out_right:
        data 192,>0000,->0080,>1800,>0001
        data 64,>0080,>0000,>1c00,>0000
        data -1
-*      From right, up, out right
+*      From left, up, out left
+path_tank_left_up_out_left:
+       data 32,>0080,>0000,>1c00,>0000
+       data 248,>0000,->0080,>1800,>0001
+       data 32,->0080,>0000,>1c00,>0000
+       data -1
+*      Down 8 pixels and wait
 path_tank_down_wait:
        data 16,>0000,>0080,>1800,>0001
        data 400,>0000,>0000,>1800,>0001
