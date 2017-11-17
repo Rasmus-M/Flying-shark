@@ -1502,12 +1502,12 @@ player_sprite_collisions_1:
        s    r7,r0
        abs  r0
        ci   r0,>0800
-       jgt  player_sprite_collisions_2
+       jhe  player_sprite_collisions_2
        mov  @sprite_y(r5),r1
        s    r8,r1
        abs  r1
        ci   r1,>0800
-       jgt  player_sprite_collisions_2
+       jhe  player_sprite_collisions_2
 *      Collision
        clr  @sprite_hits_left(r3)
        li   r1,path_explosion
@@ -1547,12 +1547,12 @@ enemy_sprite_collisions_1:
        s    r7,r0
        abs  r0
        ci   r0,>0800
-       jgt  enemy_sprite_collisions_2
+       jhe  enemy_sprite_collisions_2
        mov  @sprite_y(r5),r1
        s    r8,r1
        abs  r1
        ci   r1,>0800
-       jgt  enemy_sprite_collisions_2
+       jhe  enemy_sprite_collisions_2
 *      Collision
        mov  @sprite_hits_left(r5),r0   ; Check bullet hits left
        jeq  enemy_sprite_collisions_2
