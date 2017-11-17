@@ -27,6 +27,10 @@ scroll_interval:
        equ  4
 player_speed:
        equ  >0200
+title_bank:
+       equ  >6008
+levels_base_bank:
+       equ  >600C
 cart_base:
        equ  >603C
 scr_width:                             ; Width of screen in characters
@@ -75,6 +79,7 @@ namet3 equ  >3000                      ; Name table base 3 >C
 namet4 equ  >3400                      ; Name table base 4 >D
 sprat1 equ  >3700                      ; Sprite attribute table base 1
 sprat2 equ  >3780                      ; Sprite attribute table base 2
+namet5 equ  >3800                      ; Name table base 5
 
 **
 * Structures
@@ -289,6 +294,8 @@ main:
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
        mov  @rndsd,@rand_no
+       bl   @title_screen
+       bl   @wtkey
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
 new_game:
@@ -2222,7 +2229,7 @@ init_level:
 *      Cartridge addresses
        li   r0,22
        mpy  @level,r0                  ; Level * 22 (11 banks per level)
-       ai   r1,>6008                   ; First 4 banks are for code
+       ai   r1,levels_base_bank        ; First 4 banks are for code
        mov  r1,@cart_pattern_bank
        ai   r1,16
        mov  r1,@cart_map_bank
@@ -2302,7 +2309,7 @@ gmode_1:
        dec  r2
        jne  gmode_1
 *      Patterns
-       seto @>6008
+       seto @levels_base_bank
        li   r0,ptrntb
        clr  r1
        li   r2,>800
@@ -2377,6 +2384,63 @@ vregs:
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
 *// gmode
+
+*********************************************************************************
+*
+* Title screen, full bitmap mode
+*
+title_screen:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  r0
+       li   r1,vregs2
+       li   r2,8
+title_screen_1:
+       movb *r1+,@r0lb
+       bl   @vwtr                      ; Set register
+       ai   r0,>0100
+       dec  r2
+       jne  title_screen_1
+*      Patterns
+       seto @title_bank
+       li   r0,ptrntb
+       li   r1,>6800
+       li   r2,>1800
+       bl   @vdpcp
+*      Colors
+       seto @title_bank+2
+       li   r0,colrtb
+       li   r1,>6800
+       li   r2,>1800
+       bl   @vdpcp
+*      Name table
+       li   r0,namet5
+       bl   @vwad
+       clr  r1
+       li   r2,>300
+title_screen_2:
+       movb r1,@vdpwd
+       ai   r1,>0100
+       dec  r2
+       jne  title_screen_2
+*      Sprite attributes
+       li   r0,sprat1
+       li   r1,>d000
+       bl   @vsbw
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*      VDP registers
+vregs2:
+       byte >02                        ; Graphics II mode
+       byte >e2                        ; 16K, display on, interrupt enabled
+       byte namet5/>400                ; Name table
+       byte >ff                        ; Color table
+       byte ptrntb/>800+>03            ; Pattern table
+       byte sprat1/>80                 ; Sprite attribute table
+       byte sprptb/>800                ; Sprite pattern table
+       byte >01                        ; Backdrop color
+*// title_screen
 
 *********************************************************************************
 *
@@ -2772,6 +2836,121 @@ mute_sound_1:
 mute_table:
        byte >9f, >bf, >df, >ff
 *// mute_sound
+
+***************************************************************************
+*
+* Wait for key press
+*
+wtkey:
+       mov  r11,*r10+
+wtkey1:
+       bl   @anykey
+       jeq  wtkey1
+*      Return
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// wtkey
+
+***************************************************************************
+*
+* Check key
+*
+* tmp0: Column in MSB: >0000 - >0700, Row in LSB: >0006 - >0014
+*
+*       Column   0      1    2    3    4    5     6       7
+*     Row
+*     >0006      =      .    ,    M    N    /    Fire    Fire
+*     >0008    Space    L    K    J    H    ;    Left    Left
+*     >000A    Enter    O    I    U    Y    P    Right   Right
+*     >000C             9    8    7    6    0    Down    Down
+*     >000E    Fctn     2    3    4    5    1    Up      Up
+*     >0010    Shift    S    D    F    G    A
+*     >0012    Ctrl     W    E    R    T    Q
+*     >0014             X    C    V    B    Z
+*
+* On return NEQ means that the key is pressed
+*
+KEY_FI EQU  >0606
+KEY_LF EQU  >0608
+KEY_RG EQU  >060A
+KEY_DN EQU  >060C
+KEY_UP EQU  >060E
+KEY_CM EQU  >0206
+KEY_FS EQU  >0106
+KEY_0  EQU  >050C
+KEY_1  EQU  >050E
+KEY_2  EQU  >010E
+KEY_3  EQU  >020E
+KEY_4  EQU  >030E
+KEY_5  EQU  >040E
+KEY_6  EQU  >040C
+KEY_7  EQU  >030C
+KEY_8  EQU  >020C
+KEY_9  EQU  >010C
+KEY_A  EQU  >0510
+KEY_B  EQU  >0414
+KEY_C  EQU  >0214
+KEY_D  EQU  >0210
+KEY_E  EQU  >0212
+KEY_F  EQU  >0310
+KEY_G  EQU  >0410
+KEY_H  EQU  >0408
+KEY_I  EQU  >020A
+KEY_J  EQU  >0308
+KEY_K  EQU  >0208
+KEY_L  EQU  >0108
+KEY_M  EQU  >0306
+KEY_N  EQU  >0406
+KEY_O  EQU  >010A
+KEY_P  EQU  >050A
+KEY_Q  EQU  >0512
+KEY_R  EQU  >0312
+KEY_S  EQU  >0110
+KEY_T  EQU  >0412
+KEY_U  EQU  >030A
+KEY_V  EQU  >0314
+KEY_W  EQU  >0112
+KEY_X  EQU  >0114
+KEY_Y  EQU  >040A
+KEY_Z  EQU  >0514
+KEY_SP EQU  >0008
+KEY_EN EQU  >000A
+KEY_FN EQU  >000E
+KEY_SH EQU  >0010
+KEY_CT EQU  >0012
+*
+chkkey:
+       li   r12,>0024                  ; CRU address of the column decoder
+       ldcr r0,3                       ; Select column
+       andi r0,>00ff
+       mov  r0,r12                     ; Select row
+       tb   0                          ; Test key, EQ if not pressed
+       b    *r11
+*// chkkey
+
+*********************************************************************
+*
+* Resets EQ if any key is pressed
+*
+anykey:
+       li   r1,>0000                   ; Column
+anykey1:
+       li   r12,>0024                  ; CRU address of the column decoder
+       mov  r1,r0
+       swpb r0
+       ldcr r0,3                       ; Select column
+       li   r12,0006                   ; Select row
+       stcr r0,8
+       seto r2
+       cb   r0,r2                      ; If any bit is reset a key is pressed
+       jne  anykey2
+       inc  r1
+       ci   r1,>0008
+       jne  anykey1
+anykey2:
+       b    *r11
+*// anykey
 
 *********************************************************************
 *

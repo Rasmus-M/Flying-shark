@@ -5,6 +5,8 @@ java -jar tools/ea5tocart.jar shark "FLYING SHARK" > make.log
 
 copy /b ^
 shark8.bin + ^
+build\empty-2k.bin + build\TITLE.TIAP + ^
+build\empty-2k.bin + build\TITLE.TIAC + ^
 build\level1_b0.bin + ^
 build\level1_b1.bin + ^
 build\level1_b2.bin + ^
@@ -49,8 +51,6 @@ build\level4_b7.bin + ^
 build\level4_b8.bin + ^
 build\level4_b9.bin + ^
 build\level4_b10.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
