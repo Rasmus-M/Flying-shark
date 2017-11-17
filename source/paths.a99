@@ -64,6 +64,9 @@ sprite_pos_list_1:
        data 1992,-16,104,sprite_def_tank,path_tank_left_up_out_left_2
 *      tank
        data 1984,96,0,sprite_def_tank,path_tank_right_wait
+*      2 planes from right
+       data 1936,128,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long
+       data 1920,128,-16,sprite_def_enemy_plane,path_plane_dive_right_left_long
 
 
 *      5 turrets
