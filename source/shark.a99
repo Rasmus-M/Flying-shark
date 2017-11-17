@@ -275,8 +275,12 @@ score_msw:
        equ  rand_no+2
 score_lsw:
        equ  score_msw+2
-music:                                 ; Pointer to music
+lives:
        equ  score_lsw+2
+power_ups:
+       equ  lives+2
+music:                                 ; Pointer to music
+       equ  power_ups+2
 loop_music:                            ; Is music looping?
        equ  music+2
 upload_character_table_pad:
@@ -1520,6 +1524,14 @@ player_sprite_collisions_1:
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
+       dec  @lives
+       mov  r2,*r10+
+       mov  r3,*r10+
+       bl   @display_lives
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
        jmp  player_sprite_collisions_3
 player_sprite_collisions_2:
        ai   r5,sprite_struct_size
@@ -1862,6 +1874,53 @@ display_level:
 lvlbuf byte chzero, chzero
 *// display_level
 
+*********************************************************************
+*
+* Display lives
+*
+display_lives:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @lives,r6
+       jgt  display_lives_0
+       clr  r6
+       jmp  display_lives_1
+display_lives_0:
+       ci   r6,4
+       jle  display_lives_1
+       li   r6,4
+display_lives_1:
+       sla  r6,4
+       ai   r6,lives0
+       li   r0,17*32+2
+       mov  r6,r1
+       li   r2,8
+       bl   @display_text
+       ai   r6,8
+       li   r0,18*32+2
+       mov  r6,r1
+       li   r2,8
+       bl   @display_text
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+lives0:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+lives1:
+       byte >70,>72,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >78,>7a,>ff,>ff,>ff,>ff,>ff,>ff
+lives2:
+       byte >70,>72,>70,>72,>ff,>ff,>ff,>ff
+       byte >78,>7a,>78,>7a,>ff,>ff,>ff,>ff
+lives3:
+       byte >70,>72,>70,>72,>70,>72,>ff,>ff
+       byte >78,>7a,>78,>7a,>78,>7a,>ff,>ff
+lives4:
+       byte >70,>72,>70,>72,>70,>72,>70,>72
+       byte >78,>7a,>78,>7a,>78,>7a,>78,>7a
+*// display_lives
+
 *********************************************************************************
 *
 * Update character list
@@ -2168,6 +2227,8 @@ init_game:
        mov  r0,@level
        clr  @score_lsw
        clr  @score_msw
+       li   r0,3
+       mov  r0,@lives
        clr  @sprite_table_flag
 *      Init sprites
        li   r0,sprites+(1*sprite_struct_size)
@@ -2200,6 +2261,7 @@ init_game:
        mov  r0,@hw_sprite_dx(r2)
        li   r0,>1000
        mov  r0,@hw_sprite_dy(r2)
+       bl   @display_lives
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
