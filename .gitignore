@@ -14,6 +14,7 @@ shark
 sharl
 make.log
 !/build/empty.bin
+!/build/empty-2k.bin
 /import/import.iml
 /atan/atan.iml
 /sharm

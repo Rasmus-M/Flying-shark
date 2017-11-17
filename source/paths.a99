@@ -62,7 +62,8 @@ sprite_pos_list_1:
 *      2 tanks from left, up, leave left
        data 2016,-16,80,sprite_def_tank,path_tank_left_up_out_left_2
        data 1992,-16,104,sprite_def_tank,path_tank_left_up_out_left_2
-
+*      tank
+       data 1984,96,0,sprite_def_tank,path_tank_right_wait
 
 
 *      5 turrets
@@ -265,8 +266,13 @@ path_plane_right_up_left_down_out_left
        data -1
 *      Down 8 pixels and wait
 path_tank_down_wait:
-       data 16,>0000,>0080,>1800,>0001
+       data 16,>0000,>0080,>1800,>0000
        data 400,>0000,>0000,>1800,>0001
+       data -1
+*      Right 8 pixels and wait
+path_tank_right_wait:
+       data 16,>0080,>0000,>1c00,>0000
+       data 400,>0000,>0000,>1c00,>0001
        data -1
 *      Tank stopping when hit
 path_tank_stop:
