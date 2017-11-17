@@ -38,7 +38,7 @@ sprite_pos_list_1:
        data 2368,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
        data 2352,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
        data 2336,-16,32,sprite_def_enemy_plane,path_plane_circle_left_top
-*      2320 tank
+*      1 tank
        data 2320,80,40,sprite_def_tank,path_tank_down_wait
 *      1 plane from right
        data 2304,112,-16,sprite_def_enemy_plane,path_plane_dive_right_right_short
@@ -54,9 +54,13 @@ sprite_pos_list_1:
        data 2160,-16,56,sprite_def_tank,path_tank_left_up_out_left
 *      4 planes from right, up, down, out left
        data 2064,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
+       data 2056,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
        data 2048,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
-       data 2032,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
-       data 2016,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
+       data 2040,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left
+
+*      1 tank
+       data 2032,64,16,sprite_def_tank,path_tank_down_wait
+
 *      5 turrets
        data 1072,48,-16,sprite_def_turret,0
        data 1056,32,-16,sprite_def_turret,0
@@ -239,15 +243,15 @@ path_tank_left_up_out_left:
        data -1
 *      From right, up, left, down, out right
 path_plane_right_up_left_down_out_left
-       data 10,->0180,>0000,>3800,>0000
-       data 10,->0140,->0140,>3c00,>0001
+       data 10,->0180,->0080,>3800,>0000
+       data 10,->0140,->0180,>3c00,>0001
        data 90,>0000,->0180,>2000,>0001
-       data 10,->0140,->0140,>3c00,>0001
-       data 50,->0180,>0000,>3800,>0001
-       data 10,->0140,>0140,>3400,>0001
-       data 24,>0000,>0180,>3000,>0001
-       data 10,->0140,>0140,>3400,>0001
-       data 10,->0180,>0000,>3800,>0000
+       data 10,->0140,->0180,>3c00,>0001
+       data 50,->0180,->0080,>3800,>0001
+       data 10,->0140,>0180,>3400,>0001
+       data 30h,>0000,>0180,>3000,>0001
+       data 10,->0140,>0180,>3400,>0001
+       data 10,->0180,->0080,>3800,>0000
        data -1
 *      Down 8 pixels and wait
 path_tank_down_wait:
