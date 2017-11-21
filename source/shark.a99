@@ -3046,6 +3046,7 @@ hw_sprites:
 **
 * Sprite positions and paths
 *
+       copy "sprite-pos-lists.a99"
        copy "paths.a99"
 **
 * Geometry lookup tables
