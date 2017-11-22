@@ -47,6 +47,8 @@ map_left:                              ; Map start column
        equ  14
 panel_left:                            ; Panel start column
        equ  0
+panel_width:                           ; Panel width
+       equ  12
 x_min:                                 ; Minimum x position
        equ  map_left*8
 x_max:                                 ; Maximum x position
@@ -611,6 +613,11 @@ add_enemy_plane_sprite:
        mov  @sprite_hw_2(r1),r2
        li   r0,>0100
        mov  r0,@hw_sprite_color(r2)
+       mov  @sprite_hw_3(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>1000
+       mov  r0,@hw_sprite_dx(r2)
+       mov  r0,@hw_sprite_dy(r2)
 *      Create a mask sprite if entering from the left
        mov  @sprite_x(r1),r0
        ci   r0,(x_min-16)*256
@@ -808,6 +815,8 @@ update_player_sprite_10:
        mov  @path_pattern(r4),r0
        mov  @sprite_hw_1(r3),r5
        mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_3(r3),r5
+       mov  r0,@hw_sprite_pattern(r5)
        mov  @sprite_hw_2(r3),r5
        ai   r0,>0400
        mov  r0,@hw_sprite_pattern(r5)
@@ -874,7 +883,6 @@ update_player_sprite_6:
        ai   r0,>1000
        mov  @sprite_hw_3(r3),r4
        mov  r0,@hw_sprite_dy(r4)
-       ai   r0,->0100
        mov  r0,@hw_sprite_dx(r4)
        jmp  update_player_sprite_9
 update_player_sprite_8:
@@ -1097,7 +1105,10 @@ update_enemy_plane_sprite_3:
        mov  @sprite_hw_1(r3),r5
        mov  @path_pattern(r4),r0
        mov  r0,@hw_sprite_pattern(r5)
-       mov  @sprite_hw_2(r3),r5
+       mov  @sprite_hw_3(r3),r5
+       jeq  !
+       mov  r0,@hw_sprite_pattern(r5)
+!      mov  @sprite_hw_2(r3),r5
        jeq  update_enemy_plane_sprite_2
        ai   r0,>2000
        mov  r0,@hw_sprite_pattern(r5)
@@ -1769,12 +1780,14 @@ upload_sprites_3:
        jne  upload_sprites_4
        mov  *r3,r1                     ; Get parent sprite
        jeq  upload_sprites_4
+       mov  @sprite_x(r1),r7
+       a    @hw_sprite_dx(r3),r7
+       ci   r7,x_min*256               ; Check for x out of bound
+       jl   upload_sprites_4
        mov  @sprite_y(r1),r0
        a    @hw_sprite_dy(r3),r0
        movb r0,*r15
-       mov  @sprite_x(r1),r0
-       a    @hw_sprite_dx(r3),r0
-       movb r0,*r15
+       movb r7,*r15
        movb @hw_sprite_pattern(r3),*r15
        movb @hw_sprite_color(r3),*r15
 upload_sprites_4:
@@ -1838,7 +1851,7 @@ display_score_1:
        dec  r2                         ; Count down
        jne  display_score_1            ; Digit loop
 *      Display to VDP
-       li   r0,10*32+3
+       li   r0,10*32+panel_left+((panel_width-6)/2)
        li   r1,numbuf
        li   r2,6
        bl   @display_text
@@ -1863,7 +1876,7 @@ display_level:
        ai   r0,chzero+1
        mov  r0,@lvlbuf
 *      Display to VDP
-       li   r0,14*32+6
+       li   r0,14*32+panel_left+((panel_width-2)/2)+1
        li   r1,lvlbuf+1
        li   r2,1
        bl   @display_text
@@ -1891,12 +1904,12 @@ display_lives_0:
 display_lives_1:
        sla  r6,4
        ai   r6,lives0
-       li   r0,17*32+2
+       li   r0,17*32+panel_left+((panel_width-8)/2)
        mov  r6,r1
        li   r2,8
        bl   @display_text
        ai   r6,8
-       li   r0,18*32+2
+       li   r0,18*32+panel_left+((panel_width-8)/2)
        mov  r6,r1
        li   r2,8
        bl   @display_text
@@ -2206,7 +2219,7 @@ init:
 *      Draw panel
        li   r0,panel_left*256
        li   r1,MD0
-       li   r2,12
+       li   r2,panel_width
        li   r3,24
        li   r4,0
        bl   @draw_box
@@ -2257,10 +2270,8 @@ init_game:
        mov  @one,@hw_sprite_priority(r2)
        mov  @sprite_hw_3(r1),r2
        mov  r0,@hw_sprite_color(r2)
-       li   r0,>0f00
-       mov  r0,@hw_sprite_dx(r2)
-       li   r0,>1000
-       mov  r0,@hw_sprite_dy(r2)
+       clr  @hw_sprite_dx(r2)
+       clr  @hw_sprite_dy(r2)
        bl   @display_lives
 *      Return
        dect r10                        ; Pop return address off the stack

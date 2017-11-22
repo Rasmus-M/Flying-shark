@@ -57,7 +57,7 @@ sprite_def_enemy_plane:
        data >000c                      ; Height
        data >0001                      ; Left
        data >0002                      ; Top
-       data >0002                      ; Size
+       data >0003                      ; Size
        data >2000                      ; Pattern
        data >0800                      ; Color
        data 1                          ; Hits left
