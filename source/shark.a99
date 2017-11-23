@@ -255,10 +255,8 @@ cart_diff_bank:
        equ  cart_map_high_bank+2
 frame_count:
        equ  cart_diff_bank+2
-action_count:
-       equ  frame_count+2
 vdp_status:
-       equ  action_count+2
+       equ  frame_count+2
 player_fire:
        equ  vdp_status+2
 sprite_pos_ptr:
@@ -308,7 +306,6 @@ new_game:
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
-       clr  @action_count
 main_loop:
        clr  @frame_count
        bl   @game_frame_actions
@@ -375,22 +372,22 @@ interrupt_routine_end:
 *
 game_frame_actions:
        mov  r11,*r10+
-       mov  @action_count,r0
-       ci   r0,>0100
-       jlt  game_frame_actions_1
+       mov  @frame_count,r0
+       andi  r0,>0001
+       jne  game_frame_actions_1
 *      Every 2nd frame
        bl   @user_input
        bl   @fire
        bl   @add_sprites
        bl   @update_sprites
+       mov  @frame_count,r0
+       andi  r0,>0003
+       jne  game_frame_actions_1
+*      Every 4th frame
        bl   @sprite_collisions
-       li   r0,>0100
-       s    r0,@action_count
 *      Every frame
 game_frame_actions_1:
        bl   @upload_sprites
-       li   r0,action_speed
-       a    r0,@action_count
        inc  @frame_count
 *      Return
        dect r10
