@@ -33,6 +33,8 @@ levels_base_bank:
        equ  >600C
 cart_base:
        equ  >603C
+cart_music_base:
+       equ  >6400
 scr_width:                             ; Width of screen in characters
        equ  32
 scr_height:                            ; Height of screen in characters
@@ -253,8 +255,10 @@ cart_map_high_bank:
        equ  cart_map_bank+2
 cart_diff_bank:
        equ  cart_map_high_bank+2
-frame_count:
+cart_music_bank:
        equ  cart_diff_bank+2
+frame_count:
+       equ  cart_music_bank+2
 vdp_status:
        equ  frame_count+2
 player_fire:
@@ -2012,11 +2016,13 @@ update_characters_1:
        li   r0,ptrntb+>800
        a    r6,r0
        bl   @vwad
+       seto *r5
        bl   @upload_character_table_pad
        bl   @interrupt_check
        li   r0,ptrntb+>1000
        a    r6,r0
        bl   @vwad
+       seto *r5
        bl   @upload_character_table_pad
        bl   @interrupt_check
 *      Colors
@@ -2024,6 +2030,7 @@ update_characters_1:
        li   r0,colrtb
        a    r6,r0
        bl   @vwad
+       seto *r5
        bl   @upload_character_table_pad
        bl   @interrupt_check
 *      Return
@@ -2137,6 +2144,7 @@ update_name_table_6:
        dec  r3
        jne  update_name_table_6
        bl   @interrupt_check
+       seto *r5
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
@@ -2297,9 +2305,9 @@ init_level:
        mov  r0,@landing_start
        mov  @sprite_pos_lists(r1),@sprite_pos_ptr
 *      Cartridge addresses
-       li   r0,22
-       mpy  @level,r0                  ; Level * 22 (11 banks per level)
-       ai   r1,levels_base_bank        ; First 4 banks are for code
+       li   r0,24
+       mpy  @level,r0                  ; Level * 24 (12 banks per level)
+       ai   r1,levels_base_bank        ; First 4 banks are for code, 2 for title screen
        mov  r1,@cart_pattern_bank
        ai   r1,16
        mov  r1,@cart_map_bank
@@ -2307,8 +2315,11 @@ init_level:
        mov  r1,@cart_map_high_bank
        inct r1
        mov  r1,@cart_diff_bank
+       inct r1
+       mov  r1,@cart_music_bank
 *      Init diff list
-       seto *r1
+       mov  @cart_diff_bank,r0
+       seto *r0
        li   r0,cart_base
        clr  @max_chars
        movb *r0+,@max_chars+1
@@ -2326,7 +2337,7 @@ init_level_1:
        bl   @display_score
        bl   @display_level
 *      Music
-       li   r1,level_1_music
+       li   r1,cart_music_base
        bl   @init_music
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -2379,7 +2390,6 @@ gmode_1:
        dec  r2
        jne  gmode_1
 *      Patterns
-       seto @levels_base_bank
        li   r0,ptrntb
        clr  r1
        li   r2,>800
@@ -2409,7 +2419,6 @@ gmode_1:
        li   r2,16*8
        bl   @vdpcp
 *      Colors
-       seto @>600A
        li   r0,colrtb
        clr  r1
        li   r2,>800
@@ -2807,6 +2816,8 @@ play_sound:
        jeq  play_sound_2
        stwp r0
        mov  r0,@play_sound_1+2
+       mov  @cart_music_bank,r0
+       seto *r0
        .ifeq  sound_30hz,1
        bl   @stplaysfx30
        .else
@@ -2841,6 +2852,8 @@ init_music:
        stwp r0
        mov  r0,@init_music_1+2
        lwpi callwp
+       mov  @cart_music_bank,r0
+       seto *r0
        mov  @music,r1
        clr  r2
        .ifeq  sound_30hz,1
@@ -3066,16 +3079,16 @@ hw_sprites:
        aorg >2000
        .ifeq  sound_30hz,1
        copy "tiplayersfx30hz.a99"
-level_1_music:
-       bcopy "..\sound\level1.vgm.30.spf"
+;level_1_music:
+;       bcopy "..\sound\level1.vgm.30.spf"
 shot_1:
        bcopy "..\sound\shot1.vgm.30.spf"
 expl_1:
        bcopy "..\sound\expl1.vgm.30.spf"
        .else
        copy "tiplayersfx.a99"
-level_1_music:
-       bcopy "..\sound\level1.vgm.spf"
+;level_1_music:
+;       bcopy "..\sound\level1.vgm.spf"
 shot_1:
        bcopy "..\sound\shot1.vgm.spf"
 expl_1:

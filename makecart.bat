@@ -18,6 +18,7 @@ build\level1_b7.bin + ^
 build\level1_b8.bin + ^
 build\level1_b9.bin + ^
 build\level1_b10.bin + ^
+build\empty-1k.bin + build\level1_b11.bin + ^
 build\level2_b0.bin + ^
 build\level2_b1.bin + ^
 build\level2_b2.bin + ^
@@ -29,6 +30,7 @@ build\level2_b7.bin + ^
 build\level2_b8.bin + ^
 build\level2_b9.bin + ^
 build\level2_b10.bin + ^
+build\empty-1k.bin + build\level2_b11.bin + ^
 build\level3_b0.bin + ^
 build\level3_b1.bin + ^
 build\level3_b2.bin + ^
@@ -40,6 +42,7 @@ build\level3_b7.bin + ^
 build\level3_b8.bin + ^
 build\level3_b9.bin + ^
 build\level3_b10.bin + ^
+build\empty-1k.bin + build\level3_b11.bin + ^
 build\level4_b0.bin + ^
 build\level4_b1.bin + ^
 build\level4_b2.bin + ^
@@ -51,10 +54,7 @@ build\level4_b7.bin + ^
 build\level4_b8.bin + ^
 build\level4_b9.bin + ^
 build\level4_b10.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
+build\empty-1k.bin + build\level4_b11.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^
