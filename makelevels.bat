@@ -52,8 +52,8 @@ tools\pad.exe build/level4-rom_6000_b9 build/level4_b9.bin 8192
 tools\pad.exe build/level4-rom_6000_b10 build/level4_b10.bin 8192
 
 tools\pad.exe sound/level1.vgm.spf build/level1_b11.bin 7168
-tools\pad.exe sound/level1.vgm.spf build/level2_b11.bin 7168
+tools\pad.exe sound/level3.vgm.spf build/level2_b11.bin 7168
 tools\pad.exe sound/level1.vgm.spf build/level3_b11.bin 7168
-tools\pad.exe sound/level1.vgm.spf build/level4_b11.bin 7168
+tools\pad.exe sound/level3.vgm.spf build/level4_b11.bin 7168
 
 call makecart.bat
