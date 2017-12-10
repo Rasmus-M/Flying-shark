@@ -313,8 +313,12 @@ next_level:
 main_loop:
        clr  @frame_count
        bl   @game_frame_actions
-       movb @vdpsta,r12                ; Test for interrrupt (and clear)
-       jgt  main_set_tables            ; No - skip
+       clr  r12
+       tb   2
+       jeq  main_set_tables
+       movb @vdpsta,@vdp_status
+;       movb @vdpsta,r12                ; Test for interrrupt (and clear)
+;       jgt  main_set_tables            ; No - skip
        bl   @play_sound                ; Play if interrupt
 *      Change VDP tables at vsync
 main_set_tables:
