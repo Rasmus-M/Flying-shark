@@ -301,9 +301,9 @@ main:
        limi 0                          ; Interrupts off
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
-       mov  @rndsd,@rand_no
-       bl   @title_screen
-       bl   @wtkey
+       mov  @rndsd,@rand_no            ; Save random number seed
+       bl   @title_screen              ; Display title screen
+       bl   @wtkey                     ; Wait for key press
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
 new_game:
@@ -311,41 +311,41 @@ new_game:
 next_level:
        bl   @init_level                ; Initialize level
 main_loop:
-       clr  @frame_count
-       bl   @game_frame_actions
-       movb @vdpsta,@vdp_status
-       jgt  main_set_tables            ; No - skip
+       clr  @frame_count               ; Counter for number of frames used
+       bl   @game_frame_actions        ; Update sprites according to input
+       movb @vdpsta,@vdp_status        ; Check for interrupt and clear if set
+       jgt  main_set_tables            ; No interrupt - skip
        jeq  main_set_tables            ; No - skip (required on F18A)
-       bl   @play_sound                ; Play if interrupt
+       bl   @play_sound                ; Play if interrupt has occurred
 *      Change VDP tables at vsync
 main_set_tables:
-       bl   @vsync                     ; Wait for vsync
-       bl   @set_name_table
-       bl   @set_sprite_table
-       bl   @play_sound
+       bl   @vsync                     ; Wait for next vsync/interrupt
+       bl   @set_name_table            ; Flip name table double buffer
+       bl   @set_sprite_table          ; Flip sprite table double buffer
+       bl   @play_sound                ; Play sound/music
 *      Scroll the background
-       bl   @update_char_list
-       bl   @update_characters
-       bl   @update_name_table
+       bl   @update_char_list          ; Determine which characeters to update
+       bl   @update_characters         ; Update characters
+       bl   @update_name_table         ; Update name table double buffer
 *      Delay
-       li   r2,scroll_interval
-       s    @frame_count,r2
-       jlt  !
-       jeq  !
+       li   r2,scroll_interval         ; Frames per scroll
+       s    @frame_count,r2            ; Subtract frame used
+       jlt  !                          ; Used too many already?
+       jeq  !                          ; Used all?
 main_delay:
-       bl   @vsync
-       bl   @interrupt_routine
-       dec  r2
-       jne  main_delay
+       bl   @vsync                     ; Wait for vsync/interrupt
+       bl   @interrupt_routine         ; Exec game actions and play music
+       dec  r2                         ; Delay counter
+       jne  main_delay                 ; Delay loop
 *      Change scroll position
-!      mov  @scrly,@scrly_current
-       dec  @scrly
-       jne  main_loop
+!      mov  @scrly,@scrly_current      ; Set scroll position as current
+       dec  @scrly                     ; Change scroll position for net frame
+       jne  main_loop                  ; Loop if not at top
 *      Next level
-       inc  @level
-       li   r0,>fffc
-       szc  r0,@level
-       jmp  next_level
+       inc  @level                     ; Increase level
+       li   r0,>fffc                   ; Mask
+       szc  r0,@level                  ; Level mod 4
+       jmp  next_level                 ; Level loop
 *// main
 
 ********************************************************************************
