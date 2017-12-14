@@ -35,8 +35,8 @@ sprite_def_turret:
        data >6000                      ; Pattern
        data >0e00                      ; Color
        data 6                          ; Hits left
-       data 1                          ; Deadly?
-       data 16                          ; Fire rate
+       data 0                          ; Deadly?
+       data 16                         ; Fire rate
 *      Enemy bullet
 sprite_def_enemy_bullet:
        data sprite_type_enemy_bullet   ; Type

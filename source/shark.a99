@@ -163,22 +163,10 @@ sprite_hits_left:                      ; Hits left before sprite is destroyed
        equ  28
 sprite_fire_delay:                     ; Count down until sprite can fire next
        equ  30
-sprite_struct_size:                    ; Structure size
+sprite_wave:                           ; Wave number
        equ  32
-
-* Sprite position structure
-sprite_pos_scroll_y:
-       equ  0
-sprite_pos_x:
-       equ  2
-sprite_pos_y:
-       equ  4
-sprite_pos_def:
-       equ  6
-sprite_pos_path:
-       equ  8
-sprite_pos_struct_size:
-       equ  10
+sprite_struct_size:                    ; Structure size
+       equ  34
 
 * Hardware sprite structure
 hw_sprite:                             ; Pointer to sprite structure
@@ -195,6 +183,28 @@ hw_sprite_priority:                    ; Priority: 0, 1, 2 (0 highest)
        equ  10
 hw_sprite_struct_size:                 ; Structure size
        equ  12
+
+* Sprite position structure
+sprite_pos_scroll_y:                   ; Scroll position when sprite appears
+       equ  0
+sprite_pos_x:                          ; X offset where sprite appears
+       equ  2
+sprite_pos_y:                          ; Y offset where sprite appears
+       equ  4
+sprite_pos_def:                        ; Sprite definition pointer
+       equ  6
+sprite_pos_path:                       ; Path pointer
+       equ  8
+sprite_pos_wave:                       ; Wave number
+       equ  10
+sprite_pos_struct_size:
+       equ  12
+
+* Wave structure
+wave_left:                             ; Enemies left
+       equ  0
+wave_total:
+       equ  2                          ; Enemies total
 
 * Path structure
 path_count:
@@ -560,6 +570,8 @@ add_sprites:
        mov  @sprite_pos_y(r8),r0
        sla  r0,8
        mov  r0,@sprite_y(r1)           ; Init y
+*      Wave
+       mov  @sprite_pos_wave(r8),@sprite_wave(r1)
 *      Record scroll position
        mov  @scrly_current,@sprite_scroll_y(r1)
 *      Init path
