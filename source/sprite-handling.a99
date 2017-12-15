@@ -1,0 +1,1270 @@
+*********************************************************************************
+*
+* Add sprites
+*
+add_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_pos_ptr,r8
+       mov  *r8,r0
+       jlt  add_sprites_1
+       s    @scrly_current,r0
+       jlt  add_sprites_1
+       mov  @sprite_pos_def(r8),r0
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_sprites_1
+*      Init x
+       mov  @sprite_pos_x(r8),r0       ; Init x
+       ai   r0,x_min
+       sla  r0,8
+       mov  r0,@sprite_x(r1)
+*      Init y
+       mov  @sprite_pos_y(r8),r0
+       sla  r0,8
+       mov  r0,@sprite_y(r1)           ; Init y
+*      Wave
+       mov  @sprite_pos_wave(r8),@sprite_wave(r1)
+*      Record scroll position
+       mov  @scrly_current,@sprite_scroll_y(r1)
+*      Init path
+       mov  @sprite_pos_path(r8),r2
+       jeq  add_sprites_2
+       mov  r2,@sprite_path(r1)               ; Init path pointer
+       mov  @path_count(r2),@sprite_count(r1) ; Init counter
+add_sprites_2:
+*      Branch to custom initialisation routine
+       mov  @sprite_def(r1),r2
+       mov  @sprite_def_type(r2),r2
+       sla  r2,1
+       mov  @add_sprite_jump_table(r2),r0
+       jeq  add_sprites_3
+       bl   *r0
+*      Next item in list
+add_sprites_3:
+       li   r0,sprite_pos_struct_size
+       a    r0,@sprite_pos_ptr
+*      Return
+add_sprites_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_sprites
+
+*********************************************************************************
+*
+* Add turret sprite
+*
+* r1: pointer to sprite
+*
+add_turret_sprite:
+*      Return
+       b    *r11
+*// add_turret_sprite
+
+*********************************************************************************
+*
+* Add enemy plane sprite
+*
+* r1: pointer to sprite
+*
+add_enemy_plane_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hw_2(r1),r2
+       li   r0,>0100
+       mov  r0,@hw_sprite_color(r2)
+       mov  @sprite_hw_3(r1),r2
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>1000
+       mov  r0,@hw_sprite_dx(r2)
+       mov  r0,@hw_sprite_dy(r2)
+*      Create a mask sprite if entering from the left
+       mov  @sprite_x(r1),r0
+       ci   r0,(x_min-16)*256
+       jne  add_enemy_plane_sprite_1
+       bl   @add_mask_sprite
+*      Return
+add_enemy_plane_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_enemy_plane_sprite
+
+*********************************************************************************
+*
+* Add tank sprite
+*
+* r1: pointer to sprite
+*
+add_tank_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hw_1(r1),r2        ; Get turret sprite
+       li   r0,1
+       mov  r0,@hw_sprite_priority(r2) ; Medium priority
+       mov  @sprite_hw_2(r1),r2        ; Get chassis sprite
+       li   r0,>0e00
+       mov  r0,@hw_sprite_color(r2)
+       li   r0,>1c00
+       mov  r0,@hw_sprite_pattern(r2)
+*      Create a mask sprite if entering from the left
+       mov  @sprite_x(r1),r0
+       ci   r0,(x_min-16)*256
+       jne  add_tank_sprite_1
+       bl   @add_mask_sprite
+*      Return
+add_tank_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_tank_sprite
+
+*********************************************************************************
+*
+* Add mask sprite
+*
+* r1: pointer to parent sprite (plane, tank)
+*
+* Modifies r0-r8
+*
+add_mask_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Create mask sprite
+       mov  r1,r8
+       li   r0,sprite_def_mask
+       bl   @alloc_sprite
+       mov  r1,@sprite_mask(r8)
+       mov  r8,@sprite_link(r1)
+       jeq  add_mask_sprite_1
+       li   r0,(x_min-16)*256
+       mov  r0,@sprite_x(r1)
+       mov  @sprite_y(r8),r0
+       srl  r0,8
+       a    @sprite_scroll_y(r8),r0
+       mov  r0,@sprite_scroll_y(r1)
+       mov  @sprite_hw_1(r1),r2
+       clr  @hw_sprite_priority(r2)    ; Highest priority
+       li   r0,32
+       mov  r0,@sprite_count(r1)
+*      Return
+add_mask_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_mask_sprite
+
+*********************************************************************************
+*
+* Add bullet sprite in front of player
+*
+add_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_bullet_sprite_1
+       li   r2,sprite_player
+       mov  @sprite_x(r2),@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,>f000
+       mov  r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       li   r0,>fa00
+       ;      a    @sprite_vy(r2),r0
+       mov  r0,@sprite_vy(r1)
+*      Return
+add_bullet_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_bullet_sprite
+
+*********************************************************************************
+*
+* Add enemy bullet sprite
+*
+* r3: parent sprite
+* @angle: angle of player relative to sprite
+*
+* Modifies r0-r1, r4-r7
+*
+add_enemy_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       li   r0,sprite_def_enemy_bullet
+       bl   @alloc_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       mov  r1,@sprite_link(r3)        ; Link bullet to parent sprite
+       jeq  add_enemy_bullet_1         ; If bullet could not be created
+       mov  r3,@sprite_link(r1)        ; Link parent sprite to bullet
+       mov  @sprite_x(r3),@sprite_x(r1)
+       mov  @sprite_y(r3),@sprite_y(r1)
+*      Direction
+       mov  @angle,r2
+       sla  r2,2
+       mov  @unit_vectors(r2),r0
+       sla  r0,2
+       mov  r0,@sprite_vx(r1)
+       mov  @unit_vectors+2(r2),r0
+       sla  r0,2
+       mov  r0,@sprite_vy(r1)
+       mov  @scrly,@sprite_scroll_y(r1)
+add_enemy_bullet_1:
+       dect r10                        ; Pop r2
+       mov  *r10,r2
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_enemy_bullet_sprite
+
+*********************************************************************************
+*
+* Add power up sprite
+*
+* r3: parent sprite
+*
+* Modifies ?
+*
+add_power_up_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_power_up_sprite
+
+*********************************************************************************
+*
+* Update sprites
+*
+update_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r2,n_sprites
+       li   r3,sprites
+update_sprites_1:
+       mov  *r3,r1                     ; Get sprite definition
+       jeq  update_sprites_2
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       sla  r1,1
+       mov  @update_sprite_jump_table(r1),r0
+       jeq  update_sprites_2
+       bl   *r0
+update_sprites_2:
+       ai   r3,sprite_struct_size
+       dec  r2
+       jne  update_sprites_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_sprites
+
+*********************************************************************************
+*
+* Update player sprite
+* Cannot use r2-r3
+*
+update_player_sprite:
+*      Manage path
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       jeq  update_player_sprite_0
+       dec  @sprite_count(r3)          ; Count down
+       jgt  update_player_sprite_10
+*      Next path segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
+       jlt  update_player_sprite_11    ; Negative means end
+       mov  r0,@sprite_count(r3)       ; Save new count
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update with path
+update_player_sprite_10:
+       mov  @path_pattern(r4),r0
+       mov  @sprite_hw_1(r3),r5
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_3(r3),r5
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_2(r3),r5
+       ai   r0,>0400
+       mov  r0,@hw_sprite_pattern(r5)
+       jmp  update_player_sprite_12
+*      Path complete
+update_player_sprite_11:
+       clr  @sprite_path(r3)
+       li   r0,60
+       mov  r0,@sprite_count(r3)
+*      Check for immunity countdown
+update_player_sprite_0:
+       mov  @sprite_count(r3),r0
+       jeq  update_player_sprite_13
+       dec  @sprite_count(r3)
+       jgt  update_player_sprite_13
+       mov  @one,@sprite_hits_left(r3)
+*      Move
+update_player_sprite_13:
+       mov  @sprite_vx(r3),r0
+       jgt  update_player_sprite_1
+       jlt  update_player_sprite_2
+*      Center
+       clr  r1                         ; Pattern
+       jmp  update_player_sprite_4
+*      Right
+update_player_sprite_1:
+       li   r1,>1000                   ; Pattern
+       mov  @sprite_x(r3),r0
+       ci   r0,(x_max-16)*256          ; Check x bounds
+       jl   update_player_sprite_3
+       jmp  update_player_sprite_4
+*      Left
+update_player_sprite_2:
+       li   r1,>0800                   ; Pattern
+       mov  @sprite_x(r3),r0
+       ci   r0,x_min*256               ; Check x bounds
+       jh   update_player_sprite_3
+       jmp  update_player_sprite_4
+update_player_sprite_3:
+       a    @sprite_vx(r3),@sprite_x(r3)    ; Move x
+update_player_sprite_4:
+       mov  @sprite_vy(r3),r0
+       jgt  update_player_sprite_5     ; Check y bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>0100
+       jle  update_player_sprite_6
+       jmp  update_player_sprite_7
+update_player_sprite_5:
+       mov  @sprite_y(r3),r0
+       ci   r0,>b000                   ; Check y bounds
+       jhe  update_player_sprite_6
+update_player_sprite_7:
+       a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
+*      Update z position
+update_player_sprite_6:
+       c    @scrly,@take_off_end
+       jlt  update_player_sprite_8
+*      Take off
+       mov  @scrly,r0
+       s    @take_off_end,r0
+       srl  r0,2
+       neg  r0
+       sla  r0,8
+       ai   r0,>1000
+       mov  @sprite_hw_3(r3),r4
+       mov  r0,@hw_sprite_dy(r4)
+       mov  r0,@hw_sprite_dx(r4)
+       jmp  update_player_sprite_9
+update_player_sprite_8:
+       c    @scrly,@landing_start
+       jgt  update_player_sprite_9
+       mov  @scrly,r0
+       srl  r0,2
+       sla  r0,8
+       mov  @sprite_hw_3(r3),r4
+       mov  r0,@hw_sprite_dy(r4)
+       ai   r0,->0100
+       mov  r0,@hw_sprite_dx(r4)
+*      Update patterns
+update_player_sprite_9:
+       mov  @sprite_hw_1(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
+       mov  @sprite_hw_3(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
+       ai   r1,>0400
+       mov  @sprite_hw_2(r3),r4
+       mov  r1,@hw_sprite_pattern(r4)
+*      Return
+update_player_sprite_12:
+       b    *r11
+*// update_player_sprite
+
+*********************************************************************************
+*
+* Update bullet sprite
+* Cannot use r2-r3
+*
+update_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Manage path
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       jeq  update_bullet_sprite_3
+       dec  @sprite_count(r3)          ; Count down
+       jgt  update_bullet_sprite_4
+*      Next path segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
+       jlt  update_bullet_sprite_2     ; Negative means end
+       mov  r0,@sprite_count(r3)       ; Save new count
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update with path
+update_bullet_sprite_4:
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_bullet_sprite_6
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+*      Pattern
+update_bullet_sprite_6
+       mov  @sprite_hw_1(r3),r5
+       mov  @path_pattern(r4),r0
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_2(r3),r5
+       jmp  update_bullet_sprite_5
+*      Update without path
+update_bullet_sprite_3:
+       mov  @sprite_y(r3),r0
+       ci   r0,>f000
+       jh   update_bullet_sprite_1
+       ci   r0,>c000
+       jl   update_bullet_sprite_1
+*      Remove
+update_bullet_sprite_2:
+       mov  r3,r1
+       bl   @dealloc_sprite
+       jmp  update_bullet_sprite_5
+*      Move
+update_bullet_sprite_1:
+       a    @sprite_vy(r3),@sprite_y(r3)
+*      Return
+update_bullet_sprite_5:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_bullet_sprite
+
+*********************************************************************************
+*
+* Update turret sprite
+* Cannot use r2-r3
+*
+update_turret_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly_current,r0          ; Move with scroll
+       ai   r0,-16                     ; 16 lines y offset
+       ci   r0,192                     ; Check for out of screen
+       jgt  update_turret_sprite_1     ; Remove if out of screen
+*      Move
+       sla  r0,8
+       mov  r0,@sprite_y(r3)           ; Set y
+       ci   r0,>f000
+       jhe  update_turret_sprite_2
+*      Pattern
+       mov  @sprite_hits_left(r3),r0
+       ci   r0,3
+       jle  update_turret_sprite_2
+       bl   @get_angle
+       movb @angle+1,r0                ; Get angle in MSB
+       andi r0,>1c00                   ; Isolate octant
+       ai   r0,>6000                   ; Add pattern base
+       mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
+       movb r0,@hw_sprite_pattern(r1)  ; Set pattern
+*      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_turret_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_turret_sprite_2
+       mov  @sprite_def_turret+sprite_def_fire_rate,@sprite_fire_delay(r3)
+       bl   @add_enemy_bullet_sprite
+       jmp  update_turret_sprite_2
+*      Remove
+update_turret_sprite_1:
+       mov  @sprite_link(r3),r1        ; Get bullet linked to turret
+       jeq  update_turret_sprite_3     ; Skip if none
+       clr  @sprite_link(r1)           ; Unlink bullet from turret
+update_turret_sprite_3:
+       mov  r3,r1
+       bl   @dealloc_sprite            ; Deallocate turret
+update_turret_sprite_2:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_turret_sprite
+
+*********************************************************************************
+*
+* Update enemy bullet sprite
+* Cannot use r2-r3
+*
+update_enemy_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check bounds
+       mov  @sprite_x(r3),r0
+       ci   r0,x_min*256
+       jl   update_enemy_bullet_sprite_2
+       ci   r0,(x_max-8)*256
+       jhe  update_enemy_bullet_sprite_2
+       mov  @sprite_y(r3),r0
+       ci   r0,>f000
+       jh   update_enemy_bullet_sprite_1
+       ci   r0,>c000
+       jl   update_enemy_bullet_sprite_1
+*      Remove
+update_enemy_bullet_sprite_2:
+       mov  @sprite_link(r3),r1        ; Get sprite that fired bullet
+       jeq  update_enemy_bullet_sprite_4 ; Skip if none
+       clr  @sprite_link(r1)           ; Remove link to bullet
+update_enemy_bullet_sprite_4:
+       mov  r3,r1
+       bl   @dealloc_sprite            ; Deallocate bullet
+       jmp  update_enemy_bullet_sprite_3
+*      Move
+update_enemy_bullet_sprite_1:
+       a    @sprite_vx(r3),@sprite_x(r3)
+       a    @sprite_vy(r3),@sprite_y(r3)
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_enemy_bullet_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+*      Return
+update_enemy_bullet_sprite_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_enemy_bullet_sprite
+
+*********************************************************************************
+*
+* Update enemy plane sprite
+* Cannot use r2-r3
+*
+update_enemy_plane_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Manage path
+       mov  @sprite_path(r3),r4          ; Get path pointer
+       dec  @sprite_count(r3)            ; Count down
+       jgt  update_enemy_plane_sprite_4
+*      Next path segment
+       ai   r4,path_struct_size          ; Move pointer
+       mov  @path_count(r4),r0           ; Get count for new segment
+       jlt  update_enemy_plane_sprite_1  ; Negative means end
+       mov  r0,@sprite_count(r3)         ; Save new count
+       mov  r4,@sprite_path(r3)          ; Save updated path pointer
+update_enemy_plane_sprite_4:
+*      Check bounds
+       mov  @path_vx(r4),r0
+       jgt  update_enemy_plane_sprite_5
+       mov  @sprite_x(r3),r0
+       ci   r0,x_min*256
+       jl   update_enemy_plane_sprite_1
+       jmp  update_enemy_plane_sprite_6
+update_enemy_plane_sprite_5:
+       mov  @sprite_x(r3),r0
+       ci   r0,(x_max-2)*256
+       jhe   update_enemy_plane_sprite_1
+*      Move
+update_enemy_plane_sprite_6:
+       a    @path_vx(r4),@sprite_x(r3)
+       a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_enemy_plane_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+*      Patterns
+update_enemy_plane_sprite_3:
+       mov  @sprite_hw_1(r3),r5
+       mov  @path_pattern(r4),r0
+       mov  r0,@hw_sprite_pattern(r5)
+       mov  @sprite_hw_3(r3),r5
+       jeq  !
+       mov  r0,@hw_sprite_pattern(r5)
+!      mov  @sprite_hw_2(r3),r5
+       jeq  update_enemy_plane_sprite_2
+       ai   r0,>2000
+       mov  r0,@hw_sprite_pattern(r5)
+*      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_enemy_plane_sprite_2
+       mov  @path_action(r4),r0
+       jeq  update_enemy_plane_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_enemy_plane_sprite_2
+       ;       bl   @rand
+       ;       ci   r0,>f000
+       ;       jl   update_enemy_plane_sprite_2
+       mov  @sprite_def_enemy_plane+sprite_def_fire_rate,@sprite_fire_delay(r3)
+       bl   @get_angle
+       bl   @add_enemy_bullet_sprite
+       jmp  update_enemy_plane_sprite_2
+*      Remove
+update_enemy_plane_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_enemy_plane_sprite_2:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_enemy_plane_sprite
+
+*********************************************************************************
+*
+* Update tank sprite
+* Cannot use r2-r3
+*
+update_tank_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Manage path
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       dec  @sprite_count(r3)          ; Count down
+       jgt  update_tank_sprite_4
+*      Next path segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
+       jlt  update_tank_sprite_1       ; Negative means end
+       mov  r0,@sprite_count(r3)       ; Save new count
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+update_tank_sprite_4:
+*      Check bounds
+       mov  @sprite_x(r3),r0
+       ci   r0,(x_min-2)*256
+       jne  update_tank_sprite_7
+       mov  @sprite_mask(r3),r0
+       jne  update_tank_sprite_7
+*      Add mask sprite
+       mov  r2,*r10+
+       mov  r3,*r10+
+       mov  r4,*r10+
+       mov  r3,r1
+       bl   @add_mask_sprite
+       dect r10
+       mov  *r10,r4
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
+update_tank_sprite_7:
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000
+       jhe  update_tank_sprite_1
+*      Move
+       a    @path_vx(r4),@sprite_x(r3)
+       a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_tank_sprite_3
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+*      Pattern
+update_tank_sprite_3:
+       mov  @path_pattern(r4),r7       ; Get path pattern
+       c    @sprite_hits_left(r3),@one
+       jgt  update_tank_sprite_5
+*      Hit or exploded - follow path pattern
+       mov  @sprite_hw_1(r3),r1
+       mov  r7,@hw_sprite_pattern(r1)
+       jmp  update_tank_sprite_2
+*      Point at player
+update_tank_sprite_5:
+       bl   @get_angle
+       movb @angle+1,r0                ; Get angle in MSB
+       andi r0,>1c00                   ; Isolate octant
+       ai   r0,>8000                   ; Add pattern base
+       ci   r7,>1800
+       jeq  update_tank_sprite_6
+       ai   r0,>2000
+update_tank_sprite_6:
+       mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
+       movb r0,@hw_sprite_pattern(r1)  ; Set pattern
+*      Update background sprite
+       mov  @sprite_hw_2(r3),r1
+       mov  r7,@hw_sprite_pattern(r1)
+*      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_tank_sprite_2
+       mov  @path_action(r4),r0
+       jeq  update_tank_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_tank_sprite_2
+       mov  @sprite_def_tank+sprite_def_fire_rate,@sprite_fire_delay(r3)
+       bl   @add_enemy_bullet_sprite
+       jmp  update_tank_sprite_2
+*      Remove
+update_tank_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_tank_sprite_2:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_tank_sprite
+
+*********************************************************************************
+*
+* Update mask sprite
+* Cannot use r2-r3
+*
+update_mask_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       dec  @sprite_count(r3)
+       jeq  update_mask_sprite_1
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly_current,r0          ; Move with scroll
+       ci   r0,192                     ; Check for out of screen
+       jgt  update_mask_sprite_1       ; Remove if out of screen
+*      Move
+       sla  r0,8
+       mov  r0,@sprite_y(r3)           ; Set y
+       jmp  update_mask_sprite_2
+*      Remove
+update_mask_sprite_1:
+       mov  @sprite_link(r3),r1
+       jeq  update_mask_sprite_2
+       clr  @sprite_mask(r1)
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Return
+update_mask_sprite_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_mask_sprite
+
+*********************************************************************************
+*
+* Get angle of player relative to sprite
+*
+* r3: points to sprite
+*
+* On return @angle contains the angle (0-31)
+* Modifies r1, r5, r6
+*
+*
+get_angle:
+       li   r6,sprite_player
+       mov  @sprite_y(r6),r0           ; Player y
+       srl  r0,8
+       mov  @sprite_y(r3),r5           ; Turret y
+       srl  r5,8
+       s    r5,r0                      ; Player y - turret y
+       sra  r0,4                       ; / 16
+       ai   r0,12                      ; + 12
+       li   r1,19
+       mpy  r1,r0                      ; * 19
+       mov  @sprite_x(r6),r0           ; Player x
+       srl  r0,8
+       mov  @sprite_x(r3),r5           ; Turret x
+       srl  r5,8
+       s    r5,r0                      ; Player x - turret x
+       sra  r0,4                       ; / 16
+       ai   r0,9                       ; + 9
+       a    r0,r1
+       clr  @angle
+       movb @angle_table(r1),@angle+1
+       b    *r11
+*// get_angle
+
+*********************************************************************************
+*
+* Allocate sprite
+*
+* r0: Address of sprite definition
+*
+* On return r1 contains the address of the sprite,
+* or 0 if the allocation failed.
+*
+* Modifies r0-r7
+*
+alloc_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r1,sprites
+       li   r2,n_sprites
+alloc_sprite_1:
+       mov  *r1,r3
+       jeq  alloc_sprite_2
+       ai   r1,sprite_struct_size
+       dec  r2
+       jne  alloc_sprite_1
+*      Failed allocation sprite
+       jmp  alloc_sprite_6
+*      Succeeded allocation sprite
+alloc_sprite_2:
+       mov  r2,@alloc_sprite_cnt
+       mov  r0,r4
+       mov  r4,*r1                     ; Set sprite definition
+       clr  @sprite_path(r1)
+       clr  @sprite_link(r1)
+       clr  @sprite_mask(r1)
+       mov  @sprite_def_hits_left(r4),@sprite_hits_left(r1)
+       mov  @one,@sprite_fire_delay(r1)
+       mov  @sprite_def_size(r4),r5
+       mov  r1,r6
+       ai   r6,sprite_hw_1
+alloc_sprite_4:
+       bl   @alloc_hw_sprite
+       mov  r0,r7
+       jeq  alloc_sprite_5
+       mov  r7,*r6+
+       clr  @hw_sprite_dx(r7)
+       clr  @hw_sprite_dy(r7)
+       mov  @sprite_def_pattern(r4),@hw_sprite_pattern(r7)
+       mov  @sprite_def_color(r4),@hw_sprite_color(r7)
+       li   r0,2
+       mov  r0,@hw_sprite_priority(r7)
+       dec  r5
+       jne  alloc_sprite_4
+*      Succeeded allocation sprite + hardware sprites
+       li   r2,n_sprites
+       s    @alloc_sprite_cnt,r2       ; Sprite no
+       c    r2,@max_sprite
+       jlt  alloc_sprite_3
+       mov  r2,@max_sprite
+       jmp  alloc_sprite_3
+*      Failed allocation hardware sprites
+alloc_sprite_5:
+       clr  *r1                        ; Deallocate again
+*      Failed allocation sprite
+alloc_sprite_6:
+       clr  r1
+*      Return
+alloc_sprite_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+alloc_sprite_cnt:
+       data 0
+*// alloc_sprite
+
+*********************************************************************************
+*
+* Allocate hardware sprite
+*
+* r1: Address of parent sprite
+*
+* On return r0 contain the address of the hw sprite,
+* or 0 if the allocation failed.
+*
+* Modifies r2-r3
+*
+alloc_hw_sprite:
+       li   r0,hw_sprites
+       li   r2,n_hw_sprites
+alloc_hw_sprite_1:
+       mov  *r0,r3
+       jeq  alloc_hw_sprite_2
+       ai   r0,hw_sprite_struct_size
+       dec  r2
+       jne  alloc_hw_sprite_1
+*      Failed
+       clr  r0
+       jmp  alloc_hw_sprite_3
+*      Succeeded
+alloc_hw_sprite_2:
+       mov  r1,*r0
+*      Record max hardware sprite
+       neg  r2
+       ai   r2,n_hw_sprites
+       c    r2,@max_hw_sprite
+       jlt  alloc_hw_sprite_3
+       mov  r2,@max_hw_sprite
+*      Return
+alloc_hw_sprite_3:
+       b    *r11
+*// allow_hw_sprite
+
+*********************************************************************************
+*
+* Deallocate sprite
+*
+* r1: Address of sprite
+*
+* Modifies r0-r1
+*
+dealloc_sprite:
+       clr  *r1                        ; Clear reference to sprite definition
+       mov  @sprite_hw_1(r1),r0        ; Get hardware sprite
+       jeq  dealloc_sprite_1           ; Skip if not set
+       clr *r0                         ; Clear reference to sprite
+       clr  @sprite_hw_1(r1)           ; Clear reference to hardware sprite
+dealloc_sprite_1:
+       mov  @sprite_hw_2(r1),r0
+       jeq  dealloc_sprite_2
+       clr *r0
+       clr  @sprite_hw_2(r1)
+dealloc_sprite_2:
+       mov  @sprite_hw_3(r1),r0
+       jeq  dealloc_sprite_3
+       clr *r0
+       clr  @sprite_hw_3(r1)
+dealloc_sprite_3:
+       mov  @sprite_hw_4(r1),r0
+       jeq  dealloc_sprite_4
+       clr *r0
+       clr  @sprite_hw_4(r1)
+dealloc_sprite_4:
+*      Adjust max_sprite
+       li   r0,sprite_struct_size
+       mpy @max_sprite,r0
+       ai   r1,sprites
+dealloc_sprite_5:
+       mov  *r1,r0
+       jne  dealloc_sprite_6
+       dec  @max_sprite
+       ai   r1,-sprite_struct_size
+       ci   r1,sprites
+       jhe  dealloc_sprite_5
+*      Adjust max_hw_sprite
+dealloc_sprite_6:
+       li   r0,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r0
+       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
+dealloc_sprite_7:
+       mov  *r1,r0
+       jne  dealloc_sprite_8
+       dec  @max_hw_sprite
+       ai   r1,-hw_sprite_struct_size
+       ci   r1,hw_sprites
+       jhe  dealloc_sprite_7
+*      Return
+dealloc_sprite_8:
+       b    *r11
+*// dealloc_sprite
+
+*********************************************************************************
+*
+* Sprite collisions
+*
+sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @max_sprite,r2
+       inc  r2
+       li   r3,sprites
+sprite_collisions_1:
+       mov  *r3,r1                     ; Get sprite definition
+       jeq  sprite_collisions_2
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       sla  r1,1
+       mov  @sprite_collisions_jump_table(r1),r0
+       jeq  sprite_collisions_2
+       bl   *r0
+sprite_collisions_2:
+       ai   r3,sprite_struct_size
+       dec  r2
+       jne  sprite_collisions_1
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// sprite_collisions
+
+*********************************************************************************
+*
+* Player sprite collisions
+* Collides with enemies and enemy bullets
+* r3 points to player sprite
+* Cannot modify r2-r3
+*
+player_sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @sprite_hits_left(r3),r0
+       jeq  player_sprite_collisions_3
+       mov  @max_sprite,r4
+       jeq  player_sprite_collisions_3
+       li   r5,sprites+sprite_struct_size
+       mov  @sprite_x(r3),r7
+       mov  @sprite_y(r3),r8
+player_sprite_collisions_1:
+       mov  *r5,r6                     ; Get sprite definition
+       jeq  player_sprite_collisions_2
+       mov  @sprite_def_deadly(r6),r0
+       jeq  player_sprite_collisions_2
+       mov  @sprite_x(r5),r0
+       s    r7,r0
+       abs  r0
+       ci   r0,>0800
+       jhe  player_sprite_collisions_2
+       mov  @sprite_y(r5),r1
+       s    r8,r1
+       abs  r1
+       ci   r1,>0800
+       jhe  player_sprite_collisions_2
+*      Collision
+       clr  @sprite_hits_left(r3)
+       li   r1,path_explosion
+       mov  r1,@sprite_path(r3)
+       mov  @path_count(r1),@sprite_count(r5) ; Init counter
+       dec  @lives
+       mov  r2,*r10+
+       mov  r3,*r10+
+       bl   @display_lives
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
+       jmp  player_sprite_collisions_3
+player_sprite_collisions_2:
+       ai   r5,sprite_struct_size
+       dec  r4
+       jne  player_sprite_collisions_1
+*      Return
+player_sprite_collisions_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// player_sprite_collisions
+
+*********************************************************************************
+*
+* Enemy sprite collisions
+* Collides with bullets
+* r3 points to enemy sprite
+* Cannot modify r2-r3
+*
+enemy_sprite_collisions:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @max_sprite,r4
+       inc  r4
+       li   r5,sprites
+       li   r6,sprite_def_bullet
+       mov  @sprite_x(r3),r7
+       mov  @sprite_y(r3),r8
+enemy_sprite_collisions_1:
+       c    *r5,r6                     ; Check for bullet
+       jne  enemy_sprite_collisions_2
+       mov  @sprite_x(r5),r0
+       s    r7,r0
+       abs  r0
+       ci   r0,>0800
+       jhe  enemy_sprite_collisions_2
+       mov  @sprite_y(r5),r1
+       s    r8,r1
+       abs  r1
+       ci   r1,>0800
+       jhe  enemy_sprite_collisions_2
+*      Collision
+       mov  @sprite_hits_left(r5),r0   ; Check bullet hits left
+       jeq  enemy_sprite_collisions_2
+       mov  @sprite_hits_left(r3),r0   ; Check enemy hits left
+       jeq  enemy_sprite_collisions_3
+       dec  r0
+       mov  r0,@sprite_hits_left(r3)
+enemy_sprite_collisions_4:
+       mov  *r3,r1                     ; Get sprite definition
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       sla  r1,1
+       mov  @enemy_hit_jump_table(r1),r0
+       jeq  enemy_sprite_collisions_3
+       bl   *r0
+       jmp  enemy_sprite_collisions_3
+enemy_sprite_collisions_2:
+       ai   r5,sprite_struct_size
+       dec  r4
+       jne  enemy_sprite_collisions_1
+*      Return
+enemy_sprite_collisions_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// enemy_sprite_collisions
+
+*********************************************************************************
+*
+* Turret hit
+* r3 points to turret sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+turret_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check turret hits left
+       mov  @sprite_hits_left(r3),r0
+       jeq  turret_hit_1
+       ci   r0,2
+       jne  turret_hit_2
+*      Allocate a new hardware sprite when patially hit
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       mov  r3,r1
+       bl   @alloc_hw_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       dect r10                        ; Pop r3
+       mov  *r10,r2
+       mov  r0,r1
+       jeq  turret_hit_2
+       mov  r1,@sprite_hw_2(r3)
+       li   r0,>f800
+       mov  r0,@hw_sprite_pattern(r1)
+       li   r0,1
+       mov  r0,@hw_sprite_priority(r1)
+       li   r0,>0100
+       mov  r0,@hw_sprite_color(r1)
+       jmp  turret_hit_2
+turret_hit_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+       li   r0,175
+       bl   @add_score
+*      Return
+turret_hit_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// turret_hit
+
+*********************************************************************************
+*
+* Enemy plane hit
+* r3 points to enemy plane sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+enemy_plane_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @explode_bullet
+       li   r1,>0800
+       mov  r1,@hw_sprite_color(r5)
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Wave
+       mov  @sprite_wave(r3),r1
+       jlt  enemy_plane_hit_1
+       sla  r1,2
+       dec  @waves(r1)
+       jgt  enemy_plane_hit_1
+*      Wave complete
+       bl   @add_power_up_sprite
+enemy_plane_hit_1:
+*      Score
+       li   r0,100
+       bl   @add_score
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// enemy_plane_hit
+
+*********************************************************************************
+*
+* Tank hit
+* r3 points to tank sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+tank_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check tank hits left
+       mov  @sprite_hits_left(r3),r0
+       jgt  tank_hit_1
+*      Remove
+       mov  r3,r1
+       bl   @dealloc_sprite
+       li   r0,200
+       bl   @add_score
+       jmp  tank_hit_2
+*      Stop
+tank_hit_1:
+       li   r1,path_tank_stop
+       mov  r1,@sprite_path(r3)               ; Init path pointer
+       mov  @path_count(r1),@sprite_count(r3) ; Init counter
+*      Return
+tank_hit_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// tank_hit
+
+*********************************************************************************
+*
+* Explode bullet
+*
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+explode_bullet:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r1,path_explosion
+       mov  r1,@sprite_path(r5)
+       mov  @path_count(r1),@sprite_count(r5) ; Init counter
+       mov  @sprite_x(r3),@sprite_x(r5)
+       mov  @sprite_y(r3),@sprite_y(r5)
+       mov  @scrly,@sprite_scroll_y(r5)
+       clr  @sprite_hits_left(r5)
+       mov  @sprite_hw_1(r5),r5
+       li   r1,>0a00
+       mov  r1,@hw_sprite_color(r5)
+       li   r1,expl_1
+       bl   @init_sfx
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// explode_bullet
+
+*********************************************************************************
+*
+* Upload sprite attributes
+*
+upload_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Set destination address
+       mov  @sprite_table_flag,r0
+       andi r0,1
+       sla  r0,7
+       ai   r0,sprat1
+       bl   @vwad
+*      Init loop
+       li   r15,vdpwd
+       clr  r4                         ; Priority
+       mov  @sprite_table_flag,r0
+       jne  upload_sprites_1
+       li   r6,hw_sprites              ; Start
+       li   r5,hw_sprite_struct_size   ; Increment
+       jmp  upload_sprites_2
+upload_sprites_1:
+       li   r5,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r5
+       ai   r6,hw_sprites
+       li   r5,-hw_sprite_struct_size
+*      Loop
+upload_sprites_2:
+       mov  @max_hw_sprite,r2
+       inc  r2
+       mov  r6,r3                      ; Start address
+upload_sprites_3:
+       c    r4,@hw_sprite_priority(r3) ; Check priority
+       jne  upload_sprites_4
+       mov  *r3,r1                     ; Get parent sprite
+       jeq  upload_sprites_4
+       mov  @sprite_x(r1),r7
+       a    @hw_sprite_dx(r3),r7
+       ci   r7,x_min*256               ; Check for x out of bound
+       jl   upload_sprites_4
+       mov  @sprite_y(r1),r0
+       a    @hw_sprite_dy(r3),r0
+       movb r0,*r15
+       movb r7,*r15
+       movb @hw_sprite_pattern(r3),*r15
+       movb @hw_sprite_color(r3),*r15
+upload_sprites_4:
+       a    r5,r3
+       dec  r2
+       jne  upload_sprites_3
+       inc  r4
+       ci   r4,3
+       jne  upload_sprites_2
+*      End marker
+       li   r0,>d000
+       movb r0,*r15
+*      Return
+upload_sprites_5:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_sprites
