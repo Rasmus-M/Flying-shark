@@ -999,6 +999,8 @@ player_sprite_collisions_1:
        mov  r2,*r10+
        mov  r3,*r10+
        bl   @display_lives
+       li   r1,expl_1
+       bl   @init_sfx
        dect r10
        mov  *r10,r3
        dect r10
@@ -1268,3 +1270,44 @@ upload_sprites_5:
        mov  *r10, r11
        b    *r11
 *// upload_sprites
+
+*********************************************************************************
+*
+* Sprite jump tables
+*
+add_sprite_jump_table:
+       data 0                          ; Player
+       data 0                          ; Bullet
+       data add_turret_sprite          ; Turret
+       data 0                          ; Enemy bullet
+       data add_enemy_plane_sprite     ; Enemy plane
+       data add_tank_sprite            ; Tank
+       data 0                          ; Mask
+       data 0                          ; Power up
+update_sprite_jump_table:
+       data update_player_sprite       ; Player
+       data update_bullet_sprite       ; Bullet
+       data update_turret_sprite       ; Turret
+       data update_enemy_bullet_sprite ; Enemy bullet
+       data update_enemy_plane_sprite  ; Enemy plane
+       data update_tank_sprite         ; Tank
+       data update_mask_sprite         ; Mask
+       data 0                          ; Power up
+sprite_collisions_jump_table:
+       data player_sprite_collisions   ; Player
+       data 0                          ; Bullet
+       data enemy_sprite_collisions    ; Turret
+       data 0                          ; Enemy bullet
+       data enemy_sprite_collisions    ; Enemy plane
+       data enemy_sprite_collisions    ; Tank
+       data 0                          ; Mask
+       data 0                          ; Power up
+enemy_hit_jump_table:
+       data 0                          ; Player
+       data 0                          ; Bullet
+       data turret_hit                 ; Turret
+       data 0                          ; Enemy bullet
+       data enemy_plane_hit            ; Enemy plane
+       data tank_hit                   ; Tank
+       data 0                          ; Mask
+       data 0                          ; Power up
