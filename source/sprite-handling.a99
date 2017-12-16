@@ -161,55 +161,122 @@ add_bullet_sprite:
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_bullet_sprite_2
-*      Check power ups
-       mov  @power_ups,r0
-       ci   r0,power_up_double_shot
        jeq  add_bullet_sprite_1
-*      Normal shot
        li   r2,sprite_player
        mov  @sprite_x(r2),@sprite_x(r1)
        mov  @sprite_y(r2),r0
-       ai   r0,>f000
+       ai   r0,->0800
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
-       li   r0,>fa00
+       li   r0,->0600
        mov  r0,@sprite_vy(r1)
-       jmp  add_bullet_sprite_2
-*      Double shot
+*      Return
 add_bullet_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_bullet_sprite
+
+*********************************************************************************
+*
+* Add double bullet sprites in front of player
+*
+add_double_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      1st sprite
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_double_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,->0600
        mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
-       ai   r0,>f000
+       ai   r0,->0800
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
-       li   r0,>fa00
+       li   r0,->0600
        mov  r0,@sprite_vy(r1)
 *      2nd sprite
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_bullet_sprite_2
+       jeq  add_double_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,>0600
        mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
-       ai   r0,>f000
+       ai   r0,->0800
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
-       li   r0,>fa00
+       li   r0,->0600
        mov  r0,@sprite_vy(r1)
-       jmp  add_bullet_sprite_2
 *      Return
-add_bullet_sprite_2:
+add_double_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// add_bullet_sprite
+*// add_double_bullet_sprite
+
+*********************************************************************************
+*
+* Add treble bullet sprites in front of player
+*
+add_treble_bullet_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Alloc sprite
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_treble_bullet_sprite_1
+       li   r2,sprite_player
+       mov  @sprite_x(r2),@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,->1000
+       mov  r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       li   r0,->0600
+       mov  r0,@sprite_vy(r1)
+*      2nd sprite
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_treble_bullet_sprite_1
+       li   r2,sprite_player
+       mov  @sprite_x(r2),r0
+       ai   r0,>0600
+       mov  r0,@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,->0800
+       mov  r0,@sprite_y(r1)
+       li   r0,>0040
+       mov  r0,@sprite_vx(r1)
+       li   r0,->0600
+       mov  r0,@sprite_vy(r1)
+*      3rd sprite
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_treble_bullet_sprite_1
+       li   r2,sprite_player
+       mov  @sprite_x(r2),r0
+       ai   r0,->0600
+       mov  r0,@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,->0800
+       mov  r0,@sprite_y(r1)
+       li   r0,->0040
+       mov  r0,@sprite_vx(r1)
+       li   r0,->0600
+       mov  r0,@sprite_vy(r1)
+*      Return
+add_treble_bullet_sprite_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_treble_bullet_sprite
 
 *********************************************************************************
 *
@@ -476,6 +543,7 @@ update_bullet_sprite_2:
        jmp  update_bullet_sprite_5
 *      Move
 update_bullet_sprite_1:
+       a    @sprite_vx(r3),@sprite_x(r3)
        a    @sprite_vy(r3),@sprite_y(r3)
 *      Return
 update_bullet_sprite_5:
@@ -897,8 +965,10 @@ player_sprite_collisions_4:
        bl   @dealloc_sprite
        ci   r6,sprite_def_power_up
        jne  player_sprite_collisions_3
-       li   r0,power_up_double_shot
-       soc  r0,@power_ups
+       mov  @power_ups,r0
+       ci   r0,power_up_treble_shot
+       jeq  player_sprite_collisions_3
+       inc  @power_ups
        jmp  player_sprite_collisions_3
 player_sprite_collisions_2:
        ai   r5,sprite_struct_size

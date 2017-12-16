@@ -604,7 +604,21 @@ fire:
        mov  @player_fire,r0
        jgt  fire_1
        jeq  fire_1
+*      Check power ups
+       mov  @power_ups,r0
+       jne  fire_2
        bl   @add_bullet_sprite
+       jmp  fire_4
+fire_2:
+       ci   r0,power_up_double_shot
+       jne  fire_3
+*      Double
+       bl   @add_double_bullet_sprite
+       jmp  fire_4
+fire_3:
+*      Treble
+       bl   @add_treble_bullet_sprite
+fire_4:
        li   r1,shot_1
        bl   @init_sfx
        neg  @player_fire
@@ -1892,7 +1906,7 @@ hw_sprites:
        copy "tiplayersfx.a99"
        .endif
 shot_1:
-       bcopy "..\sound\shot1.vgm.spf"
+       bcopy "..\sound\shot2.vgm.spf"
 expl_1:
        bcopy "..\sound\expl1.vgm.spf"
 **
