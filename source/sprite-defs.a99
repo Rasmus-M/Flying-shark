@@ -89,3 +89,16 @@ sprite_def_mask:
        data 0                          ; Hits left
        data 0                          ; Deadly?
        data 0                          ; Fire rate
+*      Power up
+sprite_def_power_up:
+       data sprite_type_power_up       ; Type
+       data >000E                      ; Width
+       data >000E                      ; Height
+       data >0001                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size
+       data >dc00                      ; Pattern
+       data >0f00                      ; Color
+       data 0                          ; Hits left
+       data 0                          ; Deadly?
+       data 0                          ; Fire rate

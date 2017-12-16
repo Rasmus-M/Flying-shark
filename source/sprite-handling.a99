@@ -222,13 +222,30 @@ add_enemy_bullet_1:
 *
 * Add power up sprite
 *
-* r3: parent sprite
+* r3: last sprite of wave
 *
-* Modifies ?
+* Modifies r0-r1, r4-r7
 *
 add_power_up_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       li   r0,sprite_def_power_up
+       bl   @alloc_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       dect r10                        ; Pop r2
+       mov  *r10,r2
+       mov  r1,r1
+       jeq  add_power_up_sprite_1
+       mov  @sprite_x(r3),@sprite_x(r1)
+       mov  @sprite_y(r3),@sprite_y(r1)
+*      Record scroll position
+       mov  @scrly_current,@sprite_scroll_y(r1)
+*      Init path
+;       mov  r2,@sprite_path(r1)               ; Init path pointer
+;       mov  @path_count(r2),@sprite_count(r1) ; Init counter
+add_power_up_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -264,7 +281,7 @@ update_sprites_2:
 *********************************************************************************
 *
 * Update player sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_player_sprite:
 *      Manage path
@@ -380,7 +397,7 @@ update_player_sprite_12:
 *********************************************************************************
 *
 * Update bullet sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -436,7 +453,7 @@ update_bullet_sprite_5:
 *********************************************************************************
 *
 * Update turret sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -486,7 +503,7 @@ update_turret_sprite_2:
 *********************************************************************************
 *
 * Update enemy bullet sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -531,7 +548,7 @@ update_enemy_bullet_sprite_3:
 *********************************************************************************
 *
 * Update enemy plane sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -608,7 +625,7 @@ update_enemy_plane_sprite_2:
 *********************************************************************************
 *
 * Update tank sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -703,7 +720,7 @@ update_tank_sprite_2:
 *********************************************************************************
 *
 * Update mask sprite
-* Cannot use r2-r3
+* Cannot modify r2-r3
 *
 update_mask_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -731,6 +748,36 @@ update_mask_sprite_2:
        mov  *r10, r11
        b    *r11
 *// update_mask_sprite
+
+*********************************************************************************
+*
+* Update power_up sprite
+* Cannot modify r2-r3
+*
+update_power_up_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,192*256                 ; Check for out of screen
+       jhe  update_power_up_sprite_1   ; Remove if out of screen
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scrly,r0
+       jeq  update_power_up_sprite_2
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scrly,@sprite_scroll_y(r3)
+       jmp  update_power_up_sprite_2
+*      Remove
+update_power_up_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Return
+update_power_up_sprite_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_power_up_sprite
 
 *********************************************************************************
 *
@@ -1127,11 +1174,10 @@ turret_hit_2:
 *
 enemy_plane_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Explosion
        bl   @explode_bullet
        li   r1,>0800
        mov  r1,@hw_sprite_color(r5)
-       mov  r3,r1
-       bl   @dealloc_sprite
 *      Wave
        mov  @sprite_wave(r3),r1
        jlt  enemy_plane_hit_1
@@ -1141,6 +1187,9 @@ enemy_plane_hit:
 *      Wave complete
        bl   @add_power_up_sprite
 enemy_plane_hit_1:
+*      Remove
+       mov  r3,r1
+       bl   @dealloc_sprite
 *      Score
        li   r0,100
        bl   @add_score
@@ -1292,7 +1341,7 @@ update_sprite_jump_table:
        data update_enemy_plane_sprite  ; Enemy plane
        data update_tank_sprite         ; Tank
        data update_mask_sprite         ; Mask
-       data 0                          ; Power up
+       data update_power_up_sprite     ; Power up
 sprite_collisions_jump_table:
        data player_sprite_collisions   ; Player
        data 0                          ; Bullet
