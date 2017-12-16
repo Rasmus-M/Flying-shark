@@ -61,6 +61,12 @@ n_hw_sprites:                          ; Number of hardware sprites
        equ  32
 chzero:                                ; Character code for zero
        equ  240
+power_up_none:
+       equ  0
+power_up_double_shot:
+       equ  1
+power_up_treble_shot:
+       equ  2
 
 **
 * Memory mapped addresses
@@ -125,7 +131,7 @@ sprite_def_color:                      ; Base color
        equ  14
 sprite_def_hits_left:                  ; Base hits left
        equ  16
-sprite_def_deadly:                     ; Is sprite deadly?
+sprite_def_hit_action:                 ; > 0 = deadly, < 0 = pickup
        equ  18
 sprite_def_fire_rate:                  ; How often can the sprite fire?
        equ  20
@@ -221,7 +227,6 @@ path_action:
        equ  8
 path_struct_size:
        equ  10
-
 **
 * Scratch pad
 *
@@ -473,6 +478,68 @@ set_sprite_table:
        mov  *r10, r11
        b    *r11
 *// set_sprite_table
+
+*********************************************************************************
+*
+* Upload sprite attributes
+*
+upload_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Set destination address
+       mov  @sprite_table_flag,r0
+       andi r0,1
+       sla  r0,7
+       ai   r0,sprat1
+       bl   @vwad
+*      Init loop
+       li   r15,vdpwd
+       clr  r4                         ; Priority
+       mov  @sprite_table_flag,r0
+       jne  upload_sprites_1
+       li   r6,hw_sprites              ; Start
+       li   r5,hw_sprite_struct_size   ; Increment
+       jmp  upload_sprites_2
+upload_sprites_1:
+       li   r5,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r5
+       ai   r6,hw_sprites
+       li   r5,-hw_sprite_struct_size
+*      Loop
+upload_sprites_2:
+       mov  @max_hw_sprite,r2
+       inc  r2
+       mov  r6,r3                      ; Start address
+upload_sprites_3:
+       c    r4,@hw_sprite_priority(r3) ; Check priority
+       jne  upload_sprites_4
+       mov  *r3,r1                     ; Get parent sprite
+       jeq  upload_sprites_4
+       mov  @sprite_x(r1),r7
+       a    @hw_sprite_dx(r3),r7
+       ci   r7,x_min*256               ; Check for x out of bound
+       jl   upload_sprites_4
+       mov  @sprite_y(r1),r0
+       a    @hw_sprite_dy(r3),r0
+       movb r0,*r15
+       movb r7,*r15
+       movb @hw_sprite_pattern(r3),*r15
+       movb @hw_sprite_color(r3),*r15
+upload_sprites_4:
+       a    r5,r3
+       dec  r2
+       jne  upload_sprites_3
+       inc  r4
+       ci   r4,3
+       jne  upload_sprites_2
+*      End marker
+       li   r0,>d000
+       movb r0,*r15
+*      Return
+upload_sprites_5:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_sprites
 
 *********************************************************************************
 *
@@ -988,6 +1055,7 @@ init_game:
        li   r0,3
        mov  r0,@lives
        clr  @sprite_table_flag
+       clr  @power_ups
 *      Init sprites
        li   r0,sprites+(1*sprite_struct_size)
        li   r2,(n_sprites-1)*sprite_struct_size

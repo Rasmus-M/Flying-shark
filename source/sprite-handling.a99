@@ -157,10 +157,16 @@ add_mask_sprite_1:
 *
 add_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Alloc sprite
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
+       jeq  add_bullet_sprite_2
+*      Check power ups
+       mov  @power_ups,r0
+       ci   r0,power_up_double_shot
        jeq  add_bullet_sprite_1
+*      Normal shot
        li   r2,sprite_player
        mov  @sprite_x(r2),@sprite_x(r1)
        mov  @sprite_y(r2),r0
@@ -168,10 +174,38 @@ add_bullet_sprite:
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
        li   r0,>fa00
-       ;      a    @sprite_vy(r2),r0
        mov  r0,@sprite_vy(r1)
-*      Return
+       jmp  add_bullet_sprite_2
+*      Double shot
 add_bullet_sprite_1:
+       li   r2,sprite_player
+       mov  @sprite_x(r2),r0
+       ai   r0,->0600
+       mov  r0,@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,>f000
+       mov  r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       li   r0,>fa00
+       mov  r0,@sprite_vy(r1)
+*      2nd sprite
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r1,r1
+       jeq  add_bullet_sprite_2
+       li   r2,sprite_player
+       mov  @sprite_x(r2),r0
+       ai   r0,>0600
+       mov  r0,@sprite_x(r1)
+       mov  @sprite_y(r2),r0
+       ai   r0,>f000
+       mov  r0,@sprite_y(r1)
+       clr  @sprite_vx(r1)
+       li   r0,>fa00
+       mov  r0,@sprite_vy(r1)
+       jmp  add_bullet_sprite_2
+*      Return
+add_bullet_sprite_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -604,9 +638,9 @@ update_enemy_plane_sprite_3:
        jeq  update_enemy_plane_sprite_2
        dec  @sprite_fire_delay(r3)
        jne  update_enemy_plane_sprite_2
-       ;       bl   @rand
-       ;       ci   r0,>f000
-       ;       jl   update_enemy_plane_sprite_2
+;       bl   @rand
+;       ci   r0,>f000
+;       jl   update_enemy_plane_sprite_2
        mov  @sprite_def_enemy_plane+sprite_def_fire_rate,@sprite_fire_delay(r3)
        bl   @get_angle
        bl   @add_enemy_bullet_sprite
@@ -781,206 +815,6 @@ update_power_up_sprite_2:
 
 *********************************************************************************
 *
-* Get angle of player relative to sprite
-*
-* r3: points to sprite
-*
-* On return @angle contains the angle (0-31)
-* Modifies r1, r5, r6
-*
-*
-get_angle:
-       li   r6,sprite_player
-       mov  @sprite_y(r6),r0           ; Player y
-       srl  r0,8
-       mov  @sprite_y(r3),r5           ; Turret y
-       srl  r5,8
-       s    r5,r0                      ; Player y - turret y
-       sra  r0,4                       ; / 16
-       ai   r0,12                      ; + 12
-       li   r1,19
-       mpy  r1,r0                      ; * 19
-       mov  @sprite_x(r6),r0           ; Player x
-       srl  r0,8
-       mov  @sprite_x(r3),r5           ; Turret x
-       srl  r5,8
-       s    r5,r0                      ; Player x - turret x
-       sra  r0,4                       ; / 16
-       ai   r0,9                       ; + 9
-       a    r0,r1
-       clr  @angle
-       movb @angle_table(r1),@angle+1
-       b    *r11
-*// get_angle
-
-*********************************************************************************
-*
-* Allocate sprite
-*
-* r0: Address of sprite definition
-*
-* On return r1 contains the address of the sprite,
-* or 0 if the allocation failed.
-*
-* Modifies r0-r7
-*
-alloc_sprite:
-       mov  r11,*r10+                  ; Push return address onto the stack
-       li   r1,sprites
-       li   r2,n_sprites
-alloc_sprite_1:
-       mov  *r1,r3
-       jeq  alloc_sprite_2
-       ai   r1,sprite_struct_size
-       dec  r2
-       jne  alloc_sprite_1
-*      Failed allocation sprite
-       jmp  alloc_sprite_6
-*      Succeeded allocation sprite
-alloc_sprite_2:
-       mov  r2,@alloc_sprite_cnt
-       mov  r0,r4
-       mov  r4,*r1                     ; Set sprite definition
-       clr  @sprite_path(r1)
-       clr  @sprite_link(r1)
-       clr  @sprite_mask(r1)
-       mov  @sprite_def_hits_left(r4),@sprite_hits_left(r1)
-       mov  @one,@sprite_fire_delay(r1)
-       mov  @sprite_def_size(r4),r5
-       mov  r1,r6
-       ai   r6,sprite_hw_1
-alloc_sprite_4:
-       bl   @alloc_hw_sprite
-       mov  r0,r7
-       jeq  alloc_sprite_5
-       mov  r7,*r6+
-       clr  @hw_sprite_dx(r7)
-       clr  @hw_sprite_dy(r7)
-       mov  @sprite_def_pattern(r4),@hw_sprite_pattern(r7)
-       mov  @sprite_def_color(r4),@hw_sprite_color(r7)
-       li   r0,2
-       mov  r0,@hw_sprite_priority(r7)
-       dec  r5
-       jne  alloc_sprite_4
-*      Succeeded allocation sprite + hardware sprites
-       li   r2,n_sprites
-       s    @alloc_sprite_cnt,r2       ; Sprite no
-       c    r2,@max_sprite
-       jlt  alloc_sprite_3
-       mov  r2,@max_sprite
-       jmp  alloc_sprite_3
-*      Failed allocation hardware sprites
-alloc_sprite_5:
-       clr  *r1                        ; Deallocate again
-*      Failed allocation sprite
-alloc_sprite_6:
-       clr  r1
-*      Return
-alloc_sprite_3:
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
-       b    *r11
-alloc_sprite_cnt:
-       data 0
-*// alloc_sprite
-
-*********************************************************************************
-*
-* Allocate hardware sprite
-*
-* r1: Address of parent sprite
-*
-* On return r0 contain the address of the hw sprite,
-* or 0 if the allocation failed.
-*
-* Modifies r2-r3
-*
-alloc_hw_sprite:
-       li   r0,hw_sprites
-       li   r2,n_hw_sprites
-alloc_hw_sprite_1:
-       mov  *r0,r3
-       jeq  alloc_hw_sprite_2
-       ai   r0,hw_sprite_struct_size
-       dec  r2
-       jne  alloc_hw_sprite_1
-*      Failed
-       clr  r0
-       jmp  alloc_hw_sprite_3
-*      Succeeded
-alloc_hw_sprite_2:
-       mov  r1,*r0
-*      Record max hardware sprite
-       neg  r2
-       ai   r2,n_hw_sprites
-       c    r2,@max_hw_sprite
-       jlt  alloc_hw_sprite_3
-       mov  r2,@max_hw_sprite
-*      Return
-alloc_hw_sprite_3:
-       b    *r11
-*// allow_hw_sprite
-
-*********************************************************************************
-*
-* Deallocate sprite
-*
-* r1: Address of sprite
-*
-* Modifies r0-r1
-*
-dealloc_sprite:
-       clr  *r1                        ; Clear reference to sprite definition
-       mov  @sprite_hw_1(r1),r0        ; Get hardware sprite
-       jeq  dealloc_sprite_1           ; Skip if not set
-       clr *r0                         ; Clear reference to sprite
-       clr  @sprite_hw_1(r1)           ; Clear reference to hardware sprite
-dealloc_sprite_1:
-       mov  @sprite_hw_2(r1),r0
-       jeq  dealloc_sprite_2
-       clr *r0
-       clr  @sprite_hw_2(r1)
-dealloc_sprite_2:
-       mov  @sprite_hw_3(r1),r0
-       jeq  dealloc_sprite_3
-       clr *r0
-       clr  @sprite_hw_3(r1)
-dealloc_sprite_3:
-       mov  @sprite_hw_4(r1),r0
-       jeq  dealloc_sprite_4
-       clr *r0
-       clr  @sprite_hw_4(r1)
-dealloc_sprite_4:
-*      Adjust max_sprite
-       li   r0,sprite_struct_size
-       mpy @max_sprite,r0
-       ai   r1,sprites
-dealloc_sprite_5:
-       mov  *r1,r0
-       jne  dealloc_sprite_6
-       dec  @max_sprite
-       ai   r1,-sprite_struct_size
-       ci   r1,sprites
-       jhe  dealloc_sprite_5
-*      Adjust max_hw_sprite
-dealloc_sprite_6:
-       li   r0,hw_sprite_struct_size
-       mpy  @max_hw_sprite,r0
-       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
-dealloc_sprite_7:
-       mov  *r1,r0
-       jne  dealloc_sprite_8
-       dec  @max_hw_sprite
-       ai   r1,-hw_sprite_struct_size
-       ci   r1,hw_sprites
-       jhe  dealloc_sprite_7
-*      Return
-dealloc_sprite_8:
-       b    *r11
-*// dealloc_sprite
-
-*********************************************************************************
-*
 * Sprite collisions
 *
 sprite_collisions:
@@ -1025,7 +859,7 @@ player_sprite_collisions:
 player_sprite_collisions_1:
        mov  *r5,r6                     ; Get sprite definition
        jeq  player_sprite_collisions_2
-       mov  @sprite_def_deadly(r6),r0
+       mov  @sprite_def_hit_action(r6),r0
        jeq  player_sprite_collisions_2
        mov  @sprite_x(r5),r0
        s    r7,r0
@@ -1038,11 +872,15 @@ player_sprite_collisions_1:
        ci   r1,>0800
        jhe  player_sprite_collisions_2
 *      Collision
+       mov  @sprite_def_hit_action(r6),r0
+       jlt  player_sprite_collisions_4
+*      Deadly
        clr  @sprite_hits_left(r3)
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
        dec  @lives
+       clr  @power_ups
        mov  r2,*r10+
        mov  r3,*r10+
        bl   @display_lives
@@ -1052,6 +890,15 @@ player_sprite_collisions_1:
        mov  *r10,r3
        dect r10
        mov  *r10,r2
+       jmp  player_sprite_collisions_3
+*      Pickup
+player_sprite_collisions_4:
+       mov  r5,r1
+       bl   @dealloc_sprite
+       ci   r6,sprite_def_power_up
+       jne  player_sprite_collisions_3
+       li   r0,power_up_double_shot
+       soc  r0,@power_ups
        jmp  player_sprite_collisions_3
 player_sprite_collisions_2:
        ai   r5,sprite_struct_size
@@ -1260,65 +1107,203 @@ explode_bullet:
 
 *********************************************************************************
 *
-* Upload sprite attributes
+* Allocate sprite
 *
-upload_sprites:
+* r0: Address of sprite definition
+*
+* On return r1 contains the address of the sprite,
+* or 0 if the allocation failed.
+*
+* Modifies r0-r7
+*
+alloc_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Set destination address
-       mov  @sprite_table_flag,r0
-       andi r0,1
-       sla  r0,7
-       ai   r0,sprat1
-       bl   @vwad
-*      Init loop
-       li   r15,vdpwd
-       clr  r4                         ; Priority
-       mov  @sprite_table_flag,r0
-       jne  upload_sprites_1
-       li   r6,hw_sprites              ; Start
-       li   r5,hw_sprite_struct_size   ; Increment
-       jmp  upload_sprites_2
-upload_sprites_1:
-       li   r5,hw_sprite_struct_size
-       mpy  @max_hw_sprite,r5
-       ai   r6,hw_sprites
-       li   r5,-hw_sprite_struct_size
-*      Loop
-upload_sprites_2:
-       mov  @max_hw_sprite,r2
-       inc  r2
-       mov  r6,r3                      ; Start address
-upload_sprites_3:
-       c    r4,@hw_sprite_priority(r3) ; Check priority
-       jne  upload_sprites_4
-       mov  *r3,r1                     ; Get parent sprite
-       jeq  upload_sprites_4
-       mov  @sprite_x(r1),r7
-       a    @hw_sprite_dx(r3),r7
-       ci   r7,x_min*256               ; Check for x out of bound
-       jl   upload_sprites_4
-       mov  @sprite_y(r1),r0
-       a    @hw_sprite_dy(r3),r0
-       movb r0,*r15
-       movb r7,*r15
-       movb @hw_sprite_pattern(r3),*r15
-       movb @hw_sprite_color(r3),*r15
-upload_sprites_4:
-       a    r5,r3
+       li   r1,sprites
+       li   r2,n_sprites
+alloc_sprite_1:
+       mov  *r1,r3
+       jeq  alloc_sprite_2
+       ai   r1,sprite_struct_size
        dec  r2
-       jne  upload_sprites_3
-       inc  r4
-       ci   r4,3
-       jne  upload_sprites_2
-*      End marker
-       li   r0,>d000
-       movb r0,*r15
+       jne  alloc_sprite_1
+*      Failed allocation sprite
+       jmp  alloc_sprite_6
+*      Succeeded allocation sprite
+alloc_sprite_2:
+       mov  r2,@alloc_sprite_cnt
+       mov  r0,r4
+       mov  r4,*r1                     ; Set sprite definition
+       clr  @sprite_path(r1)
+       clr  @sprite_link(r1)
+       clr  @sprite_mask(r1)
+       mov  @sprite_def_hits_left(r4),@sprite_hits_left(r1)
+       mov  @one,@sprite_fire_delay(r1)
+       mov  @sprite_def_size(r4),r5
+       mov  r1,r6
+       ai   r6,sprite_hw_1
+alloc_sprite_4:
+       bl   @alloc_hw_sprite
+       mov  r0,r7
+       jeq  alloc_sprite_5
+       mov  r7,*r6+
+       clr  @hw_sprite_dx(r7)
+       clr  @hw_sprite_dy(r7)
+       mov  @sprite_def_pattern(r4),@hw_sprite_pattern(r7)
+       mov  @sprite_def_color(r4),@hw_sprite_color(r7)
+       li   r0,2
+       mov  r0,@hw_sprite_priority(r7)
+       dec  r5
+       jne  alloc_sprite_4
+*      Succeeded allocation sprite + hardware sprites
+       li   r2,n_sprites
+       s    @alloc_sprite_cnt,r2       ; Sprite no
+       c    r2,@max_sprite
+       jlt  alloc_sprite_3
+       mov  r2,@max_sprite
+       jmp  alloc_sprite_3
+*      Failed allocation hardware sprites
+alloc_sprite_5:
+       clr  *r1                        ; Deallocate again
+*      Failed allocation sprite
+alloc_sprite_6:
+       clr  r1
 *      Return
-upload_sprites_5:
+alloc_sprite_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// upload_sprites
+alloc_sprite_cnt:
+       data 0
+*// alloc_sprite
+
+*********************************************************************************
+*
+* Allocate hardware sprite
+*
+* r1: Address of parent sprite
+*
+* On return r0 contain the address of the hw sprite,
+* or 0 if the allocation failed.
+*
+* Modifies r2-r3
+*
+alloc_hw_sprite:
+       li   r0,hw_sprites
+       li   r2,n_hw_sprites
+alloc_hw_sprite_1:
+       mov  *r0,r3
+       jeq  alloc_hw_sprite_2
+       ai   r0,hw_sprite_struct_size
+       dec  r2
+       jne  alloc_hw_sprite_1
+*      Failed
+       clr  r0
+       jmp  alloc_hw_sprite_3
+*      Succeeded
+alloc_hw_sprite_2:
+       mov  r1,*r0
+*      Record max hardware sprite
+       neg  r2
+       ai   r2,n_hw_sprites
+       c    r2,@max_hw_sprite
+       jlt  alloc_hw_sprite_3
+       mov  r2,@max_hw_sprite
+*      Return
+alloc_hw_sprite_3:
+       b    *r11
+*// allow_hw_sprite
+
+*********************************************************************************
+*
+* Deallocate sprite
+*
+* r1: Address of sprite
+*
+* Modifies r0-r1
+*
+dealloc_sprite:
+       clr  *r1                        ; Clear reference to sprite definition
+       mov  @sprite_hw_1(r1),r0        ; Get hardware sprite
+       jeq  dealloc_sprite_1           ; Skip if not set
+       clr *r0                         ; Clear reference to sprite
+       clr  @sprite_hw_1(r1)           ; Clear reference to hardware sprite
+dealloc_sprite_1:
+       mov  @sprite_hw_2(r1),r0
+       jeq  dealloc_sprite_2
+       clr *r0
+       clr  @sprite_hw_2(r1)
+dealloc_sprite_2:
+       mov  @sprite_hw_3(r1),r0
+       jeq  dealloc_sprite_3
+       clr *r0
+       clr  @sprite_hw_3(r1)
+dealloc_sprite_3:
+       mov  @sprite_hw_4(r1),r0
+       jeq  dealloc_sprite_4
+       clr *r0
+       clr  @sprite_hw_4(r1)
+dealloc_sprite_4:
+*      Adjust max_sprite
+       li   r0,sprite_struct_size
+       mpy @max_sprite,r0
+       ai   r1,sprites
+dealloc_sprite_5:
+       mov  *r1,r0
+       jne  dealloc_sprite_6
+       dec  @max_sprite
+       ai   r1,-sprite_struct_size
+       ci   r1,sprites
+       jhe  dealloc_sprite_5
+*      Adjust max_hw_sprite
+dealloc_sprite_6:
+       li   r0,hw_sprite_struct_size
+       mpy  @max_hw_sprite,r0
+       ai   r1,hw_sprites              ; Address of max used hw sprite (before)
+dealloc_sprite_7:
+       mov  *r1,r0
+       jne  dealloc_sprite_8
+       dec  @max_hw_sprite
+       ai   r1,-hw_sprite_struct_size
+       ci   r1,hw_sprites
+       jhe  dealloc_sprite_7
+*      Return
+dealloc_sprite_8:
+       b    *r11
+*// dealloc_sprite
+
+*********************************************************************************
+*
+* Get angle of player relative to sprite
+*
+* r3: points to sprite
+*
+* On return @angle contains the angle (0-31)
+* Modifies r1, r5, r6
+*
+*
+get_angle:
+       li   r6,sprite_player
+       mov  @sprite_y(r6),r0           ; Player y
+       srl  r0,8
+       mov  @sprite_y(r3),r5           ; Turret y
+       srl  r5,8
+       s    r5,r0                      ; Player y - turret y
+       sra  r0,4                       ; / 16
+       ai   r0,12                      ; + 12
+       li   r1,19
+       mpy  r1,r0                      ; * 19
+       mov  @sprite_x(r6),r0           ; Player x
+       srl  r0,8
+       mov  @sprite_x(r3),r5           ; Turret x
+       srl  r5,8
+       s    r5,r0                      ; Player x - turret x
+       sra  r0,4                       ; / 16
+       ai   r0,9                       ; + 9
+       a    r0,r1
+       clr  @angle
+       movb @angle_table(r1),@angle+1
+       b    *r11
+*// get_angle
 
 *********************************************************************************
 *

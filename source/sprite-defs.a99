@@ -9,7 +9,7 @@ sprite_def_player:
        data >0000                      ; Pattern
        data >0f00                      ; Color
        data 1                          ; Hits left
-       data 0                          ; Deadly?
+       data 0                          ; Hit action
        data 1                          ; Fire rate
 *      Bullet
 sprite_def_bullet:
@@ -22,7 +22,7 @@ sprite_def_bullet:
        data >d000                      ; Pattern
        data >0f00                      ; Color
        data 1                          ; Hits left
-       data 0                          ; Deadly?
+       data 0                          ; Hit action
        data 0                          ; Fire rate
 *      Gun turret
 sprite_def_turret:
@@ -35,7 +35,7 @@ sprite_def_turret:
        data >6000                      ; Pattern
        data >0e00                      ; Color
        data 6                          ; Hits left
-       data 0                          ; Deadly?
+       data 0                          ; Hit action
        data 16                         ; Fire rate
 *      Enemy bullet
 sprite_def_enemy_bullet:
@@ -48,7 +48,7 @@ sprite_def_enemy_bullet:
        data >d000                      ; Pattern
        data >0f00                      ; Color
        data 1                          ; Hits left
-       data 1                          ; Deadly?
+       data 1                          ; Hit action
        data 0                          ; Fire rate
 *      Enemy plane
 sprite_def_enemy_plane:
@@ -61,7 +61,7 @@ sprite_def_enemy_plane:
        data >2000                      ; Pattern
        data >0800                      ; Color
        data 1                          ; Hits left
-       data 1                          ; Deadly?
+       data 1                          ; Hit action
        data 8                          ; Fire rate
 *      Tank
 sprite_def_tank:
@@ -74,7 +74,7 @@ sprite_def_tank:
        data >1c00                      ; Pattern
        data >0100                      ; Color
        data 2                          ; Hits left
-       data 0                          ; Deadly?
+       data 0                          ; Hit action
        data 12                         ; Fire rate
 *      Mask
 sprite_def_mask:
@@ -87,7 +87,7 @@ sprite_def_mask:
        data >fc00                      ; Pattern
        data >0100                      ; Color
        data 0                          ; Hits left
-       data 0                          ; Deadly?
+       data 0                          ; Hit action
        data 0                          ; Fire rate
 *      Power up
 sprite_def_power_up:
@@ -98,7 +98,7 @@ sprite_def_power_up:
        data >0001                      ; Top
        data >0001                      ; Size
        data >dc00                      ; Pattern
-       data >0f00                      ; Color
+       data >0d00                      ; Color
        data 0                          ; Hits left
-       data 0                          ; Deadly?
+       data -1                         ; Hit action
        data 0                          ; Fire rate
