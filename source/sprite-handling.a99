@@ -309,7 +309,7 @@ add_enemy_bullet_sprite:
        mov  @unit_vectors+2(r2),r0
        sla  r0,2
        mov  r0,@sprite_vy(r1)
-       mov  @scrly,@sprite_scroll_y(r1)
+       mov  @scroll_y,@sprite_scroll_y(r1)
 add_enemy_bullet_1:
        dect r10                        ; Pop r2
        mov  *r10,r2
@@ -458,10 +458,10 @@ update_player_sprite_7:
        a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
 *      Update z position
 update_player_sprite_6:
-       c    @scrly,@take_off_end
+       c    @scroll_y,@take_off_end
        jlt  update_player_sprite_8
 *      Take off
-       mov  @scrly,r0
+       mov  @scroll_y,r0
        s    @take_off_end,r0
        srl  r0,2
        neg  r0
@@ -472,9 +472,9 @@ update_player_sprite_6:
        mov  r0,@hw_sprite_dx(r4)
        jmp  update_player_sprite_9
 update_player_sprite_8:
-       c    @scrly,@landing_start
+       c    @scroll_y,@landing_start
        jgt  update_player_sprite_9
-       mov  @scrly,r0
+       mov  @scroll_y,r0
        srl  r0,2
        sla  r0,8
        mov  @sprite_hw_3(r3),r4
@@ -517,11 +517,11 @@ update_bullet_sprite:
 update_bullet_sprite_4:
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly,r0
+       s    @scroll_y,r0
        jeq  update_bullet_sprite_6
        sla  r0,8
        a    r0,@sprite_y(r3)
-       mov  @scrly,@sprite_scroll_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
 *      Pattern
 update_bullet_sprite_6
        mov  @sprite_hw_1(r3),r5
@@ -635,11 +635,11 @@ update_enemy_bullet_sprite_1:
        a    @sprite_vy(r3),@sprite_y(r3)
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly,r0
+       s    @scroll_y,r0
        jeq  update_enemy_bullet_sprite_3
        sla  r0,8
        a    r0,@sprite_y(r3)
-       mov  @scrly,@sprite_scroll_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
 *      Return
 update_enemy_bullet_sprite_3:
        dect r10                        ; Pop return address off the stack
@@ -682,11 +682,11 @@ update_enemy_plane_sprite_6:
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly,r0
+       s    @scroll_y,r0
        jeq  update_enemy_plane_sprite_3
        sla  r0,8
        a    r0,@sprite_y(r3)
-       mov  @scrly,@sprite_scroll_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
 *      Patterns
 update_enemy_plane_sprite_3:
        mov  @sprite_hw_1(r3),r5
@@ -769,11 +769,11 @@ update_tank_sprite_7:
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly,r0
+       s    @scroll_y,r0
        jeq  update_tank_sprite_3
        sla  r0,8
        a    r0,@sprite_y(r3)
-       mov  @scrly,@sprite_scroll_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
 *      Pattern
 update_tank_sprite_3:
        mov  @path_pattern(r4),r7       ; Get path pattern
@@ -864,11 +864,18 @@ update_power_up_sprite:
        jhe  update_power_up_sprite_1   ; Remove if out of screen
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly,r0
+       s    @scroll_y,r0
        jeq  update_power_up_sprite_2
        sla  r0,8
        a    r0,@sprite_y(r3)
-       mov  @scrly,@sprite_scroll_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
+*      Blink
+       mov  @sprite_hw_1(r3),r1
+       mov  @scroll_y,r0
+       andi r0,2
+       ai   r0,14
+       swpb r0
+       mov  r0,@hw_sprite_color(r1)
        jmp  update_power_up_sprite_2
 *      Remove
 update_power_up_sprite_1:
@@ -1162,7 +1169,7 @@ explode_bullet:
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
        mov  @sprite_x(r3),@sprite_x(r5)
        mov  @sprite_y(r3),@sprite_y(r5)
-       mov  @scrly,@sprite_scroll_y(r5)
+       mov  @scroll_y,@sprite_scroll_y(r5)
        clr  @sprite_hits_left(r5)
        mov  @sprite_hw_1(r5),r5
        li   r1,>0a00

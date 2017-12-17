@@ -250,10 +250,10 @@ eight:                                 ; Constant 8
        equ  one+2
 level:                                 ; Play level
        equ  eight+2
-scrly:                                 ; Vertical scroll offset (next)
+scroll_y:                              ; Vertical scroll offset (next)
        equ  level+2
 scrly_current:                         ; Vertical scroll offset (current)
-       equ  scrly+2
+       equ  scroll_y+2
 take_off_end:                          ; Scroll offset where takeoff will end
        equ  scrly_current+2
 landing_start:                         ; Scroll offser where landing will start
@@ -355,8 +355,8 @@ main_delay:
        dec  r2                         ; Delay counter
        jne  main_delay                 ; Delay loop
 *      Change scroll position
-!      mov  @scrly,@scrly_current      ; Set scroll position as current
-       dec  @scrly                     ; Change scroll position for net frame
+!      mov  @scroll_y,@scrly_current      ; Set scroll position as current
+       dec  @scroll_y                     ; Change scroll position for net frame
        jne  main_loop                  ; Loop if not at top
 *      Next level
        inc  @level                     ; Increase level
@@ -436,7 +436,7 @@ vsync_1:
 *
 set_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @scrly,r0                  ; Get scroll offset
+       mov  @scroll_y,r0                  ; Get scroll offset
        coc  @eight,r0                  ; Check which table set to use
        jeq  set_name_table_2
        coc  @one,r0                    ; Check which table to use
@@ -763,7 +763,7 @@ lives4:
 update_char_list:
        mov  @cart_diff_bank,r0         ; Select ROM bank
        seto *r0
-       mov  @scrly,r0
+       mov  @scroll_y,r0
        andi r0,7
        jne  update_char_list_5
        mov  @diff_ptr,r0
@@ -807,7 +807,7 @@ update_char_list_5:
 update_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
        bl   @interrupt_check
-       mov  @scrly,r3                  ; Read scroll offset into register
+       mov  @scroll_y,r3                  ; Read scroll offset into register
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
@@ -906,7 +906,7 @@ upload_character_table_end
 *
 update_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @scrly,r3                  ; Get scroll frame (0-15)
+       mov  @scroll_y,r3                  ; Get scroll frame (0-15)
        andi r3,>000f
 *	   Calculate row offset to the 1/4 of the buffer to update
        mov  r3,r0                      ; Start with frame number
@@ -916,7 +916,7 @@ update_name_table:
        a    r0,r2                      ; Add to R2 to multiply by 6 and get row offset: 0,0,6,6,12,12,18,18...
        mov  r2,r0                      ; Copy back into R0 for later
 *	   Calculate map source address in R1
-       mov  @scrly,r1                  ; Get scroll offset in pixels
+       mov  @scroll_y,r1                  ; Get scroll offset in pixels
        sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
        li   r2,map_width
@@ -983,7 +983,7 @@ draw_initial_screen:
        mov  r11, *r10+                  ; Push return address onto the stack
        li   r15,vdpwd
 *      Source address
-       mov  @scrly,r1
+       mov  @scroll_y,r1
        srl  r1,3
        li   r0,map_width
        mpy  r1,r0
@@ -1119,7 +1119,7 @@ init_level:
        mov  @map_height,r0
        ai   r0,-win_height
        sla  r0,3
-       mov  r0,@scrly
+       mov  r0,@scroll_y
        mov  r0,@scrly_current
        ai   r0,-64
        mov  r0,@take_off_end
