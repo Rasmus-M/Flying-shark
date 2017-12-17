@@ -278,7 +278,7 @@ frame_count:
        equ  cart_music_bank+2
 vdp_status:
        equ  frame_count+2
-player_fire:
+player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
        equ  vdp_status+2
 sprite_pos_ptr:
        equ  player_fire+2
@@ -296,14 +296,16 @@ score_msw:
        equ  rand_no+2
 score_lsw:
        equ  score_msw+2
-lives:
+lives:                                 ; Lines left
        equ  score_lsw+2
-power_ups:
+power_ups:                             ; Power up state
        equ  lives+2
-bombs:
+bombs:                                 ; Smart bombs left
        equ  power_ups+2
-music:                                 ; Pointer to music
+bomb_count:
        equ  bombs+2
+music:                                 ; Pointer to music
+       equ  bomb_count+2
 loop_music:                            ; Is music looping?
        equ  music+2
 upload_character_table_pad:
@@ -402,6 +404,7 @@ game_frame_actions:
 *      Every 2nd frame
        bl   @user_input
        bl   @fire
+       bl   @fire_bomb
        bl   @add_sprites
        bl   @update_sprites
        mov  @frame_count,r0
@@ -561,13 +564,21 @@ user_input:
 *      Fire
        tb   0
        jeq  user_input_0
-       mov  @player_fire,r0
+       mov  @player_fire,r0            ; Test if ready
        jgt  user_input_1
-       seto @player_fire
-       jmp  user_input_1
+       seto @player_fire               ; -1=Pressed and ready
+       jmp  user_input_6
 user_input_0:
-       clr  @player_fire
+       clr  @player_fire               ; 0=Released
+       mov  @bomb_count,r0             ; Check for bomb in progress
+       jlt  user_input_6
+       clr  @bomb_count
+       jmp  user_input_6
 user_input_1:
+       mov  @bomb_count,r0             ; Check for bomb in progress
+       jlt  user_input_6
+       inc  @bomb_count
+user_input_6:
 *      Left
        tb   1
        jeq  user_input_2
@@ -630,6 +641,46 @@ fire_1:
        mov  *r10, r11
        b    *r11
 *// fire
+
+*********************************************************************************
+*
+* Fire bomb
+*
+fire_bomb:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @bomb_count,r0
+       jlt  fire_bomb_1
+       ci   r0,32
+       jlt  fire_bomb_2
+*      Initiate bomb
+       clr  @bomb_count
+       mov  @bombs,r0
+       jeq  fire_bomb_2
+       dec  @bombs
+       bl   @display_bombs
+*      Bomb in progress
+fire_bomb_1:
+       mov  @bomb_count,r1
+       neg  r1
+       li   r0,>0007
+       movb @bomb_colors(r1),r0
+       swpb r0
+       bl   @vwtr
+       dec  @bomb_count
+       mov  @bomb_count,r0
+       ci   r0,-16
+       jgt  fire_bomb_2
+*      Done
+       clr  @bomb_count
+*      Return
+fire_bomb_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+bomb_colors:
+       byte >06,>06,>08,>09,>0a,>0b,>0b,>0f
+       byte >0f,>0b,>0b,>0a,>09,>08,>06,>01
+*// fire_bomb
 
 *********************************************************************
 *
