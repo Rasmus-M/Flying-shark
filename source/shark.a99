@@ -300,8 +300,10 @@ lives:
        equ  score_lsw+2
 power_ups:
        equ  lives+2
-music:                                 ; Pointer to music
+bombs:
        equ  power_ups+2
+music:                                 ; Pointer to music
+       equ  bombs+2
 loop_music:                            ; Is music looping?
        equ  music+2
 upload_character_table_pad:
@@ -756,6 +758,53 @@ lives4:
        byte >78,>7a,>78,>7a,>78,>7a,>78,>7a
 *// display_lives
 
+*********************************************************************
+*
+* Display bombs
+*
+display_bombs:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @bombs,r6
+       jgt  display_bombs_0
+       clr  r6
+       jmp  display_bombs_1
+display_bombs_0:
+       ci   r6,4
+       jle  display_bombs_1
+       li   r6,4
+display_bombs_1:
+       sla  r6,4
+       ai   r6,bombs0
+       li   r0,20*32+panel_left+((panel_width-8)/2)
+       mov  r6,r1
+       li   r2,8
+       bl   @display_text
+       ai   r6,8
+       li   r0,21*32+panel_left+((panel_width-8)/2)
+       mov  r6,r1
+       li   r2,8
+       bl   @display_text
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+bombs0:
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >ff,>ff,>ff,>ff,>ff,>ff,>ff,>ff
+bombs1:
+       byte >74,>76,>ff,>ff,>ff,>ff,>ff,>ff
+       byte >7c,>7e,>ff,>ff,>ff,>ff,>ff,>ff
+bombs2:
+       byte >74,>76,>74,>76,>ff,>ff,>ff,>ff
+       byte >7c,>7e,>7c,>7e,>ff,>ff,>ff,>ff
+bombs3:
+       byte >74,>76,>74,>76,>74,>76,>ff,>ff
+       byte >7c,>7e,>7c,>7e,>7c,>7e,>ff,>ff
+bombs4:
+       byte >74,>76,>74,>76,>74,>76,>74,>76
+       byte >7c,>7e,>7c,>7e,>7c,>7e,>7c,>7e
+*// display_bombs
+
 *********************************************************************************
 *
 * Update character list
@@ -1068,8 +1117,9 @@ init_game:
        clr  @score_msw
        li   r0,3
        mov  r0,@lives
-       clr  @sprite_table_flag
+       mov  r0,@bombs
        clr  @power_ups
+       clr  @sprite_table_flag
 *      Init sprites
        li   r0,sprites+(1*sprite_struct_size)
        li   r2,(n_sprites-1)*sprite_struct_size
@@ -1100,6 +1150,7 @@ init_game:
        clr  @hw_sprite_dx(r2)
        clr  @hw_sprite_dy(r2)
        bl   @display_lives
+       bl   @display_bombs
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
