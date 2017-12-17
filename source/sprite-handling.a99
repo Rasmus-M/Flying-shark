@@ -222,15 +222,15 @@ add_double_bullet_sprite_1:
 
 *********************************************************************************
 *
-* Add treble bullet sprites in front of player
+* Add triple bullet sprites in front of player
 *
-add_treble_bullet_sprite:
+add_triple_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Alloc sprite
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_treble_bullet_sprite_1
+       jeq  add_triple_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),@sprite_x(r1)
        mov  @sprite_y(r2),r0
@@ -243,7 +243,7 @@ add_treble_bullet_sprite:
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_treble_bullet_sprite_1
+       jeq  add_triple_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,>0600
@@ -259,7 +259,7 @@ add_treble_bullet_sprite:
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_treble_bullet_sprite_1
+       jeq  add_triple_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,->0600
@@ -272,11 +272,11 @@ add_treble_bullet_sprite:
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
 *      Return
-add_treble_bullet_sprite_1:
+add_triple_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// add_treble_bullet_sprite
+*// add_triple_bullet_sprite
 
 *********************************************************************************
 *
@@ -973,7 +973,7 @@ player_sprite_collisions_4:
        ci   r6,sprite_def_power_up
        jne  player_sprite_collisions_3
        mov  @power_ups,r0
-       ci   r0,power_up_treble_shot
+       ci   r0,power_up_triple_shot
        jeq  player_sprite_collisions_3
        inc  @power_ups
        jmp  player_sprite_collisions_3

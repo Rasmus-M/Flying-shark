@@ -65,7 +65,7 @@ power_up_none:
        equ  0
 power_up_double_shot:
        equ  1
-power_up_treble_shot:
+power_up_triple_shot:
        equ  2
 
 **
@@ -618,8 +618,8 @@ fire_2:
        bl   @add_double_bullet_sprite
        jmp  fire_4
 fire_3:
-*      Treble
-       bl   @add_treble_bullet_sprite
+*      Triple
+       bl   @add_triple_bullet_sprite
 fire_4:
        li   r1,shot_1
        bl   @init_sfx
