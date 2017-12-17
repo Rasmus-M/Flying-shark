@@ -873,7 +873,7 @@ update_power_up_sprite:
        mov  @sprite_hw_1(r3),r1
        mov  @scroll_y,r0
        andi r0,2
-       ai   r0,14
+       ai   r0,13
        swpb r0
        mov  r0,@hw_sprite_color(r1)
        jmp  update_power_up_sprite_2
