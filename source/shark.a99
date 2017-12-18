@@ -668,6 +668,8 @@ fire_bomb_3:
        mov  @sprite_def_type(r1),r1    ; Get sprite type
        ci   r1,sprite_type_enemy_plane
        jeq  fire_bomb_5
+       ci   r1,sprite_type_turret
+       jeq  fire_bomb_5
        ci   r1,sprite_type_tank
        jeq  fire_bomb_5
        jmp  fire_bomb_4
