@@ -1159,6 +1159,7 @@ tank_hit_2:
 *
 * Explode bullet
 *
+* r3 points to sprite hit
 * r5 points to bullet sprite
 * Cannot modify r2-r3
 *

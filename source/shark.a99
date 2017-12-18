@@ -658,6 +658,33 @@ fire_bomb:
        jeq  fire_bomb_2
        dec  @bombs
        bl   @display_bombs
+*      Destroy enemies
+       mov  @max_sprite,r8
+       inc  r8
+       li   r9,sprites
+fire_bomb_3:
+       mov  *r9,r1                     ; Get sprite definition
+       jeq  fire_bomb_4
+       mov  @sprite_def_type(r1),r1    ; Get sprite type
+       ci   r1,sprite_type_enemy_plane
+       jeq  fire_bomb_5
+       ci   r1,sprite_type_tank
+       jeq  fire_bomb_5
+       jmp  fire_bomb_4
+fire_bomb_5:
+       li   r0,sprite_def_bullet
+       bl   @alloc_sprite
+       mov  r9,r3
+       mov  r1,r5
+       jeq  fire_bomb_6
+       bl   @explode_bullet
+fire_bomb_6:
+       mov  r9,r1
+       bl   @dealloc_sprite
+fire_bomb_4:
+       ai   r9,sprite_struct_size
+       dec  r8
+       jne  fire_bomb_3
 *      Bomb in progress
 fire_bomb_1:
        mov  @bomb_count,r1
