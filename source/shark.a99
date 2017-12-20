@@ -687,6 +687,9 @@ fire_bomb_4:
        ai   r9,sprite_struct_size
        dec  r8
        jne  fire_bomb_3
+*      Blank screen
+       li   r0,>01a2
+       bl   @vwtr
 *      Bomb in progress
 fire_bomb_1:
        mov  @bomb_count,r1
@@ -697,18 +700,20 @@ fire_bomb_1:
        bl   @vwtr
        dec  @bomb_count
        mov  @bomb_count,r0
-       ci   r0,-16
+       ci   r0,-8
        jgt  fire_bomb_2
 *      Done
        clr  @bomb_count
+*      Show screen
+       li   r0,>01e2
+       bl   @vwtr
 *      Return
 fire_bomb_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 bomb_colors:
-       byte >06,>06,>08,>09,>0a,>0b,>0b,>0f
-       byte >0f,>0b,>0b,>0a,>09,>08,>06,>01
+       byte >0a,>0b,>0f,>0f,>0f,>0b,>0a,>01
 *// fire_bomb
 
 *********************************************************************
