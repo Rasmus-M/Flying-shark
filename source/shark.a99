@@ -21,6 +21,10 @@ sound_30hz:
 *
 start_level:
        equ  0
+start_lives:
+       equ  4
+start_bombs:
+       equ  4
 action_speed:
        equ >0080
 scroll_interval:
@@ -1200,10 +1204,12 @@ init_game:
        mov  r0,@level
        clr  @score_lsw
        clr  @score_msw
-       li   r0,3
+       li   r0,start_lives
        mov  r0,@lives
+       li   r0,start_bombs
        mov  r0,@bombs
-       clr  @power_ups
+       li   r0,power_up_none
+       mov  r0,@power_ups
        clr  @sprite_table_flag
 *      Init sprites
        li   r0,sprites+(1*sprite_struct_size)

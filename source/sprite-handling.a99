@@ -191,7 +191,10 @@ add_double_bullet_sprite:
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,->0600
-       mov  r0,@sprite_x(r1)
+       mov  @sprite_vx(r2),r3
+       jeq  !
+       ai   r0,>0200
+!      mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
@@ -206,7 +209,10 @@ add_double_bullet_sprite:
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
        ai   r0,>0600
-       mov  r0,@sprite_x(r1)
+       mov  @sprite_vx(r2),r3
+       jeq  !
+       ai   r0,->0200
+!      mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
@@ -246,12 +252,15 @@ add_triple_bullet_sprite:
        jeq  add_triple_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
-       ai   r0,>0600
-       mov  r0,@sprite_x(r1)
+       ai   r0,->0600
+       mov  @sprite_vx(r2),r3
+       jeq  !
+       ai   r0,>0200
+!      mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
-       li   r0,>0040
+       li   r0,->0040
        mov  r0,@sprite_vx(r1)
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
@@ -262,12 +271,15 @@ add_triple_bullet_sprite:
        jeq  add_triple_bullet_sprite_1
        li   r2,sprite_player
        mov  @sprite_x(r2),r0
-       ai   r0,->0600
-       mov  r0,@sprite_x(r1)
+       ai   r0,>0600
+       mov  @sprite_vx(r2),r3
+       jeq  !
+       ai   r0,->0200
+!      mov  r0,@sprite_x(r1)
        mov  @sprite_y(r2),r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
-       li   r0,->0040
+       li   r0,>0040
        mov  r0,@sprite_vx(r1)
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
