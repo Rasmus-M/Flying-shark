@@ -35,6 +35,8 @@ title_bank:
        equ  >6008
 levels_base_bank:
        equ  >600C
+title_music_bank:
+       equ  >603A
 cart_base:
        equ  >603C
 cart_music_base:
@@ -1501,6 +1503,11 @@ title_screen_2:
        li   r0,sprat1
        li   r1,>d000
        bl   @vsbw
+*      Init music
+       li   r0,title_music_bank
+       mov  r0,@cart_music_bank
+       li   r1,cart_music_base
+       bl   @init_music
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -1924,8 +1931,12 @@ wtkey:
        mov  r11,*r10+
 wtkey1:
        bl   @anykey
-       jeq  wtkey1
+       jne  wtkey2
+       bl   @vsync
+       bl   @play_sound
+       jmp  wtkey1
 *      Return
+wtkey2:
        dect r10
        mov  *r10,r11
        b    *r11
