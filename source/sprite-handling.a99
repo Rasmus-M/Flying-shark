@@ -367,6 +367,37 @@ add_power_up_sprite_1:
 
 *********************************************************************************
 *
+* Add smart bomb sprite
+*
+* r3: last sprite of wave
+*
+* Modifies r0-r1, r4-r7
+*
+add_smart_bomb_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       li   r0,sprite_def_smart_bomb
+       bl   @alloc_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       dect r10                        ; Pop r2
+       mov  *r10,r2
+       mov  r1,r1
+       jeq  add_smart_bomb_sprite_1
+       mov  @sprite_x(r3),@sprite_x(r1)
+       mov  @sprite_y(r3),@sprite_y(r1)
+*      Record scroll position
+       mov  @scrly_current,@sprite_scroll_y(r1)
+add_smart_bomb_sprite_1:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_smart_bomb_sprite
+
+*********************************************************************************
+*
 * Update sprites
 *
 update_sprites:
@@ -865,7 +896,7 @@ update_mask_sprite_2:
 
 *********************************************************************************
 *
-* Update power_up sprite
+* Update power-up sprite
 * Cannot modify r2-r3
 *
 update_power_up_sprite:
@@ -899,6 +930,36 @@ update_power_up_sprite_2:
        mov  *r10, r11
        b    *r11
 *// update_power_up_sprite
+
+*********************************************************************************
+*
+* Update smart bomb sprite
+* Cannot modify r2-r3
+*
+update_smart_bomb_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,192*256                 ; Check for out of screen
+       jhe  update_smart_bomb_sprite_1 ; Remove if out of screen
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scroll_y,r0
+       jeq  update_smart_bomb_sprite_2
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
+       jmp  update_smart_bomb_sprite_2
+*      Remove
+update_smart_bomb_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Return
+update_smart_bomb_sprite_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_smart_bomb_sprite
 
 *********************************************************************************
 *
@@ -983,12 +1044,19 @@ player_sprite_collisions_4:
        mov  r5,r1
        bl   @dealloc_sprite
        ci   r6,sprite_def_power_up
-       jne  player_sprite_collisions_3
+       jne  player_sprite_collisions_5
        mov  @power_ups,r0
        ci   r0,power_up_triple_shot
        jeq  player_sprite_collisions_3
        inc  @power_ups
        jmp  player_sprite_collisions_3
+player_sprite_collisions_5
+       ci   r6,sprite_def_smart_bomb
+       jne  player_sprite_collisions_3
+       inc  @smart_bombs
+       bl   @display_smart_bombs
+       jmp player_sprite_collisions_3
+*      Next
 player_sprite_collisions_2:
        ai   r5,sprite_struct_size
        dec  r4
@@ -1115,14 +1183,7 @@ enemy_plane_hit:
        li   r1,>0800
        mov  r1,@hw_sprite_color(r5)
 *      Wave
-       mov  @sprite_wave(r3),r1
-       jlt  enemy_plane_hit_1
-       sla  r1,2
-       dec  @waves(r1)
-       jgt  enemy_plane_hit_1
-*      Wave complete
-       bl   @add_power_up_sprite
-enemy_plane_hit_1:
+       bl   @handle_wave
 *      Remove
        mov  r3,r1
        bl   @dealloc_sprite
@@ -1149,9 +1210,12 @@ tank_hit:
 *      Check tank hits left
        mov  @sprite_hits_left(r3),r0
        jgt  tank_hit_1
+*      Wave
+       bl   @handle_wave
 *      Remove
        mov  r3,r1
        bl   @dealloc_sprite
+*      Score
        li   r0,200
        bl   @add_score
        jmp  tank_hit_2
@@ -1166,6 +1230,37 @@ tank_hit_2:
        mov  *r10, r11
        b    *r11
 *// tank_hit
+
+*********************************************************************************
+*
+* Wave handling
+*
+* r3 points to sprite hit
+* Cannot modify r2-r3
+*
+handle_wave:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check
+       mov  @sprite_wave(r3),r1
+       jlt  handle_wave_1
+       sla  r1,3
+       dec  @waves(r1)
+       jgt  handle_wave_1
+*      Wave complete
+       mov  @waves+wave_bonus(r1),r0
+       ci   r0,wave_bonus_power_up
+       jne  !
+       bl   @add_power_up_sprite
+       jmp  handle_wave_1
+!      ci   r0,wave_bonus_smart_bomb
+       jne  handle_wave_1
+       bl   @add_smart_bomb_sprite
+*      Return
+handle_wave_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// handle_wave
 
 *********************************************************************************
 *
@@ -1408,6 +1503,7 @@ add_sprite_jump_table:
        data add_tank_sprite            ; Tank
        data 0                          ; Mask
        data 0                          ; Power up
+       data 0                          ; Smart bomb
 update_sprite_jump_table:
        data update_player_sprite       ; Player
        data update_bullet_sprite       ; Bullet
@@ -1417,6 +1513,7 @@ update_sprite_jump_table:
        data update_tank_sprite         ; Tank
        data update_mask_sprite         ; Mask
        data update_power_up_sprite     ; Power up
+       data update_smart_bomb_sprite   ; Smart bomb
 sprite_collisions_jump_table:
        data player_sprite_collisions   ; Player
        data 0                          ; Bullet
@@ -1426,6 +1523,7 @@ sprite_collisions_jump_table:
        data enemy_sprite_collisions    ; Tank
        data 0                          ; Mask
        data 0                          ; Power up
+       data 0                          ; Smart bomb
 enemy_hit_jump_table:
        data 0                          ; Player
        data 0                          ; Bullet
@@ -1435,3 +1533,4 @@ enemy_hit_jump_table:
        data tank_hit                   ; Tank
        data 0                          ; Mask
        data 0                          ; Power up
+       data 0                          ; Smart bomb

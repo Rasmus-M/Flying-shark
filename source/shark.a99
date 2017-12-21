@@ -115,6 +115,8 @@ sprite_type_mask:
        equ  6
 sprite_type_power_up:
        equ  7
+sprite_type_smart_bomb:
+       equ  8
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
@@ -215,8 +217,26 @@ sprite_pos_struct_size:
 * Wave structure
 wave_left:                             ; Enemies left
        equ  0
-wave_total:
-       equ  2                          ; Enemies total
+wave_total:                            ; Enemies total
+       equ  2
+wave_bonus:                            ; Bonus type (see below)
+       equ  4
+wave_unused:
+       equ  6
+wave_size:
+       equ  8
+
+* Wave bonus
+wave_bonus_none:
+       equ  0
+wave_bonus_power_up:
+       equ  1
+wave_bonus_smart_bomb:
+       equ  2
+wave_bonus_life:
+       equ  3
+wave_bonus_points:
+       equ  4
 
 * Path structure
 path_count:
@@ -300,19 +320,19 @@ score_msw:
        equ  rand_no+2
 score_lsw:
        equ  score_msw+2
-lives:                                 ; Lines left
+lives:                                 ; Lives left
        equ  score_lsw+2
-power_ups:                             ; Power up state
+power_ups:                             ; Power-up status
        equ  lives+2
-bombs:                                 ; Smart bombs left
+smart_bombs:                           ; Smart bombs left
        equ  power_ups+2
-bomb_count:
-       equ  bombs+2
+bomb_count_down:                       ; Timing of smart bomb
+       equ  smart_bombs+2
 music:                                 ; Pointer to music
-       equ  bomb_count+2
+       equ  bomb_count_down+2
 loop_music:                            ; Is music looping?
        equ  music+2
-upload_character_table_pad:
+upload_character_table_pad:            ; Code in pad
        equ  loop_music+2
 pad_max:
        equ  upload_character_table_pad+52
@@ -408,7 +428,7 @@ game_frame_actions:
 *      Every 2nd frame
        bl   @user_input
        bl   @fire
-       bl   @fire_bomb
+       bl   @smart_bomb
        bl   @add_sprites
        bl   @update_sprites
        mov  @frame_count,r0
@@ -574,14 +594,14 @@ user_input:
        jmp  user_input_6
 user_input_0:
        clr  @player_fire               ; 0=Released
-       mov  @bomb_count,r0             ; Check for bomb in progress
+       mov  @bomb_count_down,r0             ; Check for bomb in progress
        jlt  user_input_6
-       clr  @bomb_count
+       clr  @bomb_count_down
        jmp  user_input_6
 user_input_1:
-       mov  @bomb_count,r0             ; Check for bomb in progress
+       mov  @bomb_count_down,r0             ; Check for bomb in progress
        jlt  user_input_6
-       inc  @bomb_count
+       inc  @bomb_count_down
 user_input_6:
 *      Left
        tb   1
@@ -648,77 +668,77 @@ fire_1:
 
 *********************************************************************************
 *
-* Fire bomb
+* Fire smart bomb
 *
-fire_bomb:
+smart_bomb:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @bomb_count,r0
-       jlt  fire_bomb_1
+       mov  @bomb_count_down,r0
+       jlt  smart_bomb_5
        ci   r0,32
-       jlt  fire_bomb_2
+       jlt  smart_bomb_6
 *      Initiate bomb
-       clr  @bomb_count
-       mov  @bombs,r0
-       jeq  fire_bomb_2
-       dec  @bombs
-       bl   @display_bombs
+       clr  @bomb_count_down
+       mov  @smart_bombs,r0
+       jeq  smart_bomb_6
+       dec  @smart_bombs
+       bl   @display_smart_bombs
 *      Destroy enemies
        mov  @max_sprite,r8
        inc  r8
        li   r9,sprites
-fire_bomb_3:
+smart_bomb_1:
        mov  *r9,r1                     ; Get sprite definition
-       jeq  fire_bomb_4
+       jeq  smart_bomb_4
        mov  @sprite_def_type(r1),r1    ; Get sprite type
        ci   r1,sprite_type_enemy_plane
-       jeq  fire_bomb_5
+       jeq  smart_bomb_2
        ci   r1,sprite_type_turret
-       jeq  fire_bomb_5
+       jeq  smart_bomb_2
        ci   r1,sprite_type_tank
-       jeq  fire_bomb_5
-       jmp  fire_bomb_4
-fire_bomb_5:
+       jeq  smart_bomb_2
+       jmp  smart_bomb_4
+smart_bomb_2:
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r9,r3
        mov  r1,r5
-       jeq  fire_bomb_6
+       jeq  smart_bomb_3
        bl   @explode_bullet
-fire_bomb_6:
+smart_bomb_3:
        mov  r9,r1
        bl   @dealloc_sprite
-fire_bomb_4:
+smart_bomb_4:
        ai   r9,sprite_struct_size
        dec  r8
-       jne  fire_bomb_3
+       jne  smart_bomb_1
 *      Blank screen
        li   r0,>01a2
        bl   @vwtr
 *      Bomb in progress
-fire_bomb_1:
-       mov  @bomb_count,r1
+smart_bomb_5:
+       mov  @bomb_count_down,r1
        neg  r1
        li   r0,>0007
        movb @bomb_colors(r1),r0
        swpb r0
        bl   @vwtr
-       dec  @bomb_count
-       mov  @bomb_count,r0
+       dec  @bomb_count_down
+       mov  @bomb_count_down,r0
        ci   r0,-8
-       jgt  fire_bomb_2
+       jgt  smart_bomb_6
 *      Done
-       clr  @bomb_count
+       clr  @bomb_count_down
 *      Show screen
        li   r0,>01e2
        bl   @vwtr
 *      Return
-fire_bomb_2:
+smart_bomb_6:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 bomb_colors:
        byte >0a,>0b,>0f,>0f,>0f,>0b,>0a,>01
-*// fire_bomb
+*// smart_bomb
 
 *********************************************************************
 *
@@ -806,6 +826,8 @@ lvlbuf byte chzero, chzero
 *
 display_lives:
        mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r2,*r10+
+       mov  r3,*r10+
        mov  @lives,r6
        jgt  display_lives_0
        clr  r6
@@ -827,6 +849,10 @@ display_lives_1:
        li   r2,8
        bl   @display_text
 *      Return
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -849,19 +875,21 @@ lives4:
 
 *********************************************************************
 *
-* Display bombs
+* Display smart bombs
 *
-display_bombs:
+display_smart_bombs:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @bombs,r6
-       jgt  display_bombs_0
+       mov  r2,*r10+
+       mov  r3,*r10+
+       mov  @smart_bombs,r6
+       jgt  display_smart_bombs_1
        clr  r6
-       jmp  display_bombs_1
-display_bombs_0:
+       jmp  display_smart_bombs_2
+display_smart_bombs_1:
        ci   r6,4
-       jle  display_bombs_1
+       jle  display_smart_bombs_2
        li   r6,4
-display_bombs_1:
+display_smart_bombs_2:
        sla  r6,4
        ai   r6,bombs0
        li   r0,20*32+panel_left+((panel_width-8)/2)
@@ -874,6 +902,10 @@ display_bombs_1:
        li   r2,8
        bl   @display_text
 *      Return
+       dect r10
+       mov  *r10,r3
+       dect r10
+       mov  *r10,r2
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -892,7 +924,7 @@ bombs3:
 bombs4:
        byte >74,>76,>74,>76,>74,>76,>74,>76
        byte >7c,>7e,>7c,>7e,>7c,>7e,>7c,>7e
-*// display_bombs
+*// display_smart_bombs
 
 *********************************************************************************
 *
@@ -1207,7 +1239,7 @@ init_game:
        li   r0,start_lives
        mov  r0,@lives
        li   r0,start_bombs
-       mov  r0,@bombs
+       mov  r0,@smart_bombs
        li   r0,power_up_none
        mov  r0,@power_ups
        clr  @sprite_table_flag
@@ -1241,7 +1273,7 @@ init_game:
        clr  @hw_sprite_dx(r2)
        clr  @hw_sprite_dy(r2)
        bl   @display_lives
-       bl   @display_bombs
+       bl   @display_smart_bombs
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11

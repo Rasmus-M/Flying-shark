@@ -63,7 +63,7 @@ sprite_pos_list_1:
        data 2016,-16,80,sprite_def_tank,path_tank_left_up_out_left_2,-1
        data 1992,-16,104,sprite_def_tank,path_tank_left_up_out_left_2,-1
 *      tank
-       data 1984,96,0,sprite_def_tank,path_tank_right_wait,-1
+       data 1984,96,0,sprite_def_tank,path_tank_right_wait,2
 *      2 planes from right
        data 1936,128,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
        data 1920,128,-16,sprite_def_enemy_plane,path_plane_dive_right_left_long,-1
@@ -155,5 +155,6 @@ sprite_pos_list_4:
 * enemies left, enemies total
 *
 waves:
-       data 3,3
-       data 4,4
+       data 3,3,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 1,1,wave_bonus_smart_bomb,0

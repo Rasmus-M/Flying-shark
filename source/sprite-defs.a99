@@ -102,3 +102,16 @@ sprite_def_power_up:
        data 0                          ; Hits left
        data -1                         ; Hit action
        data 0                          ; Fire rate
+*      Bomb
+sprite_def_smart_bomb:
+       data sprite_type_smart_bomb     ; Type
+       data >000E                      ; Width
+       data >000E                      ; Height
+       data >0001                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size
+       data >d400                      ; Pattern
+       data >0800                      ; Color
+       data 0                          ; Hits left
+       data -1                         ; Hit action
+       data 0                          ; Fire rate
