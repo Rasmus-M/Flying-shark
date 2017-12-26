@@ -36,7 +36,7 @@ title_bank:
 levels_base_bank:
        equ  >600C
 title_music_bank:
-       equ  >603A
+       equ  >606c
 cart_base:
        equ  >603C
 cart_music_base:
