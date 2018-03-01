@@ -1,63 +1,51 @@
-****************************************
-* Character Patterns                    
-****************************************
-PAT112M DATA >DCDE,>C6C6,>DEDC,>C0C0    ;
-PAT113M DATA >C0C0,>C0C0,>C0C0,>DEDE    ;
-PAT114M DATA >5CDE,>C6C6,>DEDE,>C6C6    ;
-PAT115M DATA >C6C6,>C6DE,>5E06,>DEDC    ;
-PAT116M DATA >C0C0,>C0C0,>C0C0,>DEDE    ;
-PAT117M DATA >DEDE,>C0D8,>D8C0,>DEDE    ;
-PAT118M DATA >0000,>0000,>0000,>0000    ;
-PAT119M DATA >0000,>0000,>0000,>0000    ;
-PAT120M DATA >DEDE,>C0D8,>D8C0,>DEDE    ;
-PAT121M DATA >DCDE,>C6DE,>DCD8,>DCCE    ;
-PAT122M DATA >1818,>5858,>1818,>5E5E    ;
-PAT123M DATA >5CDE,>C60E,>1C50,>DEDE    ;
-PAT124M DATA >C6C6,>C6CE,>4C5C,>1818    ;
-PAT125M DATA >0000,>3030,>0030,>3000    ;
-PAT126M DATA >0000,>0000,>0000,>0000    ;
-PAT127M DATA >0000,>0000,>0000,>0000    ;
-
-PAT240M DATA >5CDE,>C6C6,>C6C6,>DE5C    ;
-PAT241M DATA >1818,>5858,>1818,>5E5E    ;
-PAT242M DATA >5CDE,>C60E,>1C50,>DEDE    ;
-PAT243M DATA >5CDE,>C61C,>1CC6,>DE5C    ;
-PAT244M DATA >C6C6,>C6DE,>DE06,>0606    ;
-PAT245M DATA >DEDE,>C0DC,>DE06,>DEDC    ;
-PAT246M DATA >5EDE,>C0DC,>DEC6,>DE5C    ;
-PAT247M DATA >DEDE,>060E,>1C18,>1818    ;
-PAT248M DATA >5CDE,>C6DE,>5CC6,>DE5C    ;
-PAT249M DATA >5CDE,>C6DE,>5E06,>DEDC    ;
-PAT250M DATA >0000,>0000,>0000,>0000    ;
-PAT251M DATA >0000,>0000,>0000,>0000    ;
-PAT252M DATA >0000,>FFFF,>FFFF,>0000    ;
-PAT253M DATA >3434,>3434,>3434,>3434    ;
-PAT254M DATA >3C7E,>CFCF,>FFFF,>7E3C    ;
-PAT255M DATA >0000,>0000,>0000,>0000    ;
-****************************************
-* Map Data                              
-****************************************
-* -- Map Row 0 --
-MDMID  DATA >FDFF,>7071,>7273,>7879    ;
-       DATA >FF7A,>FFFD                ;
-* -- Map Row 1 --                       
-       DATA >FDFF,>FFFF,>FFFF,>FFFF    ;
-       DATA >FFFF,>FFFD                ;
-* -- Map Row 2 --                       
-       DATA >FDFF,>FFF1,>F2F3,>F4F5    ;
-       DATA >F6FF,>FFFD                ;
-* -- Map Row 3 --                       
-       DATA >FDFF,>FFFF,>FFFF,>FFFF    ;
-       DATA >FFFF,>FFFD                ;
-* -- Map Row 4 --                       
-       DATA >FDFF,>FF74,>757C,>7574    ;
-       DATA >7DFF,>FFFD                ;
-* -- Map Row 5 --                       
-       DATA >FDFF,>FFFF,>FFFF,>FFFF    ;
-       DATA >FFFF,>FFFD                ;
-* -- Map Row 6 --                       
-       DATA >FDFF,>FFFF,>FFF0,>F1FF    ;
-       DATA >FFFF,>FFFD                ;
-* -- Map Row 7 --                       
-       DATA >FDFF,>FFFF,>FFFF,>FFFF    ;
-       DATA >FFFF,>FFFD                ;
+COL240 DATA >7171,>F131,>2121,>C1C1     
+COL241 DATA >7171,>F131,>2121,>C1C1     
+COL242 DATA >7171,>F131,>2121,>C1C1     
+COL243 DATA >7171,>F131,>2121,>C1C1     
+COL244 DATA >7171,>F131,>2121,>C1C1     
+COL245 DATA >7171,>F131,>2121,>C1C1     
+COL246 DATA >7171,>F131,>2121,>C1C1     
+COL247 DATA >7171,>F131,>2121,>C1C1     
+COL248 DATA >7171,>F131,>2121,>C1C1     
+COL249 DATA >7171,>F131,>2121,>C1C1     
+COL250 DATA >1010,>1010,>1010,>1010     
+COL251 DATA >E1E1,>E1E1,>E1E1,>E1E1     
+COL252 DATA >1010,>1010,>1010,>1010     
+COL253 DATA >E1E1,>E1E1,>E1E1,>E1E1     
+COL254 DATA >1010,>1010,>1010,>1010     
+COL255 DATA >F1F1,>F1F1,>F1F1,>F1F1     
+PAT240 DATA >5CDE,>C6C6,>C6C6,>DE5C     
+PAT241 DATA >1818,>5858,>1818,>5E5E     
+PAT242 DATA >5CDE,>C60E,>1C50,>DEDE     
+PAT243 DATA >5CDE,>C61C,>1CC6,>DE5C     
+PAT244 DATA >C6C6,>C6DE,>DE06,>0606     
+PAT245 DATA >DEDE,>C0DC,>DE06,>DEDC     
+PAT246 DATA >5EDE,>C0DC,>DEC6,>DE5C     
+PAT247 DATA >DEDE,>060E,>1C18,>1818     
+PAT248 DATA >5CDE,>C6DE,>5CC6,>DE5C     
+PAT249 DATA >5CDE,>C6DE,>5E06,>DEDC     
+PAT250 DATA >0000,>0000,>0000,>0000     
+PAT251 DATA >1D1B,>1D1B,>1D1B,>1D1B     
+PAT252 DATA >0000,>0000,>0000,>0000     
+PAT253 DATA >D8E8,>D8E8,>D8E8,>D8E8     
+PAT254 DATA >0000,>0000,>0000,>0000     
+PAT255 DATA >0000,>0000,>0000,>0000     
+MCOUNT DATA 1                           
+MC0    DATA 1                           
+MS0    DATA >000C,>0008,>0060           
+MD0    DATA >FBFF,>7071,>7273,>7879     
+       DATA >FF7A,>FFFD                 
+       DATA >FBFF,>FFFF,>FFFF,>FFFF     
+       DATA >FFFF,>FFFD                 
+       DATA >FBFF,>FFF1,>F2F3,>F4F5     
+       DATA >F6FF,>FFFD                 
+       DATA >FBFF,>FFFF,>FFFF,>FFFF     
+       DATA >FFFF,>FFFD                 
+       DATA >FBFF,>FF74,>757C,>7574     
+       DATA >7DFF,>FFFD                 
+       DATA >FBFF,>FFFF,>FFFF,>FFFF     
+       DATA >FFFF,>FFFD                 
+       DATA >FBFF,>FFFF,>FFF0,>F1FF     
+       DATA >FFFF,>FFFD                 
+       DATA >FBFF,>FFFF,>FFFF,>FFFF     
+       DATA >FFFF,>FFFD                 
