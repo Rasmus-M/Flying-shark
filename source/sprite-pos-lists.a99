@@ -91,7 +91,12 @@ sprite_pos_list_1:
        data 1576,72,40,sprite_def_tank,path_tank_down_wait,-1
 *      1 tank down
        data 1568,0,-16,sprite_def_tank,path_tank_down_long,-1
+*      1 tank from right
+       data 1472,143,32,sprite_def_tank,path_tank_right_long,-1
 
+
+*      1 tank from right
+       data 1456,143,48,sprite_def_tank,path_tank_right_short,-1
 
 *      5 turrets
        data 1072,48,-16,sprite_def_turret,0,-1
