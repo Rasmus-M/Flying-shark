@@ -57,12 +57,12 @@ sprite_pos_list_1:
        data 2056,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
        data 2048,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
        data 2040,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
-*      1 tank
+*      1 tank down
        data 2032,64,16,sprite_def_tank,path_tank_down_wait,-1
 *      2 tanks from left, up, leave left
        data 2016,-16,80,sprite_def_tank,path_tank_left_up_out_left_2,-1
        data 1992,-16,104,sprite_def_tank,path_tank_left_up_out_left_2,-1
-*      tank
+*      1 tank right
        data 1984,96,0,sprite_def_tank,path_tank_right_wait,2
 *      2 planes from right
        data 1936,128,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
@@ -71,8 +71,27 @@ sprite_pos_list_1:
        data 1912,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_long,-1
        data 1896,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_short,-1
 *      2 planes from right, circle, out bottom
-       data 1808,-16,128,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
-       data 1800,-16,136,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+       data 1816,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+       data 1808,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+*      2 tanks from right
+       data 1808,143,0,sprite_def_tank,path_tank_right_long,-1
+       data 1792,143,16,sprite_def_tank,path_tank_right_short,-1
+*      1 tank down
+       data 1776,0,56,sprite_def_tank,path_tank_down_wait,-1
+*      1 tank left
+       data 1680,80,32,sprite_def_tank,path_tank_left_wait,-1
+*      1 tank up
+       data 1672,0,120,sprite_def_tank,path_tank_up_wait_long,-1
+*      1 tank left
+       data 1648,80,16,sprite_def_tank,path_tank_left_wait,-1
+*      1 tank down
+       data 1608,16,72,sprite_def_tank,path_tank_down_wait,-1
+*      2 tanks down
+       data 1584,48,32,sprite_def_tank,path_tank_down_wait,-1
+       data 1576,72,40,sprite_def_tank,path_tank_down_wait,-1
+*      1 tank down
+       data 1568,0,-16,sprite_def_tank,path_tank_down_long,-1
+
 
 *      5 turrets
        data 1072,48,-16,sprite_def_turret,0,-1

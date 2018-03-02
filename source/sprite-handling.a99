@@ -806,8 +806,11 @@ update_tank_sprite_4:
 update_tank_sprite_7:
        mov  @sprite_y(r3),r0
        ci   r0,>c000
-       jhe  update_tank_sprite_1
+       jl  update_tank_sprite_8
+       ci   r0,>f000
+       jl  update_tank_sprite_1
 *      Move
+update_tank_sprite_8:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
