@@ -167,7 +167,7 @@ path_tank_down_long:
        data -1
 *      From right and stopping (long)
 path_tank_right_slow:
-       data 160,->0080,>0000,>1c00,>0000
+       data 192,->0080,>0000,>1c00,>0000
        data 250,>0000,>0000,>1c00,>0001
        data -1
 *      Tank not moving
