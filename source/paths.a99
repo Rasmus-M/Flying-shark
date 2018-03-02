@@ -161,8 +161,12 @@ path_tank_up_wait_long:
 path_tank_down_long:
        data 256,>0000,>0080,>1800,>0000
        data -1
+*      Tank not moving
+path_tank_steady:
+       data 1000,0,0,>1800,0
+       data -1
 *      Tank stopping when hit
-path_tank_stop:
+path_tank_hit:
        data 1000,0,0,>f800,0
        data -1
 *      Explosion

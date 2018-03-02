@@ -1224,7 +1224,7 @@ tank_hit:
        jmp  tank_hit_2
 *      Stop
 tank_hit_1:
-       li   r1,path_tank_stop
+       li   r1,path_tank_hit
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
 *      Return
