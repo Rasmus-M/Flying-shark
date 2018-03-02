@@ -100,11 +100,15 @@ sprite_pos_list_1:
        data 1432,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long,-1
 *      2 tanks from top
        data 1424,48,-16,sprite_def_tank,path_tank_steady,-1
-       data 1420,76,-12,sprite_def_tank,path_tank_steady,-1
+       data 1420,76,-18,sprite_def_tank,path_tank_steady,-1
 *      1 plane from left
        data 1416,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_short,-1
 *      1 plane from right
        data 1408,128,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
+*      1 tank from right
+       data 1344,143,0,sprite_def_tank,path_tank_left_8,-1
+*      Continue 1 tank from right
+       data 1296,96,48,sprite_def_tank,path_tank_right_slow
 
 *      5 turrets
        data 1072,48,-16,sprite_def_turret,0,-1

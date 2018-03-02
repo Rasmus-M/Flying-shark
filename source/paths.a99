@@ -152,6 +152,10 @@ path_tank_left_wait:
        data 16,->0080,>0000,>1c00,>0000
        data 400,>0000,>0000,>1c00,>0001
        data -1
+*      Left 8 pixels and wait
+path_tank_left_8:
+       data 16,->0080,>0000,>1c00,>0000
+       data -1
 *      Long up and wait
 path_tank_up_wait_long:
        data 256,>0000,->0080,>1800,>0000
@@ -160,6 +164,11 @@ path_tank_up_wait_long:
 *      Long down
 path_tank_down_long:
        data 256,>0000,>0080,>1800,>0000
+       data -1
+*      From right and stopping (long)
+path_tank_right_slow:
+       data 160,->0080,>0000,>1c00,>0000
+       data 250,>0000,>0000,>1c00,>0001
        data -1
 *      Tank not moving
 path_tank_steady:
