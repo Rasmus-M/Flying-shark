@@ -85,7 +85,7 @@ path_plane_circle_left_bottom:
        data 18,->0140,->0140,>3c00,>0001
        data 40,->0180,>0000,>3800,>0001
        data 18,->0140,>0140,>3400,>0001
-       data 80,>0000,>0180,>3000,>0000
+       data 60,>0000,>0180,>3000,>0000
        data -1
 *      From right, up, left, down, out right
 path_plane_right_up_left_down_out_left

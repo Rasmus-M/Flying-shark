@@ -85,7 +85,7 @@ sprite_pos_list_1:
 *      1 tank left
        data 1648,80,16,sprite_def_tank,path_tank_left_wait,-1
 *      1 tank down
-       data 1608,16,72,sprite_def_tank,path_tank_down_wait,-1
+       data 1608,16,64,sprite_def_tank,path_tank_down_wait,-1
 *      2 tanks down
        data 1584,48,32,sprite_def_tank,path_tank_down_wait,-1
        data 1576,72,40,sprite_def_tank,path_tank_down_wait,-1
