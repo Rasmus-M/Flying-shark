@@ -152,7 +152,7 @@ path_tank_left_wait:
        data 16,->0080,>0000,>1c00,>0000
        data 400,>0000,>0000,>1c00,>0001
        data -1
-*      Left 8 pixels and wait
+*      Left 8 pixels and disappear
 path_tank_left_8:
        data 16,->0080,>0000,>1c00,>0000
        data -1
@@ -170,6 +170,11 @@ path_tank_right_slow:
        data 192,->0080,>0000,>1c00,>0000
        data 250,>0000,>0000,>1c00,>0001
        data -1
+*      From left and stopping (long)
+path_tank_left_slow:
+       data 192,>0080,>0000,>1c00,>0000
+       data 250,>0000,>0000,>1c00,>0001
+       data -1
 *      Tank not moving
 path_tank_steady:
        data 1000,0,0,>1800,0
@@ -177,6 +182,10 @@ path_tank_steady:
 *      Tank stopping when hit
 path_tank_hit:
        data 1000,0,0,>f800,0
+       data -1
+*      Boss level 1
+path_boss_1:
+       data 32,>0000,->0080,>1800,>0000
        data -1
 *      Explosion
 path_explosion:
