@@ -119,6 +119,20 @@ add_tank_sprite_1:
 
 *********************************************************************************
 *
+* Add boss tank sprite
+*
+* r1: pointer to sprite
+*
+add_boss_tank_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// add_boss_tank_sprite
+
+*********************************************************************************
+*
 * Add mask sprite
 *
 * r1: pointer to parent sprite (plane, tank)
@@ -966,6 +980,20 @@ update_smart_bomb_sprite_2:
 
 *********************************************************************************
 *
+* Update boss tank sprite
+* Cannot modify r2-r3
+*
+update_boss_tank_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_boss_tank_sprite
+
+*********************************************************************************
+*
 * Sprite collisions
 *
 sprite_collisions:
@@ -1233,6 +1261,21 @@ tank_hit_2:
        mov  *r10, r11
        b    *r11
 *// tank_hit
+
+*********************************************************************************
+*
+* BOss tank hit
+* r3 points to boss tank sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+boss_tank_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// boss_tank_hit
 
 *********************************************************************************
 *
@@ -1507,6 +1550,7 @@ add_sprite_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data add_boss_tank_sprite       ; Boss tank
 update_sprite_jump_table:
        data update_player_sprite       ; Player
        data update_bullet_sprite       ; Bullet
@@ -1517,6 +1561,7 @@ update_sprite_jump_table:
        data update_mask_sprite         ; Mask
        data update_power_up_sprite     ; Power up
        data update_smart_bomb_sprite   ; Smart bomb
+       data update_boss_tank_sprite    ; Boss tank
 sprite_collisions_jump_table:
        data player_sprite_collisions   ; Player
        data 0                          ; Bullet
@@ -1527,6 +1572,7 @@ sprite_collisions_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data enemy_sprite_collisions    ; Boss tank
 enemy_hit_jump_table:
        data 0                          ; Player
        data 0                          ; Bullet
@@ -1537,3 +1583,4 @@ enemy_hit_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data boss_tank_hit              ; Boss tank

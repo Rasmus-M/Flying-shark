@@ -119,6 +119,8 @@ sprite_type_power_up:
        equ  7
 sprite_type_smart_bomb:
        equ  8
+sprite_type_boss_tank:
+       equ  8
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
