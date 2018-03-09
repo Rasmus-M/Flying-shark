@@ -1040,16 +1040,24 @@ player_sprite_collisions_1:
        jeq  player_sprite_collisions_2
        mov  @sprite_def_hit_action(r6),r0
        jeq  player_sprite_collisions_2
-       mov  @sprite_x(r5),r0
-       s    r7,r0
-       abs  r0
-       ci   r0,>0800
-       jhe  player_sprite_collisions_2
-       mov  @sprite_y(r5),r1
-       s    r8,r1
-       abs  r1
-       ci   r1,>0800
-       jhe  player_sprite_collisions_2
+*      X
+       mov  r7,r0
+       s    @sprite_x(r5),r0
+       sra  r0,8
+       s    @sprite_def_left(r6),r0
+       ci   r0,-15                     ; Player width
+       jlt  player_sprite_collisions_2
+       c    r0,@sprite_def_width(r6)
+       jgt  player_sprite_collisions_2
+*      Y
+       mov  r8,r1
+       s  @sprite_y(r5),r1
+       sra  r1,8
+       s    @sprite_def_top(r6),r0
+       ci   r1,-13                     ; Player height
+       jlt  player_sprite_collisions_2
+       c    r1,@sprite_def_height(r6)
+       jgt  player_sprite_collisions_2
 *      Collision
        mov  @sprite_def_hit_action(r6),r0
        jlt  player_sprite_collisions_4
