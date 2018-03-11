@@ -122,9 +122,9 @@ sprite_def_boss_tank:
        data >0020                      ; Height
        data >0000                      ; Left
        data >0000                      ; Top
-       data >0004                      ; Size
+       data >0008                      ; Size
        data >c000                      ; Pattern
        data >0b00                      ; Color
-       data 8                          ; Hits left
-       data 1                          ; Hit action
-       data 4                          ; Fire rate
+       data 32                         ; Hits left
+       data -1                         ; Hit action
+       data 1                          ; Fire rate

@@ -120,7 +120,7 @@ sprite_type_power_up:
 sprite_type_smart_bomb:
        equ  8
 sprite_type_boss_tank:
-       equ  8
+       equ  9
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
@@ -167,24 +167,32 @@ sprite_hw_3:                           ; Hardware sprite 3
        equ  14
 sprite_hw_4:                           ; Hardware sprite 4
        equ  16
-sprite_scroll_y:                       ; Reference scroll position
+sprite_hw_5:                           ; Hardware sprite 5
        equ  18
-sprite_link:                           ; Linked sprite
+sprite_hw_6:                           ; Hardware sprite 6
        equ  20
-sprite_mask:                           ; Mask sprite
+sprite_hw_7:                           ; Hardware sprite 7
        equ  22
-sprite_count:                          ; Counter
+sprite_hw_8:                           ; Hardware sprite 8
        equ  24
-sprite_path:                           ; Path
+sprite_scroll_y:                       ; Reference scroll position
        equ  26
-sprite_hits_left:                      ; Hits left before sprite is destroyed
+sprite_link:                           ; Linked sprite
        equ  28
-sprite_fire_delay:                     ; Count down until sprite can fire next
+sprite_mask:                           ; Mask sprite
        equ  30
-sprite_wave:                           ; Wave number
+sprite_count:                          ; Counter
        equ  32
-sprite_struct_size:                    ; Structure size
+sprite_path:                           ; Path
        equ  34
+sprite_hits_left:                      ; Hits left before sprite is destroyed
+       equ  36
+sprite_fire_delay:                     ; Count down until sprite can fire next
+       equ  38
+sprite_wave:                           ; Wave number
+       equ  40
+sprite_struct_size:                    ; Structure size
+       equ  42
 
 * Hardware sprite structure
 hw_sprite:                             ; Pointer to sprite structure

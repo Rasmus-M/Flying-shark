@@ -9,7 +9,7 @@ sprite_pos_lists:
 sprite_pos_list_1:
 
 *      Boss
-       data 2832,48,48,sprite_def_boss_tank,0,-1
+;       data 2832,48,48,sprite_def_boss_tank,path_boss_tank,-1
 
 *      2 planes from left
        data 2792,16,-16,sprite_def_enemy_plane,path_plane_dive_left_right_short,-1
@@ -146,7 +146,7 @@ sprite_pos_list_1:
 *      One tank right
        data 792,120,56,sprite_def_tank,path_tank_right_wait,-1
 *      Boss
-       data 592,48,48,sprite_def_boss_tank,0,-1
+       data 592,48,48,sprite_def_boss_tank,path_boss_tank,-1
 *      3 tanks from left
        data 424,-16,32,sprite_def_tank,path_tank_left_slow,-1
        data 400,-16,48,sprite_def_tank,path_tank_left_slow,-1
