@@ -397,6 +397,37 @@ add_smart_bomb_sprite_1:
 
 *********************************************************************************
 *
+* Add extra life sprite
+*
+* r3: last sprite of wave
+*
+* Modifies r0-r1, r4-r7
+*
+add_extra_life_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r2,*r10+                   ; Push r2
+       mov  r3,*r10+                   ; Push r3
+       li   r0,sprite_def_extra_life
+       bl   @alloc_sprite
+       dect r10                        ; Pop r3
+       mov  *r10,r3
+       dect r10                        ; Pop r2
+       mov  *r10,r2
+       mov  r1,r1
+       jeq  add_extra_life_sprite_1
+       mov  @sprite_x(r3),@sprite_x(r1)
+       mov  @sprite_y(r3),@sprite_y(r1)
+*      Record scroll position
+       mov  @scrly_current,@sprite_scroll_y(r1)
+add_extra_life_sprite_1:
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// add_extra_life_sprite
+
+*********************************************************************************
+*
 * Add boss tank sprite
 *
 * r1: pointer to sprite
@@ -1033,6 +1064,44 @@ update_smart_bomb_sprite_2:
 
 *********************************************************************************
 *
+* Update extra life sprite
+* r3: points to sprite
+* Cannot modify r2
+*
+update_extra_life_sprite:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,192*256                 ; Check for out of screen
+       jhe  update_extra_life_sprite_1 ; Remove if out of screen
+*      Move with scroll
+       mov  @sprite_scroll_y(r3),r0
+       s    @scroll_y,r0
+       jeq  update_extra_life_sprite_2
+       sla  r0,8
+       a    r0,@sprite_y(r3)
+       mov  @scroll_y,@sprite_scroll_y(r3)
+*      Blink
+       mov  @sprite_hw_1(r3),r1
+       mov  @scroll_y,r0
+       andi r0,2
+       ai   r0,8
+       swpb r0
+       mov  r0,@hw_sprite_color(r1)
+       jmp  update_extra_life_sprite_2
+*      Remove
+update_extra_life_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Return
+update_extra_life_sprite_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// update_extra_life_sprite
+
+*********************************************************************************
+*
 * Update boss tank sprite
 * r3: points to sprite
 * Cannot modify r2
@@ -1172,9 +1241,15 @@ player_sprite_collisions_4:
        jmp  player_sprite_collisions_3
 player_sprite_collisions_5
        ci   r6,sprite_def_smart_bomb
-       jne  player_sprite_collisions_3
+       jne  player_sprite_collisions_6
        inc  @smart_bombs
        bl   @display_smart_bombs
+       jmp player_sprite_collisions_3
+player_sprite_collisions_6
+       ci   r6,sprite_def_extra_life
+       jne  player_sprite_collisions_3
+       inc  @lives
+       bl   @display_lives
        jmp player_sprite_collisions_3
 *      Next
 player_sprite_collisions_2:
@@ -1464,8 +1539,12 @@ handle_wave:
        bl   @add_power_up_sprite
        jmp  handle_wave_1
 !      ci   r0,wave_bonus_smart_bomb
-       jne  handle_wave_1
+       jne  !
        bl   @add_smart_bomb_sprite
+       jmp  handle_wave_1
+!      ci   r0,wave_bonus_life
+       jne  handle_wave_1
+       bl   @add_extra_life_sprite
 *      Return
 handle_wave_1:
        dect r10                        ; Pop return address off the stack
@@ -1710,6 +1789,7 @@ add_sprite_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data 0                          ; Extra life
        data add_boss_tank_sprite       ; Boss tank
 update_sprite_jump_table:
        data update_player_sprite       ; Player
@@ -1721,6 +1801,7 @@ update_sprite_jump_table:
        data update_mask_sprite         ; Mask
        data update_power_up_sprite     ; Power up
        data update_smart_bomb_sprite   ; Smart bomb
+       data update_extra_life_sprite   ; Extra life
        data update_boss_tank_sprite    ; Boss tank
 sprite_collisions_jump_table:
        data player_sprite_collisions   ; Player
@@ -1732,6 +1813,7 @@ sprite_collisions_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data 0                          ; Extra life
        data boss_sprite_collisions     ; Boss tank
 enemy_hit_jump_table:
        data 0                          ; Player
@@ -1743,4 +1825,5 @@ enemy_hit_jump_table:
        data 0                          ; Mask
        data 0                          ; Power up
        data 0                          ; Smart bomb
+       data 0                          ; Extra life
        data boss_tank_hit              ; Boss tank

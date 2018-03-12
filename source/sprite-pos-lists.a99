@@ -70,9 +70,9 @@ sprite_pos_list_1:
 *      2 planes from left
        data 1912,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_long,-1
        data 1896,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_short,-1
-*      2 planes from right, circle, out bottom
-       data 1816,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
-       data 1808,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+*      2 planes from left, circle, out bottom
+       data 1816,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,3
+       data 1808,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,3
 *      2 tanks from right
        data 1808,143,0,sprite_def_tank,path_tank_right_long,-1
        data 1792,143,16,sprite_def_tank,path_tank_right_short,-1
@@ -236,3 +236,4 @@ waves:
        data 3,3,wave_bonus_power_up,0
        data 4,4,wave_bonus_power_up,0
        data 1,1,wave_bonus_smart_bomb,0
+       data 2,2,wave_bonus_life,0

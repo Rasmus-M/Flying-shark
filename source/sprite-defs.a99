@@ -115,6 +115,19 @@ sprite_def_smart_bomb:
        data 0                          ; Hits left
        data -1                         ; Hit action
        data 0                          ; Fire rate
+*      Extra life
+sprite_def_extra_life:
+       data sprite_type_extra_life     ; Type
+       data >000E                      ; Width
+       data >000E                      ; Height
+       data >0001                      ; Left
+       data >0001                      ; Top
+       data >0001                      ; Size
+       data >d800                      ; Pattern
+       data >0a00                      ; Color
+       data 0                          ; Hits left
+       data -1                         ; Hit action
+       data 0                          ; Fire rate
 *      Boss tank
 sprite_def_boss_tank:
        data sprite_type_boss_tank      ; Type
