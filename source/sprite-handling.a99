@@ -131,8 +131,8 @@ add_mask_sprite:
        li   r0,sprite_def_mask
        bl   @alloc_sprite
        mov  r1,@sprite_mask(r8)
-       mov  r8,@sprite_link(r1)
        jeq  add_mask_sprite_1
+       mov  r8,@sprite_link(r1)
        li   r0,(x_min-16)*256
        mov  r0,@sprite_x(r1)
        mov  @sprite_y(r8),r0

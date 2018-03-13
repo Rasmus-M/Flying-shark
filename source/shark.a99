@@ -383,7 +383,7 @@ main_set_tables:
        bl   @set_sprite_table          ; Flip sprite table double buffer
        bl   @play_sound                ; Play sound/music
 *      Scroll the background
-       bl   @update_char_list          ; Determine which characeters to update
+       bl   @update_char_list          ; Determine which characters to update
        bl   @update_characters         ; Update characters
        bl   @update_name_table         ; Update name table double buffer
 *      Delay
@@ -559,7 +559,7 @@ upload_sprites_3:
        jeq  upload_sprites_4
        mov  @sprite_x(r1),r7
        a    @hw_sprite_dx(r3),r7
-       ci   r7,x_min*256               ; Check for x out of bound
+       ci   r7,(x_min-16)*256          ; Check for x out of bound
        jl   upload_sprites_4
        mov  @sprite_y(r1),r0
        a    @hw_sprite_dy(r3),r0
@@ -991,7 +991,7 @@ update_char_list_5:
 update_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
        bl   @interrupt_check
-       mov  @scroll_y,r3                  ; Read scroll offset into register
+       mov  @scroll_y,r3               ; Read scroll offset into register
 *	   Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
@@ -1090,7 +1090,7 @@ upload_character_table_end
 *
 update_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @scroll_y,r3                  ; Get scroll frame (0-15)
+       mov  @scroll_y,r3               ; Get scroll frame (0-15)
        andi r3,>000f
 *	   Calculate row offset to the 1/4 of the buffer to update
        mov  r3,r0                      ; Start with frame number
@@ -1100,7 +1100,7 @@ update_name_table:
        a    r0,r2                      ; Add to R2 to multiply by 6 and get row offset: 0,0,6,6,12,12,18,18...
        mov  r2,r0                      ; Copy back into R0 for later
 *	   Calculate map source address in R1
-       mov  @scroll_y,r1                  ; Get scroll offset in pixels
+       mov  @scroll_y,r1               ; Get scroll offset in pixels
        sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
        li   r2,map_width
@@ -1300,6 +1300,40 @@ init_game:
 *
 init_level:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Cartridge addresses
+       li   r0,24
+       mpy  @level,r0                  ; Level * 24 (12 banks per level)
+       ai   r1,levels_base_bank        ; First 4 banks are for code, 2 for title screen
+       mov  r1,@cart_pattern_bank
+       ai   r1,16
+       mov  r1,@cart_map_bank
+       inct r1
+       mov  r1,@cart_map_high_bank
+       inct r1
+       mov  r1,@cart_diff_bank
+       inct r1
+       mov  r1,@cart_music_bank
+*      Initalize scroll
+       bl   @init_scroll
+*      Draw initial screen
+       bl   @draw_initial_screen
+       clr  r0
+       bl   @display_score
+       bl   @display_level
+*      Music
+       li   r1,cart_music_base
+       bl   @init_music
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init_level
+
+*********************************************************************
+*
+* Initalize scroll
+*
+init_scroll:
 *      Init variables
        mov  @level,r1
        sla  r1,1
@@ -1314,19 +1348,6 @@ init_level:
        li   r0,64
        mov  r0,@landing_start
        mov  @sprite_pos_lists(r1),@sprite_pos_ptr
-*      Cartridge addresses
-       li   r0,24
-       mpy  @level,r0                  ; Level * 24 (12 banks per level)
-       ai   r1,levels_base_bank        ; First 4 banks are for code, 2 for title screen
-       mov  r1,@cart_pattern_bank
-       ai   r1,16
-       mov  r1,@cart_map_bank
-       inct r1
-       mov  r1,@cart_map_high_bank
-       inct r1
-       mov  r1,@cart_diff_bank
-       inct r1
-       mov  r1,@cart_music_bank
 *      Init diff list
        mov  @cart_diff_bank,r0
        seto *r0
@@ -1341,19 +1362,8 @@ init_level_1:
        seto *r0+
        dec  r2
        jne  init_level_1
-*      Draw initial screen
-       bl   @draw_initial_screen
-       clr  r0
-       bl   @display_score
-       bl   @display_level
-*      Music
-       li   r1,cart_music_base
-       bl   @init_music
-*      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
        b    *r11
-*// init_level
+*// clear_memory
 
 *********************************************************************
 *
