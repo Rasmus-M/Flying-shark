@@ -543,8 +543,8 @@ update_player_sprite_10:
 *      Path complete
 update_player_sprite_11:
        clr  @sprite_path(r3)
-       li   r0,60
-       mov  r0,@sprite_count(r3)
+       seto @status                    ; Died
+       jmp  update_player_sprite_12
 *      Check for immunity countdown
 update_player_sprite_0:
        mov  @sprite_count(r3),r0
@@ -574,19 +574,23 @@ update_player_sprite_2:
        ci   r0,x_min*256               ; Check x bounds
        jh   update_player_sprite_3
        jmp  update_player_sprite_4
+*      Move x
 update_player_sprite_3:
        a    @sprite_vx(r3),@sprite_x(r3)    ; Move x
 update_player_sprite_4:
        mov  @sprite_vy(r3),r0
        jgt  update_player_sprite_5     ; Check y bounds
+*      Up
        mov  @sprite_y(r3),r0
        ci   r0,>0100
        jle  update_player_sprite_6
        jmp  update_player_sprite_7
+*      Down
 update_player_sprite_5:
        mov  @sprite_y(r3),r0
        ci   r0,>b000                   ; Check y bounds
        jhe  update_player_sprite_6
+*      Move y
 update_player_sprite_7:
        a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
 *      Update z position
@@ -607,6 +611,7 @@ update_player_sprite_6:
 update_player_sprite_8:
        c    @scroll_y,@landing_start
        jgt  update_player_sprite_9
+*      Landing
        mov  @scroll_y,r0
        srl  r0,2
        sla  r0,8
@@ -1216,17 +1221,8 @@ player_sprite_collisions_1:
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
-       dec  @lives
-       clr  @power_ups
-       mov  r2,*r10+
-       mov  r3,*r10+
-       bl   @display_lives
        li   r1,expl_1
        bl   @init_sfx
-       dect r10
-       mov  *r10,r3
-       dect r10
-       mov  *r10,r2
        jmp  player_sprite_collisions_3
 *      Pickup
 player_sprite_collisions_4:

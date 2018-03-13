@@ -336,8 +336,10 @@ score_lsw:
        equ  score_msw+2
 lives:                                 ; Lives left
        equ  score_lsw+2
-power_ups:                             ; Power-up status
+status:                                ; 0 = normal, -1 = died, 1 = won
        equ  lives+2
+power_ups:                             ; Power-up status
+       equ  status+2
 smart_bombs:                           ; Smart bombs left
        equ  power_ups+2
 bomb_count_down:                       ; Timing of smart bomb
@@ -361,11 +363,11 @@ main:
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
        mov  @rndsd,@rand_no            ; Save random number seed
+new_game:
        bl   @title_screen              ; Display title screen
        bl   @wtkey                     ; Wait for key press
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
-new_game:
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
@@ -382,6 +384,9 @@ main_set_tables:
        bl   @set_name_table            ; Flip name table double buffer
        bl   @set_sprite_table          ; Flip sprite table double buffer
        bl   @play_sound                ; Play sound/music
+*      Check status
+       mov  @status,r0
+       jlt  main_died
 *      Scroll the background
        bl   @update_char_list          ; Determine which characters to update
        bl   @update_characters         ; Update characters
@@ -405,6 +410,15 @@ main_delay:
        li   r0,>fffc                   ; Mask
        szc  r0,@level                  ; Level mod 4
        jmp  next_level                 ; Level loop
+main_died:
+       dec  @lives
+       jeq  new_game
+       bl   @display_lives
+       clr  @power_ups
+       clr  @status
+       li   r0,60
+       mov  r0,@sprite_player+sprite_count
+       jmp  main_loop
 *// main
 
 ********************************************************************************
@@ -1176,7 +1190,23 @@ scroll_to_position_1:
 scroll_to_position_2:
        bl   @update_characters
        bl   @draw_initial_screen
+*      Set sprite position list pointer
+*      to the entry at or just before the current scroll y
+       mov  @sprite_pos_ptr,r1
+scroll_to_position_3:
+       mov  *r1,r0
+       jlt  scroll_to_position_6
+       c    r0,@scrly_current
+       jeq  scroll_to_position_5
+       jl   scroll_to_position_4
+       ai   r1,sprite_pos_struct_size
+       jmp  scroll_to_position_3
+scroll_to_position_4:
+       ai   r1,-sprite_pos_struct_size ; We have come too far
+scroll_to_position_5:
+       mov  r1,@sprite_pos_ptr
 *      Return
+scroll_to_position_6:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1249,13 +1279,6 @@ init:
        li   r1,upload_character_table_pad
        li   r2,upload_character_table_end-upload_character_table
        bl   @copy_memory
-*      Draw panel
-       li   r0,panel_left*256
-       li   r1,MD0
-       li   r2,panel_width
-       li   r3,24
-       li   r4,0
-       bl   @draw_box
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1275,18 +1298,19 @@ init_game:
        clr  @score_msw
        li   r0,start_lives
        mov  r0,@lives
+       clr  @status
        li   r0,start_bombs
        mov  r0,@smart_bombs
        li   r0,power_up_none
        mov  r0,@power_ups
        clr  @sprite_table_flag
 *      Init sprites
-       li   r0,sprites+(1*sprite_struct_size)
-       li   r2,(n_sprites-1)*sprite_struct_size
+       li   r0,sprites
+       li   r2,n_sprites*sprite_struct_size
        bl   @clear_memory
        seto @max_sprite
-       li   r0,hw_sprites+(3*hw_sprite_struct_size)
-       li   r2,(n_hw_sprites-3)*hw_sprite_struct_size
+       li   r0,hw_sprites
+       li   r2,n_hw_sprites*hw_sprite_struct_size
        bl   @clear_memory
        seto @max_hw_sprite
 *      Init player sprite
@@ -1309,6 +1333,14 @@ init_game:
        mov  r0,@hw_sprite_color(r2)
        clr  @hw_sprite_dx(r2)
        clr  @hw_sprite_dy(r2)
+*      Draw panel
+       li   r0,panel_left*256
+       li   r1,MD0
+       li   r2,panel_width
+       li   r3,24
+       li   r4,0
+       bl   @draw_box
+*      Init display
        bl   @display_lives
        bl   @display_smart_bombs
 *      Return
