@@ -397,8 +397,8 @@ main_delay:
        dec  r2                         ; Delay counter
        jne  main_delay                 ; Delay loop
 *      Change scroll position
-!      mov  @scroll_y,@scrly_current      ; Set scroll position as current
-       dec  @scroll_y                     ; Change scroll position for net frame
+!      mov  @scroll_y,@scrly_current   ; Set scroll position as current
+       dec  @scroll_y                  ; Change scroll position for net frame
        jne  main_loop                  ; Loop if not at top
 *      Next level
        inc  @level                     ; Increase level
@@ -1161,16 +1161,39 @@ update_name_table_6:
 
 *********************************************************************************
 *
+* Simulate scrolling the map from the beginning to the position in @scrly_current
+* This is required in order to back-track on the map after dying.
+*
+scroll_to_position:
+       mov  r11, *r10+                  ; Push return address onto the stack
+       bl   @init_scroll
+scroll_to_position_1:
+       c    @scroll_y,@scrly_current
+       jle  scroll_to_position_2
+       bl   @update_char_list          ; Determine which characters to update
+       dec  @scroll_y
+       jmp  scroll_to_position_1
+scroll_to_position_2:
+       bl   @update_characters
+       bl   @draw_initial_screen
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// scroll_to_position
+
+*********************************************************************************
+*
 * Draw initial screen
 *
 draw_initial_screen:
-       mov  r11, *r10+                  ; Push return address onto the stack
+       mov  r11, *r10+                 ; Push return address onto the stack
        li   r15,vdpwd
 *      Source address
        mov  @scroll_y,r1
        srl  r1,3
        li   r0,map_width
-       mpy  r1,r0
+       mpy  r1,r0                      ; (y / 8) * map_width
        ai   r1,cart_base
        mov  r1,r4
 *      Map
@@ -1315,9 +1338,10 @@ init_level:
        mov  r1,@cart_music_bank
 *      Initalize scroll
        bl   @init_scroll
+       mov  @scroll_y,@scrly_current
 *      Draw initial screen
        bl   @draw_initial_screen
-       clr  r0
+*      Display score and level
        bl   @display_score
        bl   @display_level
 *      Music
@@ -1342,7 +1366,6 @@ init_scroll:
        ai   r0,-win_height
        sla  r0,3
        mov  r0,@scroll_y
-       mov  r0,@scrly_current
        ai   r0,-64
        mov  r0,@take_off_end
        li   r0,64
@@ -1358,12 +1381,12 @@ init_scroll:
 *      Reset character list
        li   r0,char_list
        li   r2,128
-init_level_1:
+init_scroll_1:
        seto *r0+
        dec  r2
-       jne  init_level_1
+       jne  init_scroll_1
        b    *r11
-*// clear_memory
+*// init_scroll
 
 *********************************************************************
 *
