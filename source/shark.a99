@@ -290,15 +290,17 @@ level:                                 ; Play level
        equ  eight+2
 scroll_y:                              ; Vertical scroll offset (next)
        equ  level+2
-scrly_current:                         ; Vertical scroll offset (current)
+scroll_y_current:                      ; Vertical scroll offset (current)
        equ  scroll_y+2
+scroll_y_max:                          ; Vertical scroll offset (current)
+       equ  scroll_y_current+2
 take_off_end:                          ; Scroll offset where takeoff will end
-       equ  scrly_current+2
+       equ  scroll_y_max+2
 landing_start:                         ; Scroll offser where landing will start
        equ  take_off_end+2
 map_height:                            ; Height of current level in characters
        equ  landing_start+2
-diff_ptr:                              ;
+diff_ptr:                              ; Pointer to difference list
        equ  map_height+2
 max_chars:
        equ  diff_ptr+2
@@ -402,7 +404,7 @@ main_delay:
        dec  r2                         ; Delay counter
        jne  main_delay                 ; Delay loop
 *      Change scroll position
-!      mov  @scroll_y,@scrly_current   ; Set scroll position as current
+!      mov  @scroll_y,@scroll_y_current   ; Set scroll position as current
        dec  @scroll_y                  ; Change scroll position for net frame
        jne  main_loop                  ; Loop if not at top
 *      Next level
@@ -418,6 +420,14 @@ main_died:
        clr  @status
        li   r0,60
        mov  r0,@sprite_player+sprite_count
+       mov  @scroll_y_current,r0
+       ai   r0,>01ff
+       andi r0,>fe00
+       c    r0,@scroll_y_max
+       jle  !
+       mov  @scroll_y_max,r0
+!      mov  r0,@scroll_y_current
+       bl   @scroll_to_position
        jmp  main_loop
 *// main
 
@@ -493,7 +503,7 @@ vsync_1:
 *
 set_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @scroll_y,r0                  ; Get scroll offset
+       mov  @scroll_y,r0               ; Get scroll offset
        coc  @eight,r0                  ; Check which table set to use
        jeq  set_name_table_2
        coc  @one,r0                    ; Check which table to use
@@ -622,12 +632,12 @@ user_input:
        jmp  user_input_6
 user_input_0:
        clr  @player_fire               ; 0=Released
-       mov  @bomb_count_down,r0             ; Check for bomb in progress
+       mov  @bomb_count_down,r0        ; Check for bomb in progress
        jlt  user_input_6
        clr  @bomb_count_down
        jmp  user_input_6
 user_input_1:
-       mov  @bomb_count_down,r0             ; Check for bomb in progress
+       mov  @bomb_count_down,r0        ; Check for bomb in progress
        jlt  user_input_6
        inc  @bomb_count_down
 user_input_6:
@@ -1182,7 +1192,7 @@ scroll_to_position:
        mov  r11, *r10+                  ; Push return address onto the stack
        bl   @init_scroll
 scroll_to_position_1:
-       c    @scroll_y,@scrly_current
+       c    @scroll_y,@scroll_y_current
        jle  scroll_to_position_2
        bl   @update_char_list          ; Determine which characters to update
        dec  @scroll_y
@@ -1196,17 +1206,21 @@ scroll_to_position_2:
 scroll_to_position_3:
        mov  *r1,r0
        jlt  scroll_to_position_6
-       c    r0,@scrly_current
+       c    r0,@scroll_y_current
        jeq  scroll_to_position_5
        jl   scroll_to_position_4
        ai   r1,sprite_pos_struct_size
        jmp  scroll_to_position_3
 scroll_to_position_4:
+       c    @sprite_pos_ptr,r1
+       jeq  scroll_to_position_6
        ai   r1,-sprite_pos_struct_size ; We have come too far
 scroll_to_position_5:
        mov  r1,@sprite_pos_ptr
-*      Return
+*      Reset sprites
 scroll_to_position_6:
+       bl   @init_sprites
+*      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1305,6 +1319,29 @@ init_game:
        mov  r0,@power_ups
        clr  @sprite_table_flag
 *      Init sprites
+       bl   @init_sprites
+*      Draw panel
+       li   r0,panel_left*256
+       li   r1,MD0
+       li   r2,panel_width
+       li   r3,24
+       li   r4,0
+       bl   @draw_box
+*      Init display
+       bl   @display_lives
+       bl   @display_smart_bombs
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init_game
+
+*********************************************************************************
+*
+* Initialize sprites
+*
+init_sprites:
+       mov  r11,*r10+                  ; Push return address onto the stack
        li   r0,sprites
        li   r2,n_sprites*sprite_struct_size
        bl   @clear_memory
@@ -1333,21 +1370,11 @@ init_game:
        mov  r0,@hw_sprite_color(r2)
        clr  @hw_sprite_dx(r2)
        clr  @hw_sprite_dy(r2)
-*      Draw panel
-       li   r0,panel_left*256
-       li   r1,MD0
-       li   r2,panel_width
-       li   r3,24
-       li   r4,0
-       bl   @draw_box
-*      Init display
-       bl   @display_lives
-       bl   @display_smart_bombs
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// init_game
+*// init_sprites
 
 *********************************************************************************
 *
@@ -1370,7 +1397,7 @@ init_level:
        mov  r1,@cart_music_bank
 *      Initalize scroll
        bl   @init_scroll
-       mov  @scroll_y,@scrly_current
+       mov  @scroll_y,@scroll_y_current
 *      Draw initial screen
        bl   @draw_initial_screen
 *      Display score and level
@@ -1398,6 +1425,7 @@ init_scroll:
        ai   r0,-win_height
        sla  r0,3
        mov  r0,@scroll_y
+       mov  r0,@scroll_y_max
        ai   r0,-64
        mov  r0,@take_off_end
        li   r0,64
@@ -1417,6 +1445,14 @@ init_scroll_1:
        seto *r0+
        dec  r2
        jne  init_scroll_1
+*      Reset waves
+       li   r1,waves
+init_scroll_2:
+       mov  @wave_total(r1),@wave_left(r1)
+       jlt  init_scroll_3
+       ai   r1,wave_size
+       jmp  init_scroll_2
+init_scroll_3:
        b    *r11
 *// init_scroll
 
@@ -1694,7 +1730,7 @@ display_text:
        dec  r2
        jne  -!
 *      Return
-       dect r10                        * Pop return address off the stack
+       dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 *// display_text

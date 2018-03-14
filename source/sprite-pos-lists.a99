@@ -239,3 +239,5 @@ waves:
        data 2,2,wave_bonus_life,0
        data 2,2,wave_bonus_smart_bomb,0
        data 2,2,wave_bonus_power_up,0
+       data -1,-1
+

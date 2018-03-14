@@ -7,7 +7,7 @@ add_sprites:
        mov  @sprite_pos_ptr,r8
        mov  *r8,r0
        jlt  add_sprites_1
-       s    @scrly_current,r0
+       s    @scroll_y_current,r0
        jlt  add_sprites_1
        mov  @sprite_pos_def(r8),r0
        bl   @alloc_sprite
@@ -25,7 +25,7 @@ add_sprites:
 *      Wave
        mov  @sprite_pos_wave(r8),@sprite_wave(r1)
 *      Record scroll position
-       mov  @scrly_current,@sprite_scroll_y(r1)
+       mov  @scroll_y_current,@sprite_scroll_y(r1)
 *      Init path
        mov  @sprite_pos_path(r8),r2
        jeq  add_sprites_2
@@ -353,10 +353,7 @@ add_power_up_sprite:
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
 *      Record scroll position
-       mov  @scrly_current,@sprite_scroll_y(r1)
-*      Init path
-;       mov  r2,@sprite_path(r1)               ; Init path pointer
-;       mov  @path_count(r2),@sprite_count(r1) ; Init counter
+       mov  @scroll_y_current,@sprite_scroll_y(r1)
 add_power_up_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -387,7 +384,7 @@ add_smart_bomb_sprite:
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
 *      Record scroll position
-       mov  @scrly_current,@sprite_scroll_y(r1)
+       mov  @scroll_y_current,@sprite_scroll_y(r1)
 add_smart_bomb_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -418,7 +415,7 @@ add_extra_life_sprite:
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
 *      Record scroll position
-       mov  @scrly_current,@sprite_scroll_y(r1)
+       mov  @scroll_y_current,@sprite_scroll_y(r1)
 add_extra_life_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -700,7 +697,7 @@ update_bullet_sprite_5:
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly_current,r0          ; Move with scroll
+       s    @scroll_y_current,r0       ; Move with scroll
        ai   r0,-16                     ; 16 lines y offset
        ci   r0,192                     ; Check for out of screen
        jgt  update_turret_sprite_1     ; Remove if out of screen
@@ -797,15 +794,15 @@ update_enemy_bullet_sprite_3:
 update_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Manage path
-       mov  @sprite_path(r3),r4          ; Get path pointer
-       dec  @sprite_count(r3)            ; Count down
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       dec  @sprite_count(r3)          ; Count down
        jgt  update_enemy_plane_sprite_4
 *      Next path segment
-       ai   r4,path_struct_size          ; Move pointer
-       mov  @path_count(r4),r0           ; Get count for new segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
        jlt  update_enemy_plane_sprite_1  ; Negative means end
-       mov  r0,@sprite_count(r3)         ; Save new count
-       mov  r4,@sprite_path(r3)          ; Save updated path pointer
+       mov  r0,@sprite_count(r3)       ; Save new count
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
 update_enemy_plane_sprite_4:
 *      Check bounds
        mov  @path_vx(r4),r0
@@ -977,7 +974,7 @@ update_mask_sprite:
        jeq  update_mask_sprite_1
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
-       s    @scrly_current,r0          ; Move with scroll
+       s    @scroll_y_current,r0       ; Move with scroll
        ci   r0,192                     ; Check for out of screen
        jgt  update_mask_sprite_1       ; Remove if out of screen
 *      Move
@@ -1693,9 +1690,6 @@ alloc_hw_sprite_3:
 * Modifies r0-r1
 *
 dealloc_sprite:
-;      mov  *r1,r0                     ; Get sprite definition
-;      ai   r0,sprite_def_size
-;      mov  *r0,r0                     ; Get number of hardware sprite
        clr  *r1                        ; Clear reference to sprite definition
        li   r0,8
        ai   r1,sprite_hw_1
