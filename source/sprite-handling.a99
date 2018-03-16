@@ -118,7 +118,7 @@ add_tank_sprite_1:
 
 *********************************************************************************
 *
-* Add mask sprite
+* Add mask sprite to the left border of the map
 *
 * r1: pointer to parent sprite (plane, tank)
 *
@@ -126,21 +126,25 @@ add_tank_sprite_1:
 *
 add_mask_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Create mask sprite
-       mov  r1,r8
+*      Allocate mask sprite and link to parent
+       mov  r1,r8                      ; Save parent pointer
        li   r0,sprite_def_mask
        bl   @alloc_sprite
        mov  r1,@sprite_mask(r8)
        jeq  add_mask_sprite_1
        mov  r8,@sprite_link(r1)
+*      Set x position in border
        li   r0,(x_min-16)*256
        mov  r0,@sprite_x(r1)
-       mov  @sprite_y(r8),r0
+*      Set scroll
+       mov  @sprite_y(r8),r0           ; Get parent y
        srl  r0,8
-       a    @sprite_scroll_y(r8),r0
-       mov  r0,@sprite_scroll_y(r1)
+       a    @sprite_scroll_y(r8),r0    ; Add parent scroll y
+       mov  r0,@sprite_scroll_y(r1)    ; Save as mask scroll y
+*      Priority
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)    ; Highest priority
+*      Duration
        li   r0,32
        mov  r0,@sprite_count(r1)
 *      Return
@@ -641,12 +645,7 @@ update_bullet_sprite:
 *      Update with path
 update_bullet_sprite_4:
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_bullet_sprite_6
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Pattern
 update_bullet_sprite_6
        mov  @sprite_hw_1(r3),r5
@@ -762,12 +761,7 @@ update_enemy_bullet_sprite_1:
        a    @sprite_vx(r3),@sprite_x(r3)
        a    @sprite_vy(r3),@sprite_y(r3)
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_enemy_bullet_sprite_3
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Return
 update_enemy_bullet_sprite_3:
        dect r10                        ; Pop return address off the stack
@@ -803,12 +797,7 @@ update_enemy_plane_sprite_6:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_enemy_plane_sprite_3
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Patterns
 update_enemy_plane_sprite_3:
        mov  @sprite_hw_1(r3),r5
@@ -887,12 +876,7 @@ update_tank_sprite_8:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_tank_sprite_3
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Pattern
 update_tank_sprite_3:
        mov  @path_pattern(r4),r7       ; Get path pattern
@@ -984,12 +968,7 @@ update_power_up_sprite:
        ci   r0,192*256                 ; Check for out of screen
        jhe  update_power_up_sprite_1   ; Remove if out of screen
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_power_up_sprite_2
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Blink
        mov  @sprite_hw_1(r3),r1
        mov  @scroll_y,r0
@@ -1022,12 +1001,7 @@ update_smart_bomb_sprite:
        ci   r0,192*256                 ; Check for out of screen
        jhe  update_smart_bomb_sprite_1 ; Remove if out of screen
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_smart_bomb_sprite_2
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
        jmp  update_smart_bomb_sprite_2
 *      Remove
 update_smart_bomb_sprite_1:
@@ -1053,12 +1027,7 @@ update_extra_life_sprite:
        ci   r0,192*256                 ; Check for out of screen
        jhe  update_extra_life_sprite_1 ; Remove if out of screen
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_extra_life_sprite_2
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Blink
        mov  @sprite_hw_1(r3),r1
        mov  @scroll_y,r0
@@ -1094,12 +1063,7 @@ update_boss_tank_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y,r0
-       jeq  update_boss_tank_sprite_2
-       sla  r0,8
-       a    r0,@sprite_y(r3)
-       mov  @scroll_y,@sprite_scroll_y(r3)
+       bl   @move_with_scroll
 *      Create bullet
 update_boss_tank_sprite_2:
        mov  @sprite_link(r3),r0
@@ -1144,6 +1108,23 @@ update_path:
 update_path_1:
        b    *r11
 *// update_path
+
+*********************************************************************************
+*
+* Move with scroll
+*
+* r3: points to sprite
+*
+move_with_scroll:
+       mov  @sprite_scroll_y(r3),r0    ; Get last scroll y
+       s    @scroll_y,r0               ; Subtract current scroll y
+       jeq  move_with_scroll_1         ; Return if no change
+       sla  r0,8                       ; Move to MSB
+       a    r0,@sprite_y(r3)           ; Add to y position
+       mov  @scroll_y,@sprite_scroll_y(r3) ; Record new scroll y
+move_with_scroll_1:
+       b    *r11
+*// move_with_scroll
 
 *********************************************************************************
 *
