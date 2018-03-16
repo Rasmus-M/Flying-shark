@@ -959,6 +959,8 @@ bombs4:
 *
 * Update character list
 *
+* Modifies r0-r3
+*
 update_char_list:
        mov  @cart_diff_bank,r0         ; Select ROM bank
        seto *r0
@@ -1183,13 +1185,18 @@ scroll_to_position:
        mov  r11, *r10+                  ; Push return address onto the stack
        bl   @init_scroll
 scroll_to_position_1:
+       mov  @diff_ptr,r4
+       bl   @update_char_list          ; Determine which characters to update
        c    @scroll_y,@scroll_y_current
        jle  scroll_to_position_2
-       bl   @update_char_list          ; Determine which characters to update
        dec  @scroll_y
        jmp  scroll_to_position_1
 scroll_to_position_2:
+       mov  r4,@diff_ptr
        bl   @update_characters
+       dec  @scroll_y
+       bl   @update_characters
+       inc  @scroll_y
        bl   @draw_initial_screen
 *      Set sprite position list pointer
 *      to the entry at or just before the current scroll y
@@ -1231,10 +1238,21 @@ draw_initial_screen:
        mpy  r1,r0                      ; (y / 8) * map_width
        ai   r1,cart_base
        mov  r1,r4
-*      Map
-       li   r0,namet3+map_left
+*      Update all names tables
+       li   r6,namet1+map_left
+       li   r7,4
+*      Name table
+draw_screen_0:
+       mov  r6,r0
+       mov  r4,r1
        li   r2,win_height
+       coc  @one,r7
+       jeq  draw_screen_3
        mov  @cart_map_bank,r5
+       jmp  draw_screen_4
+draw_screen_3:
+       mov  @cart_map_high_bank,r5
+draw_screen_4:
        seto *r5
 draw_screen_1:
        bl   @vwad
@@ -1246,22 +1264,10 @@ draw_screen_2:
        ai   r0,scr_width
        dec  r2
        jne  draw_screen_1
-*      Map - high
-       li   r0,namet4+map_left
-       mov  r4,r1
-       li   r2,win_height
-       mov  @cart_map_high_bank,r5
-       seto *r5
-draw_screen_3:
-       bl   @vwad
-       li   r3,win_width
-draw_screen_4:
-       movb *r1+,*r15
-       dec  r3
-       jne  draw_screen_4
-       ai   r0,scr_width
-       dec  r2
-       jne  draw_screen_3
+*      Next name table
+       ai   r6,>400
+       dec  r7
+       jne  draw_screen_0
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1364,6 +1370,13 @@ init_sprites:
        mov  r0,@hw_sprite_color(r2)
        clr  @hw_sprite_dx(r2)
        clr  @hw_sprite_dy(r2)
+*      Sprite attributes
+       li   r0,sprat1
+       li   r1,>d000
+       bl   @vsbw
+       li   r0,sprat2
+       li   r1,>d000
+       bl   @vsbw
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1588,13 +1601,6 @@ gmode_1:
        li   r1,spr0
        li   r2,64*32
        bl   @vdpcp
-*      Sprite attributes
-       li   r0,sprat1
-       li   r1,>d000
-       bl   @vsbw
-       li   r0,sprat2
-       li   r1,>d000
-       bl   @vsbw
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
