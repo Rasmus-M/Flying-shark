@@ -367,12 +367,13 @@ main:
        mov  @rndsd,@rand_no            ; Save random number seed
 new_game:
        bl   @title_screen              ; Display title screen
-       bl   @wtkey                     ; Wait for key press
        bl   @gmode                     ; Setup graphics mode
        bl   @init                      ; One time initializations
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
+restart:
+       bl   @get_ready
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -414,21 +415,11 @@ main_delay:
        jmp  next_level                 ; Level loop
 main_died:
        dec  @lives
-       jeq  new_game
        bl   @display_lives
-       clr  @power_ups
-       clr  @status
-       li   r0,60
-       mov  r0,@sprite_player+sprite_count
-       mov  @scroll_y_current,r0
-       ai   r0,>01ff
-       andi r0,>fe00
-       c    r0,@scroll_y_max
-       jle  !
-       mov  @scroll_y_max,r0
-!      mov  r0,@scroll_y_current
-       bl   @scroll_to_position
-       jmp  main_loop
+       mov  @lives,r0
+       jeq  new_game
+       bl   @died
+       jmp  restart
 *// main
 
 ********************************************************************************
@@ -1330,6 +1321,9 @@ init_game:
 *      Init display
        bl   @display_lives
        bl   @display_smart_bombs
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1456,6 +1450,48 @@ init_scroll_3:
        b    *r11
 *// init_scroll
 
+*********************************************************************************
+*
+* Actions when died
+*
+died:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  @power_ups
+       clr  @status
+       li   r0,60
+       mov  r0,@sprite_player+sprite_count
+       mov  @scroll_y_current,r0
+       ai   r0,>01ff
+       andi r0,>fe00
+       c    r0,@scroll_y_max
+       jle  !
+       mov  @scroll_y_max,r0
+!      mov  r0,@scroll_y_current
+       bl   @scroll_to_position
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// died
+
+*********************************************************************************
+*
+* Display "get ready" and wait
+*
+get_ready:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,7*32+19
+       li   r1,txt_get_ready
+       li   r2,9
+       bl   @display_text
+       li   r2,60
+       bl   @wait_frames
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// get_ready
+
 *********************************************************************
 *
 * Clear memory
@@ -1566,7 +1602,7 @@ gmode_1:
 *      VDP registers
 vregs:
        byte >02                        ; Graphics II mode
-       byte >e2                        ; 16K, display on, interrupt enabled
+       byte >a2                        ; 16K, display off, interrupt enabled
        byte namet1/>400                ; Name table
        byte >9f                        ; Color table
        byte ptrntb/>800+>03            ; Pattern table
@@ -1616,11 +1652,16 @@ title_screen_2:
        li   r0,sprat1
        li   r1,>d000
        bl   @vsbw
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
 *      Init music
        li   r0,title_music_bank
        mov  r0,@cart_music_bank
        li   r1,cart_music_base
        bl   @init_music
+*      Wait key
+       bl   @wait_key                  ; Wait for key press
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -1628,7 +1669,7 @@ title_screen_2:
 *      VDP registers
 vregs2:
        byte >02                        ; Graphics II mode
-       byte >e2                        ; 16K, display on, interrupt enabled
+       byte >a2                        ; 16K, display off, interrupt enabled
        byte namet5/>400                ; Name table
        byte >ff                        ; Color table
        byte ptrntb/>800+>03            ; Pattern table
@@ -2040,20 +2081,39 @@ mute_table:
 *
 * Wait for key press
 *
-wtkey:
+wait_key:
        mov  r11,*r10+
-wtkey1:
+wait_key_1:
        bl   @anykey
-       jne  wtkey2
+       jne  wait_key_2
        bl   @vsync
        bl   @play_sound
-       jmp  wtkey1
+       jmp  wait_key_1
 *      Return
-wtkey2:
+wait_key_2:
        dect r10
        mov  *r10,r11
        b    *r11
-*// wtkey
+*// wait_key
+
+***************************************************************************
+*
+* Wait for n frames
+*
+* r2: Number of frames to wait
+*
+wait_frames:
+       mov  r11,*r10+
+wait_frames_1:
+       bl   @vsync
+       bl   @play_sound
+       dec  r2
+       jne  wait_frames_1
+*      Return
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// wait_frames
 
 ***************************************************************************
 *
@@ -2169,16 +2229,28 @@ char_list:                             ; Pointers to pattern/color addresses for
 map_heights:
        data 382, 450, 340, 364
 **
+* Text
+*
+txt_get_ready:
+       byte >F0,>F3,>F7,>FF,>F6,>F3,>F1,>F8,>F9
+txt_game_over:
+       byte >F0,>F1,>F2,>F3,>FF,>F4,>F5,>F3,>F6
+       even
+**
 * Sprite definitions
 *
 sprite_defs:
        copy "sprite-defs.a99"
-*      Sprites
+**
+* Sprites
+*
 sprites:
        bss n_sprites*sprite_struct_size
 sprite_player:
        equ  sprites
+**
 * Hardware sprites
+*
 hw_sprites:
        bss  n_hw_sprites*hw_sprite_struct_size
 **
