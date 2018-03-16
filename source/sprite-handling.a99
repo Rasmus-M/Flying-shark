@@ -515,17 +515,11 @@ update_sprites_2:
 * Cannot modify r2
 *
 update_player_sprite:
-*      Manage path
-       mov  @sprite_path(r3),r4        ; Get path pointer
-       jeq  update_player_sprite_0
-       dec  @sprite_count(r3)          ; Count down
-       jgt  update_player_sprite_10
-*      Next path segment
-       ai   r4,path_struct_size        ; Move pointer
-       mov  @path_count(r4),r0         ; Get count for new segment
-       jlt  update_player_sprite_11    ; Negative means end
-       mov  r0,@sprite_count(r3)       ; Save new count
-       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Update path
+       bl   @update_path
+       jeq  update_player_sprite_0     ; No path
+       jlt  update_player_sprite_11    ; Path ended
 *      Update with path
 update_player_sprite_10:
        mov  @path_pattern(r4),r0
@@ -627,6 +621,8 @@ update_player_sprite_9:
        mov  r1,@hw_sprite_pattern(r4)
 *      Return
 update_player_sprite_12:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
        b    *r11
 *// update_player_sprite
 
@@ -638,17 +634,10 @@ update_player_sprite_12:
 *
 update_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Manage path
-       mov  @sprite_path(r3),r4        ; Get path pointer
-       jeq  update_bullet_sprite_3
-       dec  @sprite_count(r3)          ; Count down
-       jgt  update_bullet_sprite_4
-*      Next path segment
-       ai   r4,path_struct_size        ; Move pointer
-       mov  @path_count(r4),r0         ; Get count for new segment
-       jlt  update_bullet_sprite_2     ; Negative means end
-       mov  r0,@sprite_count(r3)       ; Save new count
-       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update path
+       bl   @update_path
+       jeq  update_bullet_sprite_3     ; No path
+       jlt  update_bullet_sprite_2     ; Path ended
 *      Update with path
 update_bullet_sprite_4:
 *      Move with scroll
@@ -696,6 +685,7 @@ update_bullet_sprite_5:
 *
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Move with scroll and check bounds
        mov  @sprite_scroll_y(r3),r0
        s    @scroll_y_current,r0       ; Move with scroll
        ai   r0,-16                     ; 16 lines y offset
@@ -793,16 +783,9 @@ update_enemy_bullet_sprite_3:
 *
 update_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Manage path
-       mov  @sprite_path(r3),r4        ; Get path pointer
-       dec  @sprite_count(r3)          ; Count down
-       jgt  update_enemy_plane_sprite_4
-*      Next path segment
-       ai   r4,path_struct_size        ; Move pointer
-       mov  @path_count(r4),r0         ; Get count for new segment
-       jlt  update_enemy_plane_sprite_1  ; Negative means end
-       mov  r0,@sprite_count(r3)       ; Save new count
-       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update path
+       bl   @update_path
+       jlt  update_enemy_plane_sprite_1 ; Path ended
 update_enemy_plane_sprite_4:
 *      Check bounds
        mov  @path_vx(r4),r0
@@ -871,16 +854,9 @@ update_enemy_plane_sprite_2:
 *
 update_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Manage path
-       mov  @sprite_path(r3),r4        ; Get path pointer
-       dec  @sprite_count(r3)          ; Count down
-       jgt  update_tank_sprite_4
-*      Next path segment
-       ai   r4,path_struct_size        ; Move pointer
-       mov  @path_count(r4),r0         ; Get count for new segment
-       jlt  update_tank_sprite_1       ; Negative means end
-       mov  r0,@sprite_count(r3)       ; Save new count
-       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update path
+       bl   @update_path
+       jlt  update_tank_sprite_1       ; Path ended
 update_tank_sprite_4:
 *      Check bounds
        mov  @sprite_x(r3),r0
@@ -1110,16 +1086,9 @@ update_extra_life_sprite_2:
 *
 update_boss_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Manage path
-       mov  @sprite_path(r3),r4        ; Get path pointer
-       dec  @sprite_count(r3)          ; Count down
-       jgt  update_boss_tank_sprite_1
-*      Next path segment
-       ai   r4,path_struct_size        ; Move pointer
-       mov  @path_count(r4),r0         ; Get count for new segment
-       jlt  update_boss_tank_sprite_3  ; Negative means end
-       mov  r0,@sprite_count(r3)       ; Save new count
-       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+*      Update path
+       bl   @update_path
+       jlt  update_boss_tank_sprite_3  ; Path ended
 *      Move
 update_boss_tank_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
@@ -1151,6 +1120,30 @@ update_boss_tank_sprite_4:
        mov  *r10, r11
        b    *r11
 *// update_boss_tank_sprite
+
+*********************************************************************************
+*
+* Update path
+*
+* r3: points to sprite
+* On return r4 points to the active path segment
+* If the path has ended the less-than condition (jlt) is set
+* If equal condition is set, the path pointer was 0
+*
+update_path:
+       mov  @sprite_path(r3),r4        ; Get path pointer
+       jeq  update_path_1
+       dec  @sprite_count(r3)          ; Count down
+       jgt  update_path_1
+*      Next path segment
+       ai   r4,path_struct_size        ; Move pointer
+       mov  @path_count(r4),r0         ; Get count for new segment
+       jlt  update_path_1              ; Negative means end
+       mov  r4,@sprite_path(r3)        ; Save updated path pointer
+       mov  r0,@sprite_count(r3)       ; Save new count
+update_path_1:
+       b    *r11
+*// update_path
 
 *********************************************************************************
 *
