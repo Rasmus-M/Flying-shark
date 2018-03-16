@@ -64,7 +64,7 @@ x_max:                                 ; Maximum x position
 n_sprites:                             ; Number of sprites
        equ  16
 n_hw_sprites:                          ; Number of hardware sprites
-       equ  32
+       equ  48
 chzero:                                ; Character code for zero
        equ  240
 power_up_none:

@@ -90,8 +90,8 @@ path_plane_circle_left_bottom:
 *      From right, up, left, down, out right
 path_plane_right_up_left_down_out_left
        data 10,->0180,->0080,>3800,>0000
-       data 10,->0140,->0180,>3c00,>0001
-       data 90,>0000,->0180,>2000,>0001
+       data 10,->0140,->0180,>3c00,>0000
+       data 90,>0000,->0180,>2000,>0000
        data 10,->0140,->0180,>3c00,>0001
        data 50,->0180,->0080,>3800,>0001
        data 10,->0140,>0180,>3400,>0001
