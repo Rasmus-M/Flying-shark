@@ -373,7 +373,7 @@ new_game:
 next_level:
        bl   @init_level                ; Initialize level
 restart:
-       bl   @get_ready
+       bl   @display_get_ready
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -417,8 +417,10 @@ main_died:
        dec  @lives
        bl   @display_lives
        mov  @lives,r0
-       jeq  new_game
-       bl   @died
+       jne  !
+       bl   @display_game_over
+       jmp  new_game
+!      bl   @died
        jmp  restart
 *// main
 
@@ -1491,7 +1493,7 @@ died:
 *
 * Display "get ready" and wait
 *
-get_ready:
+display_get_ready:
        mov  r11,*r10+                  ; Push return address onto the stack
        li   r0,7*32+19
        li   r1,txt_get_ready
@@ -1503,7 +1505,25 @@ get_ready:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// get_ready
+*// display_get_ready
+
+*********************************************************************************
+*
+* Display "game over" and wait
+*
+display_game_over:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,7*32+19
+       li   r1,txt_game_over
+       li   r2,9
+       bl   @display_text
+       li   r2,120
+       bl   @wait_frames
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// display_game_ready
 
 *********************************************************************
 *
