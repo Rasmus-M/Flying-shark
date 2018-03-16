@@ -13,7 +13,7 @@
 **
 * Assembly options
 *
-sound_30hz:
+immunity:
        equ  0
 
 **
@@ -2198,11 +2198,7 @@ hw_sprites:
 **
 * Music and sound fx
 *
-       .ifeq  sound_30hz,1
-       copy "tiplayersfx30hz.a99"
-       .else
        copy "tiplayersfx.a99"
-       .endif
 shot_1:
        bcopy "..\sound\shot2.vgm.spf"
 expl_1:
