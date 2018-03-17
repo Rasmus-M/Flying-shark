@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  1
+       equ  0
 
 **
 * Constants
@@ -374,6 +374,9 @@ next_level:
        bl   @init_level                ; Initialize level
 restart:
        bl   @display_get_ready
+;       li   r0,400
+;       mov  r0,@scroll_y_current
+;       bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -1362,16 +1365,19 @@ init_sprites:
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
        clr  @sprite_count(r1)
+*      Backdrop
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)
        li   r0,>0100
        mov  @sprite_hw_2(r1),r2
        mov  r0,@hw_sprite_color(r2)
        mov  @one,@hw_sprite_priority(r2)
+*      Shadow
        mov  @sprite_hw_3(r1),r2
        mov  r0,@hw_sprite_color(r2)
-       clr  @hw_sprite_dx(r2)
-       clr  @hw_sprite_dy(r2)
+       li   r0,>1000
+       mov  r0,@hw_sprite_dx(r2)
+       mov  r0,@hw_sprite_dy(r2)
 *      Sprite attributes
        li   r0,sprat1
        li   r1,>d000
