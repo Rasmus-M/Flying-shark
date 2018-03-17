@@ -158,26 +158,26 @@ path_tank_left_8:
        data -1
 *      Long up and wait
 path_tank_up_wait_long:
-       data 256,>0000,->0080,>1800,>0000
+       data 256,>0000,->0080,>1800,>0001
        data 400,>0000,>0000,>1800,>0001
        data -1
 *      Long down
 path_tank_down_long:
-       data 256,>0000,>0080,>1800,>0000
+       data 256,>0000,>0080,>1800,>0001
        data -1
 *      From right and stopping (long)
 path_tank_right_slow:
-       data 192,->0080,>0000,>1c00,>0000
+       data 192,->0080,>0000,>1c00,>0001
        data 250,>0000,>0000,>1c00,>0001
        data -1
 *      From left and stopping (long)
 path_tank_left_slow:
-       data 192,>0080,>0000,>1c00,>0000
+       data 192,>0080,>0000,>1c00,>0001
        data 250,>0000,>0000,>1c00,>0001
        data -1
 *      Tank not moving
 path_tank_steady:
-       data 1000,0,0,>1800,0
+       data 1000,0,0,>1800,1
        data -1
 *      Tank stopping when hit
 path_tank_hit:

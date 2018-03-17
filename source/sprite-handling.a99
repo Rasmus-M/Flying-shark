@@ -144,9 +144,6 @@ add_mask_sprite:
 *      Priority
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)    ; Highest priority
-*      Duration
-       li   r0,32
-       mov  r0,@sprite_count(r1)
 *      Return
 add_mask_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -934,8 +931,14 @@ update_tank_sprite_2:
 *
 update_mask_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       dec  @sprite_count(r3)
+*      Check if linked sprite is still in the border
+       mov  @sprite_link(r3),r1
        jeq  update_mask_sprite_1
+       mov  @sprite_x(r1),r0
+       ci   r0,x_min*256
+       jh   update_mask_sprite_1
+       ci   r0,(x_min-16)*256
+       jl   update_mask_sprite_1
 *      Move with scroll
        mov  @sprite_scroll_y(r3),r0
        s    @scroll_y_current,r0       ; Move with scroll
@@ -948,8 +951,9 @@ update_mask_sprite:
 *      Remove
 update_mask_sprite_1:
        mov  @sprite_link(r3),r1
-       jeq  update_mask_sprite_2
+       jeq  update_mask_sprite_3
        clr  @sprite_mask(r1)
+update_mask_sprite_3:
        mov  r3,r1
        bl   @dealloc_sprite
 *      Return

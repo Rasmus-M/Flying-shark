@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  0
+       equ  1
 
 **
 * Constants
@@ -2134,7 +2134,7 @@ wait_frames_1:
        bl   @vsync
        bl   @play_sound
        dec  r2
-       jne  wait_frames_1
+       jgt  wait_frames_1
 *      Return
        dect r10
        mov  *r10,r11
