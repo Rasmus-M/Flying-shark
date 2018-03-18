@@ -318,8 +318,10 @@ frame_count:
        equ  cart_music_bank+2
 vdp_status:
        equ  frame_count+2
-player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
+user_input_enabled:
        equ  vdp_status+2
+player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
+       equ  user_input_enabled+2
 sprite_pos_ptr:
        equ  player_fire+2
 sprite_table_flag:
@@ -365,18 +367,15 @@ main:
        lwpi wrksp                      ; Setup workspace
        li   r10, stack                 ; Setup stack pointer
        mov  @rndsd,@rand_no            ; Save random number seed
+       bl   @init                      ; One time initializations
 new_game:
        bl   @title_screen              ; Display title screen
        bl   @gmode                     ; Setup graphics mode
-       bl   @init                      ; One time initializations
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
 restart:
        bl   @display_get_ready
-;       li   r0,400
-;       mov  r0,@scroll_y_current
-;       bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -609,11 +608,12 @@ upload_sprites_5:
 * User input
 *
 user_input:
+       abs  @user_input_enabled        ; Check if user input is enabled
+       jeq  user_input_5
+*      Reset velocity
        li   r1,sprite_player
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
-       mov  @sprite_path(r1),r0        ; Is player controlled by path?
-       jne  user_input_5
 *      Read joystick #1 using CRU
        li   r12,>0024                  ; CRU address of the column decoder
        li   r0,>0600                   ; Column 6, i.e joystick #1
@@ -1320,6 +1320,7 @@ init_game:
        li   r0,power_up_none
        mov  r0,@power_ups
        clr  @sprite_table_flag
+       clr  @bomb_count_down
 *      Init sprites
        bl   @init_sprites
 *      Draw panel
@@ -1332,9 +1333,6 @@ init_game:
 *      Init display
        bl   @display_lives
        bl   @display_smart_bombs
-*      Screen on
-       li   r0,>01e2
-       bl   @vwtr
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1397,6 +1395,9 @@ init_sprites:
 *
 init_level:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Screen off
+       li   r0,>01a2
+       bl   @vwtr
 *      Cartridge addresses
        li   r0,24
        mpy  @level,r0                  ; Level * 24 (12 banks per level)
@@ -1414,6 +1415,13 @@ init_level:
        bl   @init_scroll
        mov  @scroll_y,@scroll_y_current
 *      Draw initial screen
+       mov  @diff_ptr,r4
+       bl   @update_char_list
+       mov  r4,@diff_ptr
+       bl   @update_characters
+       dec  @scroll_y
+       bl   @update_characters
+       inc  @scroll_y
        bl   @draw_initial_screen
 *      Display score and level
        bl   @display_score
@@ -1421,6 +1429,11 @@ init_level:
 *      Music
        li   r1,cart_music_base
        bl   @init_music
+*      Enable user input
+       seto @user_input_enabled
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1489,6 +1502,7 @@ died:
        mov  @scroll_y_max,r0
 !      mov  r0,@scroll_y_current
        bl   @scroll_to_position
+       seto @user_input_enabled
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1694,6 +1708,9 @@ title_screen_2:
        bl   @init_music
 *      Wait key
        bl   @wait_key                  ; Wait for key press
+*      Stop music
+       clr  @music
+       bl   @mute_sound
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
