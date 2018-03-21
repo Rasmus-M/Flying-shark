@@ -257,4 +257,65 @@ SPR63  DATA >FFFF,>FFFF,>FFFF,>FFFF    ; Color 1
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
+* Additional
+SPR64  DATA >0D13,>2D1B,>2549,>5457    ; Color 1
+       DATA >5755,>2924,>1310,>0807    ;
+       DATA >B0C8,>B4D8,>A492,>2AEA    ;
+       DATA >EAAA,>9424,>C808,>10E0    ;
+SPR65  DATA >0D12,>2D1B,>244B,>5757    ; Color 1
+       DATA >5357,>2A24,>1310,>0807    ;
+       DATA >B044,>AEDC,>3872,>AACA    ;
+       DATA >EAEA,>D424,>C808,>10E0    ;
+SPR66  DATA >0D12,>2D1B,>244B,>5157    ; Color 1
+       DATA >5751,>2B24,>1310,>0807    ;
+       DATA >B048,>B4D8,>24D2,>82BF    ;
+       DATA >BF82,>D424,>C808,>10E0    ;
+SPR67  DATA >0D12,>2D1B,>244A,>5753    ; Color 1
+       DATA >5757,>2B24,>1310,>0807    ;
+       DATA >B048,>B4D8,>24D2,>EAEA    ;
+       DATA >CAAA,>7438,>DC0E,>14E0    ;
+SPR68  DATA >0D12,>2D1B,>2449,>5557    ; Color 15
+       DATA >5754,>2925,>1111,>0907    ;
+       DATA >B048,>B4D8,>2492,>AAEA    ;
+       DATA >EA2A,>94A4,>8888,>90E0    ;
+SPR69  DATA >0D12,>2D1B,>244B,>5757    ; Color 1
+       DATA >5355,>2E1C,>3B70,>2807    ;
+       DATA >B048,>B4D8,>2452,>EACA    ;
+       DATA >EAEA,>D424,>C808,>10E0    ;
+SPR70  DATA >0D12,>2D1B,>244B,>41FD    ; Color 1
+       DATA >FD41,>2B24,>1310,>0807    ;
+       DATA >B048,>B4D8,>24D2,>8AEA    ;
+       DATA >EA8A,>D424,>C808,>10E0    ;
+SPR71  DATA >0D22,>753B,>1C4E,>5553    ; Color 1
+       DATA >5757,>2B24,>1310,>0807    ;
+       DATA >B048,>B4D8,>24D2,>EAEA    ;
+       DATA >CAEA,>5424,>C808,>10E0    ;
+SPR72  DATA >0000,>0100,>0003,>0707    ; Color 15
+       DATA >0300,>0000,>0000,>0000    ;
+       DATA >0001,>5303,>FA5C,>BFFD    ;
+       DATA >8203,>0301,>0115,>1500    ;
+SPR73  DATA >0080,>CAC0,>5F3A,>FDBF    ; Color 15
+       DATA >41C0,>C080,>80A8,>A800    ;
+       DATA >0000,>8000,>00C0,>E0E0    ;
+       DATA >C000,>0000,>0000,>0000    ;
+SPR74  DATA >0001,>0201,>0304,>0808    ; Color 1
+       DATA >0403,>0000,>0000,>0000    ;
+       DATA >0152,>ACFC,>05A3,>4002    ;
+       DATA >7D84,>0402,>162A,>2A15    ;
+SPR75  DATA >804A,>353F,>A0C5,>0240    ; Color 1
+       DATA >BE21,>2040,>6854,>54A8    ;
+       DATA >0080,>4080,>C020,>1010    ;
+       DATA >20C0,>0000,>0000,>0000    ;
+SPR76  DATA >000D,>1A07,>3F3F,>3F3E    ; Color 4
+       DATA >3E3F,>1F1F,>0F0F,>0702    ;
+       DATA >00B0,>58E0,>FCFC,>FC7C    ;
+       DATA >7CFC,>F8F8,>F0F0,>E040    ;
+SPR77  DATA >000E,>1F1F,>1F18,>1033    ; Color 10
+       DATA >373F,>1714,>181F,>0F00    ;
+       DATA >0070,>F8F8,>F818,>08CC    ;
+       DATA >ECFC,>E828,>18F8,>F000    ;
+SPR78  DATA >0E11,>2020,>2027,>2F4C    ; Color 1
+       DATA >4840,>282B,>2720,>100F    ;
+       DATA >7088,>0404,>04E4,>F432    ;
+       DATA >1202,>14D4,>E404,>08F0    ;
 
