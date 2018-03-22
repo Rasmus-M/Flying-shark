@@ -257,7 +257,7 @@ SPR63  DATA >FFFF,>FFFF,>FFFF,>FFFF    ; Color 1
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
-* Additional
+* Boat outlines
 SPR64  DATA >0D13,>2D1B,>2549,>5457    ; Color 1
        DATA >5755,>2924,>1310,>0807    ;
        DATA >B0C8,>B4D8,>A492,>2AEA    ;
@@ -274,7 +274,7 @@ SPR67  DATA >0D12,>2D1B,>244A,>5753    ; Color 1
        DATA >5757,>2B24,>1310,>0807    ;
        DATA >B048,>B4D8,>24D2,>EAEA    ;
        DATA >CAAA,>7438,>DC0E,>14E0    ;
-SPR68  DATA >0D12,>2D1B,>2449,>5557    ; Color 15
+SPR68  DATA >0D12,>2D1B,>2449,>5557    ; Color 1
        DATA >5754,>2925,>1111,>0907    ;
        DATA >B048,>B4D8,>2492,>AAEA    ;
        DATA >EA2A,>94A4,>8888,>90E0    ;
@@ -290,6 +290,7 @@ SPR71  DATA >0D22,>753B,>1C4E,>5553    ; Color 1
        DATA >5757,>2B24,>1310,>0807    ;
        DATA >B048,>B4D8,>24D2,>EAEA    ;
        DATA >CAEA,>5424,>C808,>10E0    ;
+* Big plane facing up
 SPR72  DATA >0000,>0100,>0003,>0707    ; Color 15
        DATA >0300,>0000,>0000,>0000    ;
        DATA >0001,>5303,>FA5C,>BFFD    ;
@@ -306,16 +307,36 @@ SPR75  DATA >804A,>353F,>A0C5,>0240    ; Color 1
        DATA >BE21,>2040,>6854,>54A8    ;
        DATA >0080,>4080,>C020,>1010    ;
        DATA >20C0,>0000,>0000,>0000    ;
-SPR76  DATA >000D,>1A07,>3F3F,>3F3E    ; Color 4
+* Big plane facing down
+SPR76  DATA >0000,>0000,>0000,>0003    ; Color 15
+       DATA >0707,>0300,>0001,>0000    ;
+       DATA >0015,>1501,>0103,>0382    ;
+       DATA >FDBF,>5CFA,>0353,>0100    ;
+SPR77  DATA >00A8,>A880,>80C0,>C041    ; Color 15
+       DATA >BFFD,>3A5F,>C0CA,>8000    ;
+       DATA >0000,>0000,>0000,>00C0    ;
+       DATA >E0E0,>C000,>0080,>0000    ;
+SPR78  DATA >0000,>0000,>0000,>0304    ; Color 1
+       DATA >0808,>0403,>0102,>0100    ;
+       DATA >152A,>2A16,>0204,>847D    ;
+       DATA >0240,>A305,>FCAC,>5201    ;
+SPR79  DATA >A854,>5468,>4020,>21BE    ; Color 1
+       DATA >4002,>C5A0,>3F35,>4A80    ;
+       DATA >0000,>0000,>0000,>C020    ;
+       DATA >1010,>20C0,>8040,>8000    ;
+* Boat background
+SPR80  DATA >000D,>1A07,>3F3F,>3F3E    ; Color 4
        DATA >3E3F,>1F1F,>0F0F,>0702    ;
        DATA >00B0,>58E0,>FCFC,>FC7C    ;
        DATA >7CFC,>F8F8,>F0F0,>E040    ;
-SPR77  DATA >000E,>1F1F,>1F18,>1033    ; Color 10
+* Car
+SPR81  DATA >000E,>1F1F,>1F18,>1033    ; Color 10
        DATA >373F,>1714,>181F,>0F00    ;
        DATA >0070,>F8F8,>F818,>08CC    ;
        DATA >ECFC,>E828,>18F8,>F000    ;
-SPR78  DATA >0E11,>2020,>2027,>2F4C    ; Color 1
+SPR82  DATA >0E11,>2020,>2027,>2F4C    ; Color 1
        DATA >4840,>282B,>2720,>100F    ;
        DATA >7088,>0404,>04E4,>F432    ;
        DATA >1202,>14D4,>E404,>08F0    ;
+
 
