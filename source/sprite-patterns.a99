@@ -1,6 +1,8 @@
 ****************************************
 * Sprite Patterns                       
 ****************************************
+
+* Player plane
 SPR0   DATA >0005,>005F,>FE38,>423D    ; Color 15
        DATA >0101,>050D,>0000,>0000    ; 
        DATA >00A0,>00FA,>7F1C,>42BC    ; 
@@ -25,6 +27,7 @@ SPR5   DATA >0B14,>1FA8,>4163,>B944    ; Color 1
        DATA >3C04,>0A0A,>0601,>0000    ; 
        DATA >40A0,>E814,>82C4,>E890    ; 
        DATA >E080,>4020,>4080,>0000    ; 
+* Tank chassis v + h
 SPR6   DATA >0035,>2F0F,>3F3F,>3F3E    ; Color 12
        DATA >3E3F,>3F37,>073E,>0700    ; 
        DATA >00AC,>F4F0,>FCFC,>FC7C    ; 
@@ -32,7 +35,8 @@ SPR6   DATA >0035,>2F0F,>3F3F,>3F3E    ; Color 12
 SPR7   DATA >0000,>2F2F,>277F,>7F5E    ; Color 12
        DATA >5E7F,>7F27,>2F2F,>0000    ; 
        DATA >0000,>F6F2,>FCFE,>FC7E    ; 
-       DATA >7EFC,>FEFC,>F2F6,>0000    ; 
+       DATA >7EFC,>FEFC,>F2F6,>0000    ;
+* Eneny plane fill
 SPR8   DATA >0000,>0500,>3F66,>3842    ; Color 8
        DATA >3101,>0105,>0D01,>0000    ; 
        DATA >0000,>A000,>FC66,>1C42    ; 
@@ -65,6 +69,7 @@ SPR15  DATA >0000,>0913,>270C,>1838    ; Color 8
        DATA >6B50,>6810,>0000,>0000    ; 
        DATA >00E0,>A050,>A000,>8080    ; 
        DATA >DCE8,>70B0,>C080,>0000    ; 
+* Enemy plane outline
 SPR16  DATA >0005,>0A3F,>4099,>47BD    ; Color 1
        DATA >4A32,>060A,>120E,>0100    ; 
        DATA >00A0,>50FC,>0299,>E2BD    ; 
@@ -97,6 +102,7 @@ SPR23  DATA >0009,>162C,>5833,>2747    ; Color 1
        DATA >94AB,>9469,>1101,>0000    ; 
        DATA >E010,>50A8,>50A0,>405C    ; 
        DATA >2214,>8848,>3040,>8000    ; 
+* Turrets
 SPR24  DATA >0003,>1537,>3378,>7F7F    ; Color 14
        DATA >7E3F,>3E1F,>0600,>0000    ; 
        DATA >0003,>A190,>3058,>A858    ; 
@@ -129,6 +135,7 @@ SPR31  DATA >0007,>1B2D,>3D5B,>677F    ; Color 14
        DATA >7F3F,>3F1F,>0700,>0000    ; 
        DATA >0083,>E150,>B058,>A858    ; 
        DATA >A850,>B060,>8000,>0000    ; 
+* Tank outlines vertical
 SPR32  DATA >354B,>5931,>4549,>5457    ; Color 1
        DATA >5755,>494C,>3B49,>3807    ; 
        DATA >ACD2,>9A8C,>A292,>2AEA    ; 
@@ -161,6 +168,7 @@ SPR39  DATA >354A,>5039,>5C4E,>4553    ; Color 1
        DATA >5757,>4B4C,>3B49,>3807    ; 
        DATA >AC52,>1ACC,>22D2,>EAEA    ; 
        DATA >CAEA,>5232,>DC92,>1CE0    ; 
+* Tank outlines horizontal
 SPR40  DATA >012F,>5151,>7D89,>94B7    ; Color 1
        DATA >B795,>897C,>5350,>2F00    ; 
        DATA >80F6,>898D,>A691,>2AE9    ; 
@@ -193,6 +201,7 @@ SPR47  DATA >002F,>5079,>5C8E,>85B3    ; Color 1
        DATA >B797,>8B7C,>5350,>2F00    ; 
        DATA >00F6,>09CD,>26D1,>EAE9    ; 
        DATA >C9EA,>5126,>CD09,>F600    ; 
+* Tank boss
 SPR48  DATA >A04D,>9D3D,>7E7F,>5F6E    ; Color 11
        DATA >5449,>5F51,>5F51,>5F46    ; 
        DATA >0059,>D8D8,>DC47,>7077    ; 
@@ -209,6 +218,7 @@ SPR51  DATA >4446,>1CE8,>0000,>0560    ; Color 11
        DATA >F0F0,>6303,>EBD0,>0000    ; 
        DATA >4408,>4408,>4408,>4408    ; 
        DATA >04A8,>5488,>10A0,>0001    ; 
+* Bonuses
 SPR52  DATA >0000,>0000,>0000,>0000    ; Color 15
        DATA >0001,>0303,>0100,>0000    ; 
        DATA >0000,>0000,>0000,>0000    ; 
@@ -225,6 +235,7 @@ SPR55  DATA >003F,>604F,>5851,>5150    ; Color 15
        DATA >585F,>5158,>4F60,>3F00    ; 
        DATA >00FC,>06F2,>1A8A,>FA1A    ; 
        DATA >0A8A,>8A1A,>F206,>FC00    ; 
+* Explosions
 SPR56  DATA >132D,>1C5B,>552F,>776F    ; Color 15
        DATA >6A33,>5D5C,>0E10,>0000    ; 
        DATA >C0D4,>BACC,>AEEC,>F4C6    ; 
@@ -249,10 +260,12 @@ SPR61  DATA >0008,>0008,>4000,>0000    ; Color 15
        DATA >4000,>0000,>1000,>0000    ; 
        DATA >4000,>0800,>0000,>0200    ; 
        DATA >0000,>0400,>0040,>0000    ; 
+* Debris
 SPR62  DATA >0000,>0000,>0802,>0505    ; Color 1
        DATA >2B05,>1200,>0100,>0000    ; 
        DATA >0000,>0020,>8020,>D4F0    ; 
        DATA >A054,>C000,>0000,>0000    ; 
+* Mask
 SPR63  DATA >FFFF,>FFFF,>FFFF,>FFFF    ; Color 1
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
        DATA >FFFF,>FFFF,>FFFF,>FFFF    ; 
@@ -324,7 +337,7 @@ SPR79  DATA >A854,>5468,>4020,>21BE    ; Color 1
        DATA >4002,>C5A0,>3F35,>4A80    ;
        DATA >0000,>0000,>0000,>C020    ;
        DATA >1010,>20C0,>8040,>8000    ;
-* Boat background
+* Boat chassis
 SPR80  DATA >000D,>1A07,>3F3F,>3F3E    ; Color 4
        DATA >3E3F,>1F1F,>0F0F,>0702    ;
        DATA >00B0,>58E0,>FCFC,>FC7C    ;

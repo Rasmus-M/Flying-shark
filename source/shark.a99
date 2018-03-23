@@ -302,41 +302,41 @@ map_height:                            ; Height of current level in characters
        equ  landing_start+2
 diff_ptr:                              ; Pointer to difference list
        equ  map_height+2
-max_chars:
+max_chars:                             ; Maximum characters used for map
        equ  diff_ptr+2
-cart_pattern_bank:
+cart_pattern_bank:                     ; ROM bank holding patterns
        equ  max_chars+2
-cart_map_bank:
+cart_map_bank:                         ; ROM bank holding map
        equ  cart_pattern_bank+2
-cart_map_high_bank:
+cart_map_high_bank:                    ; ROM bank holding map with msb set
        equ  cart_map_bank+2
-cart_diff_bank:
+cart_diff_bank:                        ; ROM bank holding difference list
        equ  cart_map_high_bank+2
-cart_music_bank:
+cart_music_bank:                       ; ROM bank holding music
        equ  cart_diff_bank+2
-frame_count:
+frame_count:                           ; Frame counter
        equ  cart_music_bank+2
-vdp_status:
+vdp_status:                            ; VDP status
        equ  frame_count+2
-user_input_enabled:
+user_input_enabled:                    ; Is user input (joystick) enabled?
        equ  vdp_status+2
 player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
        equ  user_input_enabled+2
-sprite_pos_ptr:
+sprite_pos_ptr:                        ; Pointer to sprite position list
        equ  player_fire+2
-sprite_table_flag:
+sprite_table_flag:                     ; Which VDP aprite attriutes table to use
        equ  sprite_pos_ptr+2
-angle:
+angle:                                 ; Angle of enemy relative to player
        equ  sprite_table_flag+2
-max_sprite:
+max_sprite:                            ; Maximum used sprite number
        equ  angle+2
-max_hw_sprite:
+max_hw_sprite:                         ; Maximum user hardware sprite number
        equ  max_sprite+2
-rand_no:
+rand_no:                               ; Last random number
        equ  max_hw_sprite+2
-score_msw:
+score_msw:                             ; Low word of score
        equ  rand_no+2
-score_lsw:
+score_lsw:                             ; High word of score
        equ  score_msw+2
 lives:                                 ; Lives left
        equ  score_lsw+2
@@ -352,8 +352,12 @@ music:                                 ; Pointer to music
        equ  bomb_count_down+2
 loop_music:                            ; Is music looping?
        equ  music+2
-upload_character_table_pad:            ; Code in pad
+boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
        equ  loop_music+2
+plane_boss_patterns_uploaded:          ; Is plane boss patterns uploaded to VDP?
+       equ  boat_patterns_uploaded
+upload_character_table_pad:            ; Code in pad
+       equ  plane_boss_patterns_uploaded+2
 pad_max:
        equ  upload_character_table_pad+52
 
