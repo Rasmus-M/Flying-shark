@@ -123,6 +123,10 @@ sprite_type_extra_life:
        equ  9
 sprite_type_boss_tank:
        equ  10
+sprite_type_boat:
+       equ  11
+sprite_type_big_plane:
+       equ  12
 
 * Sprite definition structure
 sprite_def_type:                       ; Sprite type
@@ -354,10 +358,10 @@ loop_music:                            ; Is music looping?
        equ  music+2
 boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
        equ  loop_music+2
-plane_boss_patterns_uploaded:          ; Is plane boss patterns uploaded to VDP?
+big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
        equ  boat_patterns_uploaded
 upload_character_table_pad:            ; Code in pad
-       equ  plane_boss_patterns_uploaded+2
+       equ  big_plane_patterns_uploaded+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -1645,6 +1649,8 @@ gmode_1:
        li   r1,spr0
        li   r2,64*32
        bl   @vdpcp
+       clr  @boat_patterns_uploaded
+       clr  @big_plane_patterns_uploaded
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11

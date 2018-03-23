@@ -72,7 +72,7 @@ sprite_def_tank:
        data >0002                      ; Top
        data >0002                      ; Size
        data >1c00                      ; Pattern
-       data >0100                      ; Color
+       data >0f00                      ; Color
        data 2                          ; Hits left
        data 0                          ; Hit action
        data 12                         ; Fire rate
@@ -139,5 +139,31 @@ sprite_def_boss_tank:
        data >c000                      ; Pattern
        data >0b00                      ; Color
        data 32                         ; Hits left
-       data -1                         ; Hit action
+       data 0                          ; Hit action
        data 1                          ; Fire rate
+*      Boat
+sprite_def_boat:
+       data sprite_type_boat           ; Type
+       data >000e                      ; Width
+       data >0010                      ; Height
+       data >0001                      ; Left
+       data >0000                      ; Top
+       data >0002                      ; Size
+       data >1800                      ; Pattern
+       data >0400                      ; Color
+       data 2                          ; Hits left
+       data 0                          ; Hit action
+       data 8                          ; Fire rate
+*      Big plane
+sprite_def_big_plane:
+       data sprite_type_big_plane      ; Type
+       data >0018                      ; Width
+       data >0010                      ; Height
+       data >0004                      ; Left
+       data >0000                      ; Top
+       data >0004                      ; Size
+       data >c000                      ; Pattern
+       data >0f00                      ; Color
+       data 8                          ; Hits left
+       data 1                          ; Hit action
+       data 4                          ; Fire rate
