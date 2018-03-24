@@ -201,7 +201,7 @@ SPR47  DATA >002F,>5079,>5C8E,>85B3    ; Color 1
        DATA >B797,>8B7C,>5350,>2F00    ; 
        DATA >00F6,>09CD,>26D1,>EAE9    ; 
        DATA >C9EA,>5126,>CD09,>F600    ; 
-* Tank boss
+* Boss tank
 SPR48  DATA >A04D,>9D3D,>7E7F,>5F6E    ; Color 11
        DATA >5449,>5F51,>5F51,>5F46    ; 
        DATA >0059,>D8D8,>DC47,>7077    ; 

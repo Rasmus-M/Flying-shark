@@ -1869,6 +1869,7 @@ upload_boat_patterns:
        li   r1,SPR64
        li   r2,8*32
        bl   @vdpcp
+       seto @boat_patterns_uploaded
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1889,11 +1890,50 @@ upload_tank_patterns:
        li   r1,SPR32
        li   r2,8*32
        bl   @vdpcp
+       clr  @boat_patterns_uploaded
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 *// upload_tank_patterns
+
+*********************************************************************************
+*
+* Upload big plane patterns
+*
+* r1=1: facing up, r1=2: facing down
+
+upload_big_plane_patterns:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r1,@big_plane_patterns_uploaded
+       li   r0,32*32+sprptb
+       dec  r1
+       sla  r1,7
+       ai   r1,SPR72
+       li   r2,48*32
+       bl   @vdpcp
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_big_plane_patterns
+
+*********************************************************************************
+*
+* Upload boss tank patterns
+*
+upload_boss_tank_patterns:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,48*32+sprptb
+       li   r1,SPR48
+       li   r2,8*32
+       bl   @vdpcp
+       clr  @big_plane_patterns_uploaded
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// upload_boss_tank_patterns
 
 *********************************************************************************
 *

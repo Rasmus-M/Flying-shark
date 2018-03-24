@@ -3,7 +3,7 @@
 * Flying Shark
 * For the TI-99/4A home computer
 *
-* August 2017
+* August 2017 - April 2018
 * Rasmus Moustgaard <rasmus.moustgaard@gmail.com>
 *
 *********************************************************************
@@ -1935,6 +1935,8 @@ vmbr1:
 * R1: Source address
 * R2: Number of bytes to copy
 *
+* Modifies r0-r3
+*
 vdpcp:
        mov  r11,*r10+                  ; Push return address onto the stack
        swpb r0
@@ -1977,6 +1979,8 @@ vdpcp3:
 * R0: Destination address
 * R1: Byte to write in MSB
 * R2: Number of bytes to copy
+*
+* Modifies r0-r3
 *
 vdpwr:
        swpb r0
@@ -2296,6 +2300,23 @@ txt_game_over:
        byte >F0,>F1,>F2,>F3,>FF,>F4,>F5,>F3,>F6
        even
 **
+* Music and sound fx
+*
+       copy "tiplayersfx.a99"
+shot_1:
+       bcopy "..\sound\shot2.vgm.spf"
+expl_1:
+       bcopy "..\sound\expl1.vgm.spf"
+**
+* Geometry lookup tables
+*
+       copy "geometry.a99"
+**
+* Sprite and panel graphics
+*
+       copy "sprite-patterns.a99"
+       copy "panel.a99"
+**
 * Sprite definitions
 *
 sprite_defs:
@@ -2312,28 +2333,13 @@ sprite_player:
 *
 hw_sprites:
        bss  n_hw_sprites*hw_sprite_struct_size
-**
-* Sprite and panel graphics
-*
-       copy "sprite-patterns.a99"
-       copy "panel.a99"
+
+       aorg >2000
 **
 * Sprite positions and paths
 *
        copy "sprite-pos-lists.a99"
        copy "paths.a99"
-**
-* Geometry lookup tables
-*
-       copy "geometry.a99"
-**
-* Music and sound fx
-*
-       copy "tiplayersfx.a99"
-shot_1:
-       bcopy "..\sound\shot2.vgm.spf"
-expl_1:
-       bcopy "..\sound\expl1.vgm.spf"
 **
 *      End
 *
