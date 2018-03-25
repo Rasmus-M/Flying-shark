@@ -156,6 +156,8 @@ sprite_pos_list_1:
        data -1
 
 sprite_pos_list_2:
+*      Big plane from top
+       data 2976,112,-16,sprite_def_big_plane,path_big_plane_long_down,-1
 *      Boat from top
        data 2912,16,-16,sprite_def_boat,path_boat_long_down,-1
 *      Ship with 4 turrets

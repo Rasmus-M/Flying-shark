@@ -109,7 +109,7 @@ add_tank_sprite:
 *      Patterns
        abs  @boat_patterns_uploaded
        jeq  add_tank_sprite_1
-       bl   @upload_tank_patterns
+       bl   @upload_tank_patterns      ; TODO: only if vertical
 *      Return
 add_tank_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -437,7 +437,7 @@ add_extra_life_sprite_1:
 *
 add_boss_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       li   r0,>1000
+       li   r0,>1000                   ; x offset
 *      Hardware sprite 1
        mov  @sprite_hw_1(r1),r2
        dec  @hw_sprite_priority(r2)
@@ -461,8 +461,8 @@ add_boss_tank_sprite:
        a    r3,@hw_sprite_pattern(r2)
        dec  @hw_sprite_priority(r2)
 *      Hardware sprite 5
-       li   r3,>fc00
-       li   r4,>0100
+       li   r3,>fc00                   ; Pattern
+       li   r4,>0100                   ; Color
        mov  @sprite_hw_5(r1),r2
        mov  r3,@hw_sprite_pattern(r2)
        mov  r4,@hw_sprite_color(r2)
@@ -482,7 +482,12 @@ add_boss_tank_sprite:
        mov  r0,@hw_sprite_dy(r2)
        mov  r3,@hw_sprite_pattern(r2)
        mov  r4,@hw_sprite_color(r2)
+*      Patterns
+       abs  @big_plane_patterns_uploaded
+       jeq  add_boat_sprite_1
+       bl   @upload_boss_tank_patterns
 *      Return
+add_boss_tank_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -519,7 +524,39 @@ add_boat_sprite_1:
 *
 add_big_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,>1000                   ; x offset
+       li   r3,>0100                   ; Color
+*      Hardware sprite 1
+       mov  @sprite_hw_1(r1),r2
+       dec  @hw_sprite_priority(r2)
+*      Hardware sprite 2
+       mov  @sprite_hw_2(r1),r2
+       a    r0,@hw_sprite_dx(r2)
+       li   r4,>0400                   ; Pattern offset
+       a    r4,@hw_sprite_pattern(r2)
+       dec  @hw_sprite_priority(r2)
+*      Hardware sprite 3
+       mov  @sprite_hw_3(r1),r2
+       mov  r3, @hw_sprite_color(r2)
+       ai   r4,>0400                   ; Pattern offset
+       a    r4,@hw_sprite_pattern(r2)
+*      Hardware sprite 4
+       mov  @sprite_hw_4(r1),r2
+       a    r0,@hw_sprite_dx(r2)
+       mov  r3, @hw_sprite_color(r2)
+       ai   r4,>0400                   ; Pattern offset
+       a    r4,@hw_sprite_pattern(r2)
+*      Patterns
+       li   r1,1                       ; Facing up
+       mov  @sprite_path(r1),r2
+       mov  @path_vy(r2),r0            ; Get path y direction
+       jlt  !
+       inc  r1                         ; Facing down
+!      c    r1,@big_plane_patterns_uploaded
+       jeq  add_big_plane_sprite_1
+       bl   @upload_big_plane_patterns
 *      Return
+add_big_plane_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1234,6 +1271,37 @@ update_boat_sprite_5:
 *
 update_big_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Update path
+       bl   @update_path
+       jlt  update_big_plane_sprite_1  ; Path ended
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000
+       jl  update_big_plane_sprite_3
+       ci   r0,>f000
+       jl  update_big_plane_sprite_1
+*      Move
+update_big_plane_sprite_3:
+       a    @path_vx(r4),@sprite_x(r3)
+       a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       bl   @move_with_scroll
+*      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_big_plane_sprite_2
+       mov  @path_action(r4),r0
+       jeq  update_big_plane_sprite_2
+       dec  @sprite_fire_delay(r3)
+       jne  update_big_plane_sprite_2
+       mov  @sprite_def_enemy_plane+sprite_def_fire_rate,@sprite_fire_delay(r3)
+       bl   @get_angle
+       bl   @add_enemy_bullet_sprite
+       jmp  update_big_plane_sprite_2
+*      Remove
+update_big_plane_sprite_1:
+       mov  r3,r1
+       bl   @dealloc_sprite
+update_big_plane_sprite_2:
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1985,11 +2053,11 @@ upload_tank_patterns:
 upload_big_plane_patterns:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  r1,@big_plane_patterns_uploaded
-       li   r0,32*32+sprptb
+       li   r0,48*32+sprptb
        dec  r1
        sla  r1,7
        ai   r1,SPR72
-       li   r2,48*32
+       li   r2,4*32
        bl   @vdpcp
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -2005,7 +2073,7 @@ upload_boss_tank_patterns:
        mov  r11,*r10+                  ; Push return address onto the stack
        li   r0,48*32+sprptb
        li   r1,SPR48
-       li   r2,8*32
+       li   r2,4*32
        bl   @vdpcp
        clr  @big_plane_patterns_uploaded
 *      Return
@@ -2059,7 +2127,7 @@ sprite_collisions_jump_table:
        data 0                          ; Extra life
        data boss_sprite_collisions     ; Boss tank
        data enemy_sprite_collisions    ; Boat
-       data 0                          ; Big plane
+       data boss_sprite_collisions     ; Big plane
 enemy_hit_jump_table:
        data 0                          ; Player
        data 0                          ; Bullet
