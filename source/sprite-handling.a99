@@ -1737,17 +1737,46 @@ boat_hit:
        li   r0,300
        bl   @add_score
        jmp  boat_hit_2
-*      Stop
+*      Hit once
 boat_hit_1:
        li   r1,path_boat_hit
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
+       mov  @sprite_hw_1(r3),r1
+       li   r0,>0100
+       mov  r0,@hw_sprite_color(r1)
 *      Return
 boat_hit_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
 *// boat_hit
+
+*********************************************************************************
+*
+* Big plane hit
+* r3 points to boss tank sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+big_plane_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check hits left
+       mov  @sprite_hits_left(r3),r0
+       jne  big_plane_hit_1
+*      Destroyed
+       mov  r3,r1
+       bl   @dealloc_sprite
+       li   r0,500
+       bl   @add_score
+*      Return
+big_plane_hit_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// big_plane_hit
 
 *********************************************************************************
 *
@@ -2141,4 +2170,4 @@ enemy_hit_jump_table:
        data 0                          ; Extra life
        data boss_tank_hit              ; Boss tank
        data boat_hit                   ; Boat
-       data 0                          ; Big plane
+       data big_plane_hit              ; Big plane
