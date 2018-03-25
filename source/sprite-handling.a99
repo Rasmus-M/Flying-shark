@@ -911,7 +911,6 @@ update_tank_sprite:
 *      Update path
        bl   @update_path
        jlt  update_tank_sprite_1       ; Path ended
-update_tank_sprite_4:
 *      Check bounds
        mov  @sprite_x(r3),r0
        ci   r0,(x_min-2)*256
@@ -1176,7 +1175,52 @@ update_boss_tank_sprite_4:
 *
 update_boat_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Update path
+       bl   @update_path
+       jlt  update_boat_sprite_4       ; Path ended - remove
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000
+       jl  update_boat_sprite_1
+       ci   r0,>f000
+       jl  update_boat_sprite_4        ; Outside screen - remove
+*      Move
+update_boat_sprite_1:
+       a    @path_vx(r4),@sprite_x(r3)
+       a    @path_vy(r4),@sprite_y(r3)
+*      Move with scroll
+       bl   @move_with_scroll
+*      Pattern
+       c    @sprite_hits_left(r3),@one
+       jgt  update_boat_sprite_2
+*      Hit or exploded - follow path pattern
+       mov  @path_pattern(r4),r0       ; Get path pattern
+       jmp  update_boat_sprite_3
+*      Point at player
+update_boat_sprite_2:
+       bl   @get_angle
+       movb @angle+1,r0                ; Get angle in MSB
+       andi r0,>1c00                   ; Isolate octant
+       ai   r0,>8000                   ; Add pattern base
+update_boat_sprite_3:
+       mov  @sprite_hw_1(r3),r1        ; Get hardware sprite
+       movb r0,@hw_sprite_pattern(r1)  ; Set pattern
+*      Create bullet
+       mov  @sprite_link(r3),r0
+       jne  update_boat_sprite_5       ; Skip if bullet already exists
+       mov  @path_action(r4),r0
+       jeq   update_boat_sprite_5      ; Skip if not firing
+       dec  @sprite_fire_delay(r3)
+       jne   update_boat_sprite_5      ; Skip if delayed
+       mov  @sprite_def_boat+sprite_def_fire_rate,@sprite_fire_delay(r3)
+       bl   @add_enemy_bullet_sprite
+       jmp   update_boat_sprite_5
+*      Remove
+update_boat_sprite_4:
+       mov  r3,r1
+       bl   @dealloc_sprite
 *      Return
+update_boat_sprite_5:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1604,6 +1648,41 @@ boss_tank_hit_1:
 
 *********************************************************************************
 *
+* Boat hit
+* r3 points to tank sprite
+* r5 points to bullet sprite
+* Cannot modify r2-r3
+*
+boat_hit:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Turn bullet into explosion
+       bl   @explode_bullet
+*      Check tank hits left
+       mov  @sprite_hits_left(r3),r0
+       jgt  boat_hit_1
+*      Wave
+       bl   @handle_wave
+*      Remove
+       mov  r3,r1
+       bl   @dealloc_sprite
+*      Score
+       li   r0,300
+       bl   @add_score
+       jmp  boat_hit_2
+*      Stop
+boat_hit_1:
+;       li   r1,path_boat_hit
+;       mov  r1,@sprite_path(r3)               ; Init path pointer
+;       mov  @path_count(r1),@sprite_count(r3) ; Init counter
+*      Return
+boat_hit_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// boat_hit
+
+*********************************************************************************
+*
 * Wave handling
 *
 * r3 points to sprite hit
@@ -1979,7 +2058,7 @@ sprite_collisions_jump_table:
        data 0                          ; Smart bomb
        data 0                          ; Extra life
        data boss_sprite_collisions     ; Boss tank
-       data 0                          ; Boat
+       data enemy_sprite_collisions    ; Boat
        data 0                          ; Big plane
 enemy_hit_jump_table:
        data 0                          ; Player
@@ -1993,5 +2072,5 @@ enemy_hit_jump_table:
        data 0                          ; Smart bomb
        data 0                          ; Extra life
        data boss_tank_hit              ; Boss tank
-       data 0                          ; Boat
+       data boat_hit                   ; Boat
        data 0                          ; Big plane
