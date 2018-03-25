@@ -170,6 +170,8 @@ sprite_pos_list_2:
        data 3216,48,192,sprite_def_enemy_plane,path_plane_long_up,-1
 *      Tanks
        data 3184,8,0,sprite_def_tank,path_tank_down_long,-1
+       data 3168,56,0,sprite_def_tank,path_tank_down_long,-1
+       data 3160,120,0,sprite_def_tank,path_tank_down_long,-1
 
 
 
