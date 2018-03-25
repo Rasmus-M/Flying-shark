@@ -156,6 +156,24 @@ sprite_pos_list_1:
        data -1
 
 sprite_pos_list_2:
+*      5 planes from top
+       data 3312,48,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+       data 3308,64,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+       data 3304,32,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+       data 3300,80,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+       data 3296,16,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+*      5 planes from bottom
+       data 3232,80,192,sprite_def_enemy_plane,path_plane_long_up,-1
+       data 3228,96,192,sprite_def_enemy_plane,path_plane_long_up,-1
+       data 3224,64,192,sprite_def_enemy_plane,path_plane_long_up,-1
+       data 3220,112,192,sprite_def_enemy_plane,path_plane_long_up,-1
+       data 3216,48,192,sprite_def_enemy_plane,path_plane_long_up,-1
+*      Tanks
+       data 3184,8,0,sprite_def_tank,path_tank_down_long,-1
+
+
+
+
 *      Big plane from top
        data 2976,112,-16,sprite_def_big_plane,path_big_plane_long_down,-1
 *      Boat from top

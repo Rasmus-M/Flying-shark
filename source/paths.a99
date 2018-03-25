@@ -99,6 +99,14 @@ path_plane_right_up_left_down_out_left
        data 10,->0140,>0180,>3400,>0001
        data 10,->0180,->0080,>3800,>0000
        data -1
+*      Plane from top moving down
+path_plane_long_down:
+       data 96,>0000,>0200,>3000,>0001
+       data -1
+*      Plane from bottom moving up
+path_plane_long_up:
+       data 144,>0000,->0200,>2000,>0001
+       data -1
 *      From left and stopping (short)
 path_tank_left_short:
        data 48,>0100,>0000,>1c00,>0000
@@ -224,5 +232,5 @@ path_boat_hit:
        data -1
 *      Big plane from top moving down
 path_big_plane_long_down:
-       data 300,>0000,>0040,>c000,>0000
+       data 300,>0000,>0040,>c000,>0001
        data -1
