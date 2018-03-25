@@ -224,5 +224,5 @@ path_boat_hit:
        data -1
 *      Big plane from top moving down
 path_big_plane_long_down:
-       data 300,>0000,>0040,>c000,>0001
+       data 300,>0000,>0040,>c000,>0000
        data -1
