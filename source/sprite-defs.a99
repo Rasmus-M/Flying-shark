@@ -72,7 +72,7 @@ sprite_def_tank:
        data >0002                      ; Top
        data >0002                      ; Size
        data >1c00                      ; Pattern
-       data >0f00                      ; Color
+       data >0e00                      ; Color
        data 2                          ; Hits left
        data 0                          ; Hit action
        data 12                         ; Fire rate
@@ -92,8 +92,8 @@ sprite_def_mask:
 *      Power up
 sprite_def_power_up:
        data sprite_type_power_up       ; Type
-       data >000E                      ; Width
-       data >000E                      ; Height
+       data >000e                      ; Width
+       data >000e                      ; Height
        data >0001                      ; Left
        data >0001                      ; Top
        data >0001                      ; Size
@@ -105,8 +105,8 @@ sprite_def_power_up:
 *      Bomb
 sprite_def_smart_bomb:
        data sprite_type_smart_bomb     ; Type
-       data >000E                      ; Width
-       data >000E                      ; Height
+       data >000e                      ; Width
+       data >000e                      ; Height
        data >0001                      ; Left
        data >0001                      ; Top
        data >0001                      ; Size
@@ -118,8 +118,8 @@ sprite_def_smart_bomb:
 *      Extra life
 sprite_def_extra_life:
        data sprite_type_extra_life     ; Type
-       data >000E                      ; Width
-       data >000E                      ; Height
+       data >000e                      ; Width
+       data >000e                      ; Height
        data >0001                      ; Left
        data >0001                      ; Top
        data >0001                      ; Size

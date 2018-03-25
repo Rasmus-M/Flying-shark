@@ -156,6 +156,8 @@ sprite_pos_list_1:
        data -1
 
 sprite_pos_list_2:
+*      Boat from top
+       data 2912,16,-16,sprite_def_boat,path_boat_long_down,-1
 *      Ship with 4 turrets
        data 2736,16,-16,sprite_def_turret,0,-1
        data 2720,16,-16,sprite_def_turret,0,-1

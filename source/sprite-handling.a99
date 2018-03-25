@@ -97,10 +97,10 @@ add_enemy_plane_sprite_1:
 *
 add_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_hw_1(r1),r2        ; Get turret sprite
+       mov  @sprite_hw_1(r1),r2        ; Get outline sprite
        dec  @hw_sprite_priority(r2)    ; Medium priority
-       li   r0,>0100
-       mov  r0,@hw_sprite_color(r2)
+       li   r0,>0100                   ; Black
+       mov  r0,@hw_sprite_color(r2)    ; Set outline color
 *      Create a mask sprite if entering from the left
        mov  @sprite_x(r1),r0
        ci   r0,(x_min-16)*256
@@ -496,10 +496,10 @@ add_boss_tank_sprite:
 *
 add_boat_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_hw_1(r1),r2        ; Get turret sprite
+       mov  @sprite_hw_1(r1),r2        ; Get outline sprite
        dec  @hw_sprite_priority(r2)    ; Medium priority
-       li   r0,>0100
-       mov  r0,@hw_sprite_color(r2)
+       li   r0,>0e00                   ; Grey
+       mov  r0,@hw_sprite_color(r2)    ; Set outline color
 *      Patterns
        abs  @boat_patterns_uploaded
        jne  add_boat_sprite_1
@@ -1657,7 +1657,7 @@ boat_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Turn bullet into explosion
        bl   @explode_bullet
-*      Check tank hits left
+*      Check boat hits left
        mov  @sprite_hits_left(r3),r0
        jgt  boat_hit_1
 *      Wave
@@ -1671,9 +1671,9 @@ boat_hit:
        jmp  boat_hit_2
 *      Stop
 boat_hit_1:
-;       li   r1,path_boat_hit
-;       mov  r1,@sprite_path(r3)               ; Init path pointer
-;       mov  @path_count(r1),@sprite_count(r3) ; Init counter
+       li   r1,path_boat_hit
+       mov  r1,@sprite_path(r3)               ; Init path pointer
+       mov  @path_count(r1),@sprite_count(r3) ; Init counter
 *      Return
 boat_hit_2:
        dect r10                        ; Pop return address off the stack

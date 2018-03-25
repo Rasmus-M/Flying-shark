@@ -1032,7 +1032,7 @@ update_low_chars:
 update_characters_1:
 *	   Select source ROM bank
        mov  r3,r5                      ; Start with scroll offset
-       dec  r5                         ; Add direction
+       a    @direction,r5              ; Add direction
        andi r5,>0007                   ; Mod 8
        sla  r5,1                       ; Bank select offset
        a    @cart_pattern_bank,r5      ; Add base pattern bank select
@@ -1072,6 +1072,8 @@ update_characters_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
+direction:
+       data -1
 *// update_characters
 
 *********************************************************************************
@@ -1196,6 +1198,10 @@ update_name_table_6:
 *
 scroll_to_position:
        mov  r11, *r10+                  ; Push return address onto the stack
+*      Screen off
+       li   r0,>01a2
+       bl   @vwtr
+*      Init scroll
        bl   @init_scroll
 scroll_to_position_1:
        mov  @diff_ptr,r4
@@ -1208,7 +1214,9 @@ scroll_to_position_2:
        mov  r4,@diff_ptr
        bl   @update_characters
        dec  @scroll_y
+       clr  @direction
        bl   @update_characters
+       seto @direction
        inc  @scroll_y
        bl   @draw_initial_screen
 *      Set sprite position list pointer
@@ -1231,6 +1239,9 @@ scroll_to_position_5:
 *      Reset sprites
 scroll_to_position_6:
        bl   @init_sprites
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1426,9 +1437,10 @@ init_level:
        mov  @diff_ptr,r4
        bl   @update_char_list
        mov  r4,@diff_ptr
-       bl   @update_characters
        dec  @scroll_y
+       clr  @direction
        bl   @update_characters
+       seto @direction
        inc  @scroll_y
        bl   @draw_initial_screen
 *      Display score and level

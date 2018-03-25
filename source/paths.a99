@@ -177,31 +177,31 @@ path_tank_left_slow:
        data -1
 *      Tank not moving
 path_tank_steady:
-       data 1000,0,0,>1800,1
+       data 1000,0,0,>1800,>0001
        data -1
 *      Tank stopping when hit
 path_tank_hit:
-       data 1000,0,0,>f800,0
+       data 1000,0,0,>f800,>0000
        data -1
 *      Boss tank
 path_boss_tank:
-       data 48,>0000,->0100,>0000,>0000
-       data 96,>0000,->0000,>0000,>0000
-       data 96,>0000,->0100,>0000,>0000
-       data 96,>0000,->0000,>0000,>0000
-       data 96,>0000,->0100,>0000,>0000
-       data 96,>0000,->0000,>0000,>0000
-       data 96,>0000,->0100,>0000,>0000
-       data 380,>0000,->0000,>0000,>0000
+       data 48,>0000,->0100,>0000,>0001
+       data 96,>0000,->0000,>0000,>0001
+       data 96,>0000,->0100,>0000,>0001
+       data 96,>0000,->0000,>0000,>0001
+       data 96,>0000,->0100,>0000,>0001
+       data 96,>0000,->0000,>0000,>0001
+       data 96,>0000,->0100,>0000,>0001
+       data 380,>0000,->0000,>0000,>0001
        data -1
 *      Explosion
 path_explosion:
-       data 4,0,0,>e000,0
-       data 4,0,0,>e400,0
-       data 4,0,0,>e800,0
-       data 4,0,0,>ec00,0
-       data 4,0,0,>f000,0
-       data 4,0,0,>f400,0
+       data 4,0,0,>e000,>0000
+       data 4,0,0,>e400,>0000
+       data 4,0,0,>e800,>0000
+       data 4,0,0,>ec00,>0000
+       data 4,0,0,>f000,>0000
+       data 4,0,0,>f400,>0000
        data -1
 *      Small circle
 path_small_circle:
@@ -213,4 +213,11 @@ path_small_circle:
        data 20,->0080,>0080,>0000,>0000
        data 32,>0000,>0080,>0000,>0000
        data 20,>0080,>0080,>0000,>0000
+       data -1
+*      Boat from top moving down
+path_boat_long_down:
+       data 128,>0000,>0040,>1800,>0001
+*      Boat stopping when hit
+path_boat_hit:
+       data 1000,0,0,>f800,>0000
        data -1
