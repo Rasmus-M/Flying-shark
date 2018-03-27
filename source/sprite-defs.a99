@@ -150,7 +150,7 @@ sprite_def_boat:
        data >0000                      ; Top
        data >0002                      ; Size
        data >1800                      ; Pattern
-       data >0400                      ; Color
+       data >0c00                      ; Color
        data 2                          ; Hits left
        data 0                          ; Hit action
        data 8                          ; Fire rate

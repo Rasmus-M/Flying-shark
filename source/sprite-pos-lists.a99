@@ -174,9 +174,9 @@ sprite_pos_list_2:
        data 3184,8,0,sprite_def_tank,path_tank_down_64_wait,-1
        data 3168,56,0,sprite_def_tank,path_tank_down_64_wait,-1
        data 3160,120,0,sprite_def_tank,path_tank_down_64_wait,-1
-       data 3136,8,48,sprite_def_tank,path_tank_down_32_wait,-1
-       data 3120,56,48,sprite_def_tank,path_tank_down_32_wait,-1
-       data 3112,120,40,sprite_def_tank,path_tank_down_32_wait,-1
+       data 3136,8,40,sprite_def_tank,path_tank_down_32_wait,-1
+       data 3120,56,40,sprite_def_tank,path_tank_down_32_wait,-1
+       data 3112,120,32,sprite_def_tank,path_tank_down_32_wait,-1
 *      Big plane from top
        data 2976,112,-16,sprite_def_big_plane,path_big_plane_long_down,-1
 *      4 planes snake
@@ -184,23 +184,54 @@ sprite_pos_list_2:
        data 2920,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
        data 2912,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
        data 2904,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
-*      Boat from top
-       data 2886,16,-16,sprite_def_boat,path_boat_long_down,-1
+*      2 boats from top
+       data 2896,16,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2880,96,-16,sprite_def_boat,path_boat_long_down,-1
+*      Plane
+       data 2864,16,-16,sprite_def_enemy_plane,path_plane_dive_left_right_short,-1
+*      3 boats from top
+       data 2848,112,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2832,0,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2816,128,-16,sprite_def_boat,path_boat_long_down,-1
+*      3 planes from right
+       data 2800,80,-16,sprite_def_enemy_plane,path_plane_dive_right_left_short,-1
+       data 2792,80,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
+       data 2784,80,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
+*      3 planes from left, circle
+       data 2768,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+       data 2760,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+       data 2752,-16,128,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
 *      Ship with 4 turrets
        data 2736,16,-16,sprite_def_turret,0,-1
        data 2720,16,-16,sprite_def_turret,0,-1
        data 2656,16,-16,sprite_def_turret,0,-1
        data 2640,16,-16,sprite_def_turret,0,-1
+*      2 big planes from bottom
+       data 2608,16,192,sprite_def_big_plane,path_big_plane_long_up,-1
+       data 2488,88,192,sprite_def_big_plane,path_big_plane_long_up,-1
 *      Ship with 4 turrets
        data 2480,96,-16,sprite_def_turret,0,-1
        data 2464,96,-16,sprite_def_turret,0,-1
        data 2400,96,-16,sprite_def_turret,0,-1
        data 2384,96,-16,sprite_def_turret,0,-1
-*      Ship with 4 turrets
+*      3 boats
+       data 2352,128,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2336,16,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2320,32,-16,sprite_def_boat,path_boat_long_down,-1
+*      3 planes from left
+       data 2248,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_short,-1
+       data 2240,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long,-1
+       data 2232,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_long,-1
+*      Ship with 4 turrets - 2 first
        data 2224,48,-16,sprite_def_turret,0,-1
        data 2208,48,-16,sprite_def_turret,0,-1
+*      Boat
+       data 2176,128,-16,sprite_def_boat,path_boat_long_down,-1
+*      Ship with 4 turrets - continued
        data 2144,48,-16,sprite_def_turret,0,-1
        data 2128,48,-16,sprite_def_turret,0,-1
+*      Boat
+       data 2112,120,192,sprite_def_boat,path_boat_long_up,-1
 *      Ship with 4 turrets
        data 1968,96,-16,sprite_def_turret,0,-1
        data 1952,96,-16,sprite_def_turret,0,-1

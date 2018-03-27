@@ -504,7 +504,7 @@ add_boat_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_hw_1(r1),r2        ; Get outline sprite
        dec  @hw_sprite_priority(r2)    ; Medium priority
-       li   r0,>0e00                   ; Grey
+       li   r0,>0100                   ; Black
        mov  r0,@hw_sprite_color(r2)    ; Set outline color
 *      Patterns
        abs  @boat_patterns_uploaded
@@ -548,8 +548,8 @@ add_big_plane_sprite:
        ai   r4,>0400                   ; Pattern offset
        a    r4,@hw_sprite_pattern(r2)
 *      Patterns
-       li   r1,1                       ; Facing up
        mov  @sprite_path(r1),r2
+       li   r1,1                       ; Facing up
        mov  @path_vy(r2),r0            ; Get path y direction
        jlt  !
        inc  r1                         ; Facing down
@@ -1217,11 +1217,11 @@ update_boat_sprite:
        bl   @update_path
        jlt  update_boat_sprite_4       ; Path ended - remove
 *      Check bounds
-       mov  @sprite_y(r3),r0
-       ci   r0,>c000
-       jl  update_boat_sprite_1
-       ci   r0,>f000
-       jl  update_boat_sprite_4        ; Outside screen - remove
+;       mov  @sprite_y(r3),r0
+;       ci   r0,>c000
+;       jl  update_boat_sprite_1
+;       ci   r0,>f000
+;       jl  update_boat_sprite_4        ; Outside screen - remove
 *      Move
 update_boat_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
@@ -1276,11 +1276,11 @@ update_big_plane_sprite:
        bl   @update_path
        jlt  update_big_plane_sprite_1  ; Path ended
 *      Check bounds
-       mov  @sprite_y(r3),r0
-       ci   r0,>c000
-       jl  update_big_plane_sprite_3
-       ci   r0,>f000
-       jl  update_big_plane_sprite_1
+;       mov  @sprite_y(r3),r0
+;       ci   r0,>c000
+;       jl  update_big_plane_sprite_3
+;       ci   r0,>f000
+;       jl  update_big_plane_sprite_1
 *      Move
 update_big_plane_sprite_3:
        a    @path_vx(r4),@sprite_x(r3)
