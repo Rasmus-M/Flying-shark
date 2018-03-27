@@ -107,6 +107,16 @@ path_plane_long_down:
 path_plane_long_up:
        data 144,>0000,->0200,>2000,>0001
        data -1
+*      Plane snaking down
+path_plane_snake_down
+       data 16,->0100,>0100,>3400,>0001
+       data 16,>0000,>0100,>3000,>0001
+       data 32,>0100,>0100,>2c00,>0001
+       data 16,>0000,>0100,>3000,>0001
+       data 32,->0100,>0100,>3400,>0001
+       data 16,>0000,>0100,>3000,>0001
+       data 32,>0100,>0100,>2c00,>0001
+       data -1
 *      From left and stopping (short)
 path_tank_left_short:
        data 48,>0100,>0000,>1c00,>0000

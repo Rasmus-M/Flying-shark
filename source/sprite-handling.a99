@@ -107,11 +107,12 @@ add_tank_sprite:
        jne  add_tank_sprite_1
        bl   @add_mask_sprite
 *      Patterns
+add_tank_sprite_1:
        abs  @boat_patterns_uploaded
-       jeq  add_tank_sprite_1
+       jeq  add_tank_sprite_2
        bl   @upload_tank_patterns      ; TODO: only if vertical
 *      Return
-add_tank_sprite_1:
+add_tank_sprite_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -484,7 +485,7 @@ add_boss_tank_sprite:
        mov  r4,@hw_sprite_color(r2)
 *      Patterns
        abs  @big_plane_patterns_uploaded
-       jeq  add_boat_sprite_1
+       jeq  add_boss_tank_sprite_1
        bl   @upload_boss_tank_patterns
 *      Return
 add_boss_tank_sprite_1:

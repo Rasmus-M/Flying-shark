@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  1
+       equ  0
 
 **
 * Constants
@@ -22,9 +22,9 @@ immunity:
 start_level:
        equ  1
 start_lives:
-       equ  4
+       equ  3
 start_bombs:
-       equ  4
+       equ  3
 action_speed:
        equ >0080
 scroll_interval:
@@ -359,7 +359,7 @@ loop_music:                            ; Is music looping?
 boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
        equ  loop_music+2
 big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
-       equ  boat_patterns_uploaded
+       equ  boat_patterns_uploaded+2
 upload_character_table_pad:            ; Code in pad
        equ  big_plane_patterns_uploaded+2
 pad_max:

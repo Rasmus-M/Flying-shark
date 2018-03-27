@@ -179,10 +179,13 @@ sprite_pos_list_2:
        data 3112,120,40,sprite_def_tank,path_tank_down_32_wait,-1
 *      Big plane from top
        data 2976,112,-16,sprite_def_big_plane,path_big_plane_long_down,-1
-
-
+*      4 planes snake
+       data 2928,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 2920,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 2912,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 2904,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
 *      Boat from top
-       data 2912,16,-16,sprite_def_boat,path_boat_long_down,-1
+       data 2886,16,-16,sprite_def_boat,path_boat_long_down,-1
 *      Ship with 4 turrets
        data 2736,16,-16,sprite_def_turret,0,-1
        data 2720,16,-16,sprite_def_turret,0,-1
