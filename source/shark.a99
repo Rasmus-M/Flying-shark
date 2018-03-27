@@ -296,8 +296,12 @@ scroll_y:                              ; Vertical scroll offset (next)
        equ  level+2
 scroll_y_current:                      ; Vertical scroll offset (current)
        equ  scroll_y+2
-scroll_y_max:                          ; Vertical scroll offset (current)
+scroll_y_last:                         ; Vertical scroll offset (last)
        equ  scroll_y_current+2
+scroll_y_diff:                         ; Difference in scroll offset from last
+       equ  scroll_y_last+2
+scroll_y_max:                          ; Vertical scroll offset (current)
+       equ  scroll_y_diff+2
 take_off_end:                          ; Scroll offset where takeoff will end
        equ  scroll_y_max+2
 landing_start:                         ; Scroll offser where landing will start
@@ -356,12 +360,8 @@ music:                                 ; Pointer to music
        equ  bomb_count_down+2
 loop_music:                            ; Is music looping?
        equ  music+2
-boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
-       equ  loop_music+2
-big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
-       equ  boat_patterns_uploaded+2
 upload_character_table_pad:            ; Code in pad
-       equ  big_plane_patterns_uploaded+2
+       equ  loop_music+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -1211,6 +1211,7 @@ scroll_to_position_1:
        dec  @scroll_y
        jmp  scroll_to_position_1
 scroll_to_position_2:
+       mov  @scroll_y,@scroll_y_last
        mov  r4,@diff_ptr
        bl   @update_characters
        dec  @scroll_y
@@ -1433,6 +1434,7 @@ init_level:
 *      Initalize scroll
        bl   @init_scroll
        mov  @scroll_y,@scroll_y_current
+       mov  @scroll_y,@scroll_y_last
 *      Draw initial screen
        mov  @diff_ptr,r4
        bl   @update_char_list
@@ -2298,6 +2300,12 @@ anykey2:
 *********************************************************************
 *
 * Data
+*
+boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
+       data 0
+big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
+       data 0
+**
 *
 char_list:                             ; Pointers to pattern/color addresses for current character set
        bss  128*2                      ; Or -1 if the character is not currently used

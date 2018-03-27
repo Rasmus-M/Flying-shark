@@ -12,7 +12,7 @@ add_sprites:
        mov  @sprite_pos_def(r8),r0
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_sprites_1
+       jeq  add_sprites_1              ; Failed
 *      Init x
        mov  @sprite_pos_x(r8),r0       ; Init x
        ai   r0,x_min
@@ -20,6 +20,7 @@ add_sprites:
        mov  r0,@sprite_x(r1)
 *      Init y
        mov  @sprite_pos_y(r8),r0
+;      dec  r0
        sla  r0,8
        mov  r0,@sprite_y(r1)           ; Init y
 *      Wave
@@ -569,6 +570,13 @@ add_big_plane_sprite_1:
 *
 update_sprites:
        mov  r11,*r10+                  ; Push return address onto the stack
+*      Scroll offset from last
+       mov  @scroll_y_last,r0          ; Get last scroll y
+       s    @scroll_y_current,r0       ; Subtract current scroll y
+       sla  r0,8                       ; Move to MSB
+       mov  r0,@scroll_y_diff
+       mov  @scroll_y_current,@scroll_y_last
+*      Loop
        li   r2,n_sprites
        li   r3,sprites
 update_sprites_1:
@@ -751,7 +759,7 @@ update_bullet_sprite:
 *      Update with path
 update_bullet_sprite_4:
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Pattern
 update_bullet_sprite_6
        mov  @sprite_hw_1(r3),r5
@@ -796,9 +804,16 @@ update_turret_sprite:
        ai   r0,-16                     ; 16 lines y offset
        ci   r0,192                     ; Check for out of screen
        jgt  update_turret_sprite_1     ; Remove if out of screen
+;       mov  @sprite_y(r3),r0
+;       ci   r0,>c000                    ; Check for out of screen
+;       jl   update_turret_sprite_0      ; Move if not out of screen
+;       ci   r0,>ef00                    ; Check for out of screen
+;       jl   update_turret_sprite_1      ; Remove if out of screen
 *      Move
+update_turret_sprite_0:
+;       a    @scroll_y_diff,r0
        sla  r0,8
-       mov  r0,@sprite_y(r3)           ; Set y
+       mov  r0,@sprite_y(r3)             ; Set y
        ci   r0,>f000
        jhe  update_turret_sprite_2
 *      Pattern
@@ -867,7 +882,7 @@ update_enemy_bullet_sprite_1:
        a    @sprite_vx(r3),@sprite_x(r3)
        a    @sprite_vy(r3),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Return
 update_enemy_bullet_sprite_3:
        dect r10                        ; Pop return address off the stack
@@ -903,7 +918,7 @@ update_enemy_plane_sprite_6:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Patterns
 update_enemy_plane_sprite_3:
        mov  @sprite_hw_1(r3),r5
@@ -978,7 +993,7 @@ update_tank_sprite_8:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Pattern
 update_tank_sprite_3:
        mov  @path_pattern(r4),r7       ; Get path pattern
@@ -1088,7 +1103,7 @@ update_power_up_sprite_3
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Blink
        mov  @sprite_hw_1(r3),r1
        mov  @scroll_y,r0
@@ -1121,7 +1136,7 @@ update_smart_bomb_sprite:
        ci   r0,192*256                 ; Check for out of screen
        jhe  update_smart_bomb_sprite_1 ; Remove if out of screen
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
        jmp  update_smart_bomb_sprite_2
 *      Remove
 update_smart_bomb_sprite_1:
@@ -1147,7 +1162,7 @@ update_extra_life_sprite:
        ci   r0,192*256                 ; Check for out of screen
        jhe  update_extra_life_sprite_1 ; Remove if out of screen
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Blink
        mov  @sprite_hw_1(r3),r1
        mov  @scroll_y,r0
@@ -1183,7 +1198,7 @@ update_boss_tank_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Create bullet
 update_boss_tank_sprite_2:
        mov  @sprite_link(r3),r0
@@ -1227,7 +1242,7 @@ update_boat_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Pattern
        c    @sprite_hits_left(r3),@one
        jgt  update_boat_sprite_2
@@ -1286,7 +1301,7 @@ update_big_plane_sprite_3:
        a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
-       bl   @move_with_scroll
+       a    @scroll_y_diff,@sprite_y(r3)
 *      Create bullet
        mov  @sprite_link(r3),r0
        jne  update_big_plane_sprite_2
@@ -1332,23 +1347,6 @@ update_path:
 update_path_1:
        b    *r11
 *// update_path
-
-*********************************************************************************
-*
-* Move with scroll
-*
-* r3: points to sprite
-*
-move_with_scroll:
-       mov  @sprite_scroll_y(r3),r0    ; Get last scroll y
-       s    @scroll_y,r0               ; Subtract current scroll y
-       jeq  move_with_scroll_1         ; Return if no change
-       sla  r0,8                       ; Move to MSB
-       a    r0,@sprite_y(r3)           ; Add to y position
-       mov  @scroll_y,@sprite_scroll_y(r3) ; Record new scroll y
-move_with_scroll_1:
-       b    *r11
-*// move_with_scroll
 
 *********************************************************************************
 *
@@ -2017,7 +2015,7 @@ dealloc_sprite_8:
 
 *********************************************************************************
 *
-* Get angle of player relative to sprite
+* Get angle of player relative to enemy sprite
 *
 * r3: points to sprite
 *
@@ -2029,9 +2027,9 @@ get_angle:
        li   r6,sprite_player
        mov  @sprite_y(r6),r0           ; Player y
        srl  r0,8
-       mov  @sprite_y(r3),r5           ; Turret y
+       mov  @sprite_y(r3),r5           ; Enemy y
        srl  r5,8
-       s    r5,r0                      ; Player y - turret y
+       s    r5,r0                      ; Player y - enemy y
        sra  r0,4                       ; / 16
        ai   r0,12                      ; + 12
        li   r1,19
@@ -2040,7 +2038,7 @@ get_angle:
        srl  r0,8
        mov  @sprite_x(r3),r5           ; Turret x
        srl  r5,8
-       s    r5,r0                      ; Player x - turret x
+       s    r5,r0                      ; Player x - enemy x
        sra  r0,4                       ; / 16
        ai   r0,9                       ; + 9
        a    r0,r1
