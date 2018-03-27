@@ -150,6 +150,16 @@ path_tank_down_wait:
        data 16,>0000,>0080,>1800,>0000
        data 400,>0000,>0000,>1800,>0001
        data -1
+*      Down 32 pixels and wait
+path_tank_down_32_wait:
+       data 64,>0000,>0080,>1800,>0001
+       data 400,>0000,>0000,>1800,>0001
+       data -1
+*      Down 64 pixels and wait
+path_tank_down_64_wait:
+       data 128,>0000,>0080,>1800,>0000
+       data 400,>0000,>0000,>1800,>0001
+       data -1
 *      Right 8 pixels and wait
 path_tank_right_wait:
        data 16,>0080,>0000,>1c00,>0000

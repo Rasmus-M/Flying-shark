@@ -1762,8 +1762,6 @@ boat_hit_1:
        mov  r1,@sprite_path(r3)               ; Init path pointer
        mov  @path_count(r1),@sprite_count(r3) ; Init counter
        mov  @sprite_hw_1(r3),r1
-       li   r0,>0100
-       mov  r0,@hw_sprite_color(r1)
 *      Return
 boat_hit_2:
        dect r10                        ; Pop return address off the stack
