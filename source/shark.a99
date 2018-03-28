@@ -62,7 +62,7 @@ x_min:                                 ; Minimum x position
 x_max:                                 ; Maximum x position
        equ  (map_left+map_width)*8
 n_sprites:                             ; Number of sprites
-       equ  16
+       equ  20
 n_hw_sprites:                          ; Number of hardware sprites
        equ  48
 chzero:                                ; Character code for zero
@@ -338,8 +338,10 @@ max_sprite:                            ; Maximum used sprite number
        equ  angle+2
 max_hw_sprite:                         ; Maximum user hardware sprite number
        equ  max_sprite+2
-rand_no:                               ; Last random number
+sprite_counter:                        ; Sprite loop counter
        equ  max_hw_sprite+2
+rand_no:                               ; Last random number
+       equ  sprite_counter+2
 score_msw:                             ; Low word of score
        equ  rand_no+2
 score_lsw:                             ; High word of score
@@ -1075,8 +1077,6 @@ update_characters_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-direction:
-       data -1
 *// update_characters
 
 *********************************************************************************
@@ -2309,6 +2309,10 @@ boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
        data 0
 big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
        data 0
+alloc_sprite_cnt:                      ; Used by alloc_sprite
+       data 0
+direction:                             ; Scroll direction. Used by update_characters
+       data -1
 **
 *
 char_list:                             ; Pointers to pattern/color addresses for current character set

@@ -566,6 +566,7 @@ update_sprites:
        mov  @scroll_y_current,@scroll_y_last
 *      Loop
        li   r2,n_sprites
+       mov  r2,@sprite_counter
        li   r3,sprites
 update_sprites_1:
        mov  *r3,r1                     ; Get sprite definition
@@ -577,7 +578,7 @@ update_sprites_1:
        bl   *r0
 update_sprites_2:
        ai   r3,sprite_struct_size
-       dec  r2
+       dec  @sprite_counter
        jne  update_sprites_1
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -589,7 +590,6 @@ update_sprites_2:
 *
 * Update player sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_player_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -736,7 +736,6 @@ update_player_sprite_12:
 *
 * Update bullet sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -782,7 +781,6 @@ update_bullet_sprite_5:
 *
 * Update turret sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -833,7 +831,6 @@ update_turret_sprite_2:
 *
 * Update enemy bullet sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -874,7 +871,6 @@ update_enemy_bullet_sprite_3:
 *
 * Update enemy plane sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_enemy_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -937,7 +933,6 @@ update_enemy_plane_sprite_2:
 *
 * Update tank sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -951,7 +946,6 @@ update_tank_sprite:
        mov  @sprite_mask(r3),r0
        jne  update_tank_sprite_7
 *      Add mask sprite
-       mov  r2,*r10+
        mov  r3,*r10+
        mov  r4,*r10+
        mov  r3,r1
@@ -960,8 +954,6 @@ update_tank_sprite:
        mov  *r10,r4
        dect r10
        mov  *r10,r3
-       dect r10
-       mov  *r10,r2
 update_tank_sprite_7:
        mov  @sprite_y(r3),r0
        ci   r0,>c000
@@ -1023,7 +1015,6 @@ update_tank_sprite_2:
 *
 * Update mask sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_mask_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1064,7 +1055,6 @@ update_mask_sprite_2:
 *
 * Update power-up sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_power_up_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1108,7 +1098,6 @@ update_power_up_sprite_2:
 *
 * Update smart bomb sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_smart_bomb_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1134,7 +1123,6 @@ update_smart_bomb_sprite_2:
 *
 * Update extra life sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_extra_life_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1167,7 +1155,6 @@ update_extra_life_sprite_2:
 *
 * Update boss tank sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_boss_tank_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1205,7 +1192,6 @@ update_boss_tank_sprite_4:
 *
 * Update boat sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_boat_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1264,7 +1250,6 @@ update_boat_sprite_5:
 *
 * Update big plane sprite
 * r3: points to sprite
-* Cannot modify r2
 *
 update_big_plane_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1902,8 +1887,6 @@ alloc_sprite_3:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-alloc_sprite_cnt:
-       data 0
 *// alloc_sprite
 
 *********************************************************************************
