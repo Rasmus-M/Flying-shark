@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  1
+       equ  0
 
 **
 * Constants

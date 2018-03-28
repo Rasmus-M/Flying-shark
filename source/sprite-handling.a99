@@ -295,11 +295,10 @@ add_triple_bullet_sprite_1:
 * r3: parent sprite
 * @angle: angle of player relative to sprite
 *
-* Modifies r0-r1, r4-r7
+* Modifies r0-r2, r4-r7
 *
 add_enemy_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        li   r0,sprite_def_enemy_bullet
        bl   @alloc_sprite
@@ -319,10 +318,8 @@ add_enemy_bullet_sprite:
        mov  @unit_vectors+2(r2),r0
        sla  r0,2
        mov  r0,@sprite_vy(r1)
-add_enemy_bullet_1:
-       dect r10                        ; Pop r2
-       mov  *r10,r2
 *      Return
+add_enemy_bullet_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -338,14 +335,11 @@ add_enemy_bullet_1:
 *
 add_power_up_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        li   r0,sprite_def_power_up
        bl   @alloc_sprite
        dect r10                        ; Pop r3
        mov  *r10,r3
-       dect r10                        ; Pop r2
-       mov  *r10,r2
        mov  r1,r1
        jeq  add_power_up_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
@@ -354,8 +348,8 @@ add_power_up_sprite:
        li   r4,path_small_circle
        mov  r4,@sprite_path(r1)               ; Init path pointer
        mov  @path_count(r4),@sprite_count(r1) ; Init counter
-add_power_up_sprite_1:
 *      Return
+add_power_up_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -371,20 +365,17 @@ add_power_up_sprite_1:
 *
 add_smart_bomb_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        li   r0,sprite_def_smart_bomb
        bl   @alloc_sprite
        dect r10                        ; Pop r3
        mov  *r10,r3
-       dect r10                        ; Pop r2
-       mov  *r10,r2
        mov  r1,r1
        jeq  add_smart_bomb_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-add_smart_bomb_sprite_1:
 *      Return
+add_smart_bomb_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -400,20 +391,17 @@ add_smart_bomb_sprite_1:
 *
 add_extra_life_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        li   r0,sprite_def_extra_life
        bl   @alloc_sprite
        dect r10                        ; Pop r3
        mov  *r10,r3
-       dect r10                        ; Pop r2
-       mov  *r10,r2
        mov  r1,r1
        jeq  add_extra_life_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-add_extra_life_sprite_1:
 *      Return
+add_extra_life_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -1322,6 +1310,7 @@ sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @max_sprite,r2
        inc  r2
+       mov  r2,@sprite_counter
        li   r3,sprites
 sprite_collisions_1:
        mov  *r3,r1                     ; Get sprite definition
@@ -1333,7 +1322,7 @@ sprite_collisions_1:
        bl   *r0
 sprite_collisions_2:
        ai   r3,sprite_struct_size
-       dec  r2
+       dec  @sprite_counter
        jne  sprite_collisions_1
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -1346,7 +1335,6 @@ sprite_collisions_2:
 * Player sprite collisions
 * Collides with enemies and enemy bullets (deadly), and pickup items
 * r3 points to player sprite
-* Cannot modify r2-r3
 *
 player_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1449,7 +1437,6 @@ player_sprite_collisions_3:
 * Enemy sprite collisions
 * Collides with bullets
 * r3 points to enemy sprite
-* Cannot modify r2-r3
 *
 enemy_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1504,7 +1491,6 @@ enemy_sprite_collisions_3:
 * This routine handles collisions with larger than 16x16 sprites
 * Collides with bullets
 * r3 points to boss sprite
-* Cannot modify r2-r3
 *
 boss_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1567,7 +1553,6 @@ boss_sprite_collisions_3:
 * Turret hit
 * r3 points to turret sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 turret_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1579,14 +1564,11 @@ turret_hit:
        ci   r0,2
        jne  turret_hit_2
 *      Allocate a new hardware sprite when patially hit
-       mov  r2,*r10+                   ; Push r2
        mov  r3,*r10+                   ; Push r3
        mov  r3,r1
        bl   @alloc_hw_sprite
        dect r10                        ; Pop r3
        mov  *r10,r3
-       dect r10                        ; Pop r3
-       mov  *r10,r2
        mov  r0,r1
        jeq  turret_hit_2
        mov  r1,@sprite_hw_2(r3)
@@ -1613,7 +1595,6 @@ turret_hit_2:
 * Enemy plane hit
 * r3 points to enemy plane sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 enemy_plane_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1640,7 +1621,6 @@ enemy_plane_hit:
 * Tank hit
 * r3 points to tank sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 tank_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1675,7 +1655,6 @@ tank_hit_2:
 * Boss tank hit
 * r3 points to boss tank sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 boss_tank_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1703,7 +1682,6 @@ boss_tank_hit_1:
 * Boat hit
 * r3 points to tank sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 boat_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1739,7 +1717,6 @@ boat_hit_2:
 * Big plane hit
 * r3 points to boss tank sprite
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 big_plane_hit:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1765,7 +1742,6 @@ big_plane_hit_1:
 * Wave handling
 *
 * r3 points to sprite hit
-* Cannot modify r2-r3
 *
 handle_wave:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -1801,7 +1777,6 @@ handle_wave_1:
 *
 * r3 points to sprite hit
 * r5 points to bullet sprite
-* Cannot modify r2-r3
 *
 explode_bullet:
        mov  r11,*r10+                  ; Push return address onto the stack
