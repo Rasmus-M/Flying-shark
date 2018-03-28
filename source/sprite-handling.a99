@@ -20,13 +20,11 @@ add_sprites:
        mov  r0,@sprite_x(r1)
 *      Init y
        mov  @sprite_pos_y(r8),r0
-;      dec  r0
+       dec  r0                         ; Adjust for screen coordinate
        sla  r0,8
        mov  r0,@sprite_y(r1)           ; Init y
 *      Wave
        mov  @sprite_pos_wave(r8),@sprite_wave(r1)
-*      Record scroll position
-       mov  @scroll_y_current,@sprite_scroll_y(r1)
 *      Init path
        mov  @sprite_pos_path(r8),r2
        jeq  add_sprites_2
@@ -139,11 +137,8 @@ add_mask_sprite:
 *      Set x position in border
        li   r0,(x_min-16)*256
        mov  r0,@sprite_x(r1)
-*      Set scroll
-       mov  @sprite_y(r8),r0           ; Get parent y
-       srl  r0,8
-       a    @sprite_scroll_y(r8),r0    ; Add parent scroll y
-       mov  r0,@sprite_scroll_y(r1)    ; Save as mask scroll y
+*      Set y position same as parent
+       mov  @sprite_y(r3),@sprite_y(r1)
 *      Priority
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)    ; Highest priority
@@ -324,7 +319,6 @@ add_enemy_bullet_sprite:
        mov  @unit_vectors+2(r2),r0
        sla  r0,2
        mov  r0,@sprite_vy(r1)
-       mov  @scroll_y,@sprite_scroll_y(r1)
 add_enemy_bullet_1:
        dect r10                        ; Pop r2
        mov  *r10,r2
@@ -356,8 +350,6 @@ add_power_up_sprite:
        jeq  add_power_up_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-*      Record scroll position
-       mov  @scroll_y_current,@sprite_scroll_y(r1)
 *      Path
        li   r4,path_small_circle
        mov  r4,@sprite_path(r1)               ; Init path pointer
@@ -391,8 +383,6 @@ add_smart_bomb_sprite:
        jeq  add_smart_bomb_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-*      Record scroll position
-       mov  @scroll_y_current,@sprite_scroll_y(r1)
 add_smart_bomb_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -422,8 +412,6 @@ add_extra_life_sprite:
        jeq  add_extra_life_sprite_1
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
-*      Record scroll position
-       mov  @scroll_y_current,@sprite_scroll_y(r1)
 add_extra_life_sprite_1:
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -770,7 +758,7 @@ update_bullet_sprite_6
 *      Update without path
 update_bullet_sprite_3:
        mov  @sprite_y(r3),r0
-       ci   r0,>f000
+       ci   r0,>e000
        jh   update_bullet_sprite_1
        ci   r0,>c000
        jl   update_bullet_sprite_1
@@ -798,21 +786,15 @@ update_bullet_sprite_5:
 *
 update_turret_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Move with scroll and check bounds
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y_current,r0       ; Move with scroll
-       ai   r0,-16                     ; 16 lines y offset
-       ci   r0,192                     ; Check for out of screen
-       jgt  update_turret_sprite_1     ; Remove if out of screen
-;       mov  @sprite_y(r3),r0
-;       ci   r0,>c000                    ; Check for out of screen
-;       jl   update_turret_sprite_0      ; Move if not out of screen
-;       ci   r0,>ef00                    ; Check for out of screen
-;       jl   update_turret_sprite_1      ; Remove if out of screen
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000                    ; Check for out of screen
+       jl   update_turret_sprite_0      ; Move if not out of screen
+       ci   r0,>e000                    ; Check for out of screen
+       jl   update_turret_sprite_1      ; Remove if out of screen
 *      Move
 update_turret_sprite_0:
-;       a    @scroll_y_diff,r0
-       sla  r0,8
+       a    @scroll_y_diff,r0
        mov  r0,@sprite_y(r3)             ; Set y
 *      Pattern
        mov  @sprite_hits_left(r3),r0
@@ -862,7 +844,7 @@ update_enemy_bullet_sprite:
        ci   r0,(x_max-8)*256
        jhe  update_enemy_bullet_sprite_2
        mov  @sprite_y(r3),r0
-       ci   r0,>f000
+       ci   r0,>e000
        jh   update_enemy_bullet_sprite_1
        ci   r0,>c000
        jl   update_enemy_bullet_sprite_1
@@ -964,8 +946,8 @@ update_tank_sprite:
        jlt  update_tank_sprite_1       ; Path ended
 *      Check bounds
        mov  @sprite_x(r3),r0
-       ci   r0,(x_min-2)*256
-       jne  update_tank_sprite_7
+       ci   r0,x_min*256
+       jhe  update_tank_sprite_7
        mov  @sprite_mask(r3),r0
        jne  update_tank_sprite_7
 *      Add mask sprite
@@ -984,7 +966,7 @@ update_tank_sprite_7:
        mov  @sprite_y(r3),r0
        ci   r0,>c000
        jl  update_tank_sprite_8
-       ci   r0,>f000
+       ci   r0,>e000
        jl  update_tank_sprite_1
 *      Move
 update_tank_sprite_8:
@@ -1053,14 +1035,15 @@ update_mask_sprite:
        jh   update_mask_sprite_1
        ci   r0,(x_min-16)*256
        jl   update_mask_sprite_1
-*      Move with scroll
-       mov  @sprite_scroll_y(r3),r0
-       s    @scroll_y_current,r0       ; Move with scroll
-       ci   r0,192                     ; Check for out of screen
-       jgt  update_mask_sprite_1       ; Remove if out of screen
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000                    ; Check for out of screen
+       jl   update_mask_sprite_0        ; Move if not out of screen
+       ci   r0,>e000                    ; Check for out of screen
+       jl   update_mask_sprite_1        ; Remove if out of screen
 *      Move
-       sla  r0,8
-       mov  r0,@sprite_y(r3)           ; Set y
+update_mask_sprite_0:
+       mov  @sprite_y(r1),@sprite_y(r3)
        jmp  update_mask_sprite_2
 *      Remove
 update_mask_sprite_1:
@@ -1233,7 +1216,7 @@ update_boat_sprite:
 ;       mov  @sprite_y(r3),r0
 ;       ci   r0,>c000
 ;       jl  update_boat_sprite_1
-;       ci   r0,>f000
+;       ci   r0,>e000
 ;       jl  update_boat_sprite_4        ; Outside screen - remove
 *      Move
 update_boat_sprite_1:
@@ -1292,7 +1275,7 @@ update_big_plane_sprite:
 ;       mov  @sprite_y(r3),r0
 ;       ci   r0,>c000
 ;       jl  update_big_plane_sprite_3
-;       ci   r0,>f000
+;       ci   r0,>e000
 ;       jl  update_big_plane_sprite_1
 *      Move
 update_big_plane_sprite_3:
@@ -1840,7 +1823,6 @@ explode_bullet:
        li   r1,path_explosion
        mov  r1,@sprite_path(r5)
        mov  @path_count(r1),@sprite_count(r5) ; Init counter
-       mov  @scroll_y,@sprite_scroll_y(r5)
        clr  @sprite_hits_left(r5)
        mov  @sprite_hw_1(r5),r5
        li   r1,>0a00

@@ -62,7 +62,7 @@ x_min:                                 ; Minimum x position
 x_max:                                 ; Maximum x position
        equ  (map_left+map_width)*8
 n_sprites:                             ; Number of sprites
-       equ  20
+       equ  16
 n_hw_sprites:                          ; Number of hardware sprites
        equ  48
 chzero:                                ; Character code for zero
@@ -181,24 +181,22 @@ sprite_hw_7:                           ; Hardware sprite 7
        equ  22
 sprite_hw_8:                           ; Hardware sprite 8
        equ  24
-sprite_scroll_y:                       ; Reference scroll position
-       equ  26
 sprite_link:                           ; Linked sprite
-       equ  28
+       equ  26
 sprite_mask:                           ; Mask sprite
-       equ  30
+       equ  28
 sprite_count:                          ; Counter
-       equ  32
+       equ  30
 sprite_path:                           ; Path
-       equ  34
+       equ  32
 sprite_hits_left:                      ; Hits left before sprite is destroyed
-       equ  36
+       equ  34
 sprite_fire_delay:                     ; Count down until sprite can fire next
-       equ  38
+       equ  36
 sprite_wave:                           ; Wave number
-       equ  40
+       equ  38
 sprite_struct_size:                    ; Structure size
-       equ  42
+       equ  40
 
 * Hardware sprite structure
 hw_sprite:                             ; Pointer to sprite structure
@@ -384,13 +382,11 @@ next_level:
        bl   @init_level                ; Initialize level
 restart:
        bl   @display_get_ready
-
-       mov  @level,r0
-       jne  main_loop
-       li   r0,400
-       mov  r0,@scroll_y_current
-       bl   @scroll_to_position
-
+;      mov  @level,r0
+;      jne  main_loop
+;      li   r0,400
+;      mov  r0,@scroll_y_current
+;      bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
