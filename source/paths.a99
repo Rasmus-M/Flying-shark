@@ -160,9 +160,9 @@ path_tank_down_wait:
        data 16,>0000,>0080,>1800,>0000
        data 400,>0000,>0000,>1800,>0001
        data -1
-*      Down 32 pixels and wait
-path_tank_down_32_wait:
-       data 64,>0000,>0080,>1800,>0001
+*      Down 40 pixels and wait
+path_tank_down_40_wait:
+       data 80,>0000,>0080,>1800,>0001
        data 400,>0000,>0000,>1800,>0001
        data -1
 *      Down 64 pixels and wait
@@ -248,7 +248,7 @@ path_boat_long_down:
        data -1
 *      Boat from bottom moving up
 path_boat_long_up:
-       data 340,>0000,->0100,>1800,>0001
+       data 400,>0000,->0100,>1800,>0001
        data -1
 *      Boat when hit
 path_boat_hit:

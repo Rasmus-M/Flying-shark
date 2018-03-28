@@ -814,8 +814,6 @@ update_turret_sprite_0:
 ;       a    @scroll_y_diff,r0
        sla  r0,8
        mov  r0,@sprite_y(r3)             ; Set y
-       ci   r0,>f000
-       jhe  update_turret_sprite_2
 *      Pattern
        mov  @sprite_hits_left(r3),r0
        ci   r0,3
