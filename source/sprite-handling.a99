@@ -6,13 +6,13 @@ add_sprites:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @sprite_pos_ptr,r8
        mov  *r8,r0
-       jlt  add_sprites_1
+       jlt  add_sprites_1              ; Finished level
        s    @scroll_y_current,r0
-       jlt  add_sprites_1
+       jlt  add_sprites_1              ; Not reached next spite yet
        mov  @sprite_pos_def(r8),r0
        bl   @alloc_sprite
        mov  r1,r1
-       jeq  add_sprites_1              ; Failed
+       jeq  add_sprites_3              ; Failed to allocate - drop sprite
 *      Init x
        mov  @sprite_pos_x(r8),r0       ; Init x
        ai   r0,x_min
@@ -2025,15 +2025,16 @@ dealloc_sprite_8:
 *
 get_angle:
        mov  @sprite_y(r3),r5           ; Enemy y
-       jgt  get_angle_1
-       li   r1,18
-       mov  r1,@angle
-       b    *r11
+       ci   r5,>e000
+       jh   get_angle_1
+       srl  r5,8                       ; Handle positive
+       jmp  get_angle_2
 get_angle_1:
+       sra  r5,8                       ; Handle negative
+get_angle_2:
        li   r6,sprite_player
        mov  @sprite_y(r6),r0           ; Player y
        srl  r0,8
-       srl  r5,8
        s    r5,r0                      ; Player y - enemy y
        sra  r0,4                       ; / 16
        ai   r0,12                      ; + 12
