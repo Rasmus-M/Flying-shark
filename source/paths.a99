@@ -127,6 +127,11 @@ path_tank_left_long:
        data 80,>0100,>0000,>1c00,>0000
        data 250,>0000,>0000,>1c00,>0001
        data -1
+*      From right and stopping (very short)
+path_tank_right_very_short:
+       data 16,->0100,>0000,>1c00,>0000
+       data 250,>0000,>0000,>1c00,>0001
+       data -1
 *      From right and stopping (short)
 path_tank_right_short:
        data 48,->0100,>0000,>1c00,>0000
@@ -202,6 +207,30 @@ path_tank_right_slow:
 path_tank_left_slow:
        data 192,>0080,>0000,>1c00,>0001
        data 250,>0000,>0000,>1c00,>0001
+       data -1
+*      Up, left, and stopping (short)
+path_tank_up_left_short
+       data 24,>0000,->00c0,>1800,>0000
+       data 24,->00c0,>0000,>1c00,>0001
+       data 400,>0000,>0000,>1c00,>0001
+       data -1
+*      Up, left, and stopping (medium)
+path_tank_up_left_medium
+       data 48,>0000,->00c0,>1800,>0000
+       data 48,->00c0,>0000,>1c00,>0001
+       data 400,>0000,>0000,>1c00,>0001
+       data -1
+*      Up, left, and stopping (medium)
+path_tank_up_left_long
+       data 72,>0000,->00c0,>1800,>0000
+       data 72,->00c0,>0000,>1c00,>0001
+       data 400,>0000,>0000,>1c00,>0001
+       data -1
+*      Down, left, and stopping (medium)
+path_tank_down_left_medium
+       data 48,>0000,>00c0,>1800,>0000
+       data 48,->00c0,>0000,>1c00,>0001
+       data 400,>0000,>0000,>1c00,>0001
        data -1
 *      Tank not moving
 path_tank_steady:

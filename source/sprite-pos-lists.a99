@@ -159,11 +159,11 @@ sprite_pos_list_1:
 *
 sprite_pos_list_2:
 *      5 planes from top
-       data 3312,48,-16,sprite_def_enemy_plane,path_plane_long_down,-1
-       data 3308,64,-16,sprite_def_enemy_plane,path_plane_long_down,-1
-       data 3304,32,-16,sprite_def_enemy_plane,path_plane_long_down,-1
-       data 3300,80,-16,sprite_def_enemy_plane,path_plane_long_down,-1
-       data 3296,16,-16,sprite_def_enemy_plane,path_plane_long_down,-1
+       data 3312,48,-16,sprite_def_enemy_plane,path_plane_long_down,6
+       data 3308,64,-16,sprite_def_enemy_plane,path_plane_long_down,6
+       data 3304,32,-16,sprite_def_enemy_plane,path_plane_long_down,6
+       data 3300,80,-16,sprite_def_enemy_plane,path_plane_long_down,6
+       data 3296,16,-16,sprite_def_enemy_plane,path_plane_long_down,6
 *      5 planes from bottom
        data 3232,80,192,sprite_def_enemy_plane,path_plane_long_up,-1
        data 3228,96,192,sprite_def_enemy_plane,path_plane_long_up,-1
@@ -180,10 +180,10 @@ sprite_pos_list_2:
 *      Big plane from top
        data 2976,112,-16,sprite_def_big_plane,path_big_plane_long_down,-1
 *      4 planes snake
-       data 2928,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
-       data 2920,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
-       data 2912,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
-       data 2904,72,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 2928,72,-16,sprite_def_enemy_plane,path_plane_snake_down,7
+       data 2920,72,-16,sprite_def_enemy_plane,path_plane_snake_down,7
+       data 2912,72,-16,sprite_def_enemy_plane,path_plane_snake_down,7
+       data 2904,72,-16,sprite_def_enemy_plane,path_plane_snake_down,7
 *      2 boats from top
        data 2896,16,-16,sprite_def_boat,path_boat_long_down,-1
        data 2880,96,-16,sprite_def_boat,path_boat_long_down,-1
@@ -198,9 +198,9 @@ sprite_pos_list_2:
        data 2792,80,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
        data 2784,80,-16,sprite_def_enemy_plane,path_plane_dive_right_right_long,-1
 *      3 planes from left, circle
-       data 2768,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
-       data 2760,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
-       data 2752,-16,128,sprite_def_enemy_plane,path_plane_circle_left_bottom,-1
+       data 2768,-16,112,sprite_def_enemy_plane,path_plane_circle_left_bottom,8
+       data 2760,-16,120,sprite_def_enemy_plane,path_plane_circle_left_bottom,8
+       data 2752,-16,128,sprite_def_enemy_plane,path_plane_circle_left_bottom,8
 *      Ship with 4 turrets
        data 2736,16,-16,sprite_def_turret,0,-1
        data 2720,16,-16,sprite_def_turret,0,-1
@@ -210,7 +210,7 @@ sprite_pos_list_2:
        data 2608,16,192,sprite_def_big_plane,path_big_plane_long_up,-1
        data 2488,88,192,sprite_def_big_plane,path_big_plane_long_up,-1
 *      Ship with 4 turrets
-       data 2480,96,-16,sprite_def_turret,0,-1
+       data 2480,96,-16,sprite_def_turret,0,9
        data 2464,96,-16,sprite_def_turret,0,-1
        data 2400,96,-16,sprite_def_turret,0,-1
        data 2384,96,-16,sprite_def_turret,0,-1
@@ -247,9 +247,9 @@ sprite_pos_list_2:
        data 1728,112,-16,sprite_def_boat,path_boat_long_down,-1
        data 1712,16,-16,sprite_def_boat,path_boat_long_down,-1
 *      3 planes from left, circle, leave top
-       data 1664,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
-       data 1648,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
-       data 1632,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
+       data 1664,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,10
+       data 1648,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,10
+       data 1632,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,10
 *      Ship with 8 turrets
        data 1616,32,-16,sprite_def_turret,0,-1
        data 1616,96,-16,sprite_def_turret,0,-1
@@ -273,17 +273,53 @@ sprite_pos_list_2:
        data 1376,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_short,-1
        data 1368,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_short,-1
 *      4 planes from left, circle, leave top
-       data 1296,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
-       data 1288,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
+       data 1296,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,11
+       data 1288,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,11
 *      Plane from right
        data 1284,128,-16,sprite_def_enemy_plane,path_plane_dive_right_right_short,-1
 *      4 planes continued
-       data 1280,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
-       data 1272,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,-1
+       data 1280,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,11
+       data 1272,-16,16,sprite_def_enemy_plane,path_plane_circle_left_top,11
 *      Plane from left
        data 1248,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_long,-1
 *      Plane from right
        data 1232,128,-16,sprite_def_enemy_plane,path_plane_dive_right_left_long,-1
+*      5 planes from top
+       data 1152,48,-16,sprite_def_enemy_plane,path_plane_long_down,12
+       data 1148,64,-16,sprite_def_enemy_plane,path_plane_long_down,12
+       data 1144,32,-16,sprite_def_enemy_plane,path_plane_long_down,12
+       data 1140,80,-16,sprite_def_enemy_plane,path_plane_long_down,12
+       data 1136,16,-16,sprite_def_enemy_plane,path_plane_long_down,12
+*      Tank from right
+       data 1088,143,32,sprite_def_tank,path_tank_right_long,-1
+*      Tank from left
+       data 1072,-16,32,sprite_def_tank,path_tank_left_short,-1
+*      2 Tanks from right
+       data 1056,143,64,sprite_def_tank,path_tank_right_short,-1
+       data 1040,143,64,sprite_def_tank,path_tank_right_very_short,-1
+*      Boss
+       data 912,16,56,sprite_def_boss_tank,path_boss_tank,-1
+*      3 tanks moving up
+       data 736,96,32,sprite_def_tank,path_tank_up_left_short,-1
+       data 720,96,48,sprite_def_tank,path_tank_up_left_medium,-1
+       data 704,96,64,sprite_def_tank,path_tank_up_left_long,-1
+*      4 tanks from top
+       data 544,80,-16,sprite_def_tank,path_tank_steady,13
+       data 512,80,-16,sprite_def_tank,path_tank_steady,-1
+       data 496,48,-16,sprite_def_tank,path_tank_steady,-1
+       data 480,16,-16,sprite_def_tank,path_tank_steady,-1
+*      Big plane from bottom
+       data 432,16,192,sprite_def_big_plane,path_big_plane_long_up,-1
+*      Tank from top
+       data 416,80,-16,sprite_def_tank,path_tank_steady,-1
+*      Tank from top turn left
+       data 400,128,-16,sprite_def_tank,path_tank_down_left_medium,-1
+*      Tank from top
+       data 368,128,16,sprite_def_tank,path_tank_down_long,-1
+*      Tanks moving up
+       data 256,96,48,sprite_def_tank,path_tank_up_left_short,-1
+       data 240,96,64,sprite_def_tank,path_tank_up_left_medium,-1
+       data 224,96,80,sprite_def_tank,path_tank_up_left_long,-1
 *      End
        data -1
 **
@@ -333,11 +369,22 @@ sprite_pos_list_4:
 * enemies left, enemies total
 *
 waves:
+*      Level 1
        data 3,3,wave_bonus_power_up,0
        data 4,4,wave_bonus_power_up,0
        data 1,1,wave_bonus_smart_bomb,0
        data 2,2,wave_bonus_life,0
        data 2,2,wave_bonus_smart_bomb,0
        data 2,2,wave_bonus_power_up,0
+*      Level 2
+       data 5,5,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 3,3,wave_bonus_life,0
+       data 1,1,wave_bonus_smart_bomb,0
+       data 3,3,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 5,5,wave_bonus_power_up,0
+       data 1,1,wave_bonus_smart_bomb,0
+*      End
        data -1,-1
 

@@ -305,7 +305,7 @@ add_enemy_bullet_sprite:
        dect r10                        ; Pop r3
        mov  *r10,r3
        mov  r1,@sprite_link(r3)        ; Link bullet to parent sprite
-       jeq  add_enemy_bullet_1         ; If bullet could not be created
+       jeq  add_enemy_bullet_sprite_1  ; If bullet could not be created
        mov  r3,@sprite_link(r1)        ; Link parent sprite to bullet
        mov  @sprite_x(r3),@sprite_x(r1)
        mov  @sprite_y(r3),@sprite_y(r1)
@@ -318,8 +318,9 @@ add_enemy_bullet_sprite:
        mov  @unit_vectors+2(r2),r0
        sla  r0,2
        mov  r0,@sprite_vy(r1)
+       jlt  add_enemy_bullet_sprite_1
 *      Return
-add_enemy_bullet_1:
+add_enemy_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -348,6 +349,19 @@ add_power_up_sprite:
        li   r4,path_small_circle
        mov  r4,@sprite_path(r1)               ; Init path pointer
        mov  @path_count(r4),@sprite_count(r1) ; Init counter
+*      Pattern
+       mov  @power_ups,r0
+       ci   r0,power_up_triple_shot
+       jeq  !
+       li   r1,SPR55
+       jmp  !!
+!      li   r1,SPR83
+!      li   r0,55*32+sprptb
+       li   r2,32
+       mov  r3,*r10+                   ; Push r3
+       bl   @vdpcp
+       dect r10                        ; Pop r3
+       mov  *r10,r3
 *      Return
 add_power_up_sprite_1:
        dect r10                        ; Pop return address off the stack
@@ -802,10 +816,6 @@ update_turret_sprite_0:
        jmp  update_turret_sprite_2
 *      Remove
 update_turret_sprite_1:
-       mov  @sprite_link(r3),r1        ; Get bullet linked to turret
-       jeq  update_turret_sprite_3     ; Skip if none
-       clr  @sprite_link(r1)           ; Unlink bullet from turret
-update_turret_sprite_3:
        mov  r3,r1
        bl   @dealloc_sprite            ; Deallocate turret
 update_turret_sprite_2:
@@ -1157,13 +1167,15 @@ update_boss_tank_sprite_1:
        a    @scroll_y_diff,@sprite_y(r3)
 *      Create bullet
 update_boss_tank_sprite_2:
-       mov  @sprite_link(r3),r0
-       jne  update_boss_tank_sprite_4
        dec  @sprite_fire_delay(r3)
        jne  update_boss_tank_sprite_4
        mov  @sprite_def_boss_tank+sprite_def_fire_rate,@sprite_fire_delay(r3)
        bl   @get_angle
+       li   r0,>1800
+       a    r0,@sprite_y(r3)           ; Adjust y position of bullet
        bl   @add_enemy_bullet_sprite
+       li   r0,>1800
+       s    r0,@sprite_y(r3)           ; Restore y
        jmp  update_boss_tank_sprite_4
 *      Remove
 update_boss_tank_sprite_3:
@@ -1579,6 +1591,9 @@ turret_hit:
        mov  r0,@hw_sprite_color(r1)
        jmp  turret_hit_2
 turret_hit_1:
+*      Wave
+       bl   @handle_wave
+*      Remove
        mov  r3,r1
        bl   @dealloc_sprite
        li   r0,175
@@ -1907,16 +1922,23 @@ alloc_hw_sprite_3:
 *
 * r1: Address of sprite
 *
-* Modifies r0-r1
+* Modifies r0-r2
 *
 dealloc_sprite:
        clr  *r1                        ; Clear reference to sprite definition
+*      Clean up links
+       mov  @sprite_link(r1),r2        ; Get linked sprite (bullet)
+       jeq  dealloc_sprite_0           ; Skip if none
+       clr  @sprite_link(r1)           ; Clear link
+       clr  @sprite_link(r2)           ; Clear back link
+*      Deallocate hardware sprites
+dealloc_sprite_0:
        li   r0,8
        ai   r1,sprite_hw_1
 dealloc_sprite_1:
-       mov  *r1,r15                    ; Get hardware sprite
+       mov  *r1,r2                     ; Get hardware sprite
        jeq  dealloc_sprite_3           ; Skip if not set
-       clr  *r15                       ; Clear back reference to sprite
+       clr  *r2                        ; Clear back reference to sprite
        clr  *r1                        ; Clear reference to hardware sprite
 dealloc_sprite_2:
        inct r1                         ; Next hardware sprite

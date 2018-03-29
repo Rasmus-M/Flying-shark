@@ -386,7 +386,7 @@ restart:
        bl   @display_get_ready
 ;      mov  @level,r0
 ;      jne  main_loop
-;      li   r0,400
+;      li   r0,1000
 ;      mov  r0,@scroll_y_current
 ;      bl   @scroll_to_position
 main_loop:
@@ -1563,7 +1563,7 @@ display_game_over:
        li   r1,txt_game_over
        li   r2,9
        bl   @display_text
-       li   r2,120
+       li   r2,180
        bl   @wait_frames
 *      Return
        dect r10                        ; Pop return address off the stack

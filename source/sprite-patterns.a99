@@ -351,5 +351,9 @@ SPR82  DATA >0E11,>2020,>2027,>2F4C    ; Color 1
        DATA >4840,>282B,>2720,>100F    ;
        DATA >7088,>0404,>04E4,>F432    ;
        DATA >1202,>14D4,>E404,>08F0    ;
-
+* 1000 bonus
+SPR83  DATA >7FC2,>9B3B,>7B30,>AEAA    ; Color 10
+       DATA >AAAA,>AE30,>7E00,>FF7F    ;
+       DATA >FEA3,>FDFD,>FF01,>EEAA    ;
+       DATA >AAAA,>EE01,>FFFD,>A3FE    ;
 

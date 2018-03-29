@@ -140,7 +140,7 @@ sprite_def_boss_tank:
        data >0b00                      ; Color
        data 32                         ; Hits left
        data 0                          ; Hit action
-       data 1                          ; Fire rate
+       data 16                         ; Fire rate
 *      Boat
 sprite_def_boat:
        data sprite_type_boat           ; Type
