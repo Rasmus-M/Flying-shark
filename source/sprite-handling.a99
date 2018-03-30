@@ -641,6 +641,14 @@ update_player_sprite_8:
        c    @scroll_y,@landing_start
        jgt  update_player_sprite_9
 *      Landing
+       jlt  update_player_sprite_22
+*      Landing music
+       li   r0,landing_music_bank
+       mov  r0,@cart_music_bank
+       li   r1,cart_music_base
+       bl   @init_music
+*      Movement
+update_player_sprite_22:
        clr  @user_input_enabled
        mov  @sprite_x(r3),r0
        ci   r0,(x_min+48)*256

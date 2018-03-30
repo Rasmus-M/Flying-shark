@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  0
+       equ  1
 
 **
 * Constants
@@ -34,11 +34,13 @@ player_speed:
 title_bank:
        equ  >6008
 levels_base_bank:
-       equ  >600C
+       equ  >600c
 title_music_bank:
        equ  >606c
+landing_music_bank:
+       equ  >606e
 cart_base:
-       equ  >603C
+       equ  >603c
 cart_music_base:
        equ  >6400
 scr_width:                             ; Width of screen in characters
@@ -384,11 +386,11 @@ next_level:
        bl   @init_level                ; Initialize level
 restart:
        bl   @display_get_ready
-;      mov  @level,r0
-;      jne  main_loop
-;      li   r0,1000
-;      mov  r0,@scroll_y_current
-;      bl   @scroll_to_position
+      mov  @level,r0
+      jne  main_loop
+      li   r0,400
+      mov  r0,@scroll_y_current
+      bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -424,6 +426,14 @@ main_delay:
        dec  @scroll_y                  ; Change scroll position for net frame
        jne  main_loop                  ; Loop if not at top
 *      Next level
+       li   r3,16
+main_next:
+       li   r2,624/16
+       bl   @wait_frames
+       li   r0,250
+       bl   @add_score
+       dec  r3
+       jne  main_next
        inc  @level                     ; Increase level
        li   r0,>fffc                   ; Mask
        szc  r0,@level                  ; Level mod 4
@@ -793,6 +803,8 @@ bomb_colors:
 *
 * r0 contains the score to add
 *
+* Modifies r0-r1,r4
+*
 add_score:
        mov  r11,*r10+                  ; Push return address onto the stack
        a    r0,@score_lsw
@@ -809,6 +821,8 @@ add_score_1:
 *********************************************************************
 *
 * Display score
+*
+* Modifies r0-r1,r4
 *
 display_score:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -2056,11 +2070,7 @@ play_sound:
        mov  r0,@play_sound_1+2
        mov  @cart_music_bank,r0
        seto *r0
-       .ifeq  sound_30hz,1
-       bl   @stplaysfx30
-       .else
        bl   @stplaysfx
-       .endif
 play_sound_1:
        lwpi 0
        mov  @sndws+14,r0               ; Check if music is done
@@ -2094,11 +2104,7 @@ init_music:
        seto *r0
        mov  @music,r1
        clr  r2
-       .ifeq  sound_30hz,1
-       bl   @stinitsfx30
-       .else
        bl   @stinitsfx
-       .endif
        seto @loop_music                ; Set music to loop
 init_music_1:
        lwpi 0
@@ -2124,11 +2130,7 @@ init_sfx:
        lwpi callwp
        clr  r2
        li   r3,1
-       .ifeq  sound_30hz,1
-       bl   @sfxinitsfx30
-       .else
        bl   @sfxinitsfx
-       .endif
 init_sfx_1:
        lwpi 0
        dect r10
