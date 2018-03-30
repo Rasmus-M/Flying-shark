@@ -1577,7 +1577,14 @@ display_game_over:
        li   r1,txt_game_over
        li   r2,9
        bl   @display_text
-       li   r2,180
+*      Music
+       li   r0,landing_music_bank
+       mov  r0,@cart_music_bank
+       li   r1,cart_music_base
+       inc  @tune_no
+       bl   @init_music
+       dec  @tune_no
+       li   r2,300
        bl   @wait_frames
 *      Return
        dect r10                        ; Pop return address off the stack
@@ -2103,7 +2110,7 @@ init_music:
        mov  @cart_music_bank,r0
        seto *r0
        mov  @music,r1
-       clr  r2
+       mov  @tune_no,r2
        bl   @stinitsfx
        seto @loop_music                ; Set music to loop
 init_music_1:
@@ -2315,6 +2322,8 @@ alloc_sprite_cnt:                      ; Used by alloc_sprite
        data 0
 direction:                             ; Scroll direction. Used by update_characters
        data -1
+tune_no:
+       data 0
 **
 *
 char_list:                             ; Pointers to pattern/color addresses for current character set
