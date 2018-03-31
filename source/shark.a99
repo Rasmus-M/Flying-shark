@@ -75,6 +75,8 @@ power_up_double_shot:
        equ  1
 power_up_triple_shot:
        equ  2
+n_high_scores:
+       equ  10
 
 **
 * Memory mapped addresses
@@ -98,6 +100,7 @@ namet4 equ  >3400                      ; Name table base 4 >D
 sprat1 equ  >3700                      ; Sprite attribute table base 1
 sprat2 equ  >3780                      ; Sprite attribute table base 2
 namet5 equ  >3800                      ; Name table base 5
+sprat3 equ  >3b00                      ; Sprite attribute table base 3
 
 **
 * Structures
@@ -429,7 +432,7 @@ main_delay:
        li   r3,16
 main_next:
        li   r2,624/16
-       bl   @wait_frames
+       bl   @wait
        li   r0,250
        bl   @add_score
        dec  r3
@@ -443,7 +446,7 @@ main_died:
        bl   @display_lives
        mov  @lives,r0
        jne  !
-       bl   @display_game_over
+       bl   @game_over
        jmp  new_game
 !      bl   @died
        jmp  restart
@@ -538,7 +541,7 @@ set_name_table_2:
        jmp  set_name_table_4
 set_name_table_3:
        li   r0, >020d                  ; namet4
-*	   Update register 2
+*       Update register 2
 set_name_table_4:
        bl   @vwtr
 *      Return
@@ -1041,7 +1044,7 @@ update_characters:
        mov  r11,*r10+                  ; Push return address onto the stack
        bl   @interrupt_check
        mov  @scroll_y,r3               ; Read scroll offset into register
-*	   Calculate VDP RAM destination address
+*       Calculate VDP RAM destination address
        coc  @one,r3                    ; Check which character set to update
        jeq  update_low_chars
        li   r6,>400                    ; Update high character set (128-255)
@@ -1049,7 +1052,7 @@ update_characters:
 update_low_chars:
        clr  r6                         ; Update low character set (128-255)
 update_characters_1:
-*	   Select source ROM bank
+*       Select source ROM bank
        mov  r3,r5                      ; Start with scroll offset
        a    @direction,r5              ; Add direction
        andi r5,>0007                   ; Mod 8
@@ -1141,14 +1144,14 @@ update_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @scroll_y,r3               ; Get scroll frame (0-15)
        andi r3,>000f
-*	   Calculate row offset to the 1/4 of the buffer to update
+*       Calculate row offset to the 1/4 of the buffer to update
        mov  r3,r0                      ; Start with frame number
        andi r0,>0006                   ; Transform to sequence: 0,0,2,2,4,4,6,6...
        mov  r0,r2                      ; Copy to R2
        sla  r0,1                       ; Multiply by 2
        a    r0,r2                      ; Add to R2 to multiply by 6 and get row offset: 0,0,6,6,12,12,18,18...
        mov  r2,r0                      ; Copy back into R0 for later
-*	   Calculate map source address in R1
+*       Calculate map source address in R1
        mov  @scroll_y,r1               ; Get scroll offset in pixels
        sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
@@ -1156,10 +1159,10 @@ update_name_table:
        mpy  r2,r1                      ; Multiply by map width to get character offset
        li   r1,cart_base               ; Get the map base address
        a    r2,r1                      ; Add the character offset
-*	   Calculate buffer destination address in R0
+*       Calculate buffer destination address in R0
        sla  r0,5                       ; Convert row offset to character offset
        ai   r0,map_left
-*	   Decide which buffer to update
+*       Decide which buffer to update
        coc  @eight,r3                  ; Bit weight >08 determines the group
        jne  update_name_table_2        ; If not set we update buffer 2 or 3
        coc  @one,r3                    ; Bit weight >01 determines the buffer
@@ -1182,7 +1185,7 @@ update_name_table_3:
        mov  @cart_map_high_bank,r5
 update_name_table_4:
        seto *r5                        ; Select map cartridge bank
-*	   Copy to VDP RAM buffer
+*       Copy to VDP RAM buffer
        li   r15,vdpwd
        li   r2,6
 update_name_table_5:
@@ -1202,7 +1205,7 @@ update_name_table_6:
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
-*	   Return
+*       Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1327,6 +1330,12 @@ init:
        mov  r0,@one
        li   r0,8
        mov  r0,@eight
+*      High scores
+       li   r0,high_scores
+       li   r1,high_scores+2
+       li   r2,(n_high_scores*4)-2
+       clr  *r0
+       bl   @copy_memory
 *      Copy code to pad
        li   r0,upload_character_table
        li   r1,upload_character_table_pad
@@ -1526,6 +1535,24 @@ init_scroll_3:
 
 *********************************************************************************
 *
+* Display "get ready" and wait
+*
+display_get_ready:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       li   r0,7*32+19
+       li   r1,txt_get_ready
+       li   r2,9
+       bl   @display_text
+       li   r2,60
+       bl   @wait
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// display_get_ready
+
+*********************************************************************************
+*
 * Actions when died
 *
 died:
@@ -1551,28 +1578,13 @@ died:
 
 *********************************************************************************
 *
-* Display "get ready" and wait
+* Actions when game is over
 *
-display_get_ready:
+game_over:
        mov  r11,*r10+                  ; Push return address onto the stack
-       li   r0,7*32+19
-       li   r1,txt_get_ready
-       li   r2,9
-       bl   @display_text
-       li   r2,60
-       bl   @wait_frames
-*      Return
-       dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
-       b    *r11
-*// display_get_ready
-
-*********************************************************************************
-*
-* Display "game over" and wait
-*
-display_game_over:
-       mov  r11,*r10+                  ; Push return address onto the stack
+*      Register high score
+       bl   @update_high_scores
+*      Display "game over"
        li   r0,7*32+19
        li   r1,txt_game_over
        li   r2,9
@@ -1586,19 +1598,61 @@ display_game_over:
        dec  @tune_no
 *      Wait
        li   r2,300
-       bl   @wait_frames
+       bl   @wait
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// display_game_ready
+*// game_over
+
+*********************************************************************
+*
+* Update high score table with new score
+*
+update_high_scores:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Check new score against existng high scores
+       li   r1,high_scores             ; Existing high scores
+       li   r2,n_high_scores           ; Number of high scores to compare against
+update_high_scores_1:
+       c    @score_msw,*r1
+       jgt  update_high_scores_3
+       jlt  update_high_scores_2
+       c    @score_lsw,@2(r1)
+       jgt  update_high_scores_3
+update_high_scores_2:
+       ai   r1,4                       ; Next high score
+       dec  r2
+       jne  update_high_scores_1
+       jmp  update_high_scores_6       ; Not a new high score - return
+update_high_scores_3:
+*      New high score found, r1 contains insertion point
+       li   r3,high_scores+((n_high_scores-1)*4)    ; Last high score entry
+update_high_scores_4:
+       c    r3,r1                      ; Compare with insertion point
+       jeq  update_high_scores_5
+*      Move previous entry to this entry
+       mov  @-4(r3),*r3+
+       mov  @-4(r3),*r3+
+       ai   r3,-8
+       jmp  update_high_scores_4
+*      Copy new score into table
+update_high_scores_5:
+       mov  @score_msw,*r1+
+       mov  @score_lsw,*r1+
+*      Return
+update_high_scores_6:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// update_high_scores
 
 *********************************************************************
 *
 * Clear memory
 *
-* R0: Start address
-* R2: Length
+* r0: Start address
+* r2: Length
 *
 clear_memory:
        clr  *r0+
@@ -1611,9 +1665,9 @@ clear_memory:
 *
 * Copy memory
 *
-* R0: Source address
-* R1: Destination address
-* R2: Length
+* r0: Source address
+* r1: Destination address
+* r2: Length
 *
 copy_memory:
        mov  *r0+,*r1+
@@ -1722,18 +1776,6 @@ title_screen_1:
        ai   r0,>0100
        dec  r2
        jne  title_screen_1
-*      Patterns
-       seto @title_bank
-       li   r0,ptrntb
-       li   r1,>6800
-       li   r2,>1800
-       bl   @vdpcp
-*      Colors
-       seto @title_bank+2
-       li   r0,colrtb
-       li   r1,>6800
-       li   r2,>1800
-       bl   @vdpcp
 *      Name table
        li   r0,namet5
        bl   @vwad
@@ -1745,19 +1787,30 @@ title_screen_2:
        dec  r2
        jne  title_screen_2
 *      Sprite attributes
-       li   r0,sprat1
+       li   r0,sprat3
        li   r1,>d000
        bl   @vsbw
-*      Screen on
-       li   r0,>01e2
-       bl   @vwtr
 *      Init music
        li   r0,title_music_bank
        mov  r0,@cart_music_bank
        li   r1,cart_music_base
        bl   @init_music
-*      Wait key
-       bl   @wait_key                  ; Wait for key press
+title_screen_3:
+*      Display title screen
+       bl   @display_title_screen
+       li   r3,240
+       bl   @wait_key_timeout
+       mov  r3,r3
+       jne  title_screen_4
+*      Display high scores
+       bl   @display_high_scores
+       li   r3,240
+       bl   @wait_key_timeout
+       mov  r3,r3
+       jne  title_screen_4
+*      Loop
+       jmp  title_screen_3
+title_screen_4:
 *      Stop music
        clr  @music
        bl   @mute_sound
@@ -1772,10 +1825,121 @@ vregs2:
        byte namet5/>400                ; Name table
        byte >ff                        ; Color table
        byte ptrntb/>800+>03            ; Pattern table
-       byte sprat1/>80                 ; Sprite attribute table
+       byte sprat3/>80                 ; Sprite attribute table
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
 *// title_screen
+
+*********************************************************************************
+*
+* Display title screen, full bitmap mode
+*
+display_title_screen:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Screen off
+       li   r0,>01a2
+       bl   @vwtr
+*      Patterns
+       seto @title_bank
+       li   r0,ptrntb
+       li   r1,>6800
+       li   r2,>1800
+       bl   @vdpcp
+*      Colors
+       seto @title_bank+2
+       li   r0,colrtb
+       li   r1,>6800
+       li   r2,>1800
+       bl   @vdpcp
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// display_title_screen
+
+*********************************************************************************
+*
+* Display high scores, full bitmap mode
+*
+display_high_scores:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Screen off
+       li   r0,>01a2
+       bl   @vwtr
+*      Patterns
+       li   r0,ptrntb
+       li   r1,>0000
+       li   r2,>1800
+       bl   @vdpwr
+*      Colors
+       li   r0,colrtb
+       li   r1,>f000
+       li   r2,>1800
+       bl   @vdpwr
+*      Display "HIGH SCORES"
+       li   r0,11*8+256+ptrntb
+       li   r1,PAT240B
+       li   r2,4*8
+       bl   @vdpcp
+       li   r0,16*8+256+ptrntb
+       li   r1,PAT244B
+       li   r2,5*8
+       bl   @vdpcp
+
+
+
+*      Display high scores
+       li   r0,13*8+768+ptrntb
+       li   r1,high_scores
+       li   r2,n_high_scores
+display_high_scores_1:
+       mov  *r1+,r3                    ; MSW
+       mov  *r1+,r4                    ; LSW
+       li   r5,10                      ; Divisor
+       li   r6,6                       ; Digits
+       li   r7,number_buffer+11
+display_high_scores_2:
+       div  r5,r3                      ; Divide
+       mov  r4,*r7                     ; Save remainder
+       mov  r3,r4
+       clr  r3
+       dect r7
+       dec  r6
+       jne  display_high_scores_2
+*      Display digits
+       bl   @vwad
+       li   r6,6
+       li   r7,number_buffer
+*      Display digit
+display_high_scores_3:
+       mov  *r7+,r3
+       sla  r3,3                       ; Multiply by 8
+       ai   r3,PAT240M                 ; Add pattern base
+       li   r8,8
+display_high_scores_4:
+       movb *r3+,@vdpwd
+       dec  r8
+       jne  display_high_scores_4
+*      Next digit
+       dec  r6
+       jne  display_high_scores_3
+*      Next high score
+       ai   r0,>200
+       dec  r2
+       jne  display_high_scores_1
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+number_buffer:
+       data 0,0,0,0,0,0
+*// display_high_scores
 
 *********************************************************************************
 *
@@ -2170,6 +2334,47 @@ mute_table:
 
 ***************************************************************************
 *
+* Wait for n frames
+*
+* r2: Number of frames to wait
+*
+wait:
+       mov  r11,*r10+
+wait_1:
+       bl   @vsync
+       bl   @play_sound
+       dec  r2
+       jgt  wait_1
+*      Return
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// wait
+
+***************************************************************************
+*
+* Wait for key press with timeout
+*
+* r3: Number of frames to wait
+*
+wait_key_timeout:
+       mov  r11,*r10+
+wait_key_timeout_1:
+       bl   @anykey
+       jne  wait_key_timeout_2
+       bl   @vsync
+       bl   @play_sound
+       dec  r3
+       jne  wait_key_timeout_1
+*      Return
+wait_key_timeout_2:
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// wait_key_timeout
+
+***************************************************************************
+*
 * Wait for key press
 *
 wait_key:
@@ -2186,25 +2391,6 @@ wait_key_2:
        mov  *r10,r11
        b    *r11
 *// wait_key
-
-***************************************************************************
-*
-* Wait for n frames
-*
-* r2: Number of frames to wait
-*
-wait_frames:
-       mov  r11,*r10+
-wait_frames_1:
-       bl   @vsync
-       bl   @play_sound
-       dec  r2
-       jgt  wait_frames_1
-*      Return
-       dect r10
-       mov  *r10,r11
-       b    *r11
-*// wait_frames
 
 ***************************************************************************
 *
@@ -2325,6 +2511,11 @@ direction:                             ; Scroll direction. Used by update_charac
        data -1
 tune_no:
        data 0
+**
+* High scores
+*
+high_scores:
+       bss  n_high_scores*4             ; High score table. 10 x 32 bit.
 **
 *
 char_list:                             ; Pointers to pattern/color addresses for current character set
