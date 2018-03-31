@@ -1584,6 +1584,7 @@ display_game_over:
        inc  @tune_no
        bl   @init_music
        dec  @tune_no
+*      Wait
        li   r2,300
        bl   @wait_frames
 *      Return
