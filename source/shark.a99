@@ -331,8 +331,10 @@ vdp_status:                            ; VDP status
        equ  frame_count+2
 user_input_enabled:                    ; Is user input (joystick) enabled?
        equ  vdp_status+2
-player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
+user_input_device:                     ; 0=Keyboard, 1=Joystick
        equ  user_input_enabled+2
+player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
+       equ  user_input_device+2
 sprite_pos_ptr:                        ; Pointer to sprite position list
        equ  player_fire+2
 sprite_table_flag:                     ; Which VDP aprite attriutes table to use
@@ -363,10 +365,8 @@ bomb_count_down:                       ; Timing of smart bomb
        equ  smart_bombs+2
 music:                                 ; Pointer to music
        equ  bomb_count_down+2
-loop_music:                            ; Is music looping?
-       equ  music+2
 upload_character_table_pad:            ; Code in pad
-       equ  loop_music+2
+       equ  music+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -634,12 +634,95 @@ upload_sprites_5:
 * User input
 *
 user_input:
+       mov  r11,*r10+                  ; Push return address onto the stack
        abs  @user_input_enabled        ; Check if user input is enabled
-       jeq  user_input_5
+       jeq  user_input_2
 *      Reset velocity
        li   r1,sprite_player
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
+*      Select input device
+       mov  @user_input_device,r0
+       jne  user_input_1
+       bl   @keyboard_input
+       jmp  user_input_2
+user_input_1:
+       bl   @joystick_input
+user_input_2:
+*      Check quit
+       bl   @check_quit
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// user_input
+
+*********************************************************************************
+*
+* Keyboard input
+*
+keyboard_input:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Fire
+       li   r0,KEY_SP
+       bl   @check_key
+       jeq  keyboard_input_1
+       mov  @player_fire,r0            ; Test if ready
+       jgt  keyboard_input_2
+       seto @player_fire               ; -1=Pressed and ready
+       jmp  keyboard_input_3
+keyboard_input_1:
+       clr  @player_fire               ; 0=Released
+       mov  @bomb_count_down,r0        ; Check for bomb in progress
+       jlt  keyboard_input_3
+       clr  @bomb_count_down
+       jmp  keyboard_input_3
+keyboard_input_2:
+       mov  @bomb_count_down,r0        ; Check for bomb in progress
+       jlt  keyboard_input_3
+       inc  @bomb_count_down
+keyboard_input_3:
+*      Left
+       li   r0,KEY_S
+       bl   @check_key
+       jeq  keyboard_input_4
+       li   r0,-player_speed
+       mov  r0,@sprite_vx(r1)
+       jmp  keyboard_input_5
+keyboard_input_4:
+*      Right
+       li   r0,KEY_D
+       bl   @check_key
+       jeq  keyboard_input_5
+       li   r0,player_speed
+       mov  r0,@sprite_vx(r1)
+keyboard_input_5:
+*      Down
+       li   r0,KEY_X
+       bl   @check_key
+       jeq  keyboard_input_6
+       li   r0,player_speed
+       mov  r0,@sprite_vy(r1)
+       jmp  keyboard_input_7
+keyboard_input_6:
+*      Up
+       li   r0,KEY_E
+       bl   @check_key
+       jeq  keyboard_input_7
+       li   r0,-player_speed
+       mov  r0,@sprite_vy(r1)
+*      Return
+keyboard_input_7:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// keyboard_input
+
+*********************************************************************************
+*
+* Joystick input
+*
+joystick_input:
 *      Read joystick #1 using CRU
        li   r12,>0024                  ; CRU address of the column decoder
        li   r0,>0600                   ; Column 6, i.e joystick #1
@@ -647,50 +730,50 @@ user_input:
        li   r12,>0006                  ; Base CRU address for joystick 1
 *      Fire
        tb   0
-       jeq  user_input_0
+       jeq  joystick_input_1
        mov  @player_fire,r0            ; Test if ready
-       jgt  user_input_1
+       jgt  joystick_input_2
        seto @player_fire               ; -1=Pressed and ready
-       jmp  user_input_6
-user_input_0:
+       jmp  joystick_input_3
+joystick_input_1:
        clr  @player_fire               ; 0=Released
        mov  @bomb_count_down,r0        ; Check for bomb in progress
-       jlt  user_input_6
+       jlt  joystick_input_3
        clr  @bomb_count_down
-       jmp  user_input_6
-user_input_1:
+       jmp  joystick_input_3
+joystick_input_2:
        mov  @bomb_count_down,r0        ; Check for bomb in progress
-       jlt  user_input_6
+       jlt  joystick_input_3
        inc  @bomb_count_down
-user_input_6:
+joystick_input_3:
 *      Left
        tb   1
-       jeq  user_input_2
+       jeq  joystick_input_4
        li   r0,-player_speed
        mov  r0,@sprite_vx(r1)
-       jmp  user_input_3
-user_input_2:
+       jmp  joystick_input_5
+joystick_input_4:
 *      Right
        tb   2
-       jeq  user_input_3
+       jeq  joystick_input_5
        li   r0,player_speed
        mov  r0,@sprite_vx(r1)
-user_input_3:
+joystick_input_5:
 *      Down
        tb   3
-       jeq  user_input_4
+       jeq  joystick_input_6
        li   r0,player_speed
        mov  r0,@sprite_vy(r1)
-       jmp  user_input_5
-user_input_4:
+       jmp  joystick_input_7
+joystick_input_6:
 *      Up
        tb   4
-       jeq  user_input_5
+       jeq  joystick_input_7
        li   r0,-player_speed
        mov  r0,@sprite_vy(r1)
-user_input_5:
+joystick_input_7:
        b    *r11
-*// user_input
+*// joystick_input
 
 *********************************************************************************
 *
@@ -1798,7 +1881,7 @@ title_screen_2:
 title_screen_3:
 *      Display title screen
        bl   @display_title_screen
-       li   r3,240
+       li   r3,480
        clr  r4
        bl   @wait_key_timeout
        mov  r3,r3
@@ -2491,7 +2574,8 @@ wait_key_timeout:
        mov  r11,*r10+
        clr  @frame_count
 wait_key_timeout_1:
-       bl   @anykey
+       bl   @check_quit
+       bl   @any_key
        jne  wait_key_timeout_3
        bl   @vsync
        bl   @play_sound
@@ -2516,7 +2600,8 @@ wait_key_timeout_3:
 wait_key:
        mov  r11,*r10+
 wait_key_1:
-       bl   @anykey
+       bl   @check_quit
+       bl   @any_key
        jne  wait_key_2
        bl   @vsync
        bl   @play_sound
@@ -2527,6 +2612,25 @@ wait_key_2:
        mov  *r10,r11
        b    *r11
 *// wait_key
+
+***************************************************************************
+*
+* Check quit
+*
+check_quit:
+       clr  r1                         ; Test column 0
+       li   r12,>0024                  ; Address for column selection
+       ldcr r1,3                       ; Select column
+       li   r12,>0006                  ; Address to read rows
+       stcr r1,8
+       andi r1,>1100
+       jeq  quit
+*      Return
+       b    *r11
+*      Quit
+quit   clr  @>83c4                     ; Reset user ISR address
+       blwp @>0000
+*// check_quit
 
 ***************************************************************************
 *
@@ -2596,22 +2700,23 @@ KEY_FN EQU  >000E
 KEY_SH EQU  >0010
 KEY_CT EQU  >0012
 *
-chkkey:
+check_key:
        li   r12,>0024                  ; CRU address of the column decoder
        ldcr r0,3                       ; Select column
        andi r0,>00ff
        mov  r0,r12                     ; Select row
        tb   0                          ; Test key, EQ if not pressed
        b    *r11
-*// chkkey
+*// check_key
 
 *********************************************************************
 *
-* Resets EQ if any key is pressed
+* Resets EQ (neq) if any key is pressed
 *
-anykey:
+any_key:
+       clr  @user_input_device
        li   r1,>0000                   ; Column
-anykey1:
+any_key_1:
        li   r12,>0024                  ; CRU address of the column decoder
        mov  r1,r0
        swpb r0
@@ -2620,15 +2725,21 @@ anykey1:
        stcr r0,8
        seto r2
        cb   r0,r2                      ; If any bit is reset a key is pressed
-       jne  anykey2
+       jne  any_key_2
        inc  r1
-       ci   r1,>0008
-       jne  anykey1
-anykey2:
+       ci   r1,8
+       jne  any_key_1
+       jmp  any_key_3                   ; eq ok
+any_key_2:
+       ci   r1,6
+       jne  any_key_3                   ; neq ok
+       inc  @user_input_device         ; Still neq
+any_key_3:
        b    *r11
-*// anykey
+*// any_key
 
-**
+*********************************************************************
+*
 * Include sprite handling routines
 *
        copy "sprite-handling.a99"
@@ -2645,7 +2756,9 @@ alloc_sprite_cnt:                      ; Used by alloc_sprite
        data 0
 direction:                             ; Scroll direction. Used by update_characters
        data -1
-tune_no:
+loop_music:                            ; Is music looping?
+       data 0
+tune_no:                               ; Tune number
        data 0
 **
 * High scores
