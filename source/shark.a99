@@ -378,7 +378,7 @@ pad_max:
 main:
        limi 0                          ; Interrupts off
        lwpi wrksp                      ; Setup workspace
-       li   r10, stack                 ; Setup stack pointer
+       li   r10,stack                  ; Setup stack pointer
        mov  @rndsd,@rand_no            ; Save random number seed
        bl   @init                      ; One time initializations
 new_game:
@@ -473,7 +473,7 @@ interrupt_routine:
        lwpi wrksp                      ; Switch to old workspace
 interrupt_routine_end:
        b    *r11
-*// interrupt_routine
+*// interrupt_check
 
 *********************************************************************
 *
@@ -1840,17 +1840,43 @@ display_title_screen:
        li   r0,>01a2
        bl   @vwtr
 *      Patterns
-       seto @title_bank
        li   r0,ptrntb
-       li   r1,>6800
-       li   r2,>1800
-       bl   @vdpcp
+       bl   @vwad
+       li   r3,8
+       li   r4,>6800
+       li   r5,vdpwd
+display_title_screen_1:
+       seto @title_bank
+       li   r2,>1800/(8*4)
+display_title_screen_2:
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       dec  r2
+       jne  display_title_screen_2
+       bl   @play_sound_check
+       dec  r3
+       jne  display_title_screen_1
 *      Colors
-       seto @title_bank+2
        li   r0,colrtb
-       li   r1,>6800
-       li   r2,>1800
-       bl   @vdpcp
+       bl   @vwad
+       li   r3,8
+       li   r4,>6800
+       li   r5,vdpwd
+display_title_screen_4:
+       seto @title_bank+2
+       li   r2,>1800/(8*4)
+display_title_screen_5:
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       dec  r2
+       jne  display_title_screen_5
+       bl   @play_sound_check
+       dec  r3
+       jne  display_title_screen_4
 *      Screen on
        li   r0,>01e2
        bl   @vwtr
@@ -1871,14 +1897,39 @@ display_high_scores:
        bl   @vwtr
 *      Patterns
        li   r0,ptrntb
-       li   r1,>0000
-       li   r2,>1800
-       bl   @vdpwr
+       bl   @vwad
+       li   r3,8
+       li   r5,vdpwd
+display_high_scores_5:
+       li   r2,>1800/(8*4)
+display_high_scores_6:
+       clr  *r5
+       clr  *r5
+       clr  *r5
+       clr  *r5
+       dec  r2
+       jne  display_high_scores_6
+       bl   @play_sound_check
+       dec  r3
+       jne  display_high_scores_5
 *      Colors
        li   r0,colrtb
-       li   r1,>f000
-       li   r2,>1800
-       bl   @vdpwr
+       bl   @vwad
+       li   r3,8
+       li   r5,vdpwd
+       li   r6,>f100
+display_high_scores_7:
+       li   r2,>1800/(8*4)
+display_high_scores_8:
+       movb  r6,*r5
+       movb  r6,*r5
+       movb  r6,*r5
+       movb  r6,*r5
+       dec  r2
+       jne  display_high_scores_8
+       bl   @play_sound_check
+       dec  r3
+       jne  display_high_scores_7
 *      Display "HIGH SCORES"
        li   r0,11*8+256+ptrntb
        li   r1,PAT240B
@@ -1888,9 +1939,6 @@ display_high_scores:
        li   r1,PAT244B
        li   r2,5*8
        bl   @vdpcp
-
-
-
 *      Display high scores
        li   r0,13*8+768+ptrntb
        li   r1,high_scores
@@ -1940,6 +1988,25 @@ display_high_scores_4:
 number_buffer:
        data 0,0,0,0,0,0
 *// display_high_scores
+
+*********************************************************************************
+*
+* Play sound if interrupt
+*
+* Modifies r0-r1
+*
+play_sound_check:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  r12
+       tb   2
+       jeq  play_sound_check_1
+       bl   @play_sound
+*      Return
+play_sound_check_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// play_sound_check
 
 *********************************************************************************
 *
@@ -2233,6 +2300,8 @@ rand:
 *********************************************************************
 *
 * Play music
+*
+* Modifies r0-r1
 *
 play_sound:
        mov  r11,*r10+                  ; Push return address onto the stack
