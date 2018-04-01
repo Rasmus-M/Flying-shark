@@ -1881,7 +1881,7 @@ title_screen_2:
 title_screen_3:
 *      Display title screen
        bl   @display_title_screen
-       li   r3,480
+       li   r3,360
        clr  r4
        bl   @wait_key_timeout
        mov  r3,r3
@@ -1921,9 +1921,11 @@ vregs2:
 *
 display_title_screen:
        mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @play_sound_check
 *      Screen off
        li   r0,>01a2
        bl   @vwtr
+
 *      Patterns
        li   r0,ptrntb
        bl   @vwad
@@ -2060,6 +2062,7 @@ display_high_scores_4:
        dec  r6
        jne  display_high_scores_3
 *      Next high score
+       bl   @play_sound_check
        ai   r0,>200
        dec  r2
        jne  display_high_scores_1
@@ -2131,25 +2134,6 @@ copper_bar:
        byte >F0,>E0,>B0,>B0,>A0,>A0,>30,>30
        byte >20,>20,>C0,>C0,>20,>20,>30,>e0
 *// display_copper_bar
-
-*********************************************************************************
-*
-* Play sound if interrupt
-*
-* Modifies r0-r1
-*
-play_sound_check:
-       mov  r11,*r10+                  ; Push return address onto the stack
-       clr  r12
-       tb   2
-       jeq  play_sound_check_1
-       bl   @play_sound
-*      Return
-play_sound_check_1:
-       dect r10                        ; Pop return address off the stack
-       mov  *r10,r11
-       b    *r11
-*// play_sound_check
 
 *********************************************************************************
 *
@@ -2440,9 +2424,35 @@ rand:
        b    *r11
 *// rand
 
+*********************************************************************************
+*
+* Play sound if interrupt has occurred
+*
+* Modifies r0-r1
+*
+play_sound_check:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  r12
+       tb   2
+       jeq  play_sound_check_1
+       movb @vdpsta,@vdp_status
+       mov  r0,*r10+
+       mov  r1,*r10+
+       bl   @play_sound
+       dect r10
+       mov  *r10,r1
+       dect r10
+       mov  *r10,r0
+*      Return
+play_sound_check_1:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// play_sound_check
+
 *********************************************************************
 *
-* Play music
+* Play music and sound
 *
 * Modifies r0-r1
 *
