@@ -1799,12 +1799,14 @@ title_screen_3:
 *      Display title screen
        bl   @display_title_screen
        li   r3,240
+       clr  r4
        bl   @wait_key_timeout
        mov  r3,r3
        jne  title_screen_4
 *      Display high scores
        bl   @display_high_scores
        li   r3,240
+       li   r4,display_copper_bar
        bl   @wait_key_timeout
        mov  r3,r3
        jne  title_screen_4
@@ -1988,6 +1990,64 @@ display_high_scores_4:
 number_buffer:
        data 0,0,0,0,0,0
 *// display_high_scores
+
+*********************************************************************************
+*
+* Display copper bar (high score screen)
+*
+display_copper_bar:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       lwpi wrksp2
+       mov  @frame_count,r3            ; Line
+       ci   r3,176
+       jle  display_copper_bar_0
+       li   r3,176
+display_copper_bar_0:
+       li   r4,11                      ; Column
+*      Screen address
+       mov  r3,r5
+       andi r5,>00f8
+       sla  r5,5
+       mov  r5,r0                      ; Rows
+       mov  r3,r5
+       andi r5,>0007
+       a    r5,r0                      ; Lines
+       mov  r4,r5
+       sla  r5,3
+       a    r5,r0                      ; Columns
+       ai   r0,colrtb                  ; Base
+       mov  r0,r6
+*      Column loop
+display_copper_bar_1:
+       bl   @vwad
+       li   r1,copper_bar
+       li   r2,16
+       mov  r3,r5
+*      Row loop
+display_copper_bar_2:
+       movb *r1+,@vdpwd
+       inc  r5
+       andi r5,>0007
+       jne  display_copper_bar_3
+       ai   r0,256
+       andi r0,>fff8
+       bl   @vwad
+display_copper_bar_3:
+       dec  r2
+       jne  display_copper_bar_2
+       ai   r6,8
+       mov  r6,r0
+       inc  r4
+       ci   r4,21
+       jlt  display_copper_bar_1
+       lwpi wrksp
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+copper_bar:
+       byte >F0,>E0,>B0,>B0,>A0,>A0,>30,>30
+       byte >20,>20,>C0,>C0,>20,>20,>30,>e0
+*// display_copper_bar
 
 *********************************************************************************
 *
@@ -2422,21 +2482,28 @@ wait_1:
 
 ***************************************************************************
 *
-* Wait for key press with timeout
+* Wait for key press with timeout and callback
 *
 * r3: Number of frames to wait
+* r4: Address of routine to call each frame
 *
 wait_key_timeout:
        mov  r11,*r10+
+       clr  @frame_count
 wait_key_timeout_1:
        bl   @anykey
-       jne  wait_key_timeout_2
+       jne  wait_key_timeout_3
        bl   @vsync
        bl   @play_sound
+       mov  r4,r4
+       jeq  wait_key_timeout_2
+       bl   *r4
+wait_key_timeout_2:
+       inc  @frame_count
        dec  r3
        jne  wait_key_timeout_1
 *      Return
-wait_key_timeout_2:
+wait_key_timeout_3:
        dect r10
        mov  *r10,r11
        b    *r11
