@@ -14,13 +14,13 @@
 * Assembly options
 *
 immunity:
-       equ  0
+       equ  1
 
 **
 * Constants
 *
 start_level:
-       equ  0
+       equ  2
 start_lives:
        equ  3
 start_bombs:
@@ -1925,7 +1925,6 @@ display_title_screen:
 *      Screen off
        li   r0,>01a2
        bl   @vwtr
-
 *      Patterns
        li   r0,ptrntb
        bl   @vwad
