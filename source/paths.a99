@@ -151,6 +151,11 @@ path_plane_snake_down
        data -1
 *      From left and stopping (short)
 path_tank_left_short:
+       data 32,>0100,>0000,>1c00,>0000
+       data 250,>0000,>0000,>1c00,>0001
+       data -1
+*      From left and stopping (medium)
+path_tank_left_medium:
        data 48,>0100,>0000,>1c00,>0000
        data 250,>0000,>0000,>1c00,>0001
        data -1
@@ -310,6 +315,10 @@ path_boat_long_down:
 *      Boat from bottom moving up
 path_boat_long_up:
        data 400,>0000,->0100,>1800,>0001
+       data -1
+*      Boat not moving
+path_boat_steady:
+       data 1000,0,0,>1800,>0001
        data -1
 *      Boat when hit
 path_boat_hit:
