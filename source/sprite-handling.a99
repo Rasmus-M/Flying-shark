@@ -105,11 +105,15 @@ add_tank_sprite:
        ci   r0,(x_min-16)*256
        jne  add_tank_sprite_1
        bl   @add_mask_sprite
+       mov  @sprite_link(r1),r1        ; Restore sprite pointer
 *      Patterns
 add_tank_sprite_1:
        abs  @boat_patterns_uploaded
        jeq  add_tank_sprite_2
-       bl   @upload_tank_patterns      ; TODO: only if vertical
+       mov  @sprite_path(r1),r1        ; Get path
+       mov  @path_vy(r1),r1
+       jeq  add_tank_sprite_2          ; Only upload if vertical
+       bl   @upload_tank_patterns
 *      Return
 add_tank_sprite_2:
        dect r10                        ; Pop return address off the stack
