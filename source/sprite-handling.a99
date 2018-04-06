@@ -1207,11 +1207,11 @@ update_boat_sprite:
        bl   @update_path
        jlt  update_boat_sprite_4       ; Path ended - remove
 *      Check bounds
-;       mov  @sprite_y(r3),r0
-;       ci   r0,>c000
-;       jl  update_boat_sprite_1
-;       ci   r0,>e000
-;       jl  update_boat_sprite_4        ; Outside screen - remove
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000
+       jl  update_boat_sprite_1
+       ci   r0,>e000
+       jl  update_boat_sprite_4        ; Outside screen - remove
 *      Move
 update_boat_sprite_1:
        a    @path_vx(r4),@sprite_x(r3)
