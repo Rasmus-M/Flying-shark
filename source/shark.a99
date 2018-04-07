@@ -14,13 +14,13 @@
 * Assembly options
 *
 immunity:
-       equ  1
+       equ  0
 
 **
 * Constants
 *
 start_level:
-       equ  3
+       equ  0
 start_lives:
        equ  3
 start_bombs:
@@ -391,9 +391,9 @@ restart:
        bl   @display_get_ready
 ;      mov  @level,r0
 ;      jne  main_loop
-      li   r0,1792
-      mov  r0,@scroll_y_current
-      bl   @scroll_to_position
+;      li   r0,1792
+;      mov  r0,@scroll_y_current
+;      bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
@@ -1424,6 +1424,8 @@ init:
        li   r1,upload_character_table_pad
        li   r2,upload_character_table_end-upload_character_table
        bl   @copy_memory
+*      User input disabled for demo
+       clr  @user_input_enabled
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -2828,6 +2830,7 @@ hw_sprites:
 * Sprite positions and paths
 *
        copy "sprite-pos-lists.a99"
+       copy "waves.a99"
        copy "paths.a99"
 **
 *      End

@@ -1,0 +1,35 @@
+**
+* Waves
+*
+* enemies left, enemies total
+*
+waves:
+*      Level 1
+       data 3,3,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 1,1,wave_bonus_smart_bomb,0
+       data 2,2,wave_bonus_life,0
+       data 2,2,wave_bonus_smart_bomb,0
+       data 2,2,wave_bonus_power_up,0
+*      Level 2
+       data 5,5,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 3,3,wave_bonus_life,0
+       data 1,1,wave_bonus_smart_bomb,0
+       data 3,3,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0
+       data 5,5,wave_bonus_power_up,0
+       data 1,1,wave_bonus_smart_bomb,0
+*      Level 3
+       data 2,2,wave_bonus_power_up,0
+       data 2,2,wave_bonus_power_up,0
+       data 2,2,wave_bonus_life,0
+       data 2,2,wave_bonus_power_up,0
+*      Level 4
+       data 2,2,wave_bonus_life,0
+       data 2,2,wave_bonus_power_up,0
+       data 2,2,wave_bonus_power_up,0
+       data 2,2,wave_bonus_power_up,0
+*      End
+       data -1,-1
+
