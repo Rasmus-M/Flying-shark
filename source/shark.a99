@@ -389,11 +389,6 @@ next_level:
        bl   @init_level                ; Initialize level
 restart:
        bl   @display_get_ready
-;      mov  @level,r0
-;      jne  main_loop
-;      li   r0,1792
-;      mov  r0,@scroll_y_current
-;      bl   @scroll_to_position
 main_loop:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
