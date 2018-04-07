@@ -149,6 +149,11 @@ path_plane_snake_down
        data 16,>0000,>0100,>3000,>0001
        data 32,>0100,>0100,>2c00,>0001
        data -1
+*      From left and stopping (very short)
+path_tank_left_very_short:
+       data 16,>0100,>0000,>1c00,>0000
+       data 1000,>0000,>0000,>1c00,>0001
+       data -1
 *      From left and stopping (short)
 path_tank_left_short:
        data 32,>0100,>0000,>1c00,>0000
