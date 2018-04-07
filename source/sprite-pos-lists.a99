@@ -380,9 +380,9 @@ sprite_pos_list_3:
        data 1576,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_medium,-1
        data 1568,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_medium,-1
 *      3 planes snake
-       data 1520,48,-16,sprite_def_enemy_plane,path_plane_snake_down,7
-       data 1512,48,-16,sprite_def_enemy_plane,path_plane_snake_down,7
-       data 1504,48,-16,sprite_def_enemy_plane,path_plane_snake_down,7
+       data 1520,48,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 1512,48,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
+       data 1504,48,-16,sprite_def_enemy_plane,path_plane_snake_down,-1
 *      Ship with 4 turrets
        data 1456,16,-16,sprite_def_turret,0,-1
        data 1456,32,-15,sprite_def_turret,0,-1
@@ -425,10 +425,10 @@ sprite_pos_list_3:
        data 784,0,-16,sprite_def_enemy_plane,path_plane_dive_left_right_medium,-1
        data 776,8,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long,-1
 *      4 planes from right, up, down, out left
-       data 736,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
-       data 728,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
-       data 720,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
-       data 712,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,1
+       data 736,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,-1
+       data 728,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,-1
+       data 720,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,-1
+       data 712,143,144,sprite_def_enemy_plane,path_plane_right_up_left_down_out_left,-1
 *      2 Planes from left
        data 688,16,-16,sprite_def_enemy_plane,path_plane_dive_left_right_medium,-1
        data 680,16,-16,sprite_def_enemy_plane,path_plane_dive_left_right_medium,-1
@@ -442,7 +442,7 @@ sprite_pos_list_3:
 *      Tank from left
        data 528,-16,48,sprite_def_tank,path_tank_left_very_short,-1
 *      Tank steady
-       data 448,-16,128,sprite_def_tank,path_tank_steady,-1
+       data 448,128,-16,sprite_def_tank,path_tank_steady,-1
 *      3 Planes from top
        data 416,-16,48,sprite_def_enemy_plane,path_plane_long_down,-1
        data 412,-16,32,sprite_def_enemy_plane,path_plane_long_down,-1
