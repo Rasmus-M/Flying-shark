@@ -213,11 +213,23 @@ path_tank_left_up_out_left:
        data 248,>0000,->0080,>1800,>0001
        data 40,->0080,>0000,>1c00,>0000
        data -1
-*      From left, up, out left
+*      From left, up, out left short
 path_tank_left_up_out_left_2:
        data 40,>0080,>0000,>1c00,>0000
        data 192,>0000,->0080,>1800,>0001
        data 40,->0080,>0000,>1c00,>0000
+       data -1
+*      From left long, up, out left
+path_tank_left_up_out_left_3:
+       data 64,>0080,>0000,>1c00,>0000
+       data 192,>0000,->0080,>1800,>0001
+       data 64,->0080,>0000,>1c00,>0000
+       data -1
+*      From left very long, up, out left
+path_tank_left_up_out_left_4:
+       data 128,>0080,>0000,>1c00,>0000
+       data 160,>0000,->0080,>1800,>0001
+       data 128,->0080,>0000,>1c00,>0000
        data -1
 *      Down 8 pixels and wait
 path_tank_down_wait:
@@ -235,17 +247,17 @@ path_tank_down_64_wait:
        data 400,>0000,>0000,>1800,>0001
        data -1
 *      Right 8 pixels and wait
-path_tank_right_wait:
+path_tank_right_8_wait:
        data 16,>0080,>0000,>1c00,>0000
        data 400,>0000,>0000,>1c00,>0001
        data -1
 *      Left 8 pixels and wait
-path_tank_left_wait:
+path_tank_left_8_wait:
        data 16,->0080,>0000,>1c00,>0000
        data 400,>0000,>0000,>1c00,>0001
        data -1
 *      Left 8 pixels and disappear
-path_tank_left_8:
+path_tank_left_8_gone:
        data 16,->0080,>0000,>1c00,>0000
        data -1
 *      Long up and wait
