@@ -524,7 +524,10 @@ sprite_pos_list_4:
        data 1840,96,64,sprite_def_tank,path_tank_right_8_wait,-1
 *      Plane
        data 1824,64,-16,sprite_def_enemy_plane,path_plane_long_down,-1
-
+*      Boss
+       data 1760,16,48,sprite_def_boss_tank,path_boss_tank_2,-1
+*      Boss
+       data 1272,16,40,sprite_def_boss_tank,path_boss_tank,-1
 
 
 

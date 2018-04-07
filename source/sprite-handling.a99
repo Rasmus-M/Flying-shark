@@ -1173,7 +1173,7 @@ update_boss_tank_sprite:
        jlt  update_boss_tank_sprite_3  ; Path ended
 *      Move
 update_boss_tank_sprite_1:
-       a    @path_vx(r4),@sprite_x(r3)
+;      a    @path_vx(r4),@sprite_x(r3)
        a    @path_vy(r4),@sprite_y(r3)
 *      Move with scroll
        a    @scroll_y_diff,@sprite_y(r3)
