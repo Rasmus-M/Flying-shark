@@ -465,6 +465,12 @@ sprite_pos_list_4:
        data 2688,0,-16,sprite_def_enemy_plane,path_plane_dive_left_left_medium,-1
        data 2680,8,-16,sprite_def_enemy_plane,path_plane_dive_left_left_short,-1
        data 2672,16,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long,-1
+*      4 planes from left, up, down, out right
+       data 2656,-16,144,sprite_def_enemy_plane,path_plane_left_up_right_down_out_right,-1
+       data 2648,-16,144,sprite_def_enemy_plane,path_plane_left_up_right_down_out_right,-1
+       data 2640,-16,144,sprite_def_enemy_plane,path_plane_left_up_right_down_out_right,-1
+       data 2632,-16,144,sprite_def_enemy_plane,path_plane_left_up_right_down_out_right,-1
+
 
 
 *      7 turrets

@@ -20,7 +20,7 @@ immunity:
 * Constants
 *
 start_level:
-       equ  2
+       equ  3
 start_lives:
        equ  3
 start_bombs:

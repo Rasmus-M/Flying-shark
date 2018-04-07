@@ -119,7 +119,7 @@ path_plane_circle_left_bottom:
        data 18,->0140,>0140,>3400,>0001
        data 60,>0000,>0180,>3000,>0000
        data -1
-*      From right, up, left, down, out right
+*      From right, up, left, down, out left
 path_plane_right_up_left_down_out_left
        data 10,->0180,->0080,>3800,>0000
        data 10,->0140,->0180,>3c00,>0000
@@ -130,6 +130,18 @@ path_plane_right_up_left_down_out_left
        data 40,>0000,>0180,>3000,>0001
        data 10,->0140,>0180,>3400,>0001
        data 10,->0180,->0080,>3800,>0000
+       data -1
+*      From right, up, left, down, out right
+path_plane_left_up_right_down_out_right
+       data 10,>0180,->0080,>2800,>0000
+       data 10,>0140,->0180,>2400,>0000
+       data 90,>0000,->0180,>2000,>0000
+       data 10,>0140,->0180,>2400,>0001
+       data 50,>0180,->0080,>2800,>0001
+       data 10,>0140,>0180,>2c00,>0001
+       data 40,>0000,>0180,>3000,>0001
+       data 10,>0140,>0180,>2c00,>0001
+       data 10,>0180,->0080,>2800,>0000
        data -1
 *      Plane from top moving down
 path_plane_long_down:
