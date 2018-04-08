@@ -1454,9 +1454,6 @@ init:
        li   r1,upload_character_table_pad
        li   r2,upload_character_table_end-upload_character_table
        bl   @copy_memory
-*      User input disabled for demo
-       clr  @user_input_enabled
-       clr  @demo
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -2798,8 +2795,6 @@ direction:                             ; Scroll direction. Used by update_charac
 loop_music:                            ; Is music looping?
        data 0
 tune_no:                               ; Tune number
-       data 0
-demo:                                  ; Is this a demo?
        data 0
 title_screen_counter:                  ; Counter for title screen
        data 0
