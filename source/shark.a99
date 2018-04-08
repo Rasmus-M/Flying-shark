@@ -388,8 +388,7 @@ new_game:
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
-       li   r1,cart_music_base
-       bl   @init_music
+       bl   @init_level_music
 restart:
        bl   @display_get_ready
        bl   @main_loop
@@ -802,6 +801,37 @@ joystick_input_7:
 * Automatic input
 *
 auto_input:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       dec  @bomb_count_down
+       jgt  auto_input_0
+       seto @player_fire
+       li   r0,8
+       mov  r0,@bomb_count_down
+auto_input_0:
+       mov  @sprite_x(r1),r0
+       ci   r0,(x_max-16)*256          ; Check x bounds
+       jeq  auto_input_5
+       ci   r0,x_min*256               ; Check x bounds
+       jne  auto_input_4
+auto_input_5:
+       neg  @demo_vx
+auto_input_4:
+       mov  @demo_vx,r0
+       jlt  auto_input_2
+       li   r0,player_speed
+       mov  r0,@sprite_vx(r1)
+       jmp  auto_input_3
+auto_input_2:
+       li   r0,-player_speed
+       mov  r0,@sprite_vx(r1)
+auto_input_3:
+       bl   @any_key
+       jeq  auto_input_1
+       seto @status
+auto_input_1:
+       seto @user_input_device         ; Cleared by any_key
+       dect r10
+       mov  *r10,r11
        b    *r11
 *// auto_input
 
@@ -907,7 +937,7 @@ smart_bomb_5:
 *      Return
 smart_bomb_6:
        dect r10                        ; Pop return address off the stack
-       mov  *r10, r11
+       mov  *r10,r11
        b    *r11
 bomb_colors:
        byte >0a,>0b,>0f,>0f,>0f,>0b,>0a,>01
@@ -1568,8 +1598,6 @@ init_level:
        mov  r1,@cart_map_high_bank
        inct r1
        mov  r1,@cart_diff_bank
-       inct r1
-       mov  r1,@cart_music_bank
 *      Initalize scroll
        bl   @init_scroll
        mov  @scroll_y,@scroll_y_current
@@ -1598,6 +1626,23 @@ init_level:
        mov  *r10, r11
        b    *r11
 *// init_level
+
+*********************************************************************************
+*
+* Initialize level music
+*
+init_level_music:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  @cart_diff_bank,r1
+       inct r1
+       mov  r1,@cart_music_bank
+       li   r1,cart_music_base
+       bl   @init_music
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init_level_music
 
 *********************************************************************
 *
@@ -1877,6 +1922,7 @@ vregs:
 *
 title_screen:
        mov  r11,*r10+                  ; Push return address onto the stack
+title_screen_0:
        clr  r0
        li   r1,vregs2
        li   r2,8
@@ -1905,6 +1951,9 @@ title_screen_2:
        mov  r0,@cart_music_bank
        li   r1,cart_music_base
        bl   @init_music
+*      Change betwwen title and high score
+       li   r0,2
+       mov  r0,@title_screen_counter
 title_screen_3:
 *      Display title screen
        bl   @display_title_screen
@@ -1921,7 +1970,11 @@ title_screen_3:
        mov  r3,r3
        jne  title_screen_4
 *      Loop
-       jmp  title_screen_3
+       dec  @title_screen_counter
+       jne  title_screen_3
+*      Demo
+       bl   @demo
+       jmp  title_screen_0
 title_screen_4:
 *      Stop music
        clr  @music
@@ -2160,6 +2213,31 @@ copper_bar:
        byte >F0,>E0,>B0,>B0,>A0,>A0,>30,>30
        byte >20,>20,>C0,>C0,>20,>20,>30,>e0
 *// display_copper_bar
+
+*********************************************************************
+*
+* Demo mode
+*
+demo:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @gmode                     ; Setup graphics mode
+       bl   @init_game                 ; Initialize game
+       bl   @rand
+       andi r0,3
+       mov  r0,@level
+       bl   @init_level
+       li   r0,title_music_bank
+       mov  r0,@cart_music_bank
+       seto @user_input_device
+       li   r0,32
+       mov  r0,@bomb_count_down
+       seto @demo_vx
+       bl   @main_loop
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// demo
 
 *********************************************************************************
 *
@@ -2765,10 +2843,10 @@ any_key_1:
        inc  r1
        ci   r1,8
        jne  any_key_1
-       jmp  any_key_3                   ; eq ok
+       jmp  any_key_3                  ; eq ok
 any_key_2:
        ci   r1,6
-       jne  any_key_3                   ; neq ok
+       jne  any_key_3                  ; neq ok
        inc  @user_input_device         ; Still neq
 any_key_3:
        b    *r11
@@ -2797,6 +2875,8 @@ loop_music:                            ; Is music looping?
 tune_no:                               ; Tune number
        data 0
 title_screen_counter:                  ; Counter for title screen
+       data 0
+demo_vx:
        data 0
 **
 * High scores
