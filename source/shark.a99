@@ -331,7 +331,7 @@ vdp_status:                            ; VDP status
        equ  frame_count+2
 user_input_enabled:                    ; Is user input (joystick) enabled?
        equ  vdp_status+2
-user_input_device:                     ; 0=Keyboard, 1=Joystick
+user_input_device:                     ; 0=Keyboard, 1=Joystick, -1=Demo mode
        equ  user_input_enabled+2
 player_fire:                           ; 0=Released, 1=Pressed - not ready, -1=Pressed - ready
        equ  user_input_device+2
@@ -381,15 +381,54 @@ main:
        li   r10,stack                  ; Setup stack pointer
        mov  @rndsd,@rand_no            ; Save random number seed
        bl   @init                      ; One time initializations
+*      New game
 new_game:
        bl   @title_screen              ; Display title screen
        bl   @gmode                     ; Setup graphics mode
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
+       li   r1,cart_music_base
+       bl   @init_music
 restart:
        bl   @display_get_ready
+       bl   @main_loop
+       mov  @status,r0
+       jlt  main_died
+*      Next level
+       li   r3,16
+main_next:
+       li   r2,624/16
+       bl   @wait
+       li   r0,250
+       bl   @add_score
+       dec  r3
+       jne  main_next
+       inc  @level                     ; Increase level
+       li   r0,>fffc                   ; Mask
+       szc  r0,@level                  ; Level mod 4
+       jmp  next_level                 ; Level loop
+*      Died
+main_died:
+       dec  @lives
+       bl   @display_lives
+       mov  @lives,r0
+       jne  !
+       bl   @game_over
+       jmp  new_game
+!      bl   @died
+       jmp  restart
+*// main
+
+*********************************************************************
+*
+* Main loop
+*
+* Runs until player dies or the end of the level is reached.
+*
 main_loop:
+       mov  r11,*r10+
+main_loop_1:
        clr  @frame_count               ; Counter for number of frames used
        bl   @game_frame_actions        ; Update sprites according to input
        movb @vdpsta,@vdp_status        ; Check for interrupt and clear if set
@@ -404,7 +443,7 @@ main_set_tables:
        bl   @play_sound                ; Play sound/music
 *      Check status
        mov  @status,r0
-       jlt  main_died
+       jlt  main_loop_2
 *      Scroll the background
        bl   @update_char_list          ; Determine which characters to update
        bl   @update_characters         ; Update characters
@@ -422,30 +461,14 @@ main_delay:
 *      Change scroll position
 !      mov  @scroll_y,@scroll_y_current   ; Set scroll position as current
        dec  @scroll_y                  ; Change scroll position for net frame
-       jne  main_loop                  ; Loop if not at top
-*      Next level
-       li   r3,16
-main_next:
-       li   r2,624/16
-       bl   @wait
-       li   r0,250
-       bl   @add_score
-       dec  r3
-       jne  main_next
-       inc  @level                     ; Increase level
-       li   r0,>fffc                   ; Mask
-       szc  r0,@level                  ; Level mod 4
-       jmp  next_level                 ; Level loop
-main_died:
-       dec  @lives
-       bl   @display_lives
-       mov  @lives,r0
-       jne  !
-       bl   @game_over
-       jmp  new_game
-!      bl   @died
-       jmp  restart
-*// main
+       jne  main_loop_1                ; Loop if not at top
+       inc  @status                    ; Status=won
+*      Return
+main_loop_2:
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// main_loop
 
 ********************************************************************************
 *
@@ -642,7 +665,11 @@ user_input:
        bl   @keyboard_input
        jmp  user_input_2
 user_input_1:
+       jlt  user_input_3
        bl   @joystick_input
+       jmp  user_input_2
+user_input_3:
+       bl   @auto_input
 user_input_2:
 *      Check quit
        bl   @check_quit
@@ -769,6 +796,14 @@ joystick_input_6:
 joystick_input_7:
        b    *r11
 *// joystick_input
+
+*********************************************************************************
+*
+* Automatic input
+*
+auto_input:
+       b    *r11
+*// auto_input
 
 *********************************************************************************
 *
@@ -1421,6 +1456,7 @@ init:
        bl   @copy_memory
 *      User input disabled for demo
        clr  @user_input_enabled
+       clr  @demo
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -1555,9 +1591,6 @@ init_level:
 *      Display score and level
        bl   @display_score
        bl   @display_level
-*      Music
-       li   r1,cart_music_base
-       bl   @init_music
 *      Enable user input
        seto @user_input_enabled
 *      Screen on
@@ -2765,6 +2798,10 @@ direction:                             ; Scroll direction. Used by update_charac
 loop_music:                            ; Is music looping?
        data 0
 tune_no:                               ; Tune number
+       data 0
+demo:                                  ; Is this a demo?
+       data 0
+title_screen_counter:                  ; Counter for title screen
        data 0
 **
 * High scores
