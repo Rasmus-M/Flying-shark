@@ -1952,7 +1952,7 @@ title_screen_2:
        li   r1,cart_music_base
        bl   @init_music
 *      Change betwwen title and high score
-       li   r0,2
+       li   r0,3
        mov  r0,@title_screen_counter
 title_screen_3:
 *      Display title screen
