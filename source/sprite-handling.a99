@@ -1413,7 +1413,7 @@ player_sprite_collisions_1:
        mov  r1,@sprite_path(r3)
        mov  *r1,@sprite_count(r5)      ; Init counter @path_count(r1)
        clr  @user_input_enabled
-       li   r1,expl_1
+       li   r1,expl_sfx
        bl   @init_sfx
        .endif
        jmp  player_sprite_collisions_3
@@ -1427,22 +1427,25 @@ player_sprite_collisions_4:
        ci   r0,power_up_triple_shot
        jeq  player_sprite_collisions_7
        inc  @power_ups
-       jmp  player_sprite_collisions_3
-player_sprite_collisions_5
+       jmp  player_sprite_collisions_8
+player_sprite_collisions_5:
        ci   r6,sprite_def_smart_bomb
        jne  player_sprite_collisions_6
        inc  @smart_bombs
        bl   @display_smart_bombs
-       jmp player_sprite_collisions_3
-player_sprite_collisions_6
+       jmp player_sprite_collisions_8
+player_sprite_collisions_6:
        ci   r6,sprite_def_extra_life
        jne  player_sprite_collisions_3
        inc  @lives
        bl   @display_lives
-       jmp player_sprite_collisions_3
-player_sprite_collisions_7
+       jmp player_sprite_collisions_8
+player_sprite_collisions_7:
        li   r0,1000
        bl   @add_score
+player_sprite_collisions_8:
+       li   r1,bonus_sfx
+       bl   @init_sfx
        jmp player_sprite_collisions_3
 *      Next
 player_sprite_collisions_2:
@@ -1814,7 +1817,7 @@ explode_bullet:
        mov  @sprite_hw_1(r5),r5
        li   r1,>0a00
        mov  r1,@hw_sprite_color(r5)
-       li   r1,expl_1
+       li   r1,expl_sfx
        bl   @init_sfx
 *      Return
        dect r10                        ; Pop return address off the stack

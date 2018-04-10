@@ -859,7 +859,7 @@ fire_3:
 *      Triple
        bl   @add_triple_bullet_sprite
 fire_4:
-       li   r1,shot_1
+       li   r1,shot_sfx
        bl   @init_sfx
        neg  @player_fire
 *      Return
@@ -2896,10 +2896,12 @@ txt_game_over:
 * Music and sound fx
 *
        copy "tiplayersfx.a99"
-shot_1:
+shot_sfx:
        bcopy "..\sound\shot2.vgm.spf"
-expl_1:
+expl_sfx:
        bcopy "..\sound\expl1.vgm.spf"
+bonus_sfx:
+       bcopy "..\sound\bonus.vgm.spf"
 **
 * Geometry lookup tables
 *
