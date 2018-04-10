@@ -1385,19 +1385,14 @@ scroll_to_position_2:
        bl   @draw_initial_screen
 *      Set sprite position list pointer
 *      to the entry at or just before the current scroll y
-       mov  @sprite_pos_ptr,r1
+       mov  @sprite_pos_ptr,r1         ; Pointer starts at beginning of list
 scroll_to_position_3:
-       mov  *r1,r0
-       jlt  scroll_to_position_6
-       c    r0,@scroll_y_current
-       jeq  scroll_to_position_5
-       jl   scroll_to_position_4
+       mov  *r1,r0                     ; Get y
+       jlt  scroll_to_position_6       ; Negative means end
+       c    r0,@scroll_y_current       ; Check y against scroll position
+       jle  scroll_to_position_5
        ai   r1,sprite_pos_struct_size
        jmp  scroll_to_position_3
-scroll_to_position_4:
-       c    @sprite_pos_ptr,r1
-       jeq  scroll_to_position_6
-       ai   r1,-sprite_pos_struct_size ; We have come too far
 scroll_to_position_5:
        mov  r1,@sprite_pos_ptr
 *      Reset sprites
