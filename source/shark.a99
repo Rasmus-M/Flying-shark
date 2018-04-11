@@ -1972,8 +1972,7 @@ title_screen_3:
        jmp  title_screen_0
 title_screen_4:
 *      Stop music
-       clr  @music
-       bl   @mute_sound
+       bl   @stop_sound
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -2527,8 +2526,6 @@ rand:
 *
 * Play sound if interrupt has occurred
 *
-* Modifies r0-r1
-*
 play_sound_check:
        mov  r11,*r10+                  ; Push return address onto the stack
        clr  r12
@@ -2537,7 +2534,10 @@ play_sound_check:
        movb @vdpsta,@vdp_status
        mov  r0,*r10+
        mov  r1,*r10+
+       mov  r2,*r10+
        bl   @play_sound
+       dect r10
+       mov  *r10,r2
        dect r10
        mov  *r10,r1
        dect r10
@@ -2557,12 +2557,10 @@ play_sound_check_1:
 *
 play_sound:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @music,r0
-       jeq  play_sound_2
        stwp r0
        mov  r0,@play_sound_1+2
        mov  @cart_music_bank,r0
-       seto *r0
+       seto *r0                        ; Enabled ROM bank containing music
        bl   @stplaysfx
 play_sound_1:
        lwpi 0
@@ -2572,6 +2570,7 @@ play_sound_1:
        jeq  play_sound_2
 *      Restart music
        mov  @music,r1
+       jeq  play_sound_2
        bl   @init_music
 *      Return
 play_sound_2:
@@ -2589,6 +2588,8 @@ play_sound_2:
 init_music:
        mov  r11,*r10+                  ; Push return address onto the stack
        bl   @mute_sound
+       abs  @music_on
+       jeq  init_music_2
        mov  r1,@music
        stwp r0
        mov  r0,@init_music_1+2
@@ -2602,6 +2603,7 @@ init_music:
 init_music_1:
        lwpi 0
 *      Return
+init_music_2:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
@@ -2638,6 +2640,61 @@ init_sfx_1:
 
 *********************************************************************
 *
+* Check M key and toggle music is pressed
+*
+music_toggle:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       mov  r4,*r10+
+       li   r0,KEY_M
+       bl   @check_key
+       jeq  toggle_music_3
+       abs  @music_on
+       jne  music_toggle_1
+*      Turn music on
+       seto @music_on
+       li   r1,cart_music_base
+       bl   @init_music
+       jmp  music_toggle_2
+music_toggle_1:
+*      Turn music off
+       clr  @music_on
+       bl   @stop_sound
+*      Wait for key release
+music_toggle_2:
+       li   r0,KEY_M
+       bl   @check_key
+       jne  music_toggle_2
+toggle_music_3:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r4
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// music_toggle
+
+
+*********************************************************************
+*
+* Stop sound
+*
+stop_sound:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @mute_sound
+       stwp r0
+       mov  r0,@stop_sound_1+2
+       lwpi callwp
+       bl   @ststopsfx
+stop_sound_1:
+       lwpi 0
+*      Return
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// stop_sound
+
+*********************************************************************
+*
 * Mute sound
 *
 mute_sound:
@@ -2647,7 +2704,7 @@ mute_sound_1:
        movb *r0+,@sound
        dec  r2
        jne  mute_sound_1
-       clr  @music
+*      Return
        b    *r11
 mute_table:
        byte >9f, >bf, >df, >ff
@@ -2684,6 +2741,7 @@ wait_key_timeout:
        clr  @frame_count
 wait_key_timeout_1:
        bl   @check_quit
+       bl   @music_toggle
        bl   @any_key
        jne  wait_key_timeout_3
        bl   @vsync
@@ -2865,7 +2923,9 @@ alloc_sprite_cnt:                      ; Used by alloc_sprite
        data 0
 direction:                             ; Scroll direction. Used by update_characters
        data -1
-loop_music:                            ; Is music looping?
+music_on:                              ; If music enabled?
+       data -1
+loop_music:                            ; Should music loop?
        data 0
 tune_no:                               ; Tune number
        data 0
