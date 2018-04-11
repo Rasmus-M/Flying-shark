@@ -111,8 +111,9 @@ add_tank_sprite_1:
        abs  @boat_patterns_uploaded
        jeq  add_tank_sprite_2
        mov  @sprite_path(r1),r1        ; Get path
-       mov  @path_vy(r1),r1
-       jeq  add_tank_sprite_2          ; Only upload if vertical
+       mov  @path_pattern(r1),r1
+       ci   r1,>1800
+       jne  add_tank_sprite_2          ; Only upload if vertical
        bl   @upload_tank_patterns
 *      Return
 add_tank_sprite_2:

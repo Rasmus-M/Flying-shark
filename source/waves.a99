@@ -5,14 +5,14 @@
 *
 waves:
 *      Level 1
-       data 3,3,wave_bonus_power_up,0
+       data 3,3,wave_bonus_power_up,0      ; 0
        data 4,4,wave_bonus_power_up,0
        data 1,1,wave_bonus_smart_bomb,0
        data 2,2,wave_bonus_life,0
        data 2,2,wave_bonus_smart_bomb,0
        data 2,2,wave_bonus_power_up,0
 *      Level 2
-       data 5,5,wave_bonus_power_up,0
+       data 5,5,wave_bonus_power_up,0      ; 6
        data 4,4,wave_bonus_power_up,0
        data 3,3,wave_bonus_life,0
        data 1,1,wave_bonus_smart_bomb,0
@@ -21,7 +21,7 @@ waves:
        data 5,5,wave_bonus_power_up,0
        data 1,1,wave_bonus_smart_bomb,0
 *      Level 3
-       data 1,1,wave_bonus_smart_bomb,0
+       data 1,1,wave_bonus_smart_bomb,0    ; 14
        data 3,3,wave_bonus_power_up,0
        data 3,3,wave_bonus_power_up,0
        data 1,1,wave_bonus_smart_bomb,0
@@ -30,7 +30,7 @@ waves:
        data 4,4,wave_bonus_life,0
        data 1,1,wave_bonus_smart_bomb,0
 *      Level 4
-       data 4,4,wave_bonus_power_up,0
+       data 4,4,wave_bonus_power_up,0      ; 22
        data 1,1,wave_bonus_smart_bomb,0
        data 3,3,wave_bonus_power_up,0
        data 1,1,wave_bonus_power_up,0

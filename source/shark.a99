@@ -899,6 +899,8 @@ smart_bomb_1:
        jeq  smart_bomb_2
        ci   r1,sprite_type_tank
        jeq  smart_bomb_2
+       ci   r1,sprite_type_boat
+       jeq  smart_bomb_2
        jmp  smart_bomb_4
 smart_bomb_2:
        li   r0,sprite_def_bullet
