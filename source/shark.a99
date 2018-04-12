@@ -20,7 +20,7 @@ immunity:
 * Constants
 *
 start_level:
-       equ  3
+       equ  0
 start_lives:
        equ  3
 start_bombs:
@@ -885,6 +885,8 @@ smart_bomb:
        jeq  smart_bomb_6
        dec  @smart_bombs
        bl   @display_smart_bombs
+       li   r1,fire_bomb_sfx
+       bl   @init_sfx
 *      Destroy enemies
        mov  @max_sprite,r8
        inc  r8
@@ -893,25 +895,20 @@ smart_bomb_1:
        mov  *r9,r1                     ; Get sprite definition
        jeq  smart_bomb_4
        mov  @sprite_def_type(r1),r1    ; Get sprite type
-       ci   r1,sprite_type_enemy_plane
-       jeq  smart_bomb_2
-       ci   r1,sprite_type_turret
-       jeq  smart_bomb_2
-       ci   r1,sprite_type_tank
-       jeq  smart_bomb_2
-       ci   r1,sprite_type_boat
-       jeq  smart_bomb_2
-       jmp  smart_bomb_4
-smart_bomb_2:
+       sla  r1,1
+       mov  @enemy_hit_jump_table(r1),r13
+       jeq  smart_bomb_4
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
-       mov  r9,r3
        mov  r1,r5
-       jeq  smart_bomb_3
-       bl   @explode_bullet
-smart_bomb_3:
-       mov  r9,r1
-       bl   @dealloc_sprite
+       jeq  smart_bomb_4
+       mov  r9,r3
+       mov  @sprite_hits_left(r3),r0   ; Check enemy hits left
+       jeq  smart_bomb_4
+       dec  @sprite_hits_left(r3)
+       mov  @sprite_x(r3),@sprite_x(r5)
+       mov  @sprite_y(r3),@sprite_y(r5)
+       bl   *r13
 smart_bomb_4:
        ai   r9,sprite_struct_size
        dec  r8
@@ -2962,8 +2959,16 @@ shot_sfx:
        bcopy "..\sound\shot2.vgm.spf"
 expl_sfx:
        bcopy "..\sound\expl1.vgm.spf"
+power_up_sfx:
+       bcopy "..\sound\bonus.vgm.spf"
 bonus_sfx:
        bcopy "..\sound\bonus.vgm.spf"
+life_sfx:
+       bcopy "..\sound\bonus.vgm.spf"
+bomb_sfx:
+       bcopy "..\sound\bonus.vgm.spf"
+fire_bomb_sfx:
+       bcopy "..\sound\expl1.vgm.spf"
 **
 * Geometry lookup tables
 *

@@ -1498,8 +1498,7 @@ enemy_sprite_collisions_1:
        jeq  enemy_sprite_collisions_2
        mov  @sprite_hits_left(r3),r0   ; Check enemy hits left
        jeq  enemy_sprite_collisions_3
-       dec  r0
-       mov  r0,@sprite_hits_left(r3)
+       dec  @sprite_hits_left(r3)
 enemy_sprite_collisions_4:
        mov  *r3,r1                     ; Get sprite definition
        mov  *r1,r1                     ; Get sprite type @sprite_def_type(r1)
