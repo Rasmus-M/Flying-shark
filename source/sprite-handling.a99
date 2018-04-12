@@ -1414,22 +1414,23 @@ player_sprite_collisions_1:
        mov  @sprite_def_hit_action(r6),r0
        jlt  player_sprite_collisions_4
 *      Deadly
+       clr  @sprite_hits_left(r3)
        mov  @power_ups,r0
        jeq  player_sprite_collisions_9
        dec  @power_ups
        li   r0,30
-       mov  r0,@sprite_player+sprite_count
-       jmp  player_sprite_collisions_3
+       mov  r0,@sprite_count(r3)
+       jmp  player_sprite_collisions_10
 player_sprite_collisions_9:
        .ifeq immunity,0
-       clr  @sprite_hits_left(r3)
        li   r1,path_explosion
        mov  r1,@sprite_path(r3)
        mov  *r1,@sprite_count(r5)      ; Init counter @path_count(r1)
        clr  @user_input_enabled
+       .endif
+player_sprite_collisions_10:
        li   r1,expl_sfx
        bl   @init_sfx
-       .endif
        jmp  player_sprite_collisions_3
 *      Pickup
 player_sprite_collisions_4:

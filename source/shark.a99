@@ -1500,8 +1500,6 @@ init_game:
        clr  @status
        li   r0,start_bombs
        mov  r0,@smart_bombs
-       li   r0,power_up_none
-       mov  r0,@power_ups
        clr  @sprite_table_flag
        clr  @bomb_count_down
 *      Init sprites
@@ -1581,6 +1579,9 @@ init_level:
 *      Screen off
        li   r0,>01a2
        bl   @vwtr
+*      Init variables
+       li   r0,power_up_none
+       mov  r0,@power_ups
 *      Cartridge addresses
        li   r0,24
        mpy  @level,r0                  ; Level * 24 (12 banks per level)
