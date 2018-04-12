@@ -1414,6 +1414,13 @@ player_sprite_collisions_1:
        mov  @sprite_def_hit_action(r6),r0
        jlt  player_sprite_collisions_4
 *      Deadly
+       mov  @power_ups,r0
+       jeq  player_sprite_collisions_9
+       dec  @power_ups
+       li   r0,30
+       mov  r0,@sprite_player+sprite_count
+       jmp  player_sprite_collisions_3
+player_sprite_collisions_9:
        .ifeq immunity,0
        clr  @sprite_hits_left(r3)
        li   r1,path_explosion
