@@ -14,13 +14,13 @@
 * Assembly options
 *
 immunity:
-       equ  0
+       equ  1
 
 **
 * Constants
 *
 start_level:
-       equ  0
+       equ  3
 start_lives:
        equ  3
 start_bombs:

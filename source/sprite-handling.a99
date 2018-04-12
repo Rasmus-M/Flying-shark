@@ -1172,6 +1172,12 @@ update_boss_tank_sprite:
 *      Update path
        bl   @update_path
        jlt  update_boss_tank_sprite_3  ; Path ended
+*      Check bounds
+       mov  @sprite_y(r3),r0
+       ci   r0,>c000                    ; Check for out of screen
+       jl   update_boss_tank_sprite_1   ; Move if not out of screen
+       ci   r0,>e000                    ; Check for out of screen
+       jl   update_boss_tank_sprite_3   ; Remove if out of screen
 *      Move
 update_boss_tank_sprite_1:
 ;      a    @path_vx(r4),@sprite_x(r3)
@@ -1536,7 +1542,7 @@ boss_sprite_collisions_1:
        mov  @sprite_x(r5),r0           ; Bullet x
        s    r7,r0                      ; Bullet x - boss x
        sra  r0,8
-       a    @sprite_def_left(r5),r0    ; Add bullet left
+       a    @sprite_def_left(r6),r0    ; Add bullet left
        ci   r0,-4                      ; Bullet width
        jlt  boss_sprite_collisions_2
        c    r0,@sprite_def_width(r9)   ; Boss width
@@ -1545,7 +1551,7 @@ boss_sprite_collisions_1:
        mov  @sprite_y(r5),r1           ; Bullet y
        s    r8,r1                      ; Bullet y - boss y
        sra  r1,8
-       a    @sprite_def_top(r6),r0     ; Add bullet top
+       a    @sprite_def_top(r6),r1     ; Add bullet top
        ci   r1,-4                      ; Bullet height
        jlt  boss_sprite_collisions_2
        c    r1,@sprite_def_height(r9)  ; Boss height

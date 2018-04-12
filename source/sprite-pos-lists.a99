@@ -548,7 +548,7 @@ sprite_pos_list_4:
        data 1304,8,-16,sprite_def_enemy_plane,path_plane_dive_left_right_long,-1
        data 1296,16,-16,sprite_def_enemy_plane,path_plane_dive_left_left_long,-1
 *      Boss
-       data 1272,16,40,sprite_def_boss_tank,path_boss_tank,-1
+       data 1272,16,40,sprite_def_boss_tank,path_boss_tank_3,-1
 *      3 Planes from right
        data 1232,112,-16,sprite_def_enemy_plane,path_plane_dive_right_left_short,-1
        data 1224,120,-16,sprite_def_enemy_plane,path_plane_dive_right_left_medium,-1
