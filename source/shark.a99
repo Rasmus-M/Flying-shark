@@ -14,7 +14,7 @@
 * Assembly options
 *
 immunity:
-       equ  1
+       equ  0
 
 **
 * Constants
@@ -2960,13 +2960,13 @@ shot_sfx:
 expl_sfx:
        bcopy "..\sound\expl1.vgm.spf"
 power_up_sfx:
-       bcopy "..\sound\bonus.vgm.spf"
+       bcopy "..\sound\power-up.vgm.spf"
 bonus_sfx:
        bcopy "..\sound\bonus.vgm.spf"
 life_sfx:
-       bcopy "..\sound\bonus.vgm.spf"
+       bcopy "..\sound\life.vgm.spf"
 bomb_sfx:
-       bcopy "..\sound\bonus.vgm.spf"
+       bcopy "..\sound\bomb.vgm.spf"
 fire_bomb_sfx:
        bcopy "..\sound\expl1.vgm.spf"
 **

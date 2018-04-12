@@ -1434,24 +1434,27 @@ player_sprite_collisions_4:
        ci   r0,power_up_triple_shot
        jeq  player_sprite_collisions_7
        inc  @power_ups
+       li   r1,power_up_sfx
        jmp  player_sprite_collisions_8
 player_sprite_collisions_5:
        ci   r6,sprite_def_smart_bomb
        jne  player_sprite_collisions_6
        inc  @smart_bombs
        bl   @display_smart_bombs
+       li   r1,bomb_sfx
        jmp player_sprite_collisions_8
 player_sprite_collisions_6:
        ci   r6,sprite_def_extra_life
        jne  player_sprite_collisions_3
        inc  @lives
        bl   @display_lives
+       li   r1,life_sfx
        jmp player_sprite_collisions_8
 player_sprite_collisions_7:
        li   r0,1000
        bl   @add_score
-player_sprite_collisions_8:
        li   r1,bonus_sfx
+player_sprite_collisions_8:
        bl   @init_sfx
        jmp player_sprite_collisions_3
 *      Next
