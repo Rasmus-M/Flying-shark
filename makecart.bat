@@ -60,8 +60,8 @@ build\level4_b10.bin + ^
 build\empty-1k.bin + build\level4_b11.bin + ^
 build\empty-1k.bin + build\title-music.bin + ^
 build\empty-1k.bin + build\landing-music.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
+build\empty-2k.bin + build\WINNING.TIAP + ^
+build\empty-2k.bin + build\WINNING.TIAC + ^
 build\empty.bin + ^
 build\empty.bin + ^
 build\empty.bin + ^

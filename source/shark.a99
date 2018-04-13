@@ -31,7 +31,7 @@ scroll_interval:
        equ  4
 player_speed:
        equ  >0200
-title_bank:
+title_image_bank:
        equ  >6008
 levels_base_bank:
        equ  >600c
@@ -39,6 +39,8 @@ title_music_bank:
        equ  >606c
 landing_music_bank:
        equ  >606e
+winning_image_bank:
+       equ  >6070
 cart_base:
        equ  >603c
 cart_music_base:
@@ -384,7 +386,7 @@ main:
 *      New game
 new_game:
        bl   @title_screen              ; Display title screen
-       bl   @gmode                     ; Setup graphics mode
+       bl   @graphics_mode                     ; Setup graphics mode
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
@@ -403,6 +405,13 @@ main_next:
        bl   @add_score
        dec  r3
        jne  main_next
+       mov  @level,r0
+       ci   r0,3
+       jne  main_next_1
+       bl   @display_winning_screen
+       bl   @graphics_mode
+       bl   @init_game_display
+main_next_1:
        inc  @level                     ; Increase level
        li   r0,>fffc                   ; Mask
        szc  r0,@level                  ; Level mod 4
@@ -558,7 +567,7 @@ set_name_table_2:
        jmp  set_name_table_4
 set_name_table_3:
        li   r0, >020d                  ; namet4
-*       Update register 2
+*      Update register 2
 set_name_table_4:
        bl   @vwtr
 *      Return
@@ -1504,6 +1513,20 @@ init_game:
        clr  @bomb_count_down
 *      Init sprites
        bl   @init_sprites
+*      Init game display
+       bl   @init_game_display
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// init_game
+
+*********************************************************************************
+*
+* Initialize game display
+*
+init_game_display:
+       mov  r11,*r10+                  ; Push return address onto the stack
 *      Draw panel
        li   r0,panel_left*256
        li   r1,MD0
@@ -1518,7 +1541,7 @@ init_game:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-*// init_game
+*// init_game_display
 
 *********************************************************************************
 *
@@ -1828,19 +1851,19 @@ copy_memory:
 
 *********************************************************************************
 *
-* Set graphics mode
+* Set graphics mode (with 3 pattern tables)
 *
-gmode:
+graphics_mode:
        mov  r11,*r10+                  ; Push return address onto the stack
        clr  r0
        li   r1,vregs
        li   r2,8
-gmode_1:
+graphics_mode_1:
        movb *r1+,@r0lb
        bl   @vwtr                      ; Set register
        ai   r0,>0100
        dec  r2
-       jne  gmode_1
+       jne  graphics_mode_1
 *      Patterns
        li   r0,ptrntb
        clr  r1
@@ -1909,7 +1932,52 @@ vregs:
        byte sprat1/>80                 ; Sprite attribute table
        byte sprptb/>800                ; Sprite pattern table
        byte >01                        ; Backdrop color
-*// gmode
+*// graphics_mode
+
+*********************************************************************************
+*
+* Set full bitmap mode
+*
+bitmap_mode:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       clr  r0
+       li   r1,vregs2
+       li   r2,8
+bitmap_mode_1:
+       movb *r1+,@r0lb
+       bl   @vwtr                      ; Set register
+       ai   r0,>0100
+       dec  r2
+       jne  bitmap_mode_1
+*      Name table
+       li   r0,namet5
+       bl   @vwad
+       clr  r1
+       li   r2,>300
+bitmap_mode_2:
+       movb r1,@vdpwd
+       ai   r1,>0100
+       dec  r2
+       jne  bitmap_mode_2
+*      Sprite attributes
+       li   r0,sprat3
+       li   r1,>d000
+       bl   @vsbw
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*      VDP registers
+vregs2:
+       byte >02                        ; Graphics II mode
+       byte >a2                        ; 16K, display off, interrupt enabled
+       byte namet5/>400                ; Name table
+       byte >ff                        ; Color table
+       byte ptrntb/>800+>03            ; Pattern table
+       byte sprat3/>80                 ; Sprite attribute table
+       byte sprptb/>800                ; Sprite pattern table
+       byte >01                        ; Backdrop color
+*// bitmap_mode
 
 *********************************************************************************
 *
@@ -1918,29 +1986,7 @@ vregs:
 title_screen:
        mov  r11,*r10+                  ; Push return address onto the stack
 title_screen_0:
-       clr  r0
-       li   r1,vregs2
-       li   r2,8
-title_screen_1:
-       movb *r1+,@r0lb
-       bl   @vwtr                      ; Set register
-       ai   r0,>0100
-       dec  r2
-       jne  title_screen_1
-*      Name table
-       li   r0,namet5
-       bl   @vwad
-       clr  r1
-       li   r2,>300
-title_screen_2:
-       movb r1,@vdpwd
-       ai   r1,>0100
-       dec  r2
-       jne  title_screen_2
-*      Sprite attributes
-       li   r0,sprat3
-       li   r1,>d000
-       bl   @vsbw
+       bl   @bitmap_mode
 *      Init music
        li   r0,title_music_bank
        mov  r0,@cart_music_bank
@@ -1977,16 +2023,6 @@ title_screen_4:
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
        b    *r11
-*      VDP registers
-vregs2:
-       byte >02                        ; Graphics II mode
-       byte >a2                        ; 16K, display off, interrupt enabled
-       byte namet5/>400                ; Name table
-       byte >ff                        ; Color table
-       byte ptrntb/>800+>03            ; Pattern table
-       byte sprat3/>80                 ; Sprite attribute table
-       byte sprptb/>800                ; Sprite pattern table
-       byte >01                        ; Backdrop color
 *// title_screen
 
 *********************************************************************************
@@ -1996,50 +2032,8 @@ vregs2:
 display_title_screen:
        mov  r11,*r10+                  ; Push return address onto the stack
        bl   @play_sound_check
-*      Screen off
-       li   r0,>01a2
-       bl   @vwtr
-*      Patterns
-       li   r0,ptrntb
-       bl   @vwad
-       li   r3,8
-       li   r4,>6800
-       li   r5,vdpwd
-display_title_screen_1:
-       seto @title_bank
-       li   r2,>1800/(8*4)
-display_title_screen_2:
-       movb *r4+,*r5
-       movb *r4+,*r5
-       movb *r4+,*r5
-       movb *r4+,*r5
-       dec  r2
-       jne  display_title_screen_2
-       bl   @play_sound_check
-       dec  r3
-       jne  display_title_screen_1
-*      Colors
-       li   r0,colrtb
-       bl   @vwad
-       li   r3,8
-       li   r4,>6800
-       li   r5,vdpwd
-display_title_screen_4:
-       seto @title_bank+2
-       li   r2,>1800/(8*4)
-display_title_screen_5:
-       movb *r4+,*r5
-       movb *r4+,*r5
-       movb *r4+,*r5
-       movb *r4+,*r5
-       dec  r2
-       jne  display_title_screen_5
-       bl   @play_sound_check
-       dec  r3
-       jne  display_title_screen_4
-*      Screen on
-       li   r0,>01e2
-       bl   @vwtr
+       li   r6,title_image_bank
+       bl   @display_bitmap_screen
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10,r11
@@ -2214,7 +2208,7 @@ copper_bar:
 *
 demo:
        mov  r11,*r10+                  ; Push return address onto the stack
-       bl   @gmode                     ; Setup graphics mode
+       bl   @graphics_mode                     ; Setup graphics mode
        bl   @init_game                 ; Initialize game
        bl   @rand
        andi r0,3
@@ -2232,6 +2226,83 @@ demo:
        mov  *r10, r11
        b    *r11
 *// demo
+
+*********************************************************************
+*
+* Display winning screen
+*
+display_winning_screen:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @bitmap_mode
+       li   r6,winning_image_bank
+       bl   @display_bitmap_screen
+       li   r3,864
+       clr  r4
+       bl   @wait_key_timeout
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// display_winning_screen
+
+*********************************************************************************
+*
+* Display bitmap screen
+*
+* r6: ROM bank select address
+*
+display_bitmap_screen:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*      Screen off
+       li   r0,>01a2
+       bl   @vwtr
+*      Patterns
+       li   r0,ptrntb
+       bl   @vwad
+       li   r3,8
+       li   r4,>6800
+       li   r5,vdpwd
+display_bitmap_screen_1:
+       seto *r6
+       li   r2,>1800/(8*4)
+display_bitmap_screen_2:
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       dec  r2
+       jne  display_bitmap_screen_2
+       bl   @play_sound_check
+       dec  r3
+       jne  display_bitmap_screen_1
+*      Colors
+       li   r0,colrtb
+       bl   @vwad
+       li   r3,8
+       li   r4,>6800
+       li   r5,vdpwd
+       inct r6
+display_bitmap_screen_4:
+       seto *r6
+       li   r2,>1800/(8*4)
+display_bitmap_screen_5:
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       movb *r4+,*r5
+       dec  r2
+       jne  display_bitmap_screen_5
+       bl   @play_sound_check
+       dec  r3
+       jne  display_bitmap_screen_4
+*      Screen on
+       li   r0,>01e2
+       bl   @vwtr
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// display_bitmap_screen
 
 *********************************************************************************
 *
@@ -2881,7 +2952,6 @@ check_key:
 * Resets EQ (neq) if any key is pressed
 *
 any_key:
-       clr  @user_input_device
        li   r1,>0000                   ; Column
 any_key_1:
        li   r12,>0024                  ; CRU address of the column decoder
@@ -2896,12 +2966,16 @@ any_key_1:
        inc  r1
        ci   r1,8
        jne  any_key_1
-       jmp  any_key_3                  ; eq ok
+       jmp  any_key_4                  ; eq ok
 any_key_2:
        ci   r1,6
        jne  any_key_3                  ; neq ok
        inc  @user_input_device         ; Still neq
+       jmp  any_key_4
 any_key_3:
+       clr  @user_input_device         ; Sets eq
+       seto r0                         ; Reset eq
+any_key_4:
        b    *r11
 *// any_key
 
