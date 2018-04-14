@@ -886,7 +886,7 @@ smart_bomb:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @bomb_count_down,r0
        jlt  smart_bomb_5
-       ci   r0,32
+       ci   r0,16
        jlt  smart_bomb_6
 *      Initiate bomb
        clr  @bomb_count_down
