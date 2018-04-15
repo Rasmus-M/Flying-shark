@@ -41,6 +41,8 @@ landing_music_bank:
        equ  >606e
 winning_image_bank:
        equ  >6070
+first_image_bank:
+       equ  >6074
 cart_base:
        equ  >603c
 cart_music_base:
@@ -382,6 +384,7 @@ main:
        lwpi wrksp                      ; Setup workspace
        li   r10,stack                  ; Setup stack pointer
        mov  @rndsd,@rand_no            ; Save random number seed
+       bl   @display_first_screen
        bl   @init                      ; One time initializations
 *      New game
 new_game:
@@ -2244,6 +2247,24 @@ display_winning_screen:
        mov  *r10, r11
        b    *r11
 *// display_winning_screen
+
+*********************************************************************
+*
+* Display first screen
+*
+display_first_screen:
+       mov  r11,*r10+                  ; Push return address onto the stack
+       bl   @bitmap_mode
+       li   r6,first_image_bank
+       bl   @display_bitmap_screen
+       li   r3,180
+       clr  r4
+       bl   @wait_key_timeout
+*      Return
+       dect r10                        ; Pop return address off the stack
+       mov  *r10, r11
+       b    *r11
+*// display_first_screen
 
 *********************************************************************************
 *
