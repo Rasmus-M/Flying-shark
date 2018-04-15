@@ -814,11 +814,11 @@ joystick_input_7:
 *
 auto_input:
        mov  r11,*r10+                  ; Push return address onto the stack
-       dec  @bomb_count_down
+       dec  @demo_count_down
        jgt  auto_input_0
        seto @player_fire
        li   r0,8
-       mov  r0,@bomb_count_down
+       mov  r0,@demo_count_down
 auto_input_0:
        mov  @sprite_x(r1),r0
        ci   r0,(x_max-16)*256          ; Check x bounds
@@ -2221,7 +2221,7 @@ demo:
        mov  r0,@cart_music_bank
        seto @user_input_device
        li   r0,32
-       mov  r0,@bomb_count_down
+       mov  r0,@demo_count_down
        seto @demo_vx
        bl   @main_loop
 *      Return
@@ -3069,6 +3069,8 @@ tune_no:                               ; Tune number
 title_screen_counter:                  ; Counter for title screen
        data 0
 demo_vx:                               ; X movement direction for demo play
+       data 0
+demo_count_down:
        data 0
 cheat_ptr:                             ; Cheat code
        data cheat_code
