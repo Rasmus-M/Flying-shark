@@ -161,6 +161,8 @@ add_mask_sprite_1:
 add_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Alloc sprite
+       c    @max_hw_sprite,@hw_sprite_bulllet_limit
+       jhe  add_bullet_sprite_1        ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
@@ -178,6 +180,8 @@ add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
+hw_sprite_bulllet_limit:
+       data 28
 *// add_bullet_sprite
 
 *********************************************************************************
