@@ -64,14 +64,10 @@ build\empty-2k.bin + build\WINNING.TIAP + ^
 build\empty-2k.bin + build\WINNING.TIAC + ^
 build\empty-2k.bin + build\FIRST.TIAP + ^
 build\empty-2k.bin + build\FIRST.TIAC + ^
-build\empty.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
-build\empty.bin + ^
-build\empty.bin ^
+build\skyway8.bin ^
 flying-shark-8.bin
 
-java -jar tools/CopyHeader.jar flying-shark-8.bin 60
+java -jar tools/CopyHeader.jar flying-shark-8.bin 60 60
 
 WHERE jar
 @IF %ERRORLEVEL% NEQ 0 GOTO :end

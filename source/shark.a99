@@ -15,6 +15,8 @@
 *
 immunity:
        equ  0
+vdp_int_from_status:
+       equ  1
 
 **
 * Constants
@@ -539,11 +541,18 @@ game_frame_actions_1:
 * Wait for vertical retrace (CRU)
 *
 vsync:
+       .ifeq vdp_int_from_status,0
        clr  r12
 vsync_1:
        tb   2                          ; Test CRU bit for VDP interrupt
        jeq  vsync_1
        movb @vdpsta,@vdp_status
+       .else
+       movb @vdpsta,r12
+       jgt  vsync
+       jeq  vsync
+       movb r12,@vdp_status
+       .endif
        b    *r11
 *// vsync
 
@@ -2732,7 +2741,7 @@ init_sfx_1:
 
 *********************************************************************
 *
-* Check M key and toggle music is pressed
+* Check M key and toggle music if pressed
 *
 music_toggle:
        mov  r11,*r10+                  ; Push return address onto the stack
@@ -2749,6 +2758,11 @@ music_toggle:
        jmp  music_toggle_2
 music_toggle_1:
 *      Turn music off
+       li   r0,>6078
+       seto *r0
+       b    @>603C
+
+
        clr  @music_on
        bl   @stop_sound
 *      Wait for key release
@@ -2764,6 +2778,35 @@ toggle_music_3:
        mov  *r10,r11
        b    *r11
 *// music_toggle
+
+*********************************************************************
+*
+* Check for Easter Egg (Skyway)
+*
+check_easter_egg:
+       mov  r11,*r10+                  ; Push return address onto the stack
+*	   Check for activation code
+       mov  @easter_ptr,r0
+       jeq  check_easter_egg_2
+       mov  *r0,r0
+       jlt  check_easter_egg_1
+       bl   @check_key
+       jeq  check_easter_egg_2
+       inct @easter_ptr
+       jmp  check_easter_egg_2
+*      Easter egg
+check_easter_egg_1:
+       bl   @mute_sound
+       li   r0,>6078
+       seto *r0
+       b    @>603c
+*      Return
+check_easter_egg_2:
+       dect r10                        ; Pop return address off the stack
+       mov  *r10,r11
+       b    *r11
+*// check_easter_egg
+
 
 *********************************************************************
 *
@@ -2861,6 +2904,7 @@ wait_key_timeout:
        clr  @frame_count
 wait_key_timeout_1:
        bl   @check_quit
+       bl   @check_easter_egg
        bl   @check_cheat_code
        bl   @music_toggle
        bl   @any_key
@@ -3074,6 +3118,8 @@ demo_count_down:
        data 0
 cheat_ptr:                             ; Cheat code
        data cheat_code
+easter_ptr:                            ; Easter egg
+       data easter_code
 **
 * Cheat code
 *
@@ -3086,6 +3132,14 @@ cheat_code:
        data	KEY_L
        data	KEY_I
        data	KEY_V
+       data	-1
+easter_code:
+       data	KEY_S
+       data	KEY_K
+       data	KEY_Y
+       data	KEY_W
+       data	KEY_A
+       data	KEY_Y
        data	-1
 
 **
