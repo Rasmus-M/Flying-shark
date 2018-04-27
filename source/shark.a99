@@ -464,18 +464,19 @@ main_set_tables:
 *      Delay
        li   r2,scroll_interval         ; Frames per scroll
        s    @frame_count,r2            ; Subtract frame used
-       jlt  !                          ; Used too many already?
-       jeq  !                          ; Used all?
+       jlt  main_check_pause_quit      ; Used too many already?
+       jeq  main_check_pause_quit      ; Used all?
 main_delay:
        bl   @vsync                     ; Wait for vsync/interrupt
        bl   @interrupt_routine         ; Exec game actions and play music
        dec  r2                         ; Delay counter
        jne  main_delay                 ; Delay loop
-*      Check pause and pause
+*      Check pause and quit
+main_check_pause_quit:
        bl   @check_pause
        bl   @check_quit
 *      Change scroll position
-!      mov  @scroll_y,@scroll_y_current   ; Set scroll position as current
+       mov  @scroll_y,@scroll_y_current ; Set scroll position as current
        dec  @scroll_y                  ; Change scroll position for net frame
        jne  main_loop_1                ; Loop if not at top
        inc  @status                    ; Status=won
@@ -2967,28 +2968,28 @@ check_pause:
        mov  r11,*r10+
        li   r0,KEY_P
        bl   @check_key
-       jeq  check_pause_4
+       jeq  check_pause_3
 *      P pressed
        bl   @mute_sound
 *      Wait for release
+       li   r2,10
 check_pause_1:
        bl   @vsync
        li   r0,KEY_P
        bl   @check_key
        jne  check_pause_1
-*      Wait for press
+       dec  r2
+       jne  check_pause_1
+*      Wait for any key
 check_pause_2:
        bl   @vsync
-       li   r0,KEY_P
-       bl   @check_key
-       jeq  check_pause_2
-*      Wait for release
-check_pause_3:
-       bl   @vsync
-       li   r0,KEY_P
+       li   r0,KEY_FI
        bl   @check_key
        jne  check_pause_3
-check_pause_4:
+       li   r0,KEY_SP
+       bl   @check_key
+       jeq  check_pause_2
+check_pause_3:
 *      Return
        dect r10
        mov  *r10,r11
@@ -3097,7 +3098,7 @@ check_key:
 *
 any_key:
 *      Check Ctrl
-       li   r0,KEY_SH                  ; Control
+       li   r0,KEY_SH                  ; Shift
        li   r12,>0024                  ; CRU address of the column decoder
        ldcr r0,3                       ; Select column
        andi r0,>00ff
