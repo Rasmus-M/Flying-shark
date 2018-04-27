@@ -2830,6 +2830,16 @@ check_cheat_code_1:
        mov  @cheat_instr,@main_died
        mov  @cheat_instr,@main_died+2
        clr  @cheat_ptr
+       bl   @mute_sound
+       li   r2,17
+check_cheat_code_3:
+       mov  r2,r0
+       andi r0,>000f
+       ori  r0,>0700
+       bl   @vwtr
+       bl   @vsync
+       dec  r2
+       jne  check_cheat_code_3
 *      Return
 check_cheat_code_2:
        dect r10                        ; Pop return address off the stack
@@ -2837,7 +2847,7 @@ check_cheat_code_2:
        b    *r11
 cheat_instr:
        nop
-*// cheat_code
+*// check_cheat_code
 
 *********************************************************************
 *

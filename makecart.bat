@@ -1,4 +1,7 @@
 @set EEGG=0
+@IF %1.==. GOTO no_1
+@set EEGG=%1
+:no_1
 
 xas99.py -R -D eegg=%EEGG% -i -S -L shark.lst source/shark.a99 -o shark
 @IF %ERRORLEVEL% NEQ 0 GOTO :end
