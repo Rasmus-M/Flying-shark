@@ -17,14 +17,12 @@ immunity:
        equ  0
 vdp_int_from_status:
        equ  1
-easter_egg_enabled:
-       equ  0
 
 **
 * Constants
 *
 start_level:
-       equ  0
+       equ  1
 start_lives:
        equ  3
 start_bombs:
@@ -349,8 +347,10 @@ sprite_table_flag:                     ; Which VDP aprite attriutes table to use
        equ  sprite_pos_ptr+2
 angle:                                 ; Angle of enemy relative to player
        equ  sprite_table_flag+2
-max_sprite:                            ; Maximum used sprite number
+sprites_in_use:                        ; Number of allocated sprites
        equ  angle+2
+max_sprite:                            ; Maximum used sprite number
+       equ  sprites_in_use+2
 max_hw_sprite:                         ; Maximum user hardware sprite number
        equ  max_sprite+2
 sprite_counter:                        ; Sprite loop counter
@@ -371,10 +371,8 @@ smart_bombs:                           ; Smart bombs left
        equ  power_ups+2
 bomb_count_down:                       ; Timing of smart bomb
        equ  smart_bombs+2
-music:                                 ; Pointer to music
-       equ  bomb_count_down+2
 upload_character_table_pad:            ; Code in pad
-       equ  music+2
+       equ  bomb_count_down+2
 pad_max:
        equ  upload_character_table_pad+52
 
@@ -1310,14 +1308,14 @@ update_name_table:
        mov  r11,*r10+                  ; Push return address onto the stack
        mov  @scroll_y,r3               ; Get scroll frame (0-15)
        andi r3,>000f
-*       Calculate row offset to the 1/4 of the buffer to update
+*      Calculate row offset to the 1/4 of the buffer to update
        mov  r3,r0                      ; Start with frame number
        andi r0,>0006                   ; Transform to sequence: 0,0,2,2,4,4,6,6...
        mov  r0,r2                      ; Copy to R2
        sla  r0,1                       ; Multiply by 2
        a    r0,r2                      ; Add to R2 to multiply by 6 and get row offset: 0,0,6,6,12,12,18,18...
        mov  r2,r0                      ; Copy back into R0 for later
-*       Calculate map source address in R1
+*      Calculate map source address in R1
        mov  @scroll_y,r1               ; Get scroll offset in pixels
        sra  r1,3                       ; Divide by 8 to get row offset
        a    r2,r1                      ; Add the row offset we calculated before
@@ -1325,10 +1323,10 @@ update_name_table:
        mpy  r2,r1                      ; Multiply by map width to get character offset
        li   r1,cart_base               ; Get the map base address
        a    r2,r1                      ; Add the character offset
-*       Calculate buffer destination address in R0
+*      Calculate buffer destination address in R0
        sla  r0,5                       ; Convert row offset to character offset
        ai   r0,map_left
-*       Decide which buffer to update
+*      Decide which buffer to update
        coc  @eight,r3                  ; Bit weight >08 determines the group
        jne  update_name_table_2        ; If not set we update buffer 2 or 3
        coc  @one,r3                    ; Bit weight >01 determines the buffer
@@ -1371,7 +1369,7 @@ update_name_table_6:
        ai   r0,scr_width               ; Next VDP row
        dec  r2
        jne  update_name_table_5
-*       Return
+*      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
@@ -1564,6 +1562,7 @@ init_game_display:
 *
 init_sprites:
        mov  r11,*r10+                  ; Push return address onto the stack
+       clr  @sprites_in_use
        li   r0,sprites
        li   r2,n_sprites*sprite_struct_size
        bl   @clear_memory
@@ -2907,7 +2906,7 @@ wait_key_timeout:
        clr  @frame_count
 wait_key_timeout_1:
        bl   @check_quit
-       .ifeq easter_egg_enabled,1
+       .ifeq eegg,1
        bl   @check_easter_egg
        .endif
        bl   @check_cheat_code
@@ -3137,6 +3136,8 @@ any_key_4:
 *
 * Data
 *
+sprite_bullet_limit:                   ; Do not create bullets if number of sprites is at or above this limit
+       data n_sprites-3
 boat_patterns_uploaded:                ; Is boat pattens uploaded to VDP?
        data 0
 big_plane_patterns_uploaded:           ; Is big plane patterns uploaded to VDP?
@@ -3147,6 +3148,8 @@ direction:                             ; Scroll direction. Used by update_charac
        data -1
 music_on:                              ; If music enabled?
        data -1
+music:                                 ; Pointer to music
+       data 0
 loop_music:                            ; Should music loop?
        data 0
 tune_no:                               ; Tune number
@@ -3239,8 +3242,31 @@ sprite_defs:
 *
 sprites:
        bss n_sprites*sprite_struct_size
+**
+* Player is always the first sprite
+*
 sprite_player:
        equ  sprites
+player_x:
+       equ  sprite_player+sprite_x
+player_y:
+       equ  sprite_player+sprite_y
+player_vx:
+       equ  sprite_player+sprite_vx
+player_vy:
+       equ  sprite_player+sprite_vy
+player_hw_1:
+       equ  sprite_player+sprite_hw_1
+player_hw_2:
+       equ  sprite_player+sprite_hw_2
+player_hw_3:
+       equ  sprite_player+sprite_hw_3
+player_count:
+       equ  sprite_player+sprite_count
+player_path:
+       equ  sprite_player+sprite_path
+player_hits_left:
+       equ  sprite_player+sprite_hits_left
 **
 * Hardware sprites
 *

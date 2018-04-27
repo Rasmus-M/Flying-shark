@@ -161,15 +161,14 @@ add_mask_sprite_1:
 add_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      Alloc sprite
-       c    @max_hw_sprite,@hw_sprite_bulllet_limit
+       c    @sprites_in_use,@sprite_bullet_limit
        jhe  add_bullet_sprite_1        ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),@sprite_x(r1)
-       mov  @sprite_y(r2),r0
+       mov  @player_x,@sprite_x(r1)
+       mov  @player_y,r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
@@ -180,8 +179,6 @@ add_bullet_sprite_1:
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
        b    *r11
-hw_sprite_bulllet_limit:
-       data 28
 *// add_bullet_sprite
 
 *********************************************************************************
@@ -191,38 +188,48 @@ hw_sprite_bulllet_limit:
 add_double_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
 *      1st sprite
+       c    @sprites_in_use,@sprite_bullet_limit
+       jhe  add_double_bullet_sprite_1 ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_double_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),r0
+       mov  @player_x,r0
+       mov  @player_y,r2
        ai   r0,->0600
-       mov  @sprite_vx(r2),r3
-       jeq  !
-       ai   r0,>0200
-!      mov  r0,@sprite_x(r1)
-       mov  @sprite_y(r2),r0
-       ai   r0,->0800
-       mov  r0,@sprite_y(r1)
+       ai   r2,->0800
+       mov  @player_vx,r3
+       jeq  add_double_bullet_sprite_2
+       jlt  add_double_bullet_sprite_3
+       ai   r2,->0400
+add_double_bullet_sprite_3:
+       ai   r0,>0200                   ; Move closer together when player is moving
+add_double_bullet_sprite_2:
+       mov  r0,@sprite_x(r1)
+       mov  r2,@sprite_y(r1)
        clr  @sprite_vx(r1)
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
 *      2nd sprite
+       c    @sprites_in_use,@sprite_bullet_limit
+       jhe  add_double_bullet_sprite_1 ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_double_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),r0
+       mov  @player_x,r0
+       mov  @player_y,r2
        ai   r0,>0600
-       mov  @sprite_vx(r2),r3
-       jeq  !
+       ai   r2,->0800
+       mov  @player_vx,r3
+       jeq  add_double_bullet_sprite_4
+       jgt  add_double_bullet_sprite_5
+       ai   r2,->0400
+add_double_bullet_sprite_5:
        ai   r0,->0200
-!      mov  r0,@sprite_x(r1)
-       mov  @sprite_y(r2),r0
-       ai   r0,->0800
-       mov  r0,@sprite_y(r1)
+add_double_bullet_sprite_4:
+       mov  r0,@sprite_x(r1)
+       mov  r2,@sprite_y(r1)
        clr  @sprite_vx(r1)
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
@@ -239,32 +246,34 @@ add_double_bullet_sprite_1:
 *
 add_triple_bullet_sprite:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Alloc sprite
+*      1st sprite
+       c    @sprites_in_use,@sprite_bullet_limit
+       jhe  add_triple_bullet_sprite_1 ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_triple_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),@sprite_x(r1)
-       mov  @sprite_y(r2),r0
+       mov  @player_x,@sprite_x(r1)
+       mov  @player_y,r0
        ai   r0,->1000
        mov  r0,@sprite_y(r1)
        clr  @sprite_vx(r1)
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
 *      2nd sprite
+       c    @sprites_in_use,@sprite_bullet_limit
+       jhe  add_triple_bullet_sprite_1 ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_triple_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),r0
+       mov  @player_x,r0
        ai   r0,->0600
-       mov  @sprite_vx(r2),r3
+       mov  @player_vx,r3
        jeq  !
        ai   r0,>0200
 !      mov  r0,@sprite_x(r1)
-       mov  @sprite_y(r2),r0
+       mov  @player_y,r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
        li   r0,->0040
@@ -272,18 +281,19 @@ add_triple_bullet_sprite:
        li   r0,->0600
        mov  r0,@sprite_vy(r1)
 *      3rd sprite
+       c    @sprites_in_use,@sprite_bullet_limit
+       jhe  add_triple_bullet_sprite_1 ; Limit creation of bullets when close to the sprite limit
        li   r0,sprite_def_bullet
        bl   @alloc_sprite
        mov  r1,r1
        jeq  add_triple_bullet_sprite_1
-       li   r2,sprite_player
-       mov  @sprite_x(r2),r0
+       mov  @player_x,r0
        ai   r0,>0600
-       mov  @sprite_vx(r2),r3
+       mov  @player_vx,r3
        jeq  !
        ai   r0,->0200
 !      mov  r0,@sprite_x(r1)
-       mov  @sprite_y(r2),r0
+       mov  @player_y,r0
        ai   r0,->0800
        mov  r0,@sprite_y(r1)
        li   r0,>0040
@@ -1870,9 +1880,9 @@ alloc_sprite_1:
        ai   r1,sprite_struct_size
        dec  r2
        jne  alloc_sprite_1
-*      Failed allocation sprite
+*      Failed to allocate sprite
        jmp  alloc_sprite_6
-*      Succeeded allocation sprite
+*      Succeeded allocating sprite
 alloc_sprite_2:
        mov  r2,@alloc_sprite_cnt
        mov  r0,r4
@@ -1898,17 +1908,18 @@ alloc_sprite_4:
        mov  r0,@hw_sprite_priority(r7)
        dec  r5
        jne  alloc_sprite_4
-*      Succeeded allocation sprite + hardware sprites
+*      Succeeded allocating sprite + hardware sprites
+       inc  @sprites_in_use
        li   r2,n_sprites
        s    @alloc_sprite_cnt,r2       ; Sprite no
        c    r2,@max_sprite
        jlt  alloc_sprite_3
        mov  r2,@max_sprite
        jmp  alloc_sprite_3
-*      Failed allocation hardware sprites
+*      Failed to allocate hardware sprites
 alloc_sprite_5:
        clr  *r1                        ; Deallocate again
-*      Failed allocation sprite
+*      Failed to allocate sprite
 alloc_sprite_6:
        clr  r1
 *      Return
@@ -2007,8 +2018,9 @@ dealloc_sprite_7:
        ai   r1,-hw_sprite_struct_size
        ci   r1,hw_sprites
        jhe  dealloc_sprite_7
-*      Return
 dealloc_sprite_8:
+       dec  @sprites_in_use
+*      Return
        b    *r11
 *// dealloc_sprite
 
