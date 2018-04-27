@@ -17,6 +17,8 @@ immunity:
        equ  0
 vdp_int_from_status:
        equ  1
+easter_egg_enabled:
+       equ  0
 
 **
 * Constants
@@ -471,6 +473,9 @@ main_delay:
        bl   @interrupt_routine         ; Exec game actions and play music
        dec  r2                         ; Delay counter
        jne  main_delay                 ; Delay loop
+*      Check pause and pause
+       bl   @check_pause
+       bl   @check_quit
 *      Change scroll position
 !      mov  @scroll_y,@scroll_y_current   ; Set scroll position as current
        dec  @scroll_y                  ; Change scroll position for net frame
@@ -691,8 +696,6 @@ user_input_1:
 user_input_3:
        bl   @auto_input
 user_input_2:
-*      Check quit
-       bl   @check_quit
 *      Return
        dect r10                        ; Pop return address off the stack
        mov  *r10, r11
@@ -2904,7 +2907,9 @@ wait_key_timeout:
        clr  @frame_count
 wait_key_timeout_1:
        bl   @check_quit
+       .ifeq easter_egg_enabled,1
        bl   @check_easter_egg
+       .endif
        bl   @check_cheat_code
        bl   @music_toggle
        bl   @any_key
@@ -2944,6 +2949,42 @@ wait_key_2:
        mov  *r10,r11
        b    *r11
 *// wait_key
+
+***************************************************************************
+*
+* Check pause
+*
+check_pause:
+       mov  r11,*r10+
+       li   r0,KEY_P
+       bl   @check_key
+       jeq  check_pause_4
+*      P pressed
+       bl   @mute_sound
+*      Wait for release
+check_pause_1:
+       bl   @vsync
+       li   r0,KEY_P
+       bl   @check_key
+       jne  check_pause_1
+*      Wait for press
+check_pause_2:
+       bl   @vsync
+       li   r0,KEY_P
+       bl   @check_key
+       jeq  check_pause_2
+*      Wait for release
+check_pause_3:
+       bl   @vsync
+       li   r0,KEY_P
+       bl   @check_key
+       jne  check_pause_3
+check_pause_4:
+*      Return
+       dect r10
+       mov  *r10,r11
+       b    *r11
+*// check_pause
 
 ***************************************************************************
 *
