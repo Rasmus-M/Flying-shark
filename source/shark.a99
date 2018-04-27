@@ -22,7 +22,7 @@ vdp_int_from_status:
 * Constants
 *
 start_level:
-       equ  1
+       equ  0
 start_lives:
        equ  3
 start_bombs:

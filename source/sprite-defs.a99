@@ -62,7 +62,7 @@ sprite_def_enemy_plane:
        data >0800                      ; Color
        data 1                          ; Hits left
        data 1                          ; Hit action
-       data 8                          ; Fire rate
+       data 12                         ; Fire rate
 *      Tank
 sprite_def_tank:
        data sprite_type_tank           ; Type
@@ -166,4 +166,4 @@ sprite_def_big_plane:
        data >0f00                      ; Color
        data 8                          ; Hits left
        data 1                          ; Hit action
-       data 4                          ; Fire rate
+       data 8                          ; Fire rate

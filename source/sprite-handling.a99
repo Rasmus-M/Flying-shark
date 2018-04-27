@@ -621,26 +621,26 @@ update_player_sprite:
 *      Update pattern with path
 update_player_sprite_10:
        mov  @path_pattern(r4),r0
-       mov  @sprite_hw_1(r3),r5
+       mov  @player_hw_1,r5
        mov  r0,@hw_sprite_pattern(r5)
-       mov  @sprite_hw_3(r3),r5
+       mov  @player_hw_3,r5
        mov  r0,@hw_sprite_pattern(r5)
-       mov  @sprite_hw_2(r3),r5
+       mov  @player_hw_2,r5
        ai   r0,>0400
        mov  r0,@hw_sprite_pattern(r5)
        b    @update_player_sprite_12
 *      Path complete
 update_player_sprite_11:
-       clr  @sprite_path(r3)
+       clr  @player_path
        seto @status                    ; Died
        b    @update_player_sprite_12
 *      Handle immunity countdown
 update_player_sprite_0:
-       mov  @sprite_count(r3),r0
+       mov  @player_count,r0
        jeq  update_player_sprite_13
-       dec  @sprite_count(r3)
+       dec  @player_count
        jgt  update_player_sprite_13
-       mov  @one,@sprite_hits_left(r3) ; Reset immunity
+       mov  @one,@player_hits_left     ; Reset immunity
 *      Take off and landing
 update_player_sprite_13:
        c    @scroll_y,@take_off_end
@@ -652,7 +652,7 @@ update_player_sprite_13:
        neg  r0
        sla  r0,8
        ai   r0,>1000
-       mov  @sprite_hw_3(r3),r4
+       mov  @player_hw_3,r4
        mov  r0,@hw_sprite_dy(r4)
        mov  r0,@hw_sprite_dx(r4)
        jmp  update_player_sprite_9
@@ -669,7 +669,7 @@ update_player_sprite_8:
 *      Movement
 update_player_sprite_22:
        clr  @user_input_enabled
-       mov  @sprite_x(r3),r0
+       mov  @player_x,r0
        ci   r0,(x_min+48)*256
        jh  update_player_sprite_14
        jl  update_player_sprite_15
@@ -680,9 +680,9 @@ update_player_sprite_14:
 update_player_sprite_15:
        ai   r0,player_speed/2
 update_player_sprite_16:
-       mov  r0,@sprite_x(r3)
+       mov  r0,@player_x
 update_player_sprite_17:
-       mov  @sprite_y(r3),r0
+       mov  @player_y,r0
        ci   r0,>a000
        jh   update_player_sprite_18
        jl   update_player_sprite_19
@@ -693,20 +693,20 @@ update_player_sprite_18:
 update_player_sprite_19:
        ai   r0,player_speed/2
 update_player_sprite_20:
-       mov  r0,@sprite_y(r3)
+       mov  r0,@player_y
 *      Landing shadow
 update_player_sprite_21:
        mov  @scroll_y,r0
        srl  r0,2
        sla  r0,8
-       mov  @sprite_hw_3(r3),r4
+       mov  @player_hw_3,r4
        mov  r0,@hw_sprite_dy(r4)
        ai   r0,->0100
        mov  r0,@hw_sprite_dx(r4)
        jmp  update_player_sprite_6
 *      Normal movement
 update_player_sprite_9:
-       mov  @sprite_vx(r3),r0
+       mov  @player_vx,r0
        jgt  update_player_sprite_1
        jlt  update_player_sprite_2
 *      Center
@@ -715,44 +715,44 @@ update_player_sprite_9:
 *      Right
 update_player_sprite_1:
        li   r1,>1000                   ; Pattern
-       mov  @sprite_x(r3),r0
+       mov  @player_x,r0
        ci   r0,(x_max-16)*256          ; Check x bounds
        jl   update_player_sprite_3
        jmp  update_player_sprite_4
 *      Left
 update_player_sprite_2:
        li   r1,>0800                   ; Pattern
-       mov  @sprite_x(r3),r0
+       mov  @player_x,r0
        ci   r0,x_min*256               ; Check x bounds
        jh   update_player_sprite_3
        jmp  update_player_sprite_4
 *      Move x
 update_player_sprite_3:
-       a    @sprite_vx(r3),@sprite_x(r3)    ; Move x
+       a    @player_vx,@player_x       ; Move x
 update_player_sprite_4:
-       mov  @sprite_vy(r3),r0
+       mov  @player_vy,r0
        jgt  update_player_sprite_5     ; Check y bounds
 *      Up
-       mov  @sprite_y(r3),r0
+       mov  @player_y,r0
        ci   r0,>0100
        jle  update_player_sprite_6
        jmp  update_player_sprite_7
 *      Down
 update_player_sprite_5:
-       mov  @sprite_y(r3),r0
+       mov  @player_y,r0
        ci   r0,>b000                   ; Check y bounds
        jhe  update_player_sprite_6
 *      Move y
 update_player_sprite_7:
-       a    @sprite_vy(r3),@sprite_y(r3)    ; Move y
+       a    @player_vy,@player_y       ; Move y
 *      Update patterns
 update_player_sprite_6:
-       mov  @sprite_hw_1(r3),r4
+       mov  @player_hw_1,r4
        mov  r1,@hw_sprite_pattern(r4)
-       mov  @sprite_hw_3(r3),r4
+       mov  @player_hw_3,r4
        mov  r1,@hw_sprite_pattern(r4)
        ai   r1,>0400
-       mov  @sprite_hw_2(r3),r4
+       mov  @player_hw_2,r4
        mov  r1,@hw_sprite_pattern(r4)
 *      Return
 update_player_sprite_12:
@@ -1383,13 +1383,13 @@ sprite_collisions_2:
 *
 player_sprite_collisions:
        mov  r11,*r10+                  ; Push return address onto the stack
-       mov  @sprite_hits_left(r3),r0
+       mov  @player_hits_left,r0
        jeq  player_sprite_collisions_3
        mov  @max_sprite,r4
        jeq  player_sprite_collisions_3
        li   r5,sprites+sprite_struct_size
-       mov  @sprite_x(r3),r7
-       mov  @sprite_y(r3),r8
+       mov  @player_x,r7
+       mov  @player_y,r8
 player_sprite_collisions_1:
        mov  *r5,r6                     ; Get sprite definition
        jeq  player_sprite_collisions_2
@@ -1428,22 +1428,22 @@ player_sprite_collisions_1:
        mov  @sprite_def_hit_action(r6),r0
        jlt  player_sprite_collisions_4
 *      Deadly
-       clr  @sprite_hits_left(r3)
+       clr  @player_hits_left
        mov  @power_ups,r0
        jeq  player_sprite_collisions_9
        dec  @power_ups
        li   r0,30
-       mov  r0,@sprite_count(r3)
+       mov  r0,@player_count
        jmp  player_sprite_collisions_10
 player_sprite_collisions_9:
        .ifeq immunity,0
        li   r1,path_explosion
-       mov  r1,@sprite_path(r3)
+       mov  r1,@player_path
        mov  *r1,@sprite_count(r5)      ; Init counter @path_count(r1)
        clr  @user_input_enabled
        .else
        li   r0,30
-       mov  r0,@sprite_count(r3)
+       mov  r0,@player_count
        .endif
 player_sprite_collisions_10:
        li   r1,expl_sfx
@@ -2031,31 +2031,30 @@ dealloc_sprite_8:
 * r3: points to sprite
 *
 * On return @angle contains the angle (0-31)
-* Modifies r1, r5, r6
+* Modifies r0-r2
 *
 *
 get_angle:
-       mov  @sprite_y(r3),r5           ; Enemy y
-       ci   r5,>e000
+       mov  @sprite_y(r3),r2           ; Enemy y
+       ci   r2,>e000
        jh   get_angle_1
-       srl  r5,8                       ; Handle positive
+       srl  r2,8                       ; Handle positive
        jmp  get_angle_2
 get_angle_1:
-       sra  r5,8                       ; Handle negative
+       sra  r2,8                       ; Handle negative
 get_angle_2:
-       li   r6,sprite_player
-       mov  @sprite_y(r6),r0           ; Player y
+       mov  @player_y,r0               ; Player y
        srl  r0,8
-       s    r5,r0                      ; Player y - enemy y
+       s    r2,r0                      ; Player y - enemy y
        sra  r0,4                       ; / 16
        ai   r0,12                      ; + 12
        li   r1,19
        mpy  r1,r0                      ; * 19
-       mov  @sprite_x(r6),r0           ; Player x
+       mov  @player_x,r0               ; Player x
        srl  r0,8
-       mov  @sprite_x(r3),r5           ; Turret x
-       srl  r5,8
-       s    r5,r0                      ; Player x - enemy x
+       mov  @sprite_x(r3),r2           ; Turret x
+       srl  r2,8
+       s    r2,r0                      ; Player x - enemy x
        sra  r0,4                       ; / 16
        ai   r0,9                       ; + 9
        a    r0,r1
