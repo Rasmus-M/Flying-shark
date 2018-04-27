@@ -1582,9 +1582,10 @@ init_sprites:
        clr  @sprite_vx(r1)
        clr  @sprite_vy(r1)
        clr  @sprite_count(r1)
-*      Backdrop
+*      Front
        mov  @sprite_hw_1(r1),r2
        clr  @hw_sprite_priority(r2)
+*      Backdrop
        li   r0,>0100
        mov  @sprite_hw_2(r1),r2
        mov  r0,@hw_sprite_color(r2)
