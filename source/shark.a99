@@ -1517,6 +1517,9 @@ init_game:
        li   r0,start_level
        mov  r0,@level
        clr  @score_lsw
+       li   r0,>c000
+       mov  r0,@score_lsw
+
        clr  @score_msw
        li   r0,start_lives
        mov  r0,@lives
@@ -1800,15 +1803,15 @@ game_over:
 *
 update_high_scores:
        mov  r11,*r10+                  ; Push return address onto the stack
-*      Check new score against existng high scores
+*      Check new score against existing high scores
        li   r1,high_scores             ; Existing high scores
        li   r2,n_high_scores           ; Number of high scores to compare against
 update_high_scores_1:
-       c    @score_msw,*r1
-       jgt  update_high_scores_3
-       jlt  update_high_scores_2
-       c    @score_lsw,@2(r1)
-       jgt  update_high_scores_3
+       c    @score_msw,*r1             ; Check MSW
+       jh   update_high_scores_3       ; Unsigned
+       jl   update_high_scores_2
+       c    @score_lsw,@2(r1)          ; Check LSW
+       jh   update_high_scores_3       ; Unsigned
 update_high_scores_2:
        ai   r1,4                       ; Next high score
        dec  r2
