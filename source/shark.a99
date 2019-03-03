@@ -16,7 +16,7 @@
 immunity:
        equ  0
 vdp_int_from_status:
-       equ  1
+       equ  0
 
 **
 * Constants
@@ -553,9 +553,9 @@ vsync_1:
        movb @vdpsta,@vdp_status
        .else
        movb @vdpsta,r12
-       jgt  vsync
-       jeq  vsync
        movb r12,@vdp_status
+       andi r12,>8000
+       jeq  vsync
        .endif
        b    *r11
 *// vsync
