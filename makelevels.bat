@@ -1,7 +1,7 @@
-xas99.py -R -b source/level1-rom.a99 -o build/level1-rom
-xas99.py -R -b source/level2-rom.a99 -o build/level2-rom
-xas99.py -R -b source/level3-rom.a99 -o build/level3-rom
-xas99.py -R -b source/level4-rom.a99 -o build/level4-rom
+xas99.py -R -q -b source/level1-rom.a99 -o build/level1-rom_6000
+xas99.py -R -q -b source/level2-rom.a99 -o build/level2-rom_6000
+xas99.py -R -q -b source/level3-rom.a99 -o build/level3-rom_6000
+xas99.py -R -q -b source/level4-rom.a99 -o build/level4-rom_6000
 
 tools\pad.exe build/level1-rom_6000_b0 build/level1_b0.bin 8192
 tools\pad.exe build/level1-rom_6000_b1 build/level1_b1.bin 8192

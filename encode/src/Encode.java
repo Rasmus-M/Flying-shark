@@ -180,7 +180,8 @@ public class Encode implements Runnable {
                 System.out.println("TChars: " + tChars.size());
                 for (int scrollOffset = 0; scrollOffset < 8; scrollOffset++) {
                     rom_out.append("*******************************************\n");
-                    rom_out.append("       aorg >6000," + scrollOffset + "\n");
+                    rom_out.append("       aorg >6000" + "\n");
+                    rom_out.append("       bank " + scrollOffset + "\n");
                     rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                     // Patterns
                     rom_out.append("*******************************************\n");
@@ -252,7 +253,8 @@ public class Encode implements Runnable {
                     }
                 }
                 if (VERBOSE) System.out.println("Map:");
-                rom_out.append("       aorg >6000,8\n");
+                rom_out.append("       aorg >6000\n");
+                rom_out.append("       bank 8\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("*******************************************\n");
                 rom_out.append("level_" + level + "_map:\n");
@@ -265,7 +267,8 @@ public class Encode implements Runnable {
                     }
                     if (VERBOSE) System.out.println();
                 }
-                rom_out.append("       aorg >6000,9\n");
+                rom_out.append("       aorg >6000\n");
+                rom_out.append("       bank 9\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("*******************************************\n");
                 rom_out.append("level_" + level + "_map_high:\n");
@@ -276,7 +279,8 @@ public class Encode implements Runnable {
                         rom_out.append(hexByte(row[x] + 0x80)).append(x < row.length - 1 ? "," : "\n");
                     }
                 }
-                rom_out.append("       aorg >6000,10\n");
+                rom_out.append("       aorg >6000\n");
+                rom_out.append("       bank 10\n");
                 rom_out.append("       bss  " + hexWord(BANK_OFFSET) + "\n");
                 rom_out.append("*******************************************\n");
                 rom_out.append("level_" + level + "_max:\n");

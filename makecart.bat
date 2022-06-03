@@ -3,7 +3,7 @@
 @set EEGG=%1
 :no_1
 
-xas99.py -R -D eegg=%EEGG% -i -S -L shark.lst source/shark.a99 -o shark
+xas99.py -R -q -D eegg=%EEGG% -i -S -L shark.lst source/shark.a99 -o shark
 @IF %ERRORLEVEL% NEQ 0 GOTO :end
 
 java -jar tools/ea5tocart.jar shark "FLYING SHARK" > make.log
@@ -147,6 +147,6 @@ java -jar tools/CopyHeader.jar flying-shark-8.bin 60 60
 
 WHERE jar
 @IF %ERRORLEVEL% NEQ 0 GOTO :end
-jar -cvf flying-shark.rpk flying-shark-8.bin layout.xml > make.log
+jar -cvf flying-shark.rpk flying-shark-8.bin layout.xml > rpk.log
 
 :end

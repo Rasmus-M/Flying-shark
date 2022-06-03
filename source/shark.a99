@@ -391,7 +391,7 @@ main:
 *      New game
 new_game:
        bl   @title_screen              ; Display title screen
-       bl   @graphics_mode                     ; Setup graphics mode
+       bl   @graphics_mode             ; Setup graphics mode
        bl   @init_game                 ; Initialize game
 next_level:
        bl   @init_level                ; Initialize level
@@ -3286,6 +3286,7 @@ hw_sprites:
        bss  n_hw_sprites*hw_sprite_struct_size
 
        aorg >2000
+       b    @main
 **
 * Sprite positions and paths
 *
